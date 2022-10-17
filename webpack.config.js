@@ -31,9 +31,16 @@ module.exports = {
   target: 'web',
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    alias:{
+      utils: path.resolve( __dirname, 'src/utils' ),
+    },
   },
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.(ts|js)x?$/i,
         use: 'ts-loader',
@@ -44,9 +51,11 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   devServer: {
     static: './dist',
+    historyApiFallback: true,
   },
   optimization: {
     runtimeChunk: 'single',

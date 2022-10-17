@@ -1,6 +1,13 @@
 import React from 'react';
-import Navigation from './Navigation';
+import { Routes, Route } from 'react-router-dom';
+import { Home, SignUp } from './pages';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
-  return <Navigation />;
+  return (
+    <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<SignUp />} />
+      </Routes>
+  );
 }
