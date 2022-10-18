@@ -1,7 +1,7 @@
 import path from 'path';
 
 // игнорируем импорты `.scss`
-require('ignore-styles');
+require('ignore-styles').default(['.sass', '.scss']);
 
 // транспилируем на лету импорты
 require('@babel/register')({

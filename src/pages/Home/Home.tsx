@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import style from './Home.module.scss';
 
 const Home = () => {
   const [posts, setPosts] = useState<{ title: string }[]>([]);
@@ -11,7 +12,7 @@ const Home = () => {
   return (
     <ul>
       {posts.map((item, key) => (
-        <li key={key}>{item.title}</li>
+        <li className={style.item} key={key}>{item.title}</li>
       ))}
     </ul>
   );
