@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { TokenI } from 'utils/interfaces';
 import { set } from 'local-storage';
@@ -66,8 +66,12 @@ const SignUp = () => {
           </label>
         </div>
 
-        <div>
+        <div className={style.signupRow}>
           <button className={style.signupButton} type="submit">Создать аккаунт</button>
+        </div>
+
+        <div className={style.signupText}>
+          <span>Вы имеете аккаунт?</span> <Link className={style.signupLink} to="/signin">Авторизуйтесь</Link>
         </div>
 
         <ToastContainer />

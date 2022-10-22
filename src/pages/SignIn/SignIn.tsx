@@ -1,7 +1,7 @@
 import { set } from 'local-storage';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { TokenI } from 'utils/interfaces';
 import { signin } from './api';
@@ -48,9 +48,13 @@ const SignIn = () => {
         </label>
       </div>
 
-      <div>
+      <div className={style.signupRow}>
         <button className={style.signupButton} type="submit">Отправить</button>
       </div>
+
+      <div className={style.signupText}>
+          <span>Вы не имеете аккаунт?</span> <Link className={style.signupLink} to="/signup">Зарегистрируйтесь</Link>
+        </div>
 
       <ToastContainer />
     </form>

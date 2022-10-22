@@ -14,6 +14,7 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
     backgroundColor: '#ffffff',
     padding: '24px',
+    maxWidth: '305px',
   },
   signupTitle: {
     fontSize: '24px',
@@ -35,6 +36,7 @@ const useStyles = createUseStyles({
     fontSize: '16px',
     outline: 'none',
     padding: '7px 14px',
+    width: 'calc(100% - 30px)',
   },
   signupError: {
     color: 'red',
@@ -51,6 +53,15 @@ const useStyles = createUseStyles({
     borderColor: '#696cff',
     padding: '7px 20px',
     border: 'none',
+  },
+  signupText: {
+    color: '#697a8d',
+    fontSize: '16px',
+    textDecoration: 'none',
+  },
+  signupLink: {
+    color: '#696cff',
+    textDecoration: 'none',
   },
 });
 
