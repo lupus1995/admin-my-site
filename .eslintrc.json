@@ -5,10 +5,12 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "react-hooks"
+        "react-hooks",
+        "prettier"
     ],
     "extends": [
         "airbnb-typescript",
+        "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended"
@@ -20,7 +22,8 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/prop-types": "off",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "prettier/prettier": "error"
     },
     "settings": {
         "react": {

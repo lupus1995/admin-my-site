@@ -1,41 +1,47 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import { TokenI } from 'utils/interfaces';
-import { set } from 'local-storage';
-import { signup } from './api';
-import { SignUpI } from './interfaces';
-import useStyles from './style';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { TokenI } from "utils/interfaces";
+import { set } from "local-storage";
+import { signup } from "./api";
+import { SignUpI } from "./interfaces";
+import useStyles from "./style";
 
 const SignUp = () => {
   const style = useStyles();
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, formState: { errors }, setError } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setError,
+  } = useForm();
   const onSubmit = async (formData: SignUpI) => {
     try {
       const tokens: TokenI = await signup(formData);
-      set('accressToken', tokens.accessToken);
-      set('refreshToken', tokens.refreshToken);
+      set("accressToken", tokens.accessToken);
+      set("refreshToken", tokens.refreshToken);
 
-      toast('Вы успешно зарегистрировали аккаунт', {
-        type: 'success',
+      toast("Вы успешно зарегистрировали аккаунт", {
+        type: "success",
         hideProgressBar: true,
-        theme: 'colored',
-        onClose: () => navigate('/'),
+        theme: "colored",
+        onClose: () => navigate("/"),
       });
     } catch (e: unknown) {
-      toast(e, { type: 'error', hideProgressBar: true, theme: 'colored' });
-      setError('username', { type: 'custom', message: '' });
+      toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
+      setError("username", { type: "custom", message: "" });
     }
   };
   const handleConfirmPassword = (confirmPassword: string) => {
-    const password = watch('password');
+    const password = watch("password");
     if (confirmPassword === password) {
       return true;
     }
 
-    return 'Пароли не сопадают';
+    return "Пароли не сопадают";
   };
 
   return (
@@ -45,33 +51,68 @@ const SignUp = () => {
         <div className={style.signupRow}>
           <label htmlFor="username">
             <p className={style.signupLabel}>Имя пользователя</p>
-            <input className={style.signupInput} type="text" id="username" {...register('username', { required: 'Поле обязательно' })} />
-            {errors.username?.message && <p className={style.signupError} role="alert">{errors.username?.message}</p>}
+            <input
+              className={style.signupInput}
+              type="text"
+              id="username"
+              {...register("username", { required: "Поле обязательно" })}
+            />
+            {errors.username?.message && (
+              <p className={style.signupError} role="alert">
+                {errors.username?.message}
+              </p>
+            )}
           </label>
         </div>
 
         <div className={style.signupRow}>
           <label htmlFor="password">
             <p className={style.signupLabel}>Пароль</p>
-            <input className={style.signupInput} type="password" id="password" {...register('password', { required: 'Поле обязательно' })} />
-            {errors.password?.message && <p className={style.signupError} role="alert">{errors.password?.message}</p>}
+            <input
+              className={style.signupInput}
+              type="password"
+              id="password"
+              {...register("password", { required: "Поле обязательно" })}
+            />
+            {errors.password?.message && (
+              <p className={style.signupError} role="alert">
+                {errors.password?.message}
+              </p>
+            )}
           </label>
         </div>
 
         <div className={style.signupRow}>
           <label htmlFor="confirmPassword">
             <p className={style.signupLabel}>Повторите пароль</p>
-            <input className={style.signupInput} type="password" id="confirmPassword" {...register('confirmPassword', { required: 'Поле обязательно', validate: handleConfirmPassword })} />
-            {errors.confirmPassword?.message && <p className={style.signupError} role="alert">{errors.confirmPassword?.message}</p>}
+            <input
+              className={style.signupInput}
+              type="password"
+              id="confirmPassword"
+              {...register("confirmPassword", {
+                required: "Поле обязательно",
+                validate: handleConfirmPassword,
+              })}
+            />
+            {errors.confirmPassword?.message && (
+              <p className={style.signupError} role="alert">
+                {errors.confirmPassword?.message}
+              </p>
+            )}
           </label>
         </div>
 
         <div className={style.signupRow}>
-          <button className={style.signupButton} type="submit">Создать аккаунт</button>
+          <button className={style.signupButton} type="submit">
+            Создать аккаунт
+          </button>
         </div>
 
         <div className={style.signupText}>
-          <span>Вы имеете аккаунт?</span> <Link className={style.signupLink} to="/signin">Авторизуйтесь</Link>
+          <span>Вы имеете аккаунт?</span>{" "}
+          <Link className={style.signupLink} to="/signin">
+            Авторизуйтесь
+          </Link>
         </div>
 
         <ToastContainer />

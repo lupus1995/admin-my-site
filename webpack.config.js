@@ -34,6 +34,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias:{
       utils: path.resolve( __dirname, 'src/utils' ),
+      commons: path.resolve( __dirname, 'src/commons' ),
     },
   },
   module: {
