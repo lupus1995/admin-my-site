@@ -4,6 +4,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { TokenI } from "utils/interfaces";
+import useUtilStyles from "utils/styles";
+import Form from "commons/Form";
+import FormLabel from "commons/FormLabel";
+import FormRow from "commons/FormRow";
+import TextError from "commons/TextError";
 import { signin } from "./api";
 import { SignInI } from "./interfaces";
 import useStyles from "./style";
@@ -17,6 +22,7 @@ const SignIn = () => {
     setError,
   } = useForm();
   const style = useStyles();
+  const stylesUtil = useUtilStyles();
   const onSubmit = async (formData: SignInI) => {
     try {
       const tokens: TokenI = await signin(formData);
@@ -35,59 +41,47 @@ const SignIn = () => {
     }
   };
   return (
-    <div className={style.signupWrapper}>
-      <form className={style.signupForm} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={style.signupTitle}>Авторизация</h1>
-        <div className={style.signupRow}>
-          <label htmlFor="username">
-            <p className={style.signupLabel}>Имя пользователя</p>
-            <input
-              className={style.signupInput}
-              type="text"
-              id="username"
-              {...register("username", { required: "Поле обязательно" })}
-            />
-            {errors.username?.message && (
-              <p className={style.signupError} role="alert">
-                {errors.username?.message}
-              </p>
-            )}
-          </label>
-        </div>
+    <Form
+      onSubmit={onSubmit}
+      handleSubmit={handleSubmit}
+      className={`${style.signupForm}`}
+    >
+      <h1 className={style.signupTitle}>Авторизация</h1>
+      <FormRow>
+        <FormLabel>Имя пользователя</FormLabel>
+        <input
+          className={stylesUtil.input}
+          type="text"
+          {...register("username", { required: "Поле обязательно" })}
+        />
+        <TextError message={errors.username?.message as string} />
+      </FormRow>
 
-        <div className={style.signupRow}>
-          <label htmlFor="password">
-            <p className={style.signupLabel}>Пароль</p>
-            <input
-              className={style.signupInput}
-              type="password"
-              id="password"
-              {...register("password", { required: "Поле обязательно" })}
-            />
-            {errors.password?.message && (
-              <p className={style.signupError} role="alert">
-                {errors.password?.message}
-              </p>
-            )}
-          </label>
-        </div>
+      <FormRow>
+        <FormLabel>Пароль</FormLabel>
+        <input
+          className={stylesUtil.input}
+          type="password"
+          {...register("password", { required: "Поле обязательно" })}
+        />
+        <TextError message={errors.password?.message as string} />
+      </FormRow>
 
-        <div className={style.signupRow}>
-          <button className={style.signupButton} type="submit">
-            Отправить
-          </button>
-        </div>
+      <FormRow>
+        <button className={style.signupButton} type="submit">
+          Отправить
+        </button>
+      </FormRow>
 
-        <div className={style.signupText}>
-          <span>Вы не имеете аккаунт?</span>{" "}
-          <Link className={style.signupLink} to="/signup">
-            Зарегистрируйтесь
-          </Link>
-        </div>
+      <div className={style.signupText}>
+        <span>Вы не имеете аккаунт?</span>{" "}
+        <Link className={style.signupLink} to="/signup">
+          Зарегистрируйтесь
+        </Link>
+      </div>
 
-        <ToastContainer />
-      </form>
-    </div>
+      <ToastContainer />
+    </Form>
   );
 };
 

@@ -10,10 +10,6 @@ const useStyles = createUseStyles({
     color: "566a7f",
   },
   signupForm: {
-    border: "0 solid #d9dee3",
-    borderRadius: "10px",
-    backgroundColor: "#ffffff",
-    padding: "24px",
     maxWidth: "370px",
   },
   signupTitle: {

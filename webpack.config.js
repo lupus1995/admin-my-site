@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const HTMLInlineCSSWebpackPlugin =
+  require("html-inline-css-webpack-plugin").default;
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = process.env.NODE_ENV === 'production';
+const isDevelopment = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production";
 
 /**
  * устанавливаем для разработки два отдельных файла
@@ -16,37 +17,37 @@ const isProduction = process.env.NODE_ENV === 'production';
 let entryFile = null;
 
 if (isDevelopment) {
-  entryFile = 'index.dev.tsx';
+  entryFile = "index.dev.tsx";
 }
 
 if (isProduction) {
-  entryFile = 'index.prod.tsx';
+  entryFile = "index.prod.tsx";
 }
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: "development",
+  devtool: "inline-source-map",
   entry: {
-    app: path.join(__dirname, 'src', entryFile),
+    app: path.join(__dirname, "src", entryFile),
   },
-  target: 'web',
+  target: "web",
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
-    alias:{
-      utils: path.resolve( __dirname, 'src/utils' ),
-      commons: path.resolve( __dirname, 'src/commons' ),
+    extensions: [".ts", ".tsx", ".js"],
+    alias: {
+      utils: path.resolve(__dirname, "src/utils"),
+      commons: path.resolve(__dirname, "src/commons"),
     },
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(ts|js)x?$/i,
-        use: 'ts-loader',
-        exclude: '/node_modules/',
+        use: "ts-loader",
+        exclude: "/node_modules/",
       },
       // { test: /\.scss$/, use: [
       //   { loader: 'style-loader' },  // to inject the result into the DOM as a style block
@@ -58,33 +59,33 @@ module.exports = {
     ],
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   devServer: {
-    static: './dist',
+    static: "./dist",
     historyApiFallback: true,
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html'),
+      template: path.join(__dirname, "src", "index.html"),
     }),
     new HTMLInlineCSSWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
       eslint: {
         enabled: true,
-        files: './src/**/*.{ts,tsx,js,jsx}',
+        files: "./src/**/*.{ts,tsx,js,jsx}",
         options: {
           fix: true,
         },
       },
       async: true,
       typescript: {
-        configFile: './tsconfig.json',
+        configFile: "./tsconfig.json",
       },
     }),
   ],
