@@ -12,6 +12,7 @@ import useStyles from "./style";
 import FormRow from "commons/FormRow";
 import FormLabel from "commons/FormLabel";
 import TextError from "commons/TextError";
+import ButtonSubmit from "commons/ButtonSubmit";
 
 const SignUp = () => {
   const style = useStyles();
@@ -55,6 +56,7 @@ const SignUp = () => {
       className={`${style.signupForm}`}
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
+      formPosition="center"
     >
       <h1 className={style.signupTitle}>Регистрация</h1>
       <FormRow>
@@ -91,9 +93,7 @@ const SignUp = () => {
       </FormRow>
 
       <FormRow>
-        <button className={style.signupButton} type="submit">
-          Создать аккаунт
-        </button>
+        <ButtonSubmit />
       </FormRow>
 
       <div className={style.signupText}>

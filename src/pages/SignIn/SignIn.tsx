@@ -12,6 +12,7 @@ import TextError from "commons/TextError";
 import { signin } from "./api";
 import { SignInI } from "./interfaces";
 import useStyles from "./style";
+import ButtonSubmit from "commons/ButtonSubmit";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const SignIn = () => {
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
       className={`${style.signupForm}`}
+      formPosition="center"
     >
       <h1 className={style.signupTitle}>Авторизация</h1>
       <FormRow>
@@ -68,9 +70,7 @@ const SignIn = () => {
       </FormRow>
 
       <FormRow>
-        <button className={style.signupButton} type="submit">
-          Отправить
-        </button>
+        <ButtonSubmit />
       </FormRow>
 
       <div className={style.signupText}>

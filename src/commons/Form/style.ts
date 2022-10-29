@@ -1,4 +1,5 @@
 import { createUseStyles } from "react-jss";
+import { FORM_POSITION_TYPE } from "./types";
 
 const useStyles = createUseStyles({
   form: {
@@ -6,15 +7,28 @@ const useStyles = createUseStyles({
     borderRadius: "10px",
     backgroundColor: "#ffffff",
     padding: "24px",
-    maxWidth: "305px",
   },
   formWrapper: {
     backgroundColor: "#f5f5f9",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    color: "566a7f",
+    alignItems: (props: { alignItems: FORM_POSITION_TYPE }) => {
+      switch (props.alignItems) {
+        case "baceline": {
+          return "baseline";
+        }
+
+        case "center": {
+          return "center";
+        }
+
+        default: {
+          return "initial";
+        }
+      }
+    },
+    color: "#566a7f",
   },
 });
 
