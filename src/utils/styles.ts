@@ -10,6 +10,17 @@ const useUtilsStyles = createUseStyles({
     padding: "7px 14px",
     width: "calc(100% - 30px)",
   },
+  button: {
+    color: "#fff",
+    borderRadius: "5px",
+    width: "100%",
+    fontSize: "16px",
+    textAlign: "center",
+    backgroundColor: "#696cff",
+    borderColor: "#696cff",
+    padding: "7px 20px",
+    border: "none",
+  },
 });
 
 export default useUtilsStyles;
