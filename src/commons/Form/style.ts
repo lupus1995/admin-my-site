@@ -1,4 +1,5 @@
 import { createUseStyles } from "react-jss";
+
 import { FORM_POSITION_TYPE } from "./types";
 
 const useStyles = createUseStyles({

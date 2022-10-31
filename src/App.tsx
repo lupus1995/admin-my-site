@@ -1,7 +1,10 @@
 import React from "react";
+
 import { Routes, Route } from "react-router-dom";
+
 import { Articles, Home, SignIn, SignUp } from "./pages";
 import "react-toastify/dist/ReactToastify.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./resetDefaultStylesBrowsers.css";
 
 export default function App() {

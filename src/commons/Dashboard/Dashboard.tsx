@@ -1,8 +1,10 @@
 import React, { FC, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+
 import classNames from "classnames";
-import useStyles from "./style";
+import { Link, useLocation } from "react-router-dom";
+
 import { urls } from "./constants";
+import useStyles from "./style";
 
 const Dashboard: FC = ({ children }) => {
   const style = useStyles();

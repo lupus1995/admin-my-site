@@ -1,5 +1,6 @@
-import { TokenI } from "utils/interfaces";
 import { URL } from "utils/constants";
+import { TokenI } from "utils/interfaces";
+
 import { SignInI } from "./interfaces";
 
 export const signin = async (formData: SignInI): Promise<TokenI> => {

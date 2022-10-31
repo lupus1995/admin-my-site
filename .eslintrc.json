@@ -19,13 +19,44 @@
     "rules": {
         "no-console": 2,
         "no-trailing-spaces": "error",
-        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 1
+            }
+        ],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/prop-types": "off",
         "import/extensions": "off",
         "prettier/prettier": "error",
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal"
+                ],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": [
+                    "react"
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
     },
     "settings": {
         "react": {
@@ -34,9 +65,16 @@
         },
         "import/resolver": {
             "node": {
-              "paths": ["src"],
-              "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "paths": [
+                    "src"
+                ],
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
-          }
+        }
     }
 }

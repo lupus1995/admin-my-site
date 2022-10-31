@@ -1,18 +1,21 @@
 import React from "react";
+
+import { set } from "local-storage";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+
+import ButtonSubmit from "commons/ButtonSubmit";
+import Form from "commons/Form";
+import FormLabel from "commons/FormLabel";
+import FormRow from "commons/FormRow";
+import TextError from "commons/TextError";
 import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
-import { set } from "local-storage";
-import Form from "commons/Form";
+
 import { signup } from "./api";
 import { SignUpI } from "./interfaces";
 import useStyles from "./style";
-import FormRow from "commons/FormRow";
-import FormLabel from "commons/FormLabel";
-import TextError from "commons/TextError";
-import ButtonSubmit from "commons/ButtonSubmit";
 
 const SignUp = () => {
   const style = useStyles();

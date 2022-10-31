@@ -1,26 +1,26 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
-import React, { MutableRefObject, useEffect, useMemo, useRef } from "react";
-import Dashboard from "commons/Dashboard";
-// import style from './Home.module.scss';
-import useStyles from "./style";
-import ImageUploading from "react-images-uploading";
+import React from "react";
+
 import { useForm } from "react-hook-form";
-import Form from "commons/Form";
-import FormRow from "commons/FormRow";
+
+// import style from './Home.module.scss';
 import ButtonSubmit from "commons/ButtonSubmit";
-import TextError from "commons/TextError";
+import Dashboard from "commons/Dashboard";
+import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
-import FirstBlockImageInput from "./components/FirstBlockImageInput";
+import FormRow from "commons/FormRow";
+import TextError from "commons/TextError";
+import useStylesUtil from "utils/styles";
+
+import { HomeEditor, FirstBlockImageInput } from "./components";
+import useStyles from "./style";
 
 const Home = () => {
   const styles = useStyles();
+  const stylesUtils = useStylesUtil();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
-    setError,
     watch,
     setValue,
     trigger,
@@ -48,6 +48,36 @@ const Home = () => {
             isSubmitted={isSubmitted}
             trigger={trigger}
           />
+
+          <FormRow>
+            <FormLabel>Заголовок в первом блоке</FormLabel>
+            <input
+              className={stylesUtils.input}
+              type="text"
+              {...register("firstBlockTitle", { required: "Поле обязательно" })}
+            />
+            <TextError message={errors.firstBlockTitle?.message as string} />
+          </FormRow>
+
+          <FormRow>
+            <FormLabel>Заголовок блока обо мне</FormLabel>
+            <input
+              className={stylesUtils.input}
+              type="text"
+              {...register("aboutMeTitle", { required: "Поле обязательно" })}
+            />
+            <TextError message={errors.aboutMeTitle?.message as string} />
+          </FormRow>
+
+          <HomeEditor
+            register={register}
+            setValue={setValue}
+            errors={errors}
+            isSubmitted={isSubmitted}
+            trigger={trigger}
+            watch={watch}
+          />
+
           <ButtonSubmit />
         </Form>
       </div>

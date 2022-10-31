@@ -1,7 +1,9 @@
-import classNames from "classnames";
 import React, { FC } from "react";
+
+import classNames from "classnames";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import { UseFormHandleSubmit } from "react-hook-form/dist/types/form";
+
 import useStyles from "./style";
 import { FORM_POSITION_TYPE } from "./types";
 

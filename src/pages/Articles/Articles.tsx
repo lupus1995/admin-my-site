@@ -1,5 +1,6 @@
-import Dashboard from "commons/Dashboard";
 import React from "react";
+
+import Dashboard from "commons/Dashboard";
 
 const Articles = () => <Dashboard>articles</Dashboard>;
 

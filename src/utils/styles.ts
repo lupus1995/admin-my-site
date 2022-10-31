@@ -21,6 +21,13 @@ const useUtilsStyles = createUseStyles({
     padding: "7px 20px",
     border: "none",
   },
+  textarea: {
+    resize: "none",
+  },
+  editor: {
+    width: "100%",
+    marginTop: "15px",
+  },
 });
 
 export default useUtilsStyles;

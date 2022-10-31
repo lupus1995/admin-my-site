@@ -1,7 +1,5 @@
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
-import TextError from "commons/TextError";
 import React, { FC, useEffect } from "react";
+
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
@@ -11,8 +9,15 @@ import {
   UseFormWatch,
 } from "react-hook-form/dist/types/form";
 import ImageUploading from "react-images-uploading";
+
+import FormLabel from "commons/FormLabel";
+import FormRow from "commons/FormRow";
+import TextError from "commons/TextError";
 import useUtilsStyles from "utils/styles";
+
 import useStyles from "./style";
+
+const name = "firstBlockBackgroundImage";
 
 const FirstBlockImageInput: FC<{
   register: UseFormRegister<FieldValues>;
@@ -29,16 +34,16 @@ const FirstBlockImageInput: FC<{
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   useEffect(() => {
-    register("file", { required: "Выберите файл" });
+    register(name, { required: "Выберите файл" });
   }, [register]);
 
   const maxNumber = 69;
 
   const onChange = (imageList: React.SetStateAction<unknown[]>) => {
-    setValue("file", imageList);
+    setValue(name, imageList);
 
     if (isSubmitted) {
-      trigger("file");
+      trigger(name);
     }
   };
 
@@ -49,10 +54,13 @@ const FirstBlockImageInput: FC<{
       </FormLabel>
       <ImageUploading
         multiple={false}
-        value={watch("file")}
+        value={watch(name)}
         onChange={onChange}
         maxNumber={maxNumber}
         dataURLKey="data_url"
+        inputProps={{
+          name,
+        }}
       >
         {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => (
           // write your building UI
@@ -98,7 +106,7 @@ const FirstBlockImageInput: FC<{
         )}
       </ImageUploading>
 
-      <TextError message={errors.file?.message as string} />
+      <TextError message={errors[name]?.message as string} />
     </FormRow>
   );
 };
