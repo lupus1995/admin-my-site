@@ -2,7 +2,7 @@ import { get, set } from "local-storage";
 
 import { URL } from "utils/constants";
 
-import { TokenI } from "./interfaces";
+import { ResponseI, TokenI } from "./interfaces";
 
 const checkRefteshToken = async () => {
   const refreshToken: string | undefined = get("refreshToken");
@@ -28,18 +28,38 @@ const checkRefteshToken = async () => {
   return true;
 };
 
-export const checkToken = async (): Promise<boolean> => {
+export const getTokens = (): {
+  accessToken: string;
+  refreshToken: string;
+} => {
   const accessToken: string | undefined = get("accessToken");
   const refreshToken: string | undefined = get("refreshToken");
 
+  return {
+    accessToken,
+    refreshToken,
+  };
+};
+
+export const checkToken = async (): Promise<ResponseI> => {
+  const { accessToken, refreshToken } = getTokens();
+  const successMessage = "Токены обновлены.";
+  const errorMessage = "Токены просрочены, авторизуйтесь пожалуйста.";
+
   // нет access и refresh токенов
   if (!accessToken && !refreshToken) {
-    return false;
+    return {
+      status: false,
+      message: errorMessage,
+    };
   }
   // нет access, есть refresh токенов
   if (!accessToken && refreshToken) {
     const data = await checkRefteshToken();
-    return data;
+    return {
+      status: data,
+      message: data ? successMessage : errorMessage,
+    };
   }
   // есть access токен
   if (accessToken) {
@@ -56,11 +76,20 @@ export const checkToken = async (): Promise<boolean> => {
     if (!data) {
       const dataRefreshToken = await checkRefteshToken();
 
-      return dataRefreshToken;
+      return {
+        status: dataRefreshToken,
+        message: dataRefreshToken ? successMessage : errorMessage,
+      };
     }
 
-    return data;
+    return {
+      status: data,
+      message: successMessage,
+    };
   }
 
-  return false;
+  return {
+    status: false,
+    message: errorMessage,
+  };
 };

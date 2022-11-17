@@ -1,6 +1,5 @@
-import React, { FC, MutableRefObject, useEffect, useMemo, useRef } from "react";
+import React, { FC, MutableRefObject, useEffect, useRef } from "react";
 
-import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
@@ -31,16 +30,6 @@ const HomeEditor: FC<{
   const stylesUtils = useStylesUtil();
 
   const ref: MutableRefObject<any> = useRef();
-
-  // const defaultEditorState = useMemo(() => {
-  //   const blocksFromHTML = convertFromHTML(watch("aboutMeDescription"));
-  //   const contentState = ContentState.createFromBlockArray(
-  //     blocksFromHTML.contentBlocks,
-  //     blocksFromHTML.entityMap
-  //   );
-
-  //   return blocksFromHTML;
-  // }, [watch]);
 
   const uploadCallback = (file: File) => {
     return new Promise((resolve) => {

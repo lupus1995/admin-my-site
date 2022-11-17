@@ -32,6 +32,7 @@
         "import/extensions": "off",
         "prettier/prettier": "error",
         "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
         "import/order": [
             "error",
             {

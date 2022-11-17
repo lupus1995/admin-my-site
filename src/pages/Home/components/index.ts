@@ -1,2 +1,2 @@
 export { default as HomeEditor } from "./HomeEditor";
-export { default as FirstBlockImageInput } from "./FirstBlockImageInput";
+export { default as BlockImageInput } from "./BlockImageInput";

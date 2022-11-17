@@ -3,7 +3,7 @@ import React from "react";
 import { set } from "local-storage";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import ButtonSubmit from "commons/ButtonSubmit";
 import Form from "commons/Form";
@@ -82,8 +82,6 @@ const SignIn = () => {
           Зарегистрируйтесь
         </Link>
       </div>
-
-      <ToastContainer />
     </Form>
   );
 };

@@ -19,7 +19,7 @@ import useStyles from "./style";
 
 const name = "firstBlockBackgroundImage";
 
-const FirstBlockImageInput: FC<{
+const BlockImageInput: FC<{
   register: UseFormRegister<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
@@ -30,6 +30,7 @@ const FirstBlockImageInput: FC<{
   >;
   isSubmitted: boolean;
   trigger: UseFormTrigger<FieldValues>;
+  name: string;
 }> = ({ register, watch, setValue, errors, trigger, isSubmitted }) => {
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
@@ -37,10 +38,11 @@ const FirstBlockImageInput: FC<{
     register(name, { required: "Выберите файл" });
   }, [register]);
 
-  const maxNumber = 69;
+  const maxNumber = 1;
 
-  const onChange = (imageList: React.SetStateAction<unknown[]>) => {
-    setValue(name, imageList);
+  const onChange = (imageList: string[]) => {
+    const image: string = imageList[0];
+    setValue(name, image);
 
     if (isSubmitted) {
       trigger(name);
@@ -55,6 +57,7 @@ const FirstBlockImageInput: FC<{
       <ImageUploading
         multiple={false}
         value={watch(name)}
+        // @ts-ignore
         onChange={onChange}
         maxNumber={maxNumber}
         dataURLKey="data_url"
@@ -111,4 +114,4 @@ const FirstBlockImageInput: FC<{
   );
 };
 
-export default FirstBlockImageInput;
+export default BlockImageInput;
