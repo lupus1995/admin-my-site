@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 // import style from './Home.module.scss';
 import ButtonSubmit from "commons/ButtonSubmit";
@@ -9,12 +10,14 @@ import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
+import { checkToken } from "utils/apiTokens";
 import useStylesUtil from "utils/styles";
 
 import { HomeEditor, FirstBlockImageInput } from "./components";
 import useStyles from "./style";
 
 const Home = () => {
+  const navigate = useNavigate();
   const styles = useStyles();
   const stylesUtils = useStylesUtil();
   const {
@@ -29,6 +32,14 @@ const Home = () => {
   const onSubmit = (data: any) => {
     console.log("data", data);
   };
+
+  useEffect(() => {
+    checkToken().then((isCheckToken) => {
+      if (!isCheckToken) {
+        navigate("/signin");
+      }
+    });
+  }, [navigate]);
 
   return (
     <Dashboard>

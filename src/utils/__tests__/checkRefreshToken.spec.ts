@@ -33,7 +33,7 @@ global.fetch = jest.fn(() =>
   })
 ) as jest.Mock;
 describe("check utils", () => {
-  it("apiTokens", async () => {
+  it("check refresh token", async () => {
     const result = await checkToken();
 
     expect(result).toBeTruthy();
