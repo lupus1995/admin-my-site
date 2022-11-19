@@ -1,5 +1,6 @@
 import { checkToken, getTokens } from "utils/apiTokens";
 import { URL } from "utils/constants";
+import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 
 import { HomeFormI } from "./interfaces";
@@ -13,7 +14,7 @@ export const save = async (data: HomeFormI): Promise<ResponseI> => {
         "Content-Type": "application/json",
         authorization: accessToken,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data, getCircularReplacer()),
     });
 
     if (response.status >= 400) {
