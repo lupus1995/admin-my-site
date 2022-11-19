@@ -37,6 +37,12 @@ const useStyles = createUseStyles({
     backgroundColor: "#e7e7ff",
     display: "block",
   },
+  dashboardButton: {
+    background: "none",
+    border: "none",
+    padding: 0,
+    cursor: "pointer",
+  },
 });
 
 export default useStyles;
