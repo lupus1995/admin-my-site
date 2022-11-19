@@ -9,11 +9,13 @@ const useStyles = createUseStyles({
     backgroundColor: "#ffffff",
     padding: "24px",
   },
-  formWrapper: {
-    backgroundColor: "#f5f5f9",
+  formCenter: {
     height: "100vh",
     display: "flex",
     justifyContent: "center",
+  },
+  formWrapper: {
+    backgroundColor: "#f5f5f9",
     alignItems: (props: { alignItems: FORM_POSITION_TYPE }) => {
       switch (props.alignItems) {
         case "baceline": {

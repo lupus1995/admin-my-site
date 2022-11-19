@@ -12,11 +12,23 @@ const Form: FC<{
   onSubmit: (data: FieldValues) => void;
   className?: string;
   formPosition: FORM_POSITION_TYPE;
-}> = ({ children, handleSubmit, onSubmit, className = "", formPosition }) => {
+  isCenter?: boolean;
+}> = ({
+  children,
+  handleSubmit,
+  onSubmit,
+  className = "",
+  formPosition,
+  isCenter = false,
+}) => {
   const styles = useStyles({ alignItems: formPosition });
 
   return (
-    <div className={`${styles.formWrapper}`}>
+    <div
+      className={classNames(`${styles.formWrapper}`, {
+        [styles.formCenter]: isCenter,
+      })}
+    >
       <form
         className={classNames(`${styles.form} ${className}`)}
         onSubmit={handleSubmit(onSubmit)}

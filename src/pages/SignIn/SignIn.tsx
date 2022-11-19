@@ -30,7 +30,7 @@ const SignIn = () => {
   const onSubmit = async (formData: SignInI) => {
     try {
       const tokens: TokenI = await signin(formData);
-      set("accressToken", tokens.accessToken);
+      set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
 
       toast("Вы успешно авторизовались", {
@@ -50,6 +50,7 @@ const SignIn = () => {
       handleSubmit={handleSubmit}
       className={`${style.signupForm}`}
       formPosition="center"
+      isCenter
     >
       <h1 className={style.signupTitle}>Авторизация</h1>
       <FormRow>

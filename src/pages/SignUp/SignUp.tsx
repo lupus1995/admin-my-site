@@ -31,7 +31,7 @@ const SignUp = () => {
   const onSubmit = async (formData: SignUpI) => {
     try {
       const tokens: TokenI = await signup(formData);
-      set("accressToken", tokens.accessToken);
+      set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
 
       toast("Вы успешно зарегистрировали аккаунт", {
@@ -60,6 +60,7 @@ const SignUp = () => {
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
       formPosition="center"
+      isCenter
     >
       <h1 className={style.signupTitle}>Регистрация</h1>
       <FormRow>
