@@ -1,5 +1,7 @@
-import React, { FC, MutableRefObject, useEffect, useRef } from "react";
+import React, { FC, useEffect } from "react";
 
+import { EditorState, convertToRaw } from "draft-js";
+import draftToHtmlPuri from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
@@ -26,10 +28,8 @@ const HomeEditor: FC<{
       [x: string]: string;
     }>
   >;
-}> = ({ setValue, errors, register, isSubmitted, trigger, watch }) => {
+}> = ({ setValue, errors, register, isSubmitted, trigger }) => {
   const stylesUtils = useStylesUtil();
-
-  const ref: MutableRefObject<any> = useRef();
 
   const uploadCallback = (file: File) => {
     return new Promise((resolve) => {
@@ -41,6 +41,14 @@ const HomeEditor: FC<{
     });
   };
 
+  const handleEditorChange = (editorState: EditorState) => {
+    const htmlPuri = draftToHtmlPuri(
+      convertToRaw(editorState.getCurrentContent())
+    );
+    setValue("aboutMeDescription", htmlPuri);
+    if (isSubmitted) trigger("aboutMeDescription");
+  };
+
   useEffect(() => {
     register("aboutMeDescription", { required: "Поле обязательно" });
   }, [register]);
@@ -50,19 +58,7 @@ const HomeEditor: FC<{
       <FormLabel>Описание блока обо мне</FormLabel>
       <Editor
         editorClassName={`${stylesUtils.input} ${stylesUtils.editor}`}
-        onChange={() => {
-          const text = ref.current?.editor?.innerText || ref.current?.innerText;
-          const html = ref.current?.editor || ref.current;
-          if (text.trim().length === 0 && !html.querySelector("img")) {
-            setValue("aboutMeDescription", "");
-          } else {
-            setValue("aboutMeDescription", html);
-          }
-          if (isSubmitted) trigger("aboutMeDescription");
-        }}
-        editorRef={(editorRef: unknown) => {
-          ref.current = editorRef;
-        }}
+        onEditorStateChange={handleEditorChange}
         toolbar={{
           image: {
             previewImage: true,

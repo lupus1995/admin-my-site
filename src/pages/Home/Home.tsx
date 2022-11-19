@@ -11,11 +11,10 @@ import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
-import { checkToken } from "utils/apiTokens";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
-import { save } from "./api";
+import { get, save } from "./api";
 import { HomeEditor, BlockImageInput } from "./components";
 import { HomeFormI } from "./interfaces";
 import useStyles from "./style";
@@ -48,17 +47,25 @@ const Home = () => {
   };
 
   useEffect(() => {
-    checkToken().then((isCheckToken: ResponseI) => {
-      if (!isCheckToken.status) {
-        toast(isCheckToken.message, {
+    get().then((result) => {
+      if (!result.status) {
+        toast(result.message, {
           type: "error",
           hideProgressBar: true,
           theme: "colored",
         });
-        navigate("/signin");
+
+        navigate(result.redirectTo);
       }
+
+      Object.entries(result.responseBody).forEach(
+        ([key, value]: [string, string]) => {
+          register(key);
+          setValue(key, value);
+        }
+      );
     });
-  }, [navigate]);
+  }, [navigate, register, setValue]);
 
   return (
     <Dashboard>

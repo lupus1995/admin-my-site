@@ -36,3 +36,36 @@ export const save = async (data: HomeFormI): Promise<ResponseI> => {
     redirectTo: "/signin",
   };
 };
+
+export const get = async (): Promise<ResponseI<HomeFormI>> => {
+  if (await checkToken()) {
+    const { accessToken } = getTokens();
+    const response = await fetch(`${URL}/main-page`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: accessToken,
+      },
+    });
+
+    if (response.status >= 400) {
+      return {
+        message: "Ошибка получени данных для формы, попробуйте позже",
+        status: false,
+      };
+    }
+
+    const result = await response.json();
+
+    return {
+      status: true,
+      responseBody: result,
+    };
+  }
+
+  return {
+    message: "Токены просрочены, авторизуйтесь пожалуйста",
+    status: false,
+    redirectTo: "/signin",
+  };
+};

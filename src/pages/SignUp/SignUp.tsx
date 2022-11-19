@@ -38,8 +38,8 @@ const SignUp = () => {
         type: "success",
         hideProgressBar: true,
         theme: "colored",
-        onClose: () => navigate("/"),
       });
+      navigate("/");
     } catch (e: unknown) {
       toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
       setError("username", { type: "custom", message: "" });

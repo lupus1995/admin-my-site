@@ -3,8 +3,9 @@ export interface TokenI {
   refreshToken: string;
 }
 
-export interface ResponseI {
+export interface ResponseI<T = void> {
   status: boolean;
-  message: string;
+  message?: string;
   redirectTo?: string;
+  responseBody?: T;
 }
