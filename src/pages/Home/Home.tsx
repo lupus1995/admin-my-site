@@ -78,6 +78,7 @@ const Home = () => {
             isSubmitted={isSubmitted}
             trigger={trigger}
             name="firstBlockBackgroundImage"
+            label="Ссылка на картинку в первом блоке на главной странице"
           />
 
           <FormRow>
@@ -129,6 +130,7 @@ const Home = () => {
             isSubmitted={isSubmitted}
             trigger={trigger}
             name="aboutMePhoto"
+            label="Ссылка на фото в блоке обо мне"
           />
 
           <ButtonSubmit />

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
@@ -8,7 +8,7 @@ import {
   UseFormTrigger,
   UseFormWatch,
 } from "react-hook-form/dist/types/form";
-import ImageUploading from "react-images-uploading";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
@@ -16,8 +16,6 @@ import TextError from "commons/TextError";
 import useUtilsStyles from "utils/styles";
 
 import useStyles from "./style";
-
-const name = "firstBlockBackgroundImage";
 
 const BlockImageInput: FC<{
   register: UseFormRegister<FieldValues>;
@@ -31,18 +29,20 @@ const BlockImageInput: FC<{
   isSubmitted: boolean;
   trigger: UseFormTrigger<FieldValues>;
   name: string;
-}> = ({ register, watch, setValue, errors, trigger, isSubmitted }) => {
+  label: string;
+}> = ({ register, setValue, errors, trigger, isSubmitted, name, label }) => {
+  const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   useEffect(() => {
     register(name, { required: "Выберите файл" });
-  }, [register]);
+  }, [register, name]);
 
   const maxNumber = 1;
 
-  const onChange = (imageList: string[]) => {
-    const image: string = imageList[0];
-    setValue(name, image);
+  const onChange = (imageList: ImageListType) => {
+    setCurrentValues(imageList);
+    setValue(name, imageList[0].data_url);
 
     if (isSubmitted) {
       trigger(name);
@@ -51,13 +51,10 @@ const BlockImageInput: FC<{
 
   return (
     <FormRow>
-      <FormLabel>
-        Ссылка на картинку в первом блоке на главной странице
-      </FormLabel>
+      <FormLabel>{label}</FormLabel>
       <ImageUploading
         multiple={false}
-        value={watch(name)}
-        // @ts-ignore
+        value={currentValues}
         onChange={onChange}
         maxNumber={maxNumber}
         dataURLKey="data_url"
