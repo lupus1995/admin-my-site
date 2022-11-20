@@ -1,6 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 
-import { EditorState, convertToRaw } from "draft-js";
+import {
+  EditorState,
+  ContentState,
+  convertToRaw,
+  convertFromHTML,
+} from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
@@ -28,7 +33,7 @@ const HomeEditor: FC<{
       [x: string]: string;
     }>
   >;
-}> = ({ setValue, errors, register, isSubmitted, trigger }) => {
+}> = ({ setValue, errors, isSubmitted, trigger, watch }) => {
   const stylesUtils = useStylesUtil();
 
   const uploadCallback = (file: File) => {
@@ -42,6 +47,7 @@ const HomeEditor: FC<{
   };
 
   const handleEditorChange = (editorState: EditorState) => {
+    console.log("editorState", editorState);
     const htmlPuri = draftToHtmlPuri(
       convertToRaw(editorState.getCurrentContent())
     );
@@ -49,9 +55,21 @@ const HomeEditor: FC<{
     if (isSubmitted) trigger("aboutMeDescription");
   };
 
-  useEffect(() => {
-    register("aboutMeDescription", { required: "Поле обязательно" });
-  }, [register]);
+  const defaultState = useMemo(() => {
+    const blocksFromHTML = convertFromHTML(watch("aboutMeDescription"));
+    console.log("blocksFromHTML", blocksFromHTML);
+    const content = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+    const raw = convertToRaw(content);
+
+    return raw;
+  }, [watch]);
+
+  // useEffect(() => {
+  // register("aboutMeDescription", { required: "Поле обязательно" });
+  // }, [register]);
 
   return (
     <FormRow>
@@ -65,7 +83,7 @@ const HomeEditor: FC<{
             uploadCallback,
           },
         }}
-        // defaultContentState={{ ...defaultEditorState }}
+        defaultContentState={defaultState}
       />
       <TextError message={errors.aboutMeDescription?.message as string} />
     </FormRow>

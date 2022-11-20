@@ -6,7 +6,8 @@ import { ResponseI } from "utils/interfaces";
 import { HomeFormI } from "./interfaces";
 
 export const save = async (data: HomeFormI): Promise<ResponseI> => {
-  if (await checkToken()) {
+  const hasCorrectokens = await checkToken();
+  if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
     const response = await fetch(`${URL}/main-page`, {
       method: "post",
@@ -30,15 +31,12 @@ export const save = async (data: HomeFormI): Promise<ResponseI> => {
     };
   }
 
-  return {
-    message: "Токены просрочены, авторизуйтесь пожалуйста",
-    status: false,
-    redirectTo: "/signin",
-  };
+  return hasCorrectokens;
 };
 
-export const get = async (): Promise<ResponseI<HomeFormI>> => {
-  if (await checkToken()) {
+export const get = async (): Promise<ResponseI<HomeFormI | void>> => {
+  const hasCorrectokens = await checkToken();
+  if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
     const response = await fetch(`${URL}/main-page`, {
       method: "get",
@@ -63,9 +61,5 @@ export const get = async (): Promise<ResponseI<HomeFormI>> => {
     };
   }
 
-  return {
-    message: "Токены просрочены, авторизуйтесь пожалуйста",
-    status: false,
-    redirectTo: "/signin",
-  };
+  return hasCorrectokens;
 };

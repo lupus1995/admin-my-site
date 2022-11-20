@@ -51,6 +51,7 @@ export const checkToken = async (): Promise<ResponseI> => {
     return {
       status: false,
       message: errorMessage,
+      redirectTo: "/signin",
     };
   }
   // нет access, есть refresh токенов
@@ -59,6 +60,7 @@ export const checkToken = async (): Promise<ResponseI> => {
     return {
       status: data,
       message: data ? successMessage : errorMessage,
+      redirectTo: "/signin",
     };
   }
   // есть access токен
@@ -79,6 +81,7 @@ export const checkToken = async (): Promise<ResponseI> => {
       return {
         status: dataRefreshToken,
         message: dataRefreshToken ? successMessage : errorMessage,
+        redirectTo: "/signin",
       };
     }
 
@@ -91,5 +94,6 @@ export const checkToken = async (): Promise<ResponseI> => {
   return {
     status: false,
     message: errorMessage,
+    redirectTo: "/signin",
   };
 };

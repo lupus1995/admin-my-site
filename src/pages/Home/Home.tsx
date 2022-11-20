@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,7 @@ const Home = () => {
     setValue,
     trigger,
   } = useForm();
+  const [isInitForm, setIsInitForm] = useState<boolean>(false);
 
   const onSubmit = (data: HomeFormI) => {
     save(data).then((response: ResponseI) => {
@@ -47,101 +48,122 @@ const Home = () => {
   };
 
   useEffect(() => {
-    get().then((result) => {
-      if (!result.status) {
-        toast(result.message, {
-          type: "error",
-          hideProgressBar: true,
-          theme: "colored",
-        });
+    if (!isInitForm) {
+      register("firstBlockBackgroundImage", { required: "Выберите файл" });
+      register("firstBlockTitle", { required: "Поле обязательно" });
+      register("firstBlockSubtitle", { required: "Поле обязательно" });
+      register("aboutMeTitle", { required: "Поле обязательно" });
+      register("aboutMeDescription", { required: "Поле обязательно" });
+      register("aboutMePhoto", { required: "Выберите файл" });
 
-        navigate(result.redirectTo);
-      }
+      get()
+        .then((result) => {
+          if (!result.status) {
+            toast(result.message, {
+              type: "error",
+              hideProgressBar: true,
+              theme: "colored",
+            });
 
-      Object.entries(result.responseBody).forEach(
-        ([key, value]: [string, string]) => {
-          register(key);
-          setValue(key, value);
-        }
-      );
-    });
-  }, [navigate, register, setValue]);
+            navigate(result.redirectTo);
+          }
+
+          if (result.responseBody) {
+            Object.entries(result.responseBody).forEach(
+              ([key, value]: [string, string]) => {
+                setValue(key, value);
+              }
+            );
+          }
+        })
+        .finally(() => setIsInitForm(!isInitForm));
+    }
+  }, [isInitForm, navigate, register, setValue]);
+
+  console.log("watch", watch());
+  console.log("errors", errors);
 
   return (
     <Dashboard>
       <div>
         <h3 className={styles.pageTitle}>Главная страница</h3>
-        <Form
-          onSubmit={onSubmit}
-          handleSubmit={handleSubmit}
-          formPosition="baceline"
-          className={`${styles.homeForm}`}
-        >
-          <BlockImageInput
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            errors={errors}
-            isSubmitted={isSubmitted}
-            trigger={trigger}
-            name="firstBlockBackgroundImage"
-            label="Ссылка на картинку в первом блоке на главной странице"
-          />
-
-          <FormRow>
-            <FormLabel>Заголовок в первом блоке</FormLabel>
-            <input
-              className={stylesUtils.input}
-              type="text"
-              {...register("firstBlockTitle", { required: "Поле обязательно" })}
+        {isInitForm && (
+          <Form
+            onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
+            formPosition="baceline"
+            className={`${styles.homeForm}`}
+          >
+            <BlockImageInput
+              register={register}
+              watch={watch}
+              setValue={setValue}
+              errors={errors}
+              isSubmitted={isSubmitted}
+              trigger={trigger}
+              name="firstBlockBackgroundImage"
+              label="Ссылка на картинку в первом блоке на главной странице"
             />
-            <TextError message={errors.firstBlockTitle?.message as string} />
-          </FormRow>
 
-          <FormRow>
-            <FormLabel>Подзаголовок в первом блоке</FormLabel>
-            <input
-              className={stylesUtils.input}
-              type="text"
-              {...register("firstBlockSubtitle", {
-                required: "Поле обязательно",
-              })}
+            <FormRow>
+              <FormLabel>Заголовок в первом блоке</FormLabel>
+              <input
+                className={stylesUtils.input}
+                type="text"
+                {...register("firstBlockTitle", {
+                  required: "Поле обязательно",
+                })}
+              />
+              <TextError message={errors.firstBlockTitle?.message as string} />
+            </FormRow>
+
+            <FormRow>
+              <FormLabel>Подзаголовок в первом блоке</FormLabel>
+              <input
+                className={stylesUtils.input}
+                type="text"
+                {...register("firstBlockSubtitle", {
+                  required: "Поле обязательно",
+                })}
+              />
+              <TextError
+                message={errors.firstBlockSubtitle?.message as string}
+              />
+            </FormRow>
+
+            <FormRow>
+              <FormLabel>Заголовок блока обо мне</FormLabel>
+              <input
+                className={stylesUtils.input}
+                type="text"
+                {...register("aboutMeTitle", { required: "Поле обязательно" })}
+              />
+              <TextError message={errors.aboutMeTitle?.message as string} />
+            </FormRow>
+
+            <HomeEditor
+              register={register}
+              setValue={setValue}
+              errors={errors}
+              isSubmitted={isSubmitted}
+              trigger={trigger}
+              watch={watch}
             />
-            <TextError message={errors.firstBlockSubtitle?.message as string} />
-          </FormRow>
 
-          <FormRow>
-            <FormLabel>Заголовок блока обо мне</FormLabel>
-            <input
-              className={stylesUtils.input}
-              type="text"
-              {...register("aboutMeTitle", { required: "Поле обязательно" })}
+            <BlockImageInput
+              register={register}
+              watch={watch}
+              setValue={setValue}
+              errors={errors}
+              isSubmitted={isSubmitted}
+              trigger={trigger}
+              name="aboutMePhoto"
+              label="Ссылка на фото в блоке обо мне"
             />
-            <TextError message={errors.aboutMeTitle?.message as string} />
-          </FormRow>
 
-          <HomeEditor
-            register={register}
-            setValue={setValue}
-            errors={errors}
-            isSubmitted={isSubmitted}
-            trigger={trigger}
-            watch={watch}
-          />
-
-          <BlockImageInput
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            errors={errors}
-            isSubmitted={isSubmitted}
-            trigger={trigger}
-            name="aboutMePhoto"
-            label="Ссылка на фото в блоке обо мне"
-          />
-
-          <ButtonSubmit />
-        </Form>
+            <ButtonSubmit />
+          </Form>
+        )}
       </div>
     </Dashboard>
   );

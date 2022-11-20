@@ -45,10 +45,9 @@ const BlockImageInput: FC<{
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   useEffect(() => {
-    console.log(watch());
+    const nameValue = watch(name);
     if (!isInitValues) {
-      register(name, { required: "Выберите файл" });
-      setCurrentValues([{ data_url: watch(name) }]);
+      if (nameValue) setCurrentValues([{ data_url: nameValue }]);
       setIsInitValues(!isInitValues);
     }
   }, [register, name, isInitValues, watch]);
@@ -57,7 +56,7 @@ const BlockImageInput: FC<{
 
   const onChange = (imageList: ImageListType) => {
     setCurrentValues(imageList);
-    setValue(name, imageList[0].data_url);
+    setValue(name, imageList[0]?.data_url || undefined);
 
     if (isSubmitted) {
       trigger(name);
@@ -79,7 +78,7 @@ const BlockImageInput: FC<{
           }}
         >
           {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => {
-            console.log("imageList", imageList);
+            // console.log("imageList", imageList);
             return (
               <div className="upload__image-wrapper">
                 {imageList.length === 0 && (
@@ -98,7 +97,7 @@ const BlockImageInput: FC<{
                       <img
                         className={`${styles.image}`}
                         src={image?.data_url}
-                        alt="картинка в первом блоке на главной странице"
+                        alt={label}
                       />
                     </FormRow>
                     <div className={styles.imageManage}>
