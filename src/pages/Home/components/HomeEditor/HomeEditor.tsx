@@ -1,12 +1,8 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import {
-  EditorState,
-  ContentState,
-  convertToRaw,
-  convertFromHTML,
-} from "draft-js";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 import { Editor } from "react-draft-wysiwyg";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
@@ -34,6 +30,8 @@ const HomeEditor: FC<{
     }>
   >;
 }> = ({ setValue, errors, isSubmitted, trigger, watch }) => {
+  const [isInitState, setIsInitState] = useState<boolean>(false);
+  const [initState, setInitState] = useState(null);
   const stylesUtils = useStylesUtil();
 
   const uploadCallback = (file: File) => {
@@ -47,7 +45,6 @@ const HomeEditor: FC<{
   };
 
   const handleEditorChange = (editorState: EditorState) => {
-    console.log("editorState", editorState);
     const htmlPuri = draftToHtmlPuri(
       convertToRaw(editorState.getCurrentContent())
     );
@@ -55,36 +52,37 @@ const HomeEditor: FC<{
     if (isSubmitted) trigger("aboutMeDescription");
   };
 
-  const defaultState = useMemo(() => {
-    const blocksFromHTML = convertFromHTML(watch("aboutMeDescription"));
-    console.log("blocksFromHTML", blocksFromHTML);
-    const content = ContentState.createFromBlockArray(
-      blocksFromHTML.contentBlocks,
-      blocksFromHTML.entityMap
-    );
-    const raw = convertToRaw(content);
+  useEffect(() => {
+    if (!isInitState) {
+      const contentBlock = htmlToDraft(watch("aboutMeDescription"));
 
-    return raw;
-  }, [watch]);
-
-  // useEffect(() => {
-  // register("aboutMeDescription", { required: "Поле обязательно" });
-  // }, [register]);
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        const editorState = convertToRaw(contentState);
+        setInitState(editorState);
+      }
+      setIsInitState(!isInitState);
+    }
+  }, [isInitState, watch]);
 
   return (
     <FormRow>
       <FormLabel>Описание блока обо мне</FormLabel>
-      <Editor
-        editorClassName={`${stylesUtils.input} ${stylesUtils.editor}`}
-        onEditorStateChange={handleEditorChange}
-        toolbar={{
-          image: {
-            previewImage: true,
-            uploadCallback,
-          },
-        }}
-        defaultContentState={defaultState}
-      />
+      {isInitState && (
+        <Editor
+          editorClassName={`${stylesUtils.input} ${stylesUtils.editor}`}
+          onEditorStateChange={handleEditorChange}
+          toolbar={{
+            image: {
+              previewImage: true,
+              uploadCallback,
+            },
+          }}
+          defaultContentState={initState}
+        />
+      )}
       <TextError message={errors.aboutMeDescription?.message as string} />
     </FormRow>
   );
