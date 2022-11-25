@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// import style from './Home.module.scss';
 import ButtonSubmit from "commons/ButtonSubmit";
 import Dashboard from "commons/Dashboard";
 import Form from "commons/Form";
@@ -31,10 +30,13 @@ const Home = () => {
     setValue,
     trigger,
   } = useForm();
+
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
+  const [isEditForm, setIsEditForm] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
 
   const onSubmit = (data: HomeFormI) => {
-    save(data).then((response: ResponseI) => {
+    save({ data, isEditForm, id }).then((response: ResponseI) => {
       toast(response.message, {
         type: response.status ? "success" : "error",
         hideProgressBar: true,
@@ -74,14 +76,13 @@ const Home = () => {
                 setValue(key, value);
               }
             );
+            setId(result.responseBody._id);
+            setIsEditForm(true);
           }
         })
         .finally(() => setIsInitForm(!isInitForm));
     }
   }, [isInitForm, navigate, register, setValue]);
-
-  console.log("watch", watch());
-  console.log("errors", errors);
 
   return (
     <Dashboard>

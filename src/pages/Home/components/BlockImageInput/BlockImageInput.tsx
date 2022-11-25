@@ -78,7 +78,6 @@ const BlockImageInput: FC<{
           }}
         >
           {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => {
-            // console.log("imageList", imageList);
             return (
               <div className="upload__image-wrapper">
                 {imageList.length === 0 && (

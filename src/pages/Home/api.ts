@@ -5,12 +5,23 @@ import { ResponseI } from "utils/interfaces";
 
 import { HomeFormI } from "./interfaces";
 
-export const save = async (data: HomeFormI): Promise<ResponseI> => {
+export const save = async ({
+  data,
+  isEditForm,
+  id,
+}: {
+  data: HomeFormI;
+  isEditForm: boolean;
+  id: string;
+}): Promise<ResponseI> => {
   const hasCorrectokens = await checkToken();
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
-    const response = await fetch(`${URL}/main-page`, {
-      method: "post",
+    const requestUrl = isEditForm
+      ? `${URL}/main-page/${id}`
+      : `${URL}/main-page`;
+    const response = await fetch(requestUrl, {
+      method: isEditForm ? "put" : "post",
       headers: {
         "Content-Type": "application/json",
         authorization: accessToken,

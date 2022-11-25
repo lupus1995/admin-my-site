@@ -5,4 +5,5 @@ export interface HomeFormI {
   aboutMeTitle: string;
   aboutMeDescription: string;
   aboutMePhoto: string;
+  _id?: string;
 }
