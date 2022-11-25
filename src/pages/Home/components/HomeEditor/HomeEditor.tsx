@@ -54,14 +54,16 @@ const HomeEditor: FC<{
 
   useEffect(() => {
     if (!isInitState) {
-      const contentBlock = htmlToDraft(watch("aboutMeDescription"));
+      if (watch("aboutMeDescription")) {
+        const contentBlock = htmlToDraft(watch("aboutMeDescription"));
 
-      if (contentBlock) {
-        const contentState = ContentState.createFromBlockArray(
-          contentBlock.contentBlocks
-        );
-        const editorState = convertToRaw(contentState);
-        setInitState(editorState);
+        if (contentBlock) {
+          const contentState = ContentState.createFromBlockArray(
+            contentBlock.contentBlocks
+          );
+          const editorState = convertToRaw(contentState);
+          setInitState(editorState);
+        }
       }
       setIsInitState(!isInitState);
     }
