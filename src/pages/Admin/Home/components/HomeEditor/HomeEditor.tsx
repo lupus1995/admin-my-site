@@ -52,6 +52,7 @@ const HomeEditor: FC<{
     if (isSubmitted) trigger("aboutMeDescription");
   };
 
+  // парсинг данных html в структуру данных для текстового редактора
   useEffect(() => {
     if (!isInitState) {
       if (watch("aboutMeDescription")) {

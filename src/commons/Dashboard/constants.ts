@@ -1,10 +1,10 @@
 export const urls = [
   {
-    to: "/",
+    to: "/admin",
     text: "Главная страница",
   },
   {
-    to: "/articles",
+    to: "/admin/articles",
     text: "Статьи на сайте",
   },
 ];
