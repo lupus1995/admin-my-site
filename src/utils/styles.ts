@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
 
+// общие стили для страницы админки
 const useUtilsStyles = createUseStyles({
   input: {
     border: "1px solid #d9dee3",

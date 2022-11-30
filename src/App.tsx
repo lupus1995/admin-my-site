@@ -1,17 +1,22 @@
 import React from "react";
 
+import injectSheet from "react-jss";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import { Articles, Home, SignIn, SignUp } from "./pages";
+import { useStylesTag } from "utils/stylesPage";
+
+import { Articles, Home, MainPage, SignIn, SignUp } from "./pages";
 import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./resetDefaultStylesBrowsers.css";
+import "./roboto.css";
 
-export default function App() {
+const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/admin" element={<Home />} />
@@ -20,4 +25,6 @@ export default function App() {
       <ToastContainer />
     </>
   );
-}
+};
+
+export default injectSheet(useStylesTag)(App);
