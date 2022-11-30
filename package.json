@@ -37,8 +37,6 @@
   "author": "./dist/bundle.js",
   "license": "ISC",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@types/jest-when": "^3.5.2",
     "classnames": "^2.3.2",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
@@ -50,6 +48,7 @@
     "react-hook-form": "^7.37.0",
     "react-images-uploading": "^3.1.7",
     "react-jss": "^10.9.2",
+    "react-responsive": "^9.0.0",
     "react-router-dom": "^6.3.0",
     "react-textarea-autosize": "^8.3.4",
     "react-toastify": "^9.0.8"
@@ -71,8 +70,10 @@
     "@types/html-to-draftjs": "^1.4.0",
     "@types/jest": "^28.1.8",
     "@types/node": "^18.0.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@types/jest-when": "^3.5.2",
     "@types/react": "^16.8.24",
-    "@types/react-dom": "^16.0.5",
+    "@types/react-dom": "^16.9.17",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/webpack": "5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.35.1",

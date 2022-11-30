@@ -5,12 +5,14 @@
         "target": "es5",
         "module": "es6",
         "jsx": "react",
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "paths": {
             "utils/*": ["./src/utils/*"],
-            "commons/*": ["./src/commons/*"]
+            "commons/*": ["./src/commons/*"],
+            "pages/*": ["./src/pages/*"],
         }
     }
 }

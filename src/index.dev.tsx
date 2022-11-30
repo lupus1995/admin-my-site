@@ -1,16 +1,16 @@
 import React from "react";
 
-import ReactDOM from "react-dom";
+// типов для react-dom/client нет
+// @ts-ignore
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-/**
- * render заново перерисовывает html дерево, в отличии от hidrate, в связи с этим в режиме разработки было принято решение отказаться от использования ssr
- */
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>,
-  document.querySelector("#root")
+  </BrowserRouter>
 );
