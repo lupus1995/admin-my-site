@@ -21,7 +21,11 @@ export const useIsMediaQuery = () => {
   const is1921 = useMediaQuery({ query: "(min-width: 1921px)" });
 
   const isMinDevicePixelRatio = useMediaQuery({
-    query: "(min-device-pixel-ratio: 2)",
+    query:
+      "only screen and (-moz-min-device-pixel-ratio: 2)," +
+      "only screen and (-o-min-device-pixel-ratio: 2/1)," +
+      "only screen and (-webkit-min-device-pixel-ratio: 2)," +
+      "only screen and (min-device-pixel-ratio: 2)",
   });
 
   return {

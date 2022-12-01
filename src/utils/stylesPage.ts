@@ -32,9 +32,9 @@ const useStylesClasses = createUseStyles({
   block: {
     paddingBottom: "100px",
 
-    "& > :nth-child(2n+1)": {
-      backgroundColor: "#f4f3f3",
-    },
+    // "& > :nth-child(2n+1)": {
+    //   backgroundColor: "#f4f3f3",
+    // },
   },
 });
 
