@@ -50,8 +50,6 @@ const MainPage = () => {
     });
   }, []);
 
-  console.log("data", data);
-
   return (
     <>
       {data && imageName && (
