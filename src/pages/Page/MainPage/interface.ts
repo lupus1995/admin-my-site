@@ -10,3 +10,8 @@ export interface ImageNameI {
   firstBlockBackgroundImage: string;
   aboutMePhoto: string;
 }
+
+export interface ImageI {
+  size: number;
+  file: string;
+}

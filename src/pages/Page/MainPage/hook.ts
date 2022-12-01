@@ -2,10 +2,10 @@ import { useMemo, useEffect, useState } from "react";
 
 import { useIsMediaQuery } from "utils/mediaQuery";
 
-import { getImages } from "./components/BackgroundImage/api";
-import { SIZES_FOR_FILES } from "./components/BackgroundImage/constants";
-import { findImage } from "./components/BackgroundImage/helpers";
-import { ImageI } from "./components/BackgroundImage/interface";
+import { getImages } from "./api";
+import { SIZES_FOR_FILES } from "./constants";
+import { findImage } from "./helpers";
+import { ImageI } from "./interface";
 
 export const useImages = ({ imageName }: { imageName: string }) => {
   const [images, setImages] = useState<ImageI[]>([]);
