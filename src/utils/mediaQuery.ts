@@ -8,6 +8,11 @@ export interface MediaQueryI {
     is1081?: boolean;
     is1367?: boolean;
     is1921?: boolean;
+
+    isMin1367AndMax1920?: boolean;
+    isMin1081AndMax1366?: boolean;
+    isMin721AndMax1080?: boolean;
+
     isMinDevicePixelRatio?: boolean;
   };
 }
@@ -19,6 +24,16 @@ export const useIsMediaQuery = () => {
   const is1081 = useMediaQuery({ query: "(min-width: 1081px)" });
   const is1367 = useMediaQuery({ query: "(min-width: 1367px)" });
   const is1921 = useMediaQuery({ query: "(min-width: 1921px)" });
+
+  const isMin1367AndMax1920 = useMediaQuery({
+    query: "(min-width: 1367px) and (max-width: 1920px)",
+  });
+  const isMin1081AndMax1366 = useMediaQuery({
+    query: "(min-width: 1081px) and (max-width: 1366px)",
+  });
+  const isMin721AndMax1080 = useMediaQuery({
+    query: "(min-width: 721px) and (max-width: 1080px)",
+  });
 
   const isMinDevicePixelRatio = useMediaQuery({
     query:
@@ -35,6 +50,11 @@ export const useIsMediaQuery = () => {
     is1081,
     is1367,
     is1921,
+
+    isMin1367AndMax1920,
+    isMin1081AndMax1366,
+    isMin721AndMax1080,
+
     isMinDevicePixelRatio,
   };
 };

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { get, getImageName } from "pages/Page/MainPage/api";
 
-import { Header, BackgroundImage, AboutMe } from "./components";
+import { Header, BackgroundImage, AboutMe, Portfolio } from "./components";
 import { MainPageI } from "./interface";
 
 const MainPage = () => {
@@ -65,6 +65,7 @@ const MainPage = () => {
             aboutMeTitle={data.aboutMeTitle}
             imageName={imageName.aboutMePhoto}
           />
+          <Portfolio />
         </>
       )}
     </>
