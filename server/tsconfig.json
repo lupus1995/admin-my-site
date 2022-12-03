@@ -9,7 +9,9 @@
         "jsx": "react",
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "utils/*": ["../src/utils/*"]
+            "utils/*": ["../src/utils/*"],
+            "commons/*": ["../src/commons/*"],
+            "pages/*": ["../src/pages/*"],
         }
     },
 }

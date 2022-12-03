@@ -10,6 +10,7 @@ import {
   AboutMe,
   Portfolio,
   Contacts,
+  Footer,
 } from "./components";
 import { MainPageI } from "./interface";
 
@@ -73,6 +74,7 @@ const MainPage = () => {
           />
           <Portfolio />
           <Contacts />
+          <Footer />
         </>
       )}
     </>
