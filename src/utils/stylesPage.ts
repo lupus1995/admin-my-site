@@ -47,11 +47,6 @@ const useStylesTag = createUseStyles({
       margin: 0,
       padding: 0,
     },
-    a: {
-      textDecoration: "none",
-      color: "#000",
-      fontSize: "22px",
-    },
     body: {
       fontSize: "16px",
       fontFamily: "Roboto",

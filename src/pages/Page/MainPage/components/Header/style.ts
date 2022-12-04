@@ -40,6 +40,7 @@ const useStyles = createUseStyles({
 
   navItemLink: {
     color: "#fff",
+    textDecoration: "none",
     fontSize: (props: MediaQueryI) => {
       const {
         theme: { is360, is481 },
