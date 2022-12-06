@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
+import classNames from "classnames";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
@@ -29,7 +30,17 @@ const HomeEditor: FC<{
       [x: string]: string;
     }>
   >;
-}> = ({ setValue, errors, isSubmitted, trigger, watch }) => {
+  isDisabled: boolean;
+  disabledClass: string;
+}> = ({
+  setValue,
+  errors,
+  isSubmitted,
+  trigger,
+  watch,
+  isDisabled,
+  disabledClass,
+}) => {
   const [isInitState, setIsInitState] = useState<boolean>(false);
   const [initState, setInitState] = useState(null);
   const stylesUtils = useStylesUtil();
@@ -75,7 +86,12 @@ const HomeEditor: FC<{
       <FormLabel>Описание блока обо мне</FormLabel>
       {isInitState && (
         <Editor
-          editorClassName={`${stylesUtils.input} ${stylesUtils.editor}`}
+          editorClassName={classNames(
+            `${stylesUtils.input} ${stylesUtils.editor}`,
+            {
+              [disabledClass]: isDisabled,
+            }
+          )}
           onEditorStateChange={handleEditorChange}
           toolbar={{
             image: {
@@ -83,6 +99,7 @@ const HomeEditor: FC<{
               uploadCallback,
             },
           }}
+          readOnly={isDisabled}
           defaultContentState={initState}
         />
       )}

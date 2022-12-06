@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
+import classNames from "classnames";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
@@ -30,6 +31,8 @@ const BlockImageInput: FC<{
   trigger: UseFormTrigger<FieldValues>;
   name: string;
   label: string;
+  isDisabled: boolean;
+  disabledClass: string;
 }> = ({
   register,
   setValue,
@@ -39,6 +42,8 @@ const BlockImageInput: FC<{
   name,
   label,
   watch,
+  isDisabled,
+  disabledClass,
 }) => {
   const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const [isInitValues, setIsInitValues] = useState<boolean>(false);
@@ -75,6 +80,9 @@ const BlockImageInput: FC<{
           dataURLKey="data_url"
           inputProps={{
             name,
+            className: classNames({
+              [disabledClass]: isDisabled,
+            }),
           }}
         >
           {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => {
@@ -82,7 +90,12 @@ const BlockImageInput: FC<{
               <div className="upload__image-wrapper">
                 {imageList.length === 0 && (
                   <button
-                    className={`${utilsStyles.button} ${styles.buttonUpload}`}
+                    className={classNames(
+                      `${utilsStyles.button} ${styles.buttonUpload}`,
+                      {
+                        [disabledClass]: isDisabled,
+                      }
+                    )}
                     type="button"
                     onClick={onImageUpload}
                   >
@@ -101,14 +114,21 @@ const BlockImageInput: FC<{
                     </FormRow>
                     <div className={styles.imageManage}>
                       <button
-                        className={`${utilsStyles.button} ${styles.imageManageMR}`}
+                        className={classNames(
+                          `${utilsStyles.button} ${styles.imageManageMR}`,
+                          {
+                            [disabledClass]: isDisabled,
+                          }
+                        )}
                         type="button"
                         onClick={() => onImageUpdate(index)}
                       >
                         Обновить
                       </button>
                       <button
-                        className={utilsStyles.button}
+                        className={classNames(`${utilsStyles.button}`, {
+                          [disabledClass]: isDisabled,
+                        })}
                         type="button"
                         onClick={() => onImageRemove(index)}
                       >

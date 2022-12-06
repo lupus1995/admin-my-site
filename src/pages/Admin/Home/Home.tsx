@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,9 +11,11 @@ import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
+import Title from "commons/Title";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
+import { useDisabled } from "../hooks";
 import { get, save } from "./api";
 import { HomeEditor, BlockImageInput } from "./components";
 import { HomeFormI } from "./interfaces";
@@ -33,20 +36,24 @@ const Home = () => {
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
+  const { disabledClass, setIsDisabled, isDisabled } = useDisabled();
   const [id, setId] = useState<string>("");
 
   const onSubmit = (data: HomeFormI) => {
-    save({ data, isEditForm, id }).then((response: ResponseI) => {
-      toast(response.message, {
-        type: response.status ? "success" : "error",
-        hideProgressBar: true,
-        theme: "colored",
-      });
+    setIsDisabled(true);
+    save({ data, isEditForm, id })
+      .then((response: ResponseI) => {
+        toast(response.message, {
+          type: response.status ? "success" : "error",
+          hideProgressBar: true,
+          theme: "colored",
+        });
 
-      if (response.redirectTo) {
-        navigate(response.redirectTo);
-      }
-    });
+        if (response.redirectTo) {
+          navigate(response.redirectTo);
+        }
+      })
+      .finally(() => setIsDisabled(false));
   };
 
   useEffect(() => {
@@ -87,7 +94,7 @@ const Home = () => {
   return (
     <Dashboard>
       <div>
-        <h3 className={styles.pageTitle}>Главная страница</h3>
+        <Title title="Главная страница" />
         {isInitForm && (
           <Form
             onSubmit={onSubmit}
@@ -104,12 +111,16 @@ const Home = () => {
               trigger={trigger}
               name="firstBlockBackgroundImage"
               label="Ссылка на картинку в первом блоке на главной странице"
+              isDisabled={isDisabled}
+              disabledClass={disabledClass}
             />
 
             <FormRow>
               <FormLabel>Заголовок в первом блоке</FormLabel>
               <input
-                className={stylesUtils.input}
+                className={classNames(`${stylesUtils.input}`, {
+                  [disabledClass]: isDisabled,
+                })}
                 type="text"
                 {...register("firstBlockTitle", {
                   required: "Поле обязательно",
@@ -121,7 +132,9 @@ const Home = () => {
             <FormRow>
               <FormLabel>Подзаголовок в первом блоке</FormLabel>
               <input
-                className={stylesUtils.input}
+                className={classNames(`${stylesUtils.input}`, {
+                  [disabledClass]: isDisabled,
+                })}
                 type="text"
                 {...register("firstBlockSubtitle", {
                   required: "Поле обязательно",
@@ -135,7 +148,9 @@ const Home = () => {
             <FormRow>
               <FormLabel>Заголовок блока обо мне</FormLabel>
               <input
-                className={stylesUtils.input}
+                className={classNames(`${stylesUtils.input}`, {
+                  [disabledClass]: isDisabled,
+                })}
                 type="text"
                 {...register("aboutMeTitle", { required: "Поле обязательно" })}
               />
@@ -149,6 +164,8 @@ const Home = () => {
               isSubmitted={isSubmitted}
               trigger={trigger}
               watch={watch}
+              isDisabled={isDisabled}
+              disabledClass={disabledClass}
             />
 
             <BlockImageInput
@@ -160,9 +177,14 @@ const Home = () => {
               trigger={trigger}
               name="aboutMePhoto"
               label="Ссылка на фото в блоке обо мне"
+              isDisabled={isDisabled}
+              disabledClass={disabledClass}
             />
 
-            <ButtonSubmit />
+            <ButtonSubmit
+              isDisabled={isDisabled}
+              disabledClass={disabledClass}
+            />
           </Form>
         )}
       </div>

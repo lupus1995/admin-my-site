@@ -1,5 +1,6 @@
 import React from "react";
 
+import classNames from "classnames";
 import { set } from "local-storage";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ import TextError from "commons/TextError";
 import { TokenI } from "utils/interfaces";
 import useUtilStyles from "utils/styles";
 
+import { useDisabled } from "../hooks";
 import { signin } from "./api";
 import { SignInI } from "./interfaces";
 import useStyles from "./style";
@@ -27,8 +29,10 @@ const SignIn = () => {
   } = useForm();
   const style = useStyles();
   const stylesUtil = useUtilStyles();
+  const { disabledClass, isDisabled, setIsDisabled } = useDisabled();
   const onSubmit = async (formData: SignInI) => {
     try {
+      setIsDisabled(true);
       const tokens: TokenI = await signin(formData);
       set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
@@ -43,6 +47,8 @@ const SignIn = () => {
       toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
       setError("username", { type: "custom", message: "" });
     }
+
+    setIsDisabled(false);
   };
   return (
     <Form
@@ -56,7 +62,9 @@ const SignIn = () => {
       <FormRow>
         <FormLabel>Имя пользователя</FormLabel>
         <input
-          className={stylesUtil.input}
+          className={classNames(`${stylesUtil.input}`, {
+            [disabledClass]: isDisabled,
+          })}
           type="text"
           {...register("username", { required: "Поле обязательно" })}
         />
@@ -66,7 +74,9 @@ const SignIn = () => {
       <FormRow>
         <FormLabel>Пароль</FormLabel>
         <input
-          className={stylesUtil.input}
+          className={classNames(`${stylesUtil.input}`, {
+            [disabledClass]: isDisabled,
+          })}
           type="password"
           {...register("password", { required: "Поле обязательно" })}
         />
@@ -74,7 +84,7 @@ const SignIn = () => {
       </FormRow>
 
       <FormRow>
-        <ButtonSubmit />
+        <ButtonSubmit isDisabled={isDisabled} disabledClass={disabledClass} />
       </FormRow>
 
       <div className={style.signupText}>

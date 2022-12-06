@@ -29,6 +29,17 @@ const useUtilsStyles = createUseStyles({
     width: "100%",
     marginTop: "15px",
   },
+  disabled: {
+    backgroundColor: "#ccc",
+    pointerEvents: "none",
+    opacity: "0.5",
+  },
+  dFlex: {
+    display: "flex",
+  },
+  flexColumn: {
+    flexDirection: "column",
+  },
 });
 
 export default useUtilsStyles;

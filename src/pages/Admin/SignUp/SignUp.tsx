@@ -1,5 +1,6 @@
 import React from "react";
 
+import classNames from "classnames";
 import { set } from "local-storage";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ import TextError from "commons/TextError";
 import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
+import { useDisabled } from "../hooks";
 import { signup } from "./api";
 import { SignUpI } from "./interfaces";
 import useStyles from "./style";
@@ -28,8 +30,10 @@ const SignUp = () => {
     formState: { errors },
     setError,
   } = useForm();
+  const { isDisabled, setIsDisabled, disabledClass } = useDisabled();
   const onSubmit = async (formData: SignUpI) => {
     try {
+      setIsDisabled(true);
       const tokens: TokenI = await signup(formData);
       set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
@@ -44,6 +48,8 @@ const SignUp = () => {
       toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
       setError("username", { type: "custom", message: "" });
     }
+
+    setIsDisabled(false);
   };
   const handleConfirmPassword = (confirmPassword: string) => {
     const password = watch("password");
@@ -66,7 +72,9 @@ const SignUp = () => {
       <FormRow>
         <FormLabel>Имя пользователя</FormLabel>
         <input
-          className={stylesUtil.input}
+          className={classNames(`${stylesUtil.input}`, {
+            [disabledClass]: isDisabled,
+          })}
           type="text"
           {...register("username", { required: "Поле обязательно" })}
         />
@@ -76,7 +84,9 @@ const SignUp = () => {
       <FormRow>
         <FormLabel>Пароль</FormLabel>
         <input
-          className={stylesUtil.input}
+          className={classNames(`${stylesUtil.input}`, {
+            [disabledClass]: isDisabled,
+          })}
           type="password"
           {...register("password", { required: "Поле обязательно" })}
         />
@@ -86,7 +96,9 @@ const SignUp = () => {
       <FormRow>
         <FormLabel>Повторите пароль</FormLabel>
         <input
-          className={stylesUtil.input}
+          className={classNames(`${stylesUtil.input}`, {
+            [disabledClass]: isDisabled,
+          })}
           type="password"
           {...register("confirmPassword", {
             required: "Поле обязательно",
@@ -97,7 +109,7 @@ const SignUp = () => {
       </FormRow>
 
       <FormRow>
-        <ButtonSubmit />
+        <ButtonSubmit isDisabled={isDisabled} disabledClass={disabledClass} />
       </FormRow>
 
       <div className={style.signupText}>

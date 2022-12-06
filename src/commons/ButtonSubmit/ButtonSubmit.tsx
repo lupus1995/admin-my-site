@@ -1,12 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
+
+import classNames from "classnames";
 
 import useStyles from "./style";
 
-const ButtonSubmit = () => {
+const ButtonSubmit: FC<{ isDisabled: boolean; disabledClass: string }> = ({
+  isDisabled,
+  disabledClass,
+}) => {
   const styles = useStyles();
 
   return (
-    <button className={styles.buttonSubmit} type="submit">
+    <button
+      className={classNames(`${styles.buttonSubmit}`, {
+        [disabledClass]: isDisabled,
+      })}
+      type="submit"
+    >
       Отправить
     </button>
   );
