@@ -7,6 +7,10 @@ export const urls = [
     to: "/admin/articles",
     text: "Статьи на сайте",
   },
+  {
+    to: "/admin/feedback",
+    text: "Обратная связь",
+  },
 ];
 
 export const urlsDependencies: { [key: string]: string[] } = {

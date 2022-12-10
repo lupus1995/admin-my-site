@@ -27,6 +27,10 @@ const useStyles = createUseStyles({
     width: "500px",
     margin: "0 auto",
   },
+
+  inputHidden: {
+    display: "none",
+  },
 });
 
 export default useStyles;
