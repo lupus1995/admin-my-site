@@ -19,7 +19,7 @@ import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
 import useStylesUtil from "utils/styles";
 
-const HomeEditor: FC<{
+const AdminEditor: FC<{
   setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   trigger: UseFormTrigger<FieldValues>;
@@ -32,6 +32,8 @@ const HomeEditor: FC<{
   >;
   isDisabled: boolean;
   disabledClass: string;
+  name: string;
+  label: string;
 }> = ({
   setValue,
   errors,
@@ -40,6 +42,8 @@ const HomeEditor: FC<{
   watch,
   isDisabled,
   disabledClass,
+  name,
+  label,
 }) => {
   const [isInitState, setIsInitState] = useState<boolean>(false);
   const [initState, setInitState] = useState(null);
@@ -59,15 +63,15 @@ const HomeEditor: FC<{
     const htmlPuri = draftToHtmlPuri(
       convertToRaw(editorState.getCurrentContent())
     );
-    setValue("aboutMeDescription", htmlPuri);
-    if (isSubmitted) trigger("aboutMeDescription");
+    setValue(name, htmlPuri);
+    if (isSubmitted) trigger(name);
   };
 
   // парсинг данных html в структуру данных для текстового редактора
   useEffect(() => {
     if (!isInitState) {
-      if (watch("aboutMeDescription")) {
-        const contentBlock = htmlToDraft(watch("aboutMeDescription"));
+      if (watch(name)) {
+        const contentBlock = htmlToDraft(watch(name));
 
         if (contentBlock) {
           const contentState = ContentState.createFromBlockArray(
@@ -79,11 +83,11 @@ const HomeEditor: FC<{
       }
       setIsInitState(!isInitState);
     }
-  }, [isInitState, watch]);
+  }, [isInitState, name, watch]);
 
   return (
     <FormRow>
-      <FormLabel>Описание блока обо мне</FormLabel>
+      <FormLabel>{label}</FormLabel>
       {isInitState && (
         <Editor
           editorClassName={classNames(
@@ -103,9 +107,9 @@ const HomeEditor: FC<{
           defaultContentState={initState}
         />
       )}
-      <TextError message={errors.aboutMeDescription?.message as string} />
+      <TextError message={errors[name]?.message as string} />
     </FormRow>
   );
 };
 
-export default HomeEditor;
+export default AdminEditor;

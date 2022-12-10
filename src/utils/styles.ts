@@ -14,13 +14,15 @@ const useUtilsStyles = createUseStyles({
   button: {
     color: "#fff",
     borderRadius: "5px",
-    width: "100%",
+    width: "auto",
     fontSize: "16px",
     textAlign: "center",
     backgroundColor: "#696cff",
     borderColor: "#696cff",
     padding: "7px 20px",
     border: "none",
+    textDecoration: "none",
+    cursor: "pointer",
   },
   textarea: {
     resize: "none",
@@ -39,6 +41,9 @@ const useUtilsStyles = createUseStyles({
   },
   flexColumn: {
     flexDirection: "column",
+  },
+  mr15: {
+    marginRight: "15px",
   },
 });
 

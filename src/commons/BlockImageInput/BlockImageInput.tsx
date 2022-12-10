@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
-  UseFormRegister,
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
@@ -19,7 +18,6 @@ import useUtilsStyles from "utils/styles";
 import useStyles from "./style";
 
 const BlockImageInput: FC<{
-  register: UseFormRegister<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
   errors: Partial<
@@ -34,7 +32,6 @@ const BlockImageInput: FC<{
   isDisabled: boolean;
   disabledClass: string;
 }> = ({
-  register,
   setValue,
   errors,
   trigger,
@@ -55,7 +52,7 @@ const BlockImageInput: FC<{
       if (nameValue) setCurrentValues([{ data_url: nameValue }]);
       setIsInitValues(!isInitValues);
     }
-  }, [register, name, isInitValues, watch]);
+  }, [name, isInitValues, watch]);
 
   const maxNumber = 1;
 

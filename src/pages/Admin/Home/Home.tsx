@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import AdminEditor from "commons/AdminEditor";
+import BlockImageInput from "commons/BlockImageInput";
 import ButtonSubmit from "commons/ButtonSubmit";
 import Dashboard from "commons/Dashboard";
 import Form from "commons/Form";
@@ -17,7 +19,6 @@ import useStylesUtil from "utils/styles";
 
 import { useDisabled } from "../hooks";
 import { get, save } from "./api";
-import { HomeEditor, BlockImageInput } from "./components";
 import { HomeFormI } from "./interfaces";
 import useStyles from "./style";
 
@@ -103,7 +104,6 @@ const Home = () => {
             className={`${styles.homeForm}`}
           >
             <BlockImageInput
-              register={register}
               watch={watch}
               setValue={setValue}
               errors={errors}
@@ -157,7 +157,7 @@ const Home = () => {
               <TextError message={errors.aboutMeTitle?.message as string} />
             </FormRow>
 
-            <HomeEditor
+            <AdminEditor
               register={register}
               setValue={setValue}
               errors={errors}
@@ -166,10 +166,11 @@ const Home = () => {
               watch={watch}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
+              name="aboutMeDescription"
+              label="Описание блока обо мне"
             />
 
             <BlockImageInput
-              register={register}
               watch={watch}
               setValue={setValue}
               errors={errors}

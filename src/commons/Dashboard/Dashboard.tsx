@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { set } from "local-storage";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { urls } from "./constants";
+import { urls, urlsDependencies } from "./constants";
 import useStyles from "./style";
 
 const Dashboard: FC = ({ children }) => {
@@ -33,7 +33,11 @@ const Dashboard: FC = ({ children }) => {
           {urls.map((item) => (
             <li
               className={classNames(style.dashboardLinkWrapper, {
-                [style.dashboardLinkActive]: activeLink === item.to,
+                [style.dashboardLinkActive]:
+                  activeLink === item.to ||
+                  urlsDependencies[item.to]?.find((urlDependence: string) =>
+                    urlDependence.search(location.pathname)
+                  ),
               })}
               key={item.to}
             >
