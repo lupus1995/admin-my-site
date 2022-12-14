@@ -45,6 +45,17 @@ const useUtilsStyles = createUseStyles({
   mr15: {
     marginRight: "15px",
   },
+
+  // стили для модального окна
+  modalHeaderContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  modalContent: {
+    margin: "15px 0",
+  },
 });
 
 export default useUtilsStyles;

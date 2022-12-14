@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import AdminModal from "commons/AdminModal";
 import Dashboard from "commons/Dashboard";
 import FormRow from "commons/FormRow";
+import MessageForEmptyList from "commons/MessageForEmptyList";
 import Title from "commons/Title";
 import useUtilsStyles from "utils/styles";
 
@@ -88,7 +89,7 @@ const ArticleList = () => {
           </button>
         </FormRow>
 
-        {articles.length === 0 && <h2>Статей нет</h2>}
+        {articles.length === 0 && <MessageForEmptyList message="Статей нет" />}
 
         {articles.length > 0 && (
           <div className={`${style.articlesContainer}`}>
@@ -129,7 +130,7 @@ const ArticleList = () => {
       </div>
 
       <AdminModal open={open}>
-        <div className={`${style.modalHeaderContainer}`}>
+        <div className={`${utilsStyles.modalHeaderContainer}`}>
           <h3>Удаление статьи</h3>
           <button
             className={classNames(`${utilsStyles.button}`)}
@@ -140,7 +141,7 @@ const ArticleList = () => {
           </button>
         </div>
 
-        <div className={`${style.modalContent}`}>
+        <div className={`${utilsStyles.modalContent}`}>
           <p>
             Вы действительно намерены удалить статью {deletedArticle?.title}?
           </p>

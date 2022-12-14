@@ -13,6 +13,7 @@ import {
   MainPage,
   SignIn,
   SignUp,
+  Feedback,
 } from "./pages";
 import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/admin/articles" element={<ArticleList />} />
         <Route path="/admin/articles/create" element={<ArticlesForm />} />
         <Route path="/admin/articles/edit/:id" element={<ArticlesForm />} />
+        <Route path="/admin/feedback" element={<Feedback />} />
       </Routes>
       <ToastContainer />
     </>

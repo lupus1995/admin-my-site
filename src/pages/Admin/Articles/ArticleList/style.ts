@@ -14,17 +14,6 @@ const useStyles = createUseStyles({
   articleTumbnail: {
     maxWidth: "100%",
   },
-
-  // стили для модального окна
-  modalHeaderContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
-  modalContent: {
-    margin: "15px 0",
-  },
 });
 
 export default useStyles;
