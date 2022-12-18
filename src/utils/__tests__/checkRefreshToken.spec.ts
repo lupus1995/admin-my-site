@@ -32,10 +32,16 @@ global.fetch = jest.fn(() =>
       }),
   })
 ) as jest.Mock;
+
+const trueResult = {
+  status: true,
+  message: "Токены обновлены.",
+  redirectTo: "/signin",
+};
 describe("check utils", () => {
   it("check refresh token", async () => {
     const result = await checkToken();
 
-    expect(result).toBeTruthy();
+    expect(JSON.stringify(result)).toBe(JSON.stringify(trueResult));
   });
 });

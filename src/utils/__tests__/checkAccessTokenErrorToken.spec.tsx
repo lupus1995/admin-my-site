@@ -4,7 +4,7 @@ import { checkToken } from "../apiTokens";
 
 /**
  * проверка токенов при наличии access токена
- * запрос удачно обновил токены, запрос на обновление токенов не было
+ * запрос на обновление токенов пришел с отрицательным ответом
  */
 jest.mock("local-storage", () => {
   const module = jest.requireActual("local-storage");
@@ -24,19 +24,23 @@ jest.mock("local-storage", () => {
   };
 });
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () =>
-      Promise.resolve({
-        accessToken: "accessToken",
-        refreshToken: "refreshToken",
-      }),
-  })
-) as jest.Mock;
+global.fetch = jest.fn((path) => {
+  if (path === "http://localhost:3000/auth/access") {
+    return Promise.resolve({
+      json: () => Promise.resolve(false),
+    });
+  }
+
+  if (path === "http://localhost:3000/auth/refresh")
+    return Promise.resolve({
+      status: 403,
+    });
+}) as jest.Mock;
 
 const trueResult = {
-  status: { accessToken: "accessToken", refreshToken: "refreshToken" },
-  message: "Токены обновлены.",
+  status: false,
+  message: "Токены просрочены, авторизуйтесь пожалуйста.",
+  redirectTo: "/signin",
 };
 
 describe("check utils", () => {

@@ -16,10 +16,16 @@ jest.mock("local-storage", () => {
   };
 });
 
+const trueResult = {
+  status: false,
+  message: "Токены просрочены, авторизуйтесь пожалуйста.",
+  redirectTo: "/signin",
+};
+
 describe("check utils", () => {
   it("empty token", async () => {
     const result = await checkToken();
 
-    expect(result).toBeFalsy();
+    expect(JSON.stringify(result)).toBe(JSON.stringify(trueResult));
   });
 });
