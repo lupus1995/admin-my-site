@@ -67,7 +67,6 @@ const ArticleList = () => {
 
         navigate(result.redirectTo);
       }
-
       if (result.responseBody) {
         setArticles(result.responseBody);
       }
