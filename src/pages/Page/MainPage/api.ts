@@ -2,7 +2,7 @@ import { HomeFormI } from "pages/Admin/Home/interfaces";
 import { URL } from "utils/constants";
 import { ResponseI } from "utils/interfaces";
 
-import { ImageI } from "./interface";
+import { ImageI, ImageNameI } from "./interface";
 
 // получение данных с бекенда для главной страницы
 export const get = async ({
@@ -33,7 +33,7 @@ export const get = async ({
 };
 
 // получение данных об имени картинок на главной странице
-export const getImageName = async (): Promise<ResponseI<HomeFormI | void>> => {
+export const getImageName = async (): Promise<ResponseI<ImageNameI | void>> => {
   const response = await fetch(`${URL}/main-page/imageName`, {
     method: "get",
     headers: {
