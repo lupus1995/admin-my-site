@@ -1,0 +1,34 @@
+import React from "react";
+
+import { render } from "@testing-library/react";
+
+import EmptyList from "../EmptyList";
+import { EmptyListI } from "../interface";
+
+describe("EmptyList", () => {
+  let baseProps: EmptyListI;
+  beforeEach(() => {
+    baseProps = {
+      disabledClass: "disabledClass",
+      isDisabled: false,
+      onImageUpload: jest.fn,
+      classesForButton: "classesForButton",
+    };
+  });
+  it("check render button", () => {
+    const { getByText } = render(<EmptyList {...baseProps} />);
+
+    expect(getByText(/Загрузить картинку/i)).toBeInTheDocument();
+    expect(getByText(/Загрузить картинку/i)).not.toHaveClass("disabledClass");
+  });
+
+  it("check render disabled button", () => {
+    const props: EmptyListI = {
+      ...baseProps,
+      isDisabled: true,
+    };
+    const { getByText } = render(<EmptyList {...props} />);
+
+    expect(getByText(/Загрузить картинку/i)).toHaveClass("disabledClass");
+  });
+});
