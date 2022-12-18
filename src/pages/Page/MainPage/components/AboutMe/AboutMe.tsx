@@ -7,13 +7,14 @@ import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { useImages } from "../../hook";
+import { AboutMeI } from "./interface";
 import useStyles from "./style";
 
-const AboutMe: FC<{
-  aboutMeDescription: string;
-  aboutMeTitle: string;
-  imageName: string;
-}> = ({ aboutMeDescription, aboutMeTitle, imageName }) => {
+const AboutMe: FC<AboutMeI> = ({
+  aboutMeDescription,
+  aboutMeTitle,
+  imageName,
+}) => {
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
