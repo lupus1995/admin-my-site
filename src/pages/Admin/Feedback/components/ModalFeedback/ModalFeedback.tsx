@@ -11,12 +11,12 @@ import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
 import { deleteFeedback } from "../../api";
-import { FeedbackI } from "../../interface";
+import { ModalFeedbackI } from "./interface";
 
-const ModalFeedback: FC<{
-  selected: FeedbackI[];
-  handleClearFeedback: () => void;
-}> = ({ selected, handleClearFeedback }) => {
+const ModalFeedback: FC<ModalFeedbackI> = ({
+  selected,
+  handleClearFeedback,
+}) => {
   const utilsStyles = useUtilsStyles();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
@@ -44,6 +44,7 @@ const ModalFeedback: FC<{
         handleCloseModal();
       });
   };
+
   return (
     <>
       {selected.length > 0 && (
