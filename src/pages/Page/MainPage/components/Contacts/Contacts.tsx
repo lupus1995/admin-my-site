@@ -46,6 +46,7 @@ const Contacts = () => {
           <input
             className={`${style.input} ${style.inputHidden}`}
             type="text"
+            data-testid="falseField"
             id="falseField"
             {...register("falseField")}
           />
@@ -80,6 +81,7 @@ const Contacts = () => {
 
           <div className={`${style.inputWrapper}`}>
             <input
+              data-testid="submit"
               className={`${style.input} ${style.inputSubmit}`}
               type="submit"
               id="submit"
