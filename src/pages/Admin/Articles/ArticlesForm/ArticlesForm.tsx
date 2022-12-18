@@ -131,6 +131,7 @@ const ArticlesForm = () => {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
+                role="textbox"
                 {...register("title", {
                   required: "Поле обязательно",
                 })}
@@ -201,7 +202,7 @@ const ArticlesForm = () => {
               isSubmitted={isSubmitted}
             />
             <AdminCheckbox
-              isDisabled={isDisabled}
+              isDisabled
               disabledClass={disabledClass}
               name="hidePublishedArticle"
               setValue={setValue}
