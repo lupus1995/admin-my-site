@@ -9,8 +9,7 @@ import Title from "commons/Title";
 import useUtilsStyles from "utils/styles";
 
 import { getFeedback } from "./api";
-import FeedbackTable from "./components/FeedbackTable";
-import ModalFeedback from "./components/ModalFeedback/ModalFeedback";
+import { FeedbackTable, ModalFeedback } from "./components";
 import { FeedbackI } from "./interface";
 
 const Feedback = () => {
