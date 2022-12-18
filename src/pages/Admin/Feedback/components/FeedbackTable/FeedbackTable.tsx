@@ -7,13 +7,13 @@ import { useTable, Column } from "react-table";
 import FormRow from "commons/FormRow";
 import MessageForEmptyList from "commons/MessageForEmptyList";
 
-import { FeedbackI } from "../../interface";
+import { FeedbackTableI } from "./inteface";
 
-const FeedbackTable: FC<{
-  feedback: FeedbackI[];
-  selected: FeedbackI[];
-  setSelected: React.Dispatch<React.SetStateAction<FeedbackI[]>>;
-}> = ({ feedback, selected, setSelected }) => {
+const FeedbackTable: FC<FeedbackTableI> = ({
+  feedback,
+  selected,
+  setSelected,
+}) => {
   const columns: Column<{
     _id: string;
     username: string;
@@ -25,17 +25,18 @@ const FeedbackTable: FC<{
 
         accessor: "_id",
         Cell: ({ value }: { value: string }) => {
-          const hasSelectedFeedback = selected
+          const hasSelectedFeedback = [...selected]
             .map((item) => item._id)
             .includes(value);
 
           const onChange = () => {
-            // console.log("valueCheckbox", valueFromCheckbox);
             if (!hasSelectedFeedback) {
-              const feedbackItem = feedback.find((item) => item._id === value);
+              const feedbackItem = [...feedback].find(
+                (item) => item._id === value
+              );
               setSelected([...selected, feedbackItem]);
             } else {
-              setSelected(selected.filter((item) => item._id !== value));
+              setSelected([...selected].filter((item) => item._id !== value));
             }
           };
 
