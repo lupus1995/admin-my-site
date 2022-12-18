@@ -1,37 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
 
 import classNames from "classnames";
-import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
-import { FieldValues } from "react-hook-form/dist/types/fields";
-import {
-  UseFormSetValue,
-  UseFormTrigger,
-  UseFormWatch,
-} from "react-hook-form/dist/types/form";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
-import useUtilsStyles from "utils/styles";
 
+import { EmptyList, ListWithItem } from "./components";
+import { BlockImageInputI } from "./interface";
 import useStyles from "./style";
 
-const BlockImageInput: FC<{
-  watch: UseFormWatch<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
-  errors: Partial<
-    FieldErrorsImpl<{
-      [x: string]: string;
-    }>
-  >;
-  isSubmitted: boolean;
-  trigger: UseFormTrigger<FieldValues>;
-  name: string;
-  label: string;
-  isDisabled: boolean;
-  disabledClass: string;
-}> = ({
+const BlockImageInput: FC<BlockImageInputI> = ({
   setValue,
   errors,
   trigger,
@@ -44,7 +24,6 @@ const BlockImageInput: FC<{
 }) => {
   const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const [isInitValues, setIsInitValues] = useState<boolean>(false);
-  const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   useEffect(() => {
     const nameValue = watch(name);
@@ -86,53 +65,25 @@ const BlockImageInput: FC<{
             return (
               <div className="upload__image-wrapper">
                 {imageList.length === 0 && (
-                  <button
-                    className={classNames(
-                      `${utilsStyles.button} ${styles.buttonUpload}`,
-                      {
-                        [disabledClass]: isDisabled,
-                      }
-                    )}
-                    type="button"
-                    onClick={onImageUpload}
-                  >
-                    Загрузить картинку
-                  </button>
+                  <EmptyList
+                    onImageUpload={onImageUpload}
+                    disabledClass={disabledClass}
+                    isDisabled={isDisabled}
+                    classesForButton={styles.buttonUpload}
+                  />
                 )}
 
                 {imageList.map((image, index) => (
-                  <div key={index} className="image-item">
-                    <FormRow>
-                      <img
-                        className={`${styles.image}`}
-                        src={image?.data_url}
-                        alt={label}
-                      />
-                    </FormRow>
-                    <div className={styles.imageManage}>
-                      <button
-                        className={classNames(
-                          `${utilsStyles.button} ${styles.imageManageMR}`,
-                          {
-                            [disabledClass]: isDisabled,
-                          }
-                        )}
-                        type="button"
-                        onClick={() => onImageUpdate(index)}
-                      >
-                        Обновить
-                      </button>
-                      <button
-                        className={classNames(`${utilsStyles.button}`, {
-                          [disabledClass]: isDisabled,
-                        })}
-                        type="button"
-                        onClick={() => onImageRemove(index)}
-                      >
-                        Удалить
-                      </button>
-                    </div>
-                  </div>
+                  <ListWithItem
+                    key={index}
+                    disabledClass={disabledClass}
+                    isDisabled={isDisabled}
+                    image={image}
+                    label={label}
+                    onImageUpdate={onImageUpdate}
+                    onImageRemove={onImageRemove}
+                    index={index}
+                  />
                 ))}
               </div>
             );
