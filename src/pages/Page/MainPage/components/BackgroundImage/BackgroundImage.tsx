@@ -6,13 +6,14 @@ import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { useImages } from "../../hook";
+import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
 
-const BackgroundImage: FC<{
-  imageName: string;
-  firstBlockTitle: string;
-  firstBlockSubtitle: string;
-}> = ({ imageName, firstBlockTitle, firstBlockSubtitle }) => {
+const BackgroundImage: FC<BackgroundImageI> = ({
+  imageName,
+  firstBlockTitle,
+  firstBlockSubtitle,
+}) => {
   const { is360, is481, is721 } = useIsMediaQuery();
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
