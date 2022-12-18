@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import Modal from "react-modal";
 
-Modal.setAppElement("#modal");
+// Modal.setAppElement("#modal");
 
 const customStyles = {
   content: {
@@ -17,7 +17,12 @@ const customStyles = {
 
 const AdminModal: FC<{ open: boolean }> = ({ open, children }) => {
   return (
-    <Modal isOpen={open} style={customStyles} contentLabel="Example Modal">
+    <Modal
+      ariaHideApp={false}
+      isOpen={open}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
       {children}
     </Modal>
   );
