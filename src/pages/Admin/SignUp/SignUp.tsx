@@ -68,7 +68,7 @@ const SignUp = () => {
       formPosition="center"
       isCenter
     >
-      <h1 className={style.signupTitle}>Регистрация</h1>
+      <h1 className={style.signupTitle}>Регистрация 6666</h1>
       <FormRow>
         <FormLabel>Имя пользователя</FormLabel>
         <input

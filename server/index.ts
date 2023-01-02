@@ -1,11 +1,11 @@
-import path from 'path';
+import path from "path";
 
 // игнорируем импорты `.scss`
-require('ignore-styles').default(['.sass', '.scss', '.css']);
+require("ignore-styles").default([".sass", ".scss", ".css"]);
 
 // транспилируем на лету импорты
-require('@babel/register')({
-  configFile: path.resolve(__dirname, '../../babel.config.js'),
+require("@babel/register")({
+  configFile: path.resolve(__dirname, "../../babel.config.js"),
 });
 
-require('./express.js');
+require("./express.js");

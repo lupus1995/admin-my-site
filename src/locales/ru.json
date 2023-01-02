@@ -1,0 +1,6 @@
+{
+    "translation": {
+        "test": "Тестовая строка {{name}}",
+        "adminPanel": "Админка"
+    }
+}

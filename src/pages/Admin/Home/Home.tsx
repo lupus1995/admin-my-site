@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -34,6 +35,7 @@ const Home = () => {
     setValue,
     trigger,
   } = useForm();
+  const { t, i18n } = useTranslation();
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
@@ -95,6 +97,7 @@ const Home = () => {
   return (
     <Dashboard>
       <div>
+        {t("test", { name: "на русском языке" })}
         <Title title="Главная страница" />
         {isInitForm && (
           <Form
@@ -157,7 +160,7 @@ const Home = () => {
               <TextError message={errors.aboutMeTitle?.message as string} />
             </FormRow>
 
-            <AdminEditor
+            {/* <AdminEditor
               register={register}
               setValue={setValue}
               errors={errors}
@@ -168,7 +171,7 @@ const Home = () => {
               disabledClass={disabledClass}
               name="aboutMeDescription"
               label="Описание блока обо мне"
-            />
+            /> */}
 
             <BlockImageInput
               watch={watch}

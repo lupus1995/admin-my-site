@@ -2,8 +2,10 @@ import React, { FC, useCallback, useState } from "react";
 
 import classNames from "classnames";
 import { set } from "local-storage";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { SwitchLanguage } from "./components";
 import { urls } from "./constants";
 import { getRootParentLink } from "./helpers";
 import { LinkI } from "./interface";
@@ -32,6 +34,7 @@ const Dashboard: FC = ({ children }) => {
     set("accessToken", "");
     set("refreshToken", "");
   }, [navigation]);
+  const { t } = useTranslation();
 
   return (
     <main className={style.pageWrapper}>
@@ -41,7 +44,7 @@ const Dashboard: FC = ({ children }) => {
             `${style.dashboardLogo} ${style.dashboardLinkWrapper}`
           )}
         >
-          Админка
+          {t("adminPanel")}
         </p>
         <ul>
           {urls
@@ -69,6 +72,7 @@ const Dashboard: FC = ({ children }) => {
                 </li>
               );
             })}
+          <SwitchLanguage />
           <li className={classNames(style.dashboardLinkWrapper)}>
             <button
               onClick={handleExit}

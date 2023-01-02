@@ -3,6 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
+import "./i18n";
+
 import App from "./App";
 
 /**

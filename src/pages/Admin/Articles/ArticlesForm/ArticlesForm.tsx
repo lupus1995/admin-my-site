@@ -18,6 +18,7 @@ import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
 import { useDisabled } from "pages/Admin/hooks";
+import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
@@ -164,18 +165,18 @@ const ArticlesForm = () => {
               disabledClass={disabledClass}
             />
 
-            <AdminEditor
-              register={register}
-              setValue={setValue}
-              errors={errors}
-              isSubmitted={isSubmitted}
-              trigger={trigger}
-              watch={watch}
-              isDisabled={isDisabled}
-              disabledClass={disabledClass}
-              name="text"
-              label="Текст статьи"
-            />
+            {/* <AdminEditor
+                register={register}
+                setValue={setValue}
+                errors={errors}
+                isSubmitted={isSubmitted}
+                trigger={trigger}
+                watch={watch}
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+                name="text"
+                label="Текст статьи"
+              /> */}
 
             <FormRow>
               <FormLabel>Ключевые слова статьи</FormLabel>

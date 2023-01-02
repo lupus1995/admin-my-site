@@ -1,3 +1,7 @@
+import { get } from "local-storage";
+
+import { defaultLanguage, supportLanguages } from "./constants";
+
 export const getCircularReplacer = () => {
   const seen = new WeakSet();
   return (key: string, value: unknown) => {
@@ -9,4 +13,17 @@ export const getCircularReplacer = () => {
     }
     return value;
   };
+};
+
+export const getCurrentLanguager = () => {
+  const languageFromLocalStorage: string = get("i18nextLng") || "";
+  const currentLanguage = supportLanguages.includes(languageFromLocalStorage)
+    ? languageFromLocalStorage
+    : defaultLanguage;
+
+  return currentLanguage;
+};
+
+export const hasWindow = () => {
+  return Boolean(window);
 };

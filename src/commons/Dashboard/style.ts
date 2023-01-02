@@ -42,6 +42,13 @@ const useStyles = createUseStyles({
     border: "none",
     padding: 0,
     cursor: "pointer",
+    textAlign: "left",
+  },
+  languageSeparator: {
+    margin: "0 15px",
+  },
+  activeLanguage: {
+    textDecoration: "underline",
   },
 });
 
