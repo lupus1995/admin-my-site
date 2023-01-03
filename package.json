@@ -8,7 +8,6 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:dev": "npx tsc --p server/tsconfig.json && tsc-alias -p server/tsconfig.json",
     "dev": "npm run build:dev && nodemon -q server/dist/server/index.js --ignore '*.scss'",
-    "prod": "nodemon -q server/dist/app.js",
     "test": "jest"
   },
   "jest": {

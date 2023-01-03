@@ -1,3 +1,9 @@
+// import path from "path";
+
+// import HtmlWebpackPlugin from "html-webpack-plugin";
+// import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+// import HTMLInlineCSSWebpackPlugin
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");

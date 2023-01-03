@@ -12,7 +12,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./resetDefaultStylesBrowsers.css";
 import "./roboto.css";
 
-const MainPage = React.lazy(() => import("./pages/Page/MainPage"));
+import MainPage from "./pages/Page/MainPage";
+
 const SignUp = React.lazy(() => import("./pages/Admin/SignUp"));
 const SignIn = React.lazy(() => import("./pages/Admin/SignIn"));
 const Home = React.lazy(() => import("./pages/Admin/Home"));
