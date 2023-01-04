@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
+import { get as getLodash } from "lodash";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +14,14 @@ import Dashboard from "commons/Dashboard";
 import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
+import SpaceBetween from "commons/SpaceBetween";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
 import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
-import { useDisabled } from "../hooks";
+import { useDisabled, useUpdateTextError } from "../hooks";
 import { get, save } from "./api";
 import { HomeFormI } from "./interfaces";
 import useStyles from "./style";
@@ -37,6 +39,7 @@ const Home = () => {
     trigger,
   } = useForm();
   const { t } = useTranslation();
+  useUpdateTextError({ trigger, isSubmitted });
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
@@ -63,10 +66,14 @@ const Home = () => {
   useEffect(() => {
     if (!isInitForm) {
       register("firstBlockBackgroundImage", { required: t("selectedFile") });
-      register("firstBlockTitle", { required: t("requiredText") });
-      register("firstBlockSubtitle", { required: t("requiredText") });
-      register("aboutMeTitle", { required: t("requiredText") });
-      register("aboutMeDescription", { required: t("requiredText") });
+      register("firstBlockTitle.ru", { required: t("requiredText") });
+      register("firstBlockTitle.en", { required: t("requiredText") });
+      register("firstBlockSubtitle.ru", { required: t("requiredText") });
+      register("firstBlockSubtitle.en", { required: t("requiredText") });
+      register("aboutMeTitle.ru", { required: t("requiredText") });
+      register("aboutMeTitle.en", { required: t("requiredText") });
+      register("aboutMeDescription.ru", { required: t("requiredText") });
+      register("aboutMeDescription.en", { required: t("requiredText") });
       register("aboutMePhoto", { required: t("selectedFile") });
 
       get()
@@ -116,48 +123,138 @@ const Home = () => {
               label={t("firstBlockBackgroundImageLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
+              register={register}
             />
 
             <FormRow>
               <FormLabel>{t("firstBlockTitleLabel")}</FormLabel>
-              <input
-                className={classNames(`${stylesUtils.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                {...register("firstBlockTitle", {
-                  required: t("requiredText"),
-                })}
-              />
-              <TextError message={errors.firstBlockTitle?.message as string} />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("firstBlockTitle.ru", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "firstBlockTitle.ru")?.message as string
+                  }
+                />
+              </FormRow>
+
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("firstBlockTitle.en", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "firstBlockTitle.en")?.message as string
+                  }
+                />
+              </FormRow>
             </FormRow>
 
             <FormRow>
               <FormLabel>{t("firstBlockSubtitleLabel")}</FormLabel>
-              <input
-                className={classNames(`${stylesUtils.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                {...register("firstBlockSubtitle", {
-                  required: t("requiredText"),
-                })}
-              />
-              <TextError
-                message={errors.firstBlockSubtitle?.message as string}
-              />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("firstBlockSubtitle.ru", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "firstBlockSubtitle.ru")
+                      ?.message as string
+                  }
+                />
+              </FormRow>
+
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("firstBlockSubtitle.en", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "firstBlockSubtitle.en")
+                      ?.message as string
+                  }
+                />
+              </FormRow>
             </FormRow>
 
             <FormRow>
               <FormLabel>{t("aboutMeTitleLabel")}</FormLabel>
-              <input
-                className={classNames(`${stylesUtils.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                {...register("aboutMeTitle", { required: t("requiredText") })}
-              />
-              <TextError message={errors.aboutMeTitle?.message as string} />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("aboutMeTitle.ru", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "aboutMeTitle.ru")?.message as string
+                  }
+                />
+              </FormRow>
+
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${stylesUtils.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("aboutMeTitle.en", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={
+                    getLodash(errors, "aboutMeTitle.en")?.message as string
+                  }
+                />
+              </FormRow>
             </FormRow>
 
             {hasWindow() && (
@@ -170,8 +267,25 @@ const Home = () => {
                 watch={watch}
                 isDisabled={isDisabled}
                 disabledClass={disabledClass}
-                name="aboutMeDescription"
+                name="aboutMeDescription.ru"
                 label={t("aboutMeDescriptionLabel")}
+                language="ru"
+              />
+            )}
+
+            {hasWindow() && (
+              <AdminEditor
+                register={register}
+                setValue={setValue}
+                errors={errors}
+                isSubmitted={isSubmitted}
+                trigger={trigger}
+                watch={watch}
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+                name="aboutMeDescription.en"
+                label={t("aboutMeDescriptionLabel")}
+                language="en"
               />
             )}
 
@@ -185,6 +299,7 @@ const Home = () => {
               label={t("aboutMePhotoLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
+              register={register}
             />
 
             <ButtonSubmit

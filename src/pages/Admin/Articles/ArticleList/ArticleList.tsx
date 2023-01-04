@@ -17,7 +17,7 @@ import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
 import useStyles from "./style";
 
 const ArticleList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -103,9 +103,13 @@ const ArticleList = () => {
                   <img
                     className={style.articleTumbnail}
                     src={article.thumbnail}
-                    alt={article.title}
+                    // @ts-ignore+
+                    alt={article.title[i18n.language]}
                   />
-                  <h3 className="articleTitle">{article.title}</h3>
+                  <h3 className="articleTitle">
+                    {/* @ts-ignore */}
+                    {article.title[i18n.language]}
+                  </h3>
                   <span className="articleDescription">
                     {article.description}
                   </span>

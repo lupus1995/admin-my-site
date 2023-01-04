@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
@@ -14,6 +15,7 @@ const BackgroundImage: FC<BackgroundImageI> = ({
   firstBlockTitle,
   firstBlockSubtitle,
 }) => {
+  const { i18n } = useTranslation();
   const { is360, is481, is721 } = useIsMediaQuery();
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
@@ -29,9 +31,13 @@ const BackgroundImage: FC<BackgroundImageI> = ({
       <div
         className={classNames(`${stylesPage.wrapper} ${stylesPage.container}`)}
       >
-        <h1 className={classNames(`${styles.title}`)}>{firstBlockTitle}</h1>
+        <h1 className={classNames(`${styles.title}`)}>
+          {/* @ts-ignore */}
+          {firstBlockTitle[i18n.language]}
+        </h1>
         <h2 className={classNames(`${styles.subtitle}`)}>
-          {firstBlockSubtitle}
+          {/* @ts-ignore */}
+          {firstBlockSubtitle[i18n.language]}
         </h2>
       </div>
     </div>

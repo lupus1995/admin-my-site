@@ -1,6 +1,7 @@
 import {
   FieldErrorsImpl,
   FieldValues,
+  UseFormRegister,
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
@@ -20,4 +21,5 @@ export interface BlockImageInputI {
   label: string;
   isDisabled: boolean;
   disabledClass: string;
+  register: UseFormRegister<FieldValues>;
 }

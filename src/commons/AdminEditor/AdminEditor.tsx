@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
+import { get } from "lodash";
 import { Editor } from "react-draft-wysiwyg";
 import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 import { FieldValues } from "react-hook-form/dist/types/fields";
@@ -13,10 +14,12 @@ import {
   UseFormTrigger,
   UseFormWatch,
 } from "react-hook-form/dist/types/form";
+import { useTranslation } from "react-i18next";
 
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
+import { usePrevious } from "utils/hooks";
 import useStylesUtil from "utils/styles";
 
 const AdminEditor: FC<{
@@ -34,6 +37,7 @@ const AdminEditor: FC<{
   disabledClass: string;
   name: string;
   label: string;
+  language: string;
 }> = ({
   setValue,
   errors,
@@ -44,7 +48,12 @@ const AdminEditor: FC<{
   disabledClass,
   name,
   label,
+  register,
+  language,
 }) => {
+  const { t, i18n } = useTranslation();
+  const prevLng = usePrevious(i18n.language);
+
   const [isInitState, setIsInitState] = useState<boolean>(false);
   const [initState, setInitState] = useState(null);
   const stylesUtils = useStylesUtil();
@@ -85,9 +94,17 @@ const AdminEditor: FC<{
     }
   }, [isInitState, name, watch]);
 
+  useEffect(() => {
+    if (prevLng !== i18n.language) {
+      register(name, { required: t("requiredText") });
+    }
+  }, [i18n.language, name, prevLng, register, t]);
+
   return (
     <FormRow>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel>
+        {label}, {language}
+      </FormLabel>
       {isInitState && (
         <Editor
           editorClassName={classNames(
@@ -107,7 +124,7 @@ const AdminEditor: FC<{
           defaultContentState={initState}
         />
       )}
-      <TextError message={errors[name]?.message as string} />
+      <TextError message={get(errors, name)?.message as string} />
     </FormRow>
   );
 };

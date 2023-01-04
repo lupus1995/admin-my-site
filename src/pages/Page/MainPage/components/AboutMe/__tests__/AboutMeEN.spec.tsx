@@ -15,17 +15,36 @@ jest.mock("pages/Page/MainPage/hook", () => {
   };
 });
 
+jest.mock("react-i18next", () => {
+  const module = jest.requireActual("react-i18next");
+
+  return {
+    ...module,
+    useTranslation: () => ({
+      i18n: {
+        language: "en",
+      },
+    }),
+  };
+});
+
 describe("AboutMe", () => {
   it("check render component", () => {
     const props: AboutMeI = {
-      aboutMeDescription: "aboutMeDescription",
-      aboutMeTitle: "aboutMeTitle",
+      aboutMeDescription: {
+        ru: "aboutMeDescriptionRU",
+        en: "aboutMeDescriptionEN",
+      },
+      aboutMeTitle: {
+        ru: "aboutMeTitleRU",
+        en: "aboutMeTitleEN",
+      },
       imageName: "useImages",
     };
     const { getByText, getByAltText } = render(<AboutMe {...props} />);
 
-    expect(getByText(/aboutMeTitle/i)).toBeInTheDocument();
-    expect(getByText(/aboutMeDescription/i)).toBeInTheDocument();
+    expect(getByText(/aboutMeTitleEN/i)).toBeInTheDocument();
+    expect(getByText(/aboutMeDescriptionEN/i)).toBeInTheDocument();
     expect(getByAltText(/Панфилов Александр/i)).toBeInTheDocument();
   });
 });

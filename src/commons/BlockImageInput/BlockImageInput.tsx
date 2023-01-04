@@ -1,11 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
+import { useUpdateTextError } from "pages/Admin/hooks";
 
 import { EmptyList, ListWithItem } from "./components";
 import { BlockImageInputI } from "./interface";
@@ -21,7 +23,10 @@ const BlockImageInput: FC<BlockImageInputI> = ({
   watch,
   isDisabled,
   disabledClass,
+  register,
 }) => {
+  const { t } = useTranslation();
+  useUpdateTextError({ trigger, isSubmitted });
   const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const [isInitValues, setIsInitValues] = useState<boolean>(false);
   const styles = useStyles();
@@ -31,7 +36,8 @@ const BlockImageInput: FC<BlockImageInputI> = ({
       if (nameValue) setCurrentValues([{ data_url: nameValue }]);
       setIsInitValues(!isInitValues);
     }
-  }, [name, isInitValues, watch]);
+    register(name, { required: t("selectedFile") });
+  }, [name, isInitValues, watch, register, t]);
 
   const maxNumber = 1;
 

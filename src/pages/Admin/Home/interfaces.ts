@@ -1,9 +1,11 @@
+import { LanguageI } from "utils/interfaces";
+
 export interface HomeFormI {
   firstBlockBackgroundImage: string;
-  firstBlockTitle: string;
-  firstBlockSubtitle: string;
-  aboutMeTitle: string;
-  aboutMeDescription: string;
+  firstBlockTitle: LanguageI;
+  firstBlockSubtitle: LanguageI;
+  aboutMeTitle: LanguageI;
+  aboutMeDescription: LanguageI;
   aboutMePhoto: string;
   _id?: string;
 }

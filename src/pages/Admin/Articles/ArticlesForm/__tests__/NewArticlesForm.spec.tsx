@@ -58,32 +58,49 @@ jest.mock("commons/AdminCheckbox", () => () => <span>AdminCheckbox</span>);
 
 describe("NewArticlesForm", () => {
   it("check render component", async () => {
-    const { getByText, findByText, findAllByRole } = render(<ArticlesForm />);
+    const { getByText, findByText, findAllByRole, findAllByText } = render(
+      <ArticlesForm />
+    );
 
     const inputs = await findAllByRole("textbox");
-    const title = inputs.find(
-      (input: HTMLInputElement) => input.name === "title"
+    const titleRu = inputs.find(
+      (input: HTMLInputElement) => input.name === "title.ru"
     );
-    const description = inputs.find(
-      (input: HTMLInputElement) => input.name === "description"
+    const descriptionRu = inputs.find(
+      (input: HTMLInputElement) => input.name === "description.ru"
     );
-    const keyWords = inputs.find(
-      (input: HTMLInputElement) => input.name === "keyWords"
+    const keyWordsRu = inputs.find(
+      (input: HTMLInputElement) => input.name === "keyWords.ru"
     );
+
+    const titleEn = inputs.find(
+      (input: HTMLInputElement) => input.name === "title.en"
+    );
+    const descriptionEn = inputs.find(
+      (input: HTMLInputElement) => input.name === "description.en"
+    );
+    const keyWordsEn = inputs.find(
+      (input: HTMLInputElement) => input.name === "keyWords.en"
+    );
+
+    const adminEditor = await findAllByText(/AdminEditor/i);
 
     expect(getByText(/createdArticle/i));
 
     expect(await findByText(/firstBlockTitleLabel/i));
-    expect(title).toBeInTheDocument();
+    expect(titleRu).toBeInTheDocument();
+    expect(titleEn).toBeInTheDocument();
 
     expect(await findByText(/descriptionLabel/i));
-    expect(description).toBeInTheDocument();
+    expect(descriptionRu).toBeInTheDocument();
+    expect(descriptionEn).toBeInTheDocument();
 
     expect(await findByText(/BlockImageInput/i)).toBeInTheDocument();
-    expect(await findByText(/AdminEditor/i)).toBeInTheDocument();
+    expect(adminEditor.length).toBe(2);
 
     expect(await findByText(/keyWordsLabel/i)).toBeInTheDocument();
-    expect(keyWords).toBeInTheDocument();
+    expect(keyWordsRu).toBeInTheDocument();
+    expect(keyWordsEn).toBeInTheDocument();
 
     expect(await findByText(/AdminDatePicker/i)).toBeInTheDocument();
     expect(await findByText(/AdminCheckbox/i)).toBeInTheDocument();
@@ -98,6 +115,6 @@ describe("NewArticlesForm", () => {
 
     const errors = await findAllByText(/requiredText/i);
 
-    expect(errors.length).toBe(3);
+    expect(errors.length).toBe(6);
   });
 });

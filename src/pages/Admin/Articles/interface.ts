@@ -1,9 +1,11 @@
+import { LanguageI } from "utils/interfaces";
+
 export interface ArticleI {
-  title: string;
-  description: string;
+  title: LanguageI;
+  description: LanguageI;
   thumbnail: string;
-  text: string;
-  keyWords: string;
+  text: LanguageI;
+  keyWords: LanguageI;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

@@ -9,3 +9,8 @@ export interface ResponseI<T = void> {
   redirectTo?: string;
   responseBody?: T;
 }
+
+export interface LanguageI {
+  en: string;
+  ru: string;
+}

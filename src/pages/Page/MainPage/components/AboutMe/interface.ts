@@ -1,5 +1,7 @@
+import { LanguageI } from "utils/interfaces";
+
 export interface AboutMeI {
-  aboutMeDescription: string;
-  aboutMeTitle: string;
+  aboutMeDescription: LanguageI;
+  aboutMeTitle: LanguageI;
   imageName: string;
 }

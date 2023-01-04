@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
+import { get } from "lodash";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,10 +17,12 @@ import Dashboard from "commons/Dashboard";
 import Form from "commons/Form";
 import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
+import SpaceBetween from "commons/SpaceBetween";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
 import { useDisabled } from "pages/Admin/hooks";
 import { hasWindow } from "utils/helpers";
+import { usePrevious } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
@@ -28,7 +31,7 @@ import { saveArticle, getArticle } from "./api";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -45,6 +48,8 @@ const ArticlesForm = () => {
     setValue,
     trigger,
   } = useForm();
+
+  const prevLng = usePrevious(i18n.language);
 
   const utilsStyles = useUtilsStyles();
 
@@ -75,11 +80,14 @@ const ArticlesForm = () => {
 
   useEffect(() => {
     if (!isInitForm) {
-      register("title", { required: t("requiredText") });
-      register("description", { required: t("requiredText") });
-      register("thumbnail", { required: t("selectedFile") });
-      register("text", { required: t("requiredText") });
-      register("keyWords", { required: t("requiredText") });
+      register("title.ru", { required: t("requiredText") });
+      register("title.en", { required: t("requiredText") });
+      register("description.ru", { required: t("requiredText") });
+      register("description.en", { required: t("requiredText") });
+      register("text.ru", { required: t("requiredText") });
+      register("text.en", { required: t("requiredText") });
+      register("keyWords.ru", { required: t("requiredText") });
+      register("keyWords.en", { required: t("requiredText") });
       register("publishedAt", { required: t("requiredText") });
       register("createdAt");
       register("updatedAt");
@@ -116,6 +124,13 @@ const ArticlesForm = () => {
     }
   }, [id, isInitForm, navigate, register, setValue, t]);
 
+  // обновление сообщений если поменяли язык
+  useEffect(() => {
+    if (prevLng !== i18n.language && isSubmitted) {
+      trigger();
+    }
+  }, [errors, i18n.language, isSubmitted, prevLng, trigger]);
+
   return (
     <Dashboard>
       <div>
@@ -129,30 +144,80 @@ const ArticlesForm = () => {
           >
             <FormRow>
               <FormLabel>{t("firstBlockTitleLabel")}</FormLabel>
-              <input
-                className={classNames(`${utilsStyles.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                role="textbox"
-                {...register("title", {
-                  required: t("requiredText"),
-                })}
-              />
-              <TextError message={errors.title?.message as string} />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    role="textbox"
+                    {...register("title.ru", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "title.ru")?.message as string}
+                />
+              </FormRow>
+
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    role="textbox"
+                    {...register("title.en", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "title.en")?.message as string}
+                />
+              </FormRow>
             </FormRow>
             <FormRow>
               <FormLabel>{t("descriptionLabel")}</FormLabel>
-              <input
-                className={classNames(`${utilsStyles.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                {...register("description", {
-                  required: t("requiredText"),
-                })}
-              />
-              <TextError message={errors.description?.message as string} />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("description.ru", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "description.ru")?.message as string}
+                />
+              </FormRow>
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("description.en", {
+                      required: t("requiredText"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "description.en")?.message as string}
+                />
+              </FormRow>
             </FormRow>
 
             <BlockImageInput
@@ -165,6 +230,7 @@ const ArticlesForm = () => {
               label={t("thumbnailLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
+              register={register}
             />
 
             {hasWindow() && (
@@ -177,23 +243,64 @@ const ArticlesForm = () => {
                 watch={watch}
                 isDisabled={isDisabled}
                 disabledClass={disabledClass}
-                name="text"
+                name="text.ru"
                 label={t("textLabel")}
+                language="ru"
+              />
+            )}
+
+            {hasWindow() && (
+              <AdminEditor
+                register={register}
+                setValue={setValue}
+                errors={errors}
+                isSubmitted={isSubmitted}
+                trigger={trigger}
+                watch={watch}
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+                name="text.en"
+                label={t("textLabel")}
+                language="en"
               />
             )}
 
             <FormRow>
               <FormLabel>{t("keyWordsLabel")}</FormLabel>
-              <input
-                className={classNames(`${utilsStyles.input}`, {
-                  [disabledClass]: isDisabled,
-                })}
-                type="text"
-                {...register("keyWords", {
-                  required: t("requiredText"),
-                })}
-              />
-              <TextError message={errors.keyWords?.message as string} />
+              <FormRow>
+                <SpaceBetween>
+                  <span>ru</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("keyWords.ru", {
+                      required: t("requiredText.ru"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "keyWords.ru")?.message as string}
+                />
+              </FormRow>
+              <FormRow>
+                <SpaceBetween>
+                  <span>en</span>
+                  <input
+                    className={classNames(`${utilsStyles.input}`, {
+                      [disabledClass]: isDisabled,
+                    })}
+                    type="text"
+                    {...register("keyWords.en", {
+                      required: t("requiredText.en"),
+                    })}
+                  />
+                </SpaceBetween>
+                <TextError
+                  message={get(errors, "keyWords.en")?.message as string}
+                />
+              </FormRow>
             </FormRow>
             <AdminDatePicker
               disabledClass={disabledClass}

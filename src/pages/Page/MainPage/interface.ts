@@ -1,8 +1,10 @@
+import { LanguageI } from "utils/interfaces";
+
 export interface MainPageI {
-  firstBlockSubtitle: string;
-  firstBlockTitle: string;
-  aboutMeTitle: string;
-  aboutMeDescription: string;
+  firstBlockSubtitle: LanguageI;
+  firstBlockTitle: LanguageI;
+  aboutMeTitle: LanguageI;
+  aboutMeDescription: LanguageI;
   firstBlockBackgroundImage: string;
 }
 
