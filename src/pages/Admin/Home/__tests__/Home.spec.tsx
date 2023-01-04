@@ -71,19 +71,19 @@ describe("Home", () => {
       (item: HTMLInputElement) => item.name === "aboutMeTitle"
     );
 
-    expect(getByText(/Главная страница/i)).toBeInTheDocument();
+    expect(getByText(/mainPage/i)).toBeInTheDocument();
     expect(BlockImageInput.length).toBe(2);
 
-    expect(getByText("Заголовок в первом блоке")).toBeInTheDocument();
+    expect(getByText("firstBlockTitleLabel")).toBeInTheDocument();
     expect(firstBlockTitle).toBeInTheDocument();
 
-    expect(getByText(/Подзаголовок в первом блоке/i)).toBeInTheDocument();
+    expect(getByText(/firstBlockSubtitleLabel/i)).toBeInTheDocument();
     expect(firstBlockSubtitle).toBeInTheDocument();
 
-    expect(getByText(/Заголовок блока обо мне/i)).toBeInTheDocument();
+    expect(getByText(/aboutMeTitleLabel/i)).toBeInTheDocument();
     expect(aboutMeTitle).toBeInTheDocument();
 
     expect(getByText(/AdminEditor/i)).toBeInTheDocument();
-    expect(getByText(/Отправить/i)).toBeInTheDocument();
+    expect(getByText(/submit/i)).toBeInTheDocument();
   });
 });

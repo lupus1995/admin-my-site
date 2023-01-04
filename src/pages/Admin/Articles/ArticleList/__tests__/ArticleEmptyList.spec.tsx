@@ -38,6 +38,6 @@ jest.mock("pages/Admin/Articles/ArticleList/api", () => {
 describe("ArticleList", () => {
   it("check render empty list", async () => {
     const { findByText } = render(<ArticleList />);
-    expect(await findByText(/Статей нет/i)).toBeInTheDocument();
+    expect(await findByText(/emptyArticle/i)).toBeInTheDocument();
   });
 });

@@ -39,8 +39,8 @@ describe("FeedbackTable", () => {
   it("check render component with data", () => {
     const { getByText } = render(<FeedbackTable {...baseProps} />);
 
-    expect(getByText(/Имя/i)).toBeInTheDocument();
-    expect(getByText(/Сообщение/i)).toBeInTheDocument();
+    expect(getByText(/feedbackName/i)).toBeInTheDocument();
+    expect(getByText(/feedbackMessage/i)).toBeInTheDocument();
 
     expect(getByText(/username1/i)).toBeInTheDocument();
     expect(getByText(/username2/i)).toBeInTheDocument();
@@ -60,6 +60,6 @@ describe("FeedbackTable", () => {
 
     const { getByText } = render(<FeedbackTable {...props} />);
 
-    expect(getByText(/Записей с обратной связью нет/i)).toBeInTheDocument();
+    expect(getByText(/feedbackEmpty/i)).toBeInTheDocument();
   });
 });

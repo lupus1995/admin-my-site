@@ -18,25 +18,25 @@ describe("SignIn", () => {
   it("check render component", () => {
     const { getByText, getByRole } = render(<SignIn />);
 
-    expect(getByText(/Авторизация/i)).toBeInTheDocument();
+    expect(getByText(/signinTitle/i)).toBeInTheDocument();
 
-    expect(getByText(/Имя пользователя/i)).toBeInTheDocument();
+    expect(getByText(/username/i)).toBeInTheDocument();
     expect(getByRole("textbox")).toBeInTheDocument();
 
-    expect(getByText(/Пароль/i)).toBeInTheDocument();
+    expect(getByText(/password/i)).toBeInTheDocument();
 
-    expect(getByText(/Отправить/i)).toBeInTheDocument();
+    expect(getByText(/submit/i)).toBeInTheDocument();
 
-    expect(getByText(/Вы не имеете аккаунт?/i)).toBeInTheDocument();
-    expect(getByText(/Зарегистрируйтесь/i)).toBeInTheDocument();
+    expect(getByText(/hasNoAccount/i)).toBeInTheDocument();
+    expect(getByText(/register/i)).toBeInTheDocument();
   });
 
   it("check has erros", async () => {
     const { getByText, findAllByText } = render(<SignIn />);
 
-    fireEvent.click(getByText(/Отправить/i));
+    fireEvent.click(getByText(/submit/i));
 
-    const errors = await findAllByText(/Поле обязательно/i);
+    const errors = await findAllByText(/requiredText/i);
 
     expect(errors.length).toBe(2);
   });

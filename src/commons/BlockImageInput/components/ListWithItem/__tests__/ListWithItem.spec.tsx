@@ -21,8 +21,8 @@ describe("ListWithItem", () => {
   it("render component", () => {
     const { getByAltText, getByText } = render(<ListWithItem {...baseProps} />);
 
-    expect(getByText(/Обновить/i)).toBeInTheDocument();
-    expect(getByText(/Удалить/i)).toBeInTheDocument();
+    expect(getByText(/update/i)).toBeInTheDocument();
+    expect(getByText(/delete/i)).toBeInTheDocument();
     expect(getByAltText(/label/i)).toBeInTheDocument();
   });
 
@@ -34,6 +34,6 @@ describe("ListWithItem", () => {
 
     const { getByText } = render(<ListWithItem {...props} />);
 
-    expect(getByText(/Удалить/i)).toHaveClass("disabledClass");
+    expect(getByText(/delete/i)).toHaveClass("disabledClass");
   });
 });

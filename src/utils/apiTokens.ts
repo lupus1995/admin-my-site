@@ -43,8 +43,8 @@ export const getTokens = (): {
 
 export const checkToken = async (): Promise<ResponseI> => {
   const { accessToken, refreshToken } = getTokens();
-  const successMessage = "Токены обновлены.";
-  const errorMessage = "Токены просрочены, авторизуйтесь пожалуйста.";
+  const successMessage = "successToken";
+  const errorMessage = "errorToken";
 
   // нет access и refresh токенов
   if (!accessToken && !refreshToken) {

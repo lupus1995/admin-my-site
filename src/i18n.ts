@@ -16,6 +16,7 @@ const resources = {
   ru,
 };
 
+// eslint-disable-next-line import/no-named-as-default-member
 i18n
   .use(Backend)
   .use(LanguageDetector)

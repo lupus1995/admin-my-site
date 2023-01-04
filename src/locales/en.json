@@ -1,6 +1,81 @@
 {
     "translation": {
         "test": "Testing string {{name}}",
-        "adminPanel": "Admin panel"
+        
+        "adminPanel": "Admin panel",
+        "mainPage": "Main page",
+        "articlesOnSite": "Articles on site",
+        "feedback": "Feedback",
+        "exit": "Exit",
+
+        "successToken": "Tokens updated",
+        "errorToken": "Tokens expired, please log in",
+         
+        "firstBlockBackgroundImageLabel": "Link to the image in the first block on the main page",
+        "firstBlockTitleLabel": "Title in the first block",
+        "requiredText": "Field required",
+        "selectedFile": "Selected file",
+        "firstBlockSubtitleLabel": "Subheading in the first block",
+        "aboutMeTitleLabel": "Block header about me",
+        "aboutMeDescriptionLabel": "About me block description",
+        "aboutMePhotoLabel": "Link to the photo in the about me block",
+        "submit": "Submit",
+
+        "update": "Update",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "loadImage": "Upload picture",
+
+        "errorSaveForm": "Error saving form, please try again later",
+        "successSaveForm": "Form saved successfully",
+        "getErrorData": "Error getting form data, please try again later",
+
+        "errorGetArticles": "Error getting list of articles",
+        "errorDeleteArticle": "An error occurred while deleting the article, please try again later",
+        "successDeleteArticle": "Article deleted successfully",
+
+        "createArticle": "Create article",
+        "emptyArticle": "No articles",
+        "deteleArticle": "Deleting an article",
+        "deleteArticleText": "Are you sure you want to delete the article {{title}}?",
+        "errorGetArticle": "Error getting article data",
+        "errorSaveArticle": "Error saving form, please try again later",
+
+        "createdArticle": "Article creation",
+        "editedArticle": "Editing an article",
+
+        "descriptionLabel": "Article description",
+        "thumbnailLabel": "Article preview",
+        "textLabel": "Article text",
+        "keyWordsLabel": "Article keywords",
+        "publishedAtLabel": "Publication date",
+        "hidePublishedArticleLabel": "Hide published article",
+
+        "errorGetFeedbacks": "Error getting list of records with feedback",
+        "errorByDeleteFeedback": "Error when deleting a list of records with feedback",
+        "successByDeleteFeedback": "Highlighted feedback entries removed",
+
+        "feedbackName": "Name",
+        "feedbackMessage": "Message",
+        "feedbackEmpty": "No postings with feedback",
+
+        "feedbackModalTitle": "Delete selected posts with feedback?",
+        "feedbackModalSubtitle": "Do you really intend to remove the highlighted post from the back connection?",
+
+        "signInSuccess": "You have successfully logged in",
+        "successRegister": "You have successfully registered an account",
+
+        "signinTitle": "Sign in",
+        "signupTitle": "Sign up",
+
+        "usernameLabel": "Username",
+        "passwordLabel": "Password",
+        "repeatPasswordLabel": "Confirm password",
+        "hasNoAccount": "You don't have an account?",
+        "hasAccount": "Do you have an account?",
+        "register": "Register",
+        "login": "Login",
+        "passwordDontRepeat": "Passwords don't match"
     }
 }

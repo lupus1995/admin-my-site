@@ -43,7 +43,7 @@ describe("Feedback", () => {
   it("check render component", async () => {
     const { findByText } = render(<Feedback />);
 
-    expect(await findByText(/Обратная связь/i)).toBeInTheDocument();
+    expect(await findByText("feedback")).toBeInTheDocument();
     expect(await findByText(/FeedbackTable/i)).toBeInTheDocument();
     expect(await findByText(/ModalFeedback/i)).toBeInTheDocument();
   });

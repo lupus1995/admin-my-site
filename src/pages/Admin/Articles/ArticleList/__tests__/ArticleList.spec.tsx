@@ -53,28 +53,26 @@ describe("ArticleList", () => {
   it("check render component", async () => {
     const { getByText, findByAltText, findByText } = render(<ArticleList />);
 
-    expect(getByText(/Статьи на сайте/i)).toBeInTheDocument();
-    expect(getByText(/Создать статью/)).toBeInTheDocument();
+    expect(getByText(/articlesOnSite/i)).toBeInTheDocument();
+    expect(getByText(/createArticle/)).toBeInTheDocument();
     expect(await findByAltText(/title/i)).toBeInTheDocument();
     expect(await findByText(/title/i)).toBeInTheDocument();
     expect(await findByText(/description/i)).toBeInTheDocument();
     expect(await findByText(/description/i)).toBeInTheDocument();
-    expect(await findByText(/Редактировать/i)).toBeInTheDocument();
-    expect(await findByText(/Удалить/i)).toBeInTheDocument();
+    expect(await findByText(/edit/i)).toBeInTheDocument();
+    expect(await findByText(/delete/i)).toBeInTheDocument();
   });
 
   it("check render modal", async () => {
     const { findByText, findAllByText } = render(<ArticleList />);
 
-    userEvent.click(await findByText(/Удалить/i));
+    userEvent.click(await findByText(/delete/i));
 
-    expect(await findByText(/Удаление статьи/i)).toBeInTheDocument();
-    expect(
-      await findByText(/Вы действительно намерены удалить статью/i)
-    ).toBeInTheDocument();
-    const buttons = await findAllByText(/Удалить/i);
+    expect(await findByText(/deteleArticle/i)).toBeInTheDocument();
+    expect(await findByText(/deleteArticleText/i)).toBeInTheDocument();
+    const buttons = await findAllByText(/delete/i);
 
     expect(buttons[2]).toBeInTheDocument();
-    expect(await findByText(/Отмена/i)).toBeInTheDocument();
+    expect(await findByText(/cancel/i)).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 import useStyles from "./style";
 
@@ -8,6 +9,7 @@ const ButtonSubmit: FC<{ isDisabled: boolean; disabledClass: string }> = ({
   isDisabled,
   disabledClass,
 }) => {
+  const { t } = useTranslation();
   const styles = useStyles();
 
   return (
@@ -17,7 +19,7 @@ const ButtonSubmit: FC<{ isDisabled: boolean; disabledClass: string }> = ({
       })}
       type="submit"
     >
-      Отправить
+      {t("submit")}
     </button>
   );
 };

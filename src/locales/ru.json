@@ -1,6 +1,82 @@
 {
     "translation": {
         "test": "Тестовая строка {{name}}",
-        "adminPanel": "Админка"
+
+        "adminPanel": "Админка",
+        "mainPage": "Главная страница",
+        "articlesOnSite": "Статьи на сайте",
+        "feedback": "Обратная связь",
+        "exit": "Выйти",
+
+        "successToken": "Токены обновлены",
+        "errorToken": "Токены просрочены, авторизуйтесь пожалуйста",
+        
+        "firstBlockBackgroundImageLabel": "Ссылка на картинку в первом блоке на главной странице",
+        "firstBlockTitleLabel": "Заголовок в первом блоке",
+        "requiredText": "Поле обязательно",
+        "selectedFile": "Выберите файл",
+        "firstBlockSubtitleLabel": "Подзаголовок в первом блоке",
+        "aboutMeTitle": "Заголовок блока обо мне",
+        "aboutMeDescription": "Описание блока обо мне",
+        "aboutMePhotoLabel": "Ссылка на фото в блоке обо мне",
+        "submit": "Отправить",
+
+        "update": "Обновить",
+        "edit": "Редактировать",
+        "delete": "Удалить",
+        "cancel": "Отмена",
+        "loadImage": "Загрузить картинку",
+
+        "errorSaveForm": "Ошибка сохранения формы, попробуйте позже",
+        "successSaveForm": "Форма успешно сохранена",
+        "getErrorData": "Ошибка получени данных для формы, попробуйте позже",
+
+        "errorGetArticles": "Ошибка при получении списка статей",
+        "errorDeleteArticle": "Во время удаления статьи произошла ошибка, попробуйте позже",
+        "successDeleteArticle": "Статья успешно удалена",
+
+        "createArticle": "Создать статью",
+        "emptyArticle": "Статей нет",
+        "deteleArticle": "Удаление статьи",
+        "deleteArticleText": "Вы действительно намерены удалить статью {{title}}?",
+        "errorGetArticle": "Ошибка при получении данных о статье",
+        "errorSaveArticle": "Ошибка сохранения формы, попробуйте позже",
+
+        "createdArticle": "Создание статьи",
+        "editedArticle": "Редактирование статьи",
+
+        "descriptionLabel": "Описание статьи",
+        "thumbnailLabel": "Превью статьи",
+        "textLabel": "Текст статьи",
+        "keyWordsLabel": "Ключевые слова статьи",
+        "publishedAtLabel": "Дата публикации",
+        "hidePublishedArticleLabel": "Скрыть опубликованную статью",
+
+        "errorGetFeedbacks": "Ошибка при получении списка записей с обратной связью",
+        "errorByDeleteFeedback": "Ошибка при удалении списка записей с обратной связью",
+        "successByDeleteFeedback": "Выделенные записи обратной связи удалены",
+
+        "feedbackName": "Имя",
+        "feedbackMessage": "Сообщение",
+        "feedbackEmpty": "Записей с обратной связью нет",
+
+        "feedbackModalTitle": "Удалить выделенные записи с обратной связью?",
+        "feedbackModalSubtitle": "Вы действительно намерены удалить статью выделнные записи с обратной связью?",
+
+        "signInSuccess": "Вы успешно авторизовались",
+        "successRegister": "Вы успешно зарегистрировали аккаунт",
+
+        "signinTitle": "Авторизация",
+        "signupTitle": "Регистрация",
+
+        "usernameLabel": "Имя пользователя",
+        "passwordLabel": "Пароль",
+        "repeatPasswordLabel": "Повторите пароль",
+        "hasNoAccount": "Вы не имеете аккаунт?",
+        "hasAccount": "Вы имеете аккаунт?",
+        "register": "Зарегистрируйтесь",
+        "login": "Авторизуйтесь",
+        "passwordDontRepeat": "Пароли не сопадают"
+        
     }
 }

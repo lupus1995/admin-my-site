@@ -3,12 +3,12 @@ import { LinkI } from "./interface";
 export const urls: LinkI[] = [
   {
     to: "/admin",
-    text: "Главная страница",
+    text: "mainPage",
     parent: null,
   },
   {
     to: "/admin/articles",
-    text: "Статьи на сайте",
+    text: "articlesOnSite",
     parent: null,
   },
   {
@@ -23,7 +23,7 @@ export const urls: LinkI[] = [
   },
   {
     to: "/admin/feedback",
-    text: "Обратная связь",
+    text: "feedback",
     parent: null,
   },
 ];

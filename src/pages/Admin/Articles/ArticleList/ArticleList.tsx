@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -16,6 +17,7 @@ import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
 import useStyles from "./style";
 
 const ArticleList = () => {
+  const { t } = useTranslation();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -37,8 +39,8 @@ const ArticleList = () => {
 
   const deleteArticle = () => {
     deletedArticleRequest(deletedArticle._id).then((result) => {
-      const successMessage = "Статья успешно удалена";
-      toast(result.status ? successMessage : result.message, {
+      const successMessage = "successDeleteArticle";
+      toast(t(result.status ? successMessage : result.message), {
         type: result.status ? "success" : "error",
         hideProgressBar: true,
         theme: "colored",
@@ -59,7 +61,7 @@ const ArticleList = () => {
   useEffect(() => {
     getArticles().then((result) => {
       if (!result.status) {
-        toast(result.message, {
+        toast(t(result.message), {
           type: "error",
           hideProgressBar: true,
           theme: "colored",
@@ -71,12 +73,13 @@ const ArticleList = () => {
         setArticles(result.responseBody);
       }
     });
-  }, [navigate]);
+  }, [navigate, t]);
+
   return (
     <Dashboard>
       <div className={`${utilsStyles.dFlex} ${utilsStyles.flexColumn}`}>
         <FormRow>
-          <Title title="Статьи на сайте" />
+          <Title title={t("articlesOnSite")} />
         </FormRow>
         <FormRow>
           <button
@@ -84,11 +87,13 @@ const ArticleList = () => {
             className={classNames(`${utilsStyles.button}`)}
             type="button"
           >
-            Создать статью
+            {t("createArticle")}
           </button>
         </FormRow>
 
-        {articles.length === 0 && <MessageForEmptyList message="Статей нет" />}
+        {articles.length === 0 && (
+          <MessageForEmptyList message={t("emptyArticle")} />
+        )}
 
         {articles.length > 0 && (
           <div className={`${style.articlesContainer}`}>
@@ -110,7 +115,7 @@ const ArticleList = () => {
                     className={`${utilsStyles.button} ${utilsStyles.mr15}`}
                     to={`/admin/articles/edit/${article._id}`}
                   >
-                    Редактировать
+                    {t("edit")}
                   </Link>
                   <button
                     onClick={() => {
@@ -119,7 +124,7 @@ const ArticleList = () => {
                     className={utilsStyles.button}
                     type="button"
                   >
-                    Удалить
+                    {t("delete")}
                   </button>
                 </div>
               </article>
@@ -130,7 +135,7 @@ const ArticleList = () => {
 
       <AdminModal open={open}>
         <div className={`${utilsStyles.modalHeaderContainer}`}>
-          <h3>Удаление статьи</h3>
+          <h3>{t("deteleArticle")}</h3>
           <button
             className={classNames(`${utilsStyles.button}`)}
             type="button"
@@ -141,9 +146,7 @@ const ArticleList = () => {
         </div>
 
         <div className={`${utilsStyles.modalContent}`}>
-          <p>
-            Вы действительно намерены удалить статью {deletedArticle?.title}?
-          </p>
+          <p>{t("deleteArticleText", { title: deletedArticle?.title })}</p>
         </div>
         <div>
           <button
@@ -151,14 +154,14 @@ const ArticleList = () => {
             className={classNames(`${utilsStyles.button} ${utilsStyles.mr15}`)}
             type="button"
           >
-            Удалить
+            {t("delete")}
           </button>
           <button
             onClick={handleCloseModal}
             className={classNames(`${utilsStyles.button}`)}
             type="button"
           >
-            Отмена
+            {t("cancel")}
           </button>
         </div>
       </AdminModal>

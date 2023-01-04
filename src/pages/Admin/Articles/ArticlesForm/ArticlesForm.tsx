@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -27,6 +28,7 @@ import { saveArticle, getArticle } from "./api";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -48,17 +50,17 @@ const ArticlesForm = () => {
 
   const titleText = useMemo(() => {
     if (id) {
-      return "Редактирование статьи";
+      return t("editedArticle");
     }
 
-    return "Создание статьи";
-  }, [id]);
+    return t("createdArticle");
+  }, [id, t]);
 
   const onSubmit = (data: ArticleI) => {
     setIsDisabled(true);
     saveArticle(data)
       .then((response: ResponseI) => {
-        toast(response.message, {
+        toast(t(response.message), {
           type: response.status ? "success" : "error",
           hideProgressBar: true,
           theme: "colored",
@@ -73,12 +75,12 @@ const ArticlesForm = () => {
 
   useEffect(() => {
     if (!isInitForm) {
-      register("title", { required: "Поле обязательно" });
-      register("description", { required: "Поле обязательно" });
-      register("thumbnail", { required: "Выберите файл" });
-      register("text", { required: "Поле обязательно" });
-      register("keyWords", { required: "Поле обязательно" });
-      register("publishedAt", { required: "Поле обязательно" });
+      register("title", { required: t("requiredText") });
+      register("description", { required: t("requiredText") });
+      register("thumbnail", { required: t("selectedFile") });
+      register("text", { required: t("requiredText") });
+      register("keyWords", { required: t("requiredText") });
+      register("publishedAt", { required: t("requiredText") });
       register("createdAt");
       register("updatedAt");
       register("hidePublishedArticle");
@@ -87,7 +89,7 @@ const ArticlesForm = () => {
         getArticle({ id })
           .then((result) => {
             if (!result.status) {
-              toast(result.message, {
+              toast(t(result.message), {
                 type: "error",
                 hideProgressBar: true,
                 theme: "colored",
@@ -112,7 +114,7 @@ const ArticlesForm = () => {
         setIsInitForm(true);
       }
     }
-  }, [id, isInitForm, navigate, register, setValue]);
+  }, [id, isInitForm, navigate, register, setValue, t]);
 
   return (
     <Dashboard>
@@ -126,7 +128,7 @@ const ArticlesForm = () => {
             className={`${styles.articlesForm}`}
           >
             <FormRow>
-              <FormLabel>Заголовок в первом блоке</FormLabel>
+              <FormLabel>{t("firstBlockTitleLabel")}</FormLabel>
               <input
                 className={classNames(`${utilsStyles.input}`, {
                   [disabledClass]: isDisabled,
@@ -134,20 +136,20 @@ const ArticlesForm = () => {
                 type="text"
                 role="textbox"
                 {...register("title", {
-                  required: "Поле обязательно",
+                  required: t("requiredText"),
                 })}
               />
               <TextError message={errors.title?.message as string} />
             </FormRow>
             <FormRow>
-              <FormLabel>Описание статьи</FormLabel>
+              <FormLabel>{t("descriptionLabel")}</FormLabel>
               <input
                 className={classNames(`${utilsStyles.input}`, {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
                 {...register("description", {
-                  required: "Поле обязательно",
+                  required: t("requiredText"),
                 })}
               />
               <TextError message={errors.description?.message as string} />
@@ -160,12 +162,13 @@ const ArticlesForm = () => {
               isSubmitted={isSubmitted}
               trigger={trigger}
               name="thumbnail"
-              label="Превью статьи"
+              label={t("thumbnailLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
             />
 
-            {/* <AdminEditor
+            {hasWindow() && (
+              <AdminEditor
                 register={register}
                 setValue={setValue}
                 errors={errors}
@@ -175,18 +178,19 @@ const ArticlesForm = () => {
                 isDisabled={isDisabled}
                 disabledClass={disabledClass}
                 name="text"
-                label="Текст статьи"
-              /> */}
+                label={t("textLabel")}
+              />
+            )}
 
             <FormRow>
-              <FormLabel>Ключевые слова статьи</FormLabel>
+              <FormLabel>{t("keyWordsLabel")}</FormLabel>
               <input
                 className={classNames(`${utilsStyles.input}`, {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
                 {...register("keyWords", {
-                  required: "Поле обязательно",
+                  required: t("requiredText"),
                 })}
               />
               <TextError message={errors.keyWords?.message as string} />
@@ -198,7 +202,7 @@ const ArticlesForm = () => {
               defaultValue={watch("publishedAt")}
               setValue={setValue}
               name="publishedAt"
-              label="Дата публикации"
+              label={t("publishedAtLabel")}
               trigger={trigger}
               isSubmitted={isSubmitted}
             />
@@ -208,7 +212,7 @@ const ArticlesForm = () => {
               name="hidePublishedArticle"
               setValue={setValue}
               value={watch("hidePublishedArticle")}
-              label="Скрыть опубликованную статью"
+              label={t("hidePublishedArticleLabel")}
             />
 
             <ButtonSubmit

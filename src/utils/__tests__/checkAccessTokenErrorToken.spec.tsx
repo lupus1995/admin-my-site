@@ -39,7 +39,7 @@ global.fetch = jest.fn((path) => {
 
 const trueResult = {
   status: false,
-  message: "Токены просрочены, авторизуйтесь пожалуйста.",
+  message: "errorToken",
   redirectTo: "/signin",
 };
 

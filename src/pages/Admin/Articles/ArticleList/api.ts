@@ -20,7 +20,7 @@ export const getArticles = async (): Promise<ResponseI<ArticleI[] | void>> => {
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка при получении списка статей",
+        message: "errorGetArticles",
         status: false,
       };
     }
@@ -54,7 +54,7 @@ export const deletedArticle = async (
 
     if (response.status >= 400) {
       return {
-        message: "Во время удаления статьи произошла ошибка, попробуйте позже",
+        message: "errorDeleteArticle",
         status: false,
       };
     }

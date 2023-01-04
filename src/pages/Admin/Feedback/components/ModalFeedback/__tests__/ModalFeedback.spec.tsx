@@ -40,9 +40,7 @@ describe("ModalFeedback", () => {
 
     const { getByText } = render(<ModalFeedback {...props} />);
 
-    expect(
-      getByText(/Удалить выделенные записи с обратной связью?/i)
-    ).toBeInTheDocument();
+    expect(getByText(/feedbackModalTitle/i)).toBeInTheDocument();
   });
 
   it("check open modal window", async () => {
@@ -56,18 +54,14 @@ describe("ModalFeedback", () => {
       ],
       handleClearFeedback: jest.fn,
     };
-    const { getByText, findAllByText } = render(<ModalFeedback {...props} />);
+    const { getByText, findByText } = render(<ModalFeedback {...props} />);
 
-    fireEvent.click(getByText(/Удалить выделенные записи/i));
+    fireEvent.click(getByText(/feedbackModalTitle/i));
 
-    const deletedText = await findAllByText(/удалить/i);
+    const deletedText = await findByText(/delete/i);
 
-    expect(
-      getByText(
-        /Вы действительно намерены удалить статью выделнные записи с обратной связью?/i
-      )
-    ).toBeInTheDocument();
-    expect(deletedText[3]).toBeInTheDocument();
-    expect(getByText(/Отмена/i)).toBeInTheDocument();
+    expect(getByText(/feedbackModalSubtitle/i)).toBeInTheDocument();
+    expect(deletedText).toBeInTheDocument();
+    expect(getByText(/cancel/i)).toBeInTheDocument();
   });
 });

@@ -5,7 +5,7 @@ describe("helpers", () => {
   it("getRootParentLink", () => {
     const trueResult: LinkI = {
       to: "/admin/articles",
-      text: "Статьи на сайте",
+      text: "articlesOnSite",
       parent: null,
     };
     const result = getRootParentLink({

@@ -70,23 +70,23 @@ describe("ArticlesForm", () => {
       (input: HTMLInputElement) => input.name === "keyWords"
     );
 
-    expect(getByText(/Редактирование статьи/i));
+    expect(getByText(/editedArticle/i));
 
-    expect(await findByText(/Заголовок в первом блоке/i));
+    expect(await findByText(/firstBlockTitleLabel/i));
     expect(title).toBeInTheDocument();
 
-    expect(await findByText(/Описание статьи/i));
+    expect(await findByText(/descriptionLabel/i));
     expect(description).toBeInTheDocument();
 
     expect(await findByText(/BlockImageInput/i)).toBeInTheDocument();
     expect(await findByText(/AdminEditor/i)).toBeInTheDocument();
 
-    expect(await findByText(/Ключевые слова статьи/i)).toBeInTheDocument();
+    expect(await findByText(/keyWordsLabel/i)).toBeInTheDocument();
     expect(keyWords).toBeInTheDocument();
 
     expect(await findByText(/AdminDatePicker/i)).toBeInTheDocument();
     expect(await findByText(/AdminCheckbox/i)).toBeInTheDocument();
 
-    expect(await findByText(/Отправить/i)).toBeInTheDocument();
+    expect(await findByText(/submit/i)).toBeInTheDocument();
   });
 });

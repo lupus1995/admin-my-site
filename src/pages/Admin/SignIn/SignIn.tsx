@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import { set } from "local-storage";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -20,6 +21,7 @@ import { SignInI } from "./interfaces";
 import useStyles from "./style";
 
 const SignIn = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     register,
@@ -37,7 +39,7 @@ const SignIn = () => {
       set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
 
-      toast("Вы успешно авторизовались", {
+      toast(t("signInSuccess"), {
         type: "success",
         hideProgressBar: true,
         theme: "colored",
@@ -58,27 +60,27 @@ const SignIn = () => {
       formPosition="center"
       isCenter
     >
-      <h1 className={style.signupTitle}>Авторизация</h1>
+      <h1 className={style.signupTitle}>{t("signinTitle")}</h1>
       <FormRow>
-        <FormLabel>Имя пользователя</FormLabel>
+        <FormLabel>{t("usernameLabel")}</FormLabel>
         <input
           className={classNames(`${stylesUtil.input}`, {
             [disabledClass]: isDisabled,
           })}
           type="text"
-          {...register("username", { required: "Поле обязательно" })}
+          {...register("username", { required: t("requiredText") })}
         />
         <TextError message={errors.username?.message as string} />
       </FormRow>
 
       <FormRow>
-        <FormLabel>Пароль</FormLabel>
+        <FormLabel>{t("passwordLabel")}</FormLabel>
         <input
           className={classNames(`${stylesUtil.input}`, {
             [disabledClass]: isDisabled,
           })}
           type="password"
-          {...register("password", { required: "Поле обязательно" })}
+          {...register("password", { required: t("requiredText") })}
         />
         <TextError message={errors.password?.message as string} />
       </FormRow>
@@ -88,9 +90,9 @@ const SignIn = () => {
       </FormRow>
 
       <div className={style.signupText}>
-        <span>Вы не имеете аккаунт?</span>{" "}
+        <span>{t("hasNoAccount")}</span>{" "}
         <Link className={style.signupLink} to="/signup">
-          Зарегистрируйтесь
+          {t("register")}
         </Link>
       </div>
     </Form>

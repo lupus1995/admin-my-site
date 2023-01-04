@@ -25,11 +25,11 @@ describe("Dashboard", () => {
 
     const rootUrls = urls.filter((item) => item.parent === null);
 
-    expect(getByText(/админка/i)).toBeInTheDocument();
+    expect(getByText(/adminPanel/i)).toBeInTheDocument();
     rootUrls.forEach((item) => {
       expect(getByText(item.text)).toBeInTheDocument();
     });
-    expect(getByText(/выйти/i)).toBeInTheDocument();
+    expect(getByText(/exit/i)).toBeInTheDocument();
     expect(getByText(/child/i)).toBeInTheDocument();
   });
 });

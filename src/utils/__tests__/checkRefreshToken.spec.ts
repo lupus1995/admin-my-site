@@ -35,7 +35,7 @@ global.fetch = jest.fn(() =>
 
 const trueResult = {
   status: true,
-  message: "Токены обновлены.",
+  message: "successToken",
   redirectTo: "/signin",
 };
 describe("check utils", () => {

@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import { set } from "local-storage";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -20,6 +21,7 @@ import { SignUpI } from "./interfaces";
 import useStyles from "./style";
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const style = useStyles();
   const stylesUtil = useUtilsStyles();
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ const SignUp = () => {
       set("accessToken", tokens.accessToken);
       set("refreshToken", tokens.refreshToken);
 
-      toast("Вы успешно зарегистрировали аккаунт", {
+      toast(t("successRegister"), {
         type: "success",
         hideProgressBar: true,
         theme: "colored",
@@ -57,7 +59,7 @@ const SignUp = () => {
       return true;
     }
 
-    return "Пароли не сопадают";
+    return t("passwordDontRepeat");
   };
 
   return (
@@ -68,40 +70,40 @@ const SignUp = () => {
       formPosition="center"
       isCenter
     >
-      <h1 className={style.signupTitle}>Регистрация 6666</h1>
+      <h1 className={style.signupTitle}>{t("signupTitle")}</h1>
       <FormRow>
-        <FormLabel>Имя пользователя</FormLabel>
+        <FormLabel>{t("usernameLabel")}</FormLabel>
         <input
           className={classNames(`${stylesUtil.input}`, {
             [disabledClass]: isDisabled,
           })}
           type="text"
-          {...register("username", { required: "Поле обязательно" })}
+          {...register("username", { required: t("requiredText") })}
         />
         <TextError message={errors.username?.message as string} />
       </FormRow>
 
       <FormRow>
-        <FormLabel>Пароль</FormLabel>
+        <FormLabel>{t("passwordLabel")}</FormLabel>
         <input
           className={classNames(`${stylesUtil.input}`, {
             [disabledClass]: isDisabled,
           })}
           type="password"
-          {...register("password", { required: "Поле обязательно" })}
+          {...register("password", { required: t("requiredText") })}
         />
         <TextError message={errors.password?.message as string} />
       </FormRow>
 
       <FormRow>
-        <FormLabel>Повторите пароль</FormLabel>
+        <FormLabel>{t("repeatPasswordLabel")}</FormLabel>
         <input
           className={classNames(`${stylesUtil.input}`, {
             [disabledClass]: isDisabled,
           })}
           type="password"
           {...register("confirmPassword", {
-            required: "Поле обязательно",
+            required: t("requiredText"),
             validate: handleConfirmPassword,
           })}
         />
@@ -113,9 +115,9 @@ const SignUp = () => {
       </FormRow>
 
       <div className={style.signupText}>
-        <span>Вы имеете аккаунт?</span>{" "}
+        <span>{t("hasAccount")}</span>{" "}
         <Link className={style.signupLink} to="/signin">
-          Авторизуйтесь
+          {t("login")}
         </Link>
       </div>
 

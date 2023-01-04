@@ -36,7 +36,7 @@ global.fetch = jest.fn(() =>
 
 const trueResult = {
   status: { accessToken: "accessToken", refreshToken: "refreshToken" },
-  message: "Токены обновлены.",
+  message: "successToken",
 };
 
 describe("check utils", () => {

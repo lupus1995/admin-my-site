@@ -10,8 +10,8 @@ describe("ButtonSubmit", () => {
       <ButtonSubmit isDisabled={false} disabledClass="disabledClass" />
     );
 
-    expect(getByText(/Отправить/i)).toBeInTheDocument();
-    expect(getByText(/Отправить/i)).not.toHaveClass("disabledClass");
+    expect(getByText(/submit/i)).toBeInTheDocument();
+    expect(getByText(/submit/i)).not.toHaveClass("disabledClass");
   });
 
   it("check render component with disabledClass", () => {
@@ -19,6 +19,6 @@ describe("ButtonSubmit", () => {
       <ButtonSubmit isDisabled disabledClass="disabledClass" />
     );
 
-    expect(getByText(/Отправить/i)).toHaveClass("disabledClass");
+    expect(getByText(/submit/i)).toHaveClass("disabledClass");
   });
 });

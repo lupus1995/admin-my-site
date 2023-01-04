@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,6 +14,7 @@ import { FeedbackTable, ModalFeedback } from "./components";
 import { FeedbackI } from "./interface";
 
 const Feedback = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const utilsStyles = useUtilsStyles();
   const [feedback, setFeedback] = useState<FeedbackI[]>([]);
@@ -27,7 +29,7 @@ const Feedback = () => {
   useEffect(() => {
     getFeedback().then((result) => {
       if (!result.status) {
-        toast(result.message, {
+        toast(t(result.message), {
           type: "error",
           hideProgressBar: true,
           theme: "colored",
@@ -40,13 +42,13 @@ const Feedback = () => {
         setFeedback(result.responseBody);
       }
     });
-  }, [navigate]);
+  }, [navigate, t]);
 
   return (
     <Dashboard>
       <div className={`${utilsStyles.dFlex} ${utilsStyles.flexColumn}`}>
         <FormRow>
-          <Title title="Обратная связь" />
+          <Title title={t("feedback")} />
         </FormRow>
 
         <FeedbackTable

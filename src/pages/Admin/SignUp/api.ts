@@ -17,8 +17,6 @@ export const signup = async (formData: SignUpI): Promise<TokenI> => {
 
   if (data.statusCode >= 400) {
     const message = data.message.join("\n");
-    // eslint-disable-next-line no-console
-    console.log("data.message", data.message.join(","));
     throw message;
   }
 

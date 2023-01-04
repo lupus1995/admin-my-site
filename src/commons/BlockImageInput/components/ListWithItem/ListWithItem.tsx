@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 import FormRow from "commons/FormRow";
 import useUtilsStyles from "utils/styles";
@@ -17,6 +18,7 @@ const ListWithItem: FC<ListWithItemI> = ({
   onImageRemove,
   index,
 }) => {
+  const { t } = useTranslation();
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   return (
@@ -35,7 +37,7 @@ const ListWithItem: FC<ListWithItemI> = ({
           type="button"
           onClick={() => onImageUpdate(index)}
         >
-          Обновить
+          {t("update")}
         </button>
         <button
           className={classNames(`${utilsStyles.button}`, {
@@ -44,7 +46,7 @@ const ListWithItem: FC<ListWithItemI> = ({
           type="button"
           onClick={() => onImageRemove(index)}
         >
-          Удалить
+          {t("delete")}
         </button>
       </div>
     </div>

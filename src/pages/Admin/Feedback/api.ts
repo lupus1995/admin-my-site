@@ -21,7 +21,7 @@ export const getFeedback = async (): Promise<ResponseI<FeedbackI[] | void>> => {
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка при получении списка записей с обратной связью",
+        message: "errorGetFeedbacks",
         status: false,
       };
     }
@@ -58,7 +58,7 @@ export const deleteFeedback = async ({
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка при получении списка записей с обратной связью",
+        message: "errorByDeleteFeedback",
         status: false,
       };
     }
@@ -67,7 +67,7 @@ export const deleteFeedback = async ({
 
     return {
       status: true,
-      message: "Выделенные записи обратной связи удалены",
+      message: "successByDeleteFeedback",
       responseBody: result,
     };
   }

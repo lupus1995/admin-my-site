@@ -31,13 +31,13 @@ export const save = async ({
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка сохранения формы, попробуйте позже",
+        message: "errorSaveForm",
         status: false,
       };
     }
 
     return {
-      message: "Форма успешно сохранена",
+      message: "successSaveForm",
       status: true,
     };
   }
@@ -59,7 +59,7 @@ export const get = async (): Promise<ResponseI<HomeFormI | void>> => {
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка получени данных для формы, попробуйте позже",
+        message: "getErrorData",
         status: false,
       };
     }

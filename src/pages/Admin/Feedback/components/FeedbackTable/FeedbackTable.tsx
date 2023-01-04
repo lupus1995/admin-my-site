@@ -2,6 +2,7 @@ import React, { FC } from "react";
 
 // @ts-ignore
 import Checkbox from "react-custom-checkbox";
+import { useTranslation } from "react-i18next";
 import { useTable, Column } from "react-table";
 
 import FormRow from "commons/FormRow";
@@ -14,6 +15,7 @@ const FeedbackTable: FC<FeedbackTableI> = ({
   selected,
   setSelected,
 }) => {
+  const { t } = useTranslation();
   const columns: Column<{
     _id: string;
     username: string;
@@ -70,18 +72,18 @@ const FeedbackTable: FC<FeedbackTableI> = ({
         getProps: () => ({ someFunc: () => alert("clicked") }),
       },
       {
-        Header: "Имя",
+        Header: t("feedbackName"),
 
         accessor: "username",
       },
 
       {
-        Header: "Сообщение",
+        Header: t("feedbackMessage"),
 
         accessor: "text",
       },
     ],
-    [feedback, selected, setSelected]
+    [feedback, selected, setSelected, t]
   );
 
   const {
@@ -113,7 +115,7 @@ const FeedbackTable: FC<FeedbackTableI> = ({
   return (
     <>
       {feedback.length === 0 && (
-        <MessageForEmptyList message="Записей с обратной связью нет" />
+        <MessageForEmptyList message={t("feedbackEmpty")} />
       )}
       {feedback.length > 0 && (
         <>

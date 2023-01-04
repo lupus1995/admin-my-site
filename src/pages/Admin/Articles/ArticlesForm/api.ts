@@ -24,7 +24,7 @@ export const getArticle = async ({
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка при получении списка статей",
+        message: "errorGetArticle",
         status: false,
       };
     }
@@ -56,13 +56,13 @@ export const saveArticle = async (data: ArticleI): Promise<ResponseI> => {
 
     if (response.status >= 400) {
       return {
-        message: "Ошибка сохранения формы, попробуйте позже",
+        message: "errorSaveArticle",
         status: false,
       };
     }
 
     return {
-      message: "Форма успешно сохранена",
+      message: "successSaveForm",
       status: true,
     };
   }

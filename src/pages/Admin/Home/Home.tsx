@@ -15,6 +15,7 @@ import FormLabel from "commons/FormLabel";
 import FormRow from "commons/FormRow";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
+import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
@@ -35,7 +36,7 @@ const Home = () => {
     setValue,
     trigger,
   } = useForm();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
@@ -46,7 +47,7 @@ const Home = () => {
     setIsDisabled(true);
     save({ data, isEditForm, id })
       .then((response: ResponseI) => {
-        toast(response.message, {
+        toast(t(response.message), {
           type: response.status ? "success" : "error",
           hideProgressBar: true,
           theme: "colored",
@@ -61,17 +62,17 @@ const Home = () => {
 
   useEffect(() => {
     if (!isInitForm) {
-      register("firstBlockBackgroundImage", { required: "Выберите файл" });
-      register("firstBlockTitle", { required: "Поле обязательно" });
-      register("firstBlockSubtitle", { required: "Поле обязательно" });
-      register("aboutMeTitle", { required: "Поле обязательно" });
-      register("aboutMeDescription", { required: "Поле обязательно" });
-      register("aboutMePhoto", { required: "Выберите файл" });
+      register("firstBlockBackgroundImage", { required: t("selectedFile") });
+      register("firstBlockTitle", { required: t("requiredText") });
+      register("firstBlockSubtitle", { required: t("requiredText") });
+      register("aboutMeTitle", { required: t("requiredText") });
+      register("aboutMeDescription", { required: t("requiredText") });
+      register("aboutMePhoto", { required: t("selectedFile") });
 
       get()
         .then((result) => {
           if (!result.status) {
-            toast(result.message, {
+            toast(t(result.message), {
               type: "error",
               hideProgressBar: true,
               theme: "colored",
@@ -92,13 +93,12 @@ const Home = () => {
         })
         .finally(() => setIsInitForm(!isInitForm));
     }
-  }, [isInitForm, navigate, register, setValue]);
+  }, [isInitForm, navigate, register, setValue, t]);
 
   return (
     <Dashboard>
       <div>
-        {t("test", { name: "на русском языке" })}
-        <Title title="Главная страница" />
+        <Title title={t("mainPage")} />
         {isInitForm && (
           <Form
             onSubmit={onSubmit}
@@ -113,34 +113,34 @@ const Home = () => {
               isSubmitted={isSubmitted}
               trigger={trigger}
               name="firstBlockBackgroundImage"
-              label="Ссылка на картинку в первом блоке на главной странице"
+              label={t("firstBlockBackgroundImageLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
             />
 
             <FormRow>
-              <FormLabel>Заголовок в первом блоке</FormLabel>
+              <FormLabel>{t("firstBlockTitleLabel")}</FormLabel>
               <input
                 className={classNames(`${stylesUtils.input}`, {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
                 {...register("firstBlockTitle", {
-                  required: "Поле обязательно",
+                  required: t("requiredText"),
                 })}
               />
               <TextError message={errors.firstBlockTitle?.message as string} />
             </FormRow>
 
             <FormRow>
-              <FormLabel>Подзаголовок в первом блоке</FormLabel>
+              <FormLabel>{t("firstBlockSubtitleLabel")}</FormLabel>
               <input
                 className={classNames(`${stylesUtils.input}`, {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
                 {...register("firstBlockSubtitle", {
-                  required: "Поле обязательно",
+                  required: t("requiredText"),
                 })}
               />
               <TextError
@@ -149,29 +149,31 @@ const Home = () => {
             </FormRow>
 
             <FormRow>
-              <FormLabel>Заголовок блока обо мне</FormLabel>
+              <FormLabel>{t("aboutMeTitleLabel")}</FormLabel>
               <input
                 className={classNames(`${stylesUtils.input}`, {
                   [disabledClass]: isDisabled,
                 })}
                 type="text"
-                {...register("aboutMeTitle", { required: "Поле обязательно" })}
+                {...register("aboutMeTitle", { required: t("requiredText") })}
               />
               <TextError message={errors.aboutMeTitle?.message as string} />
             </FormRow>
 
-            {/* <AdminEditor
-              register={register}
-              setValue={setValue}
-              errors={errors}
-              isSubmitted={isSubmitted}
-              trigger={trigger}
-              watch={watch}
-              isDisabled={isDisabled}
-              disabledClass={disabledClass}
-              name="aboutMeDescription"
-              label="Описание блока обо мне"
-            /> */}
+            {hasWindow() && (
+              <AdminEditor
+                register={register}
+                setValue={setValue}
+                errors={errors}
+                isSubmitted={isSubmitted}
+                trigger={trigger}
+                watch={watch}
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+                name="aboutMeDescription"
+                label={t("aboutMeDescriptionLabel")}
+              />
+            )}
 
             <BlockImageInput
               watch={watch}
@@ -180,7 +182,7 @@ const Home = () => {
               isSubmitted={isSubmitted}
               trigger={trigger}
               name="aboutMePhoto"
-              label="Ссылка на фото в блоке обо мне"
+              label={t("aboutMePhotoLabel")}
               isDisabled={isDisabled}
               disabledClass={disabledClass}
             />

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 import useUtilsStyles from "utils/styles";
 
@@ -12,6 +13,7 @@ const EmptyList: FC<EmptyListI> = ({
   onImageUpload,
   classesForButton,
 }) => {
+  const { t } = useTranslation();
   const utilsStyles = useUtilsStyles();
   return (
     <button
@@ -21,7 +23,7 @@ const EmptyList: FC<EmptyListI> = ({
       type="button"
       onClick={onImageUpload}
     >
-      Загрузить картинку
+      {t("loadImage")}
     </button>
   );
 };

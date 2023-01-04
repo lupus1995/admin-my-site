@@ -67,7 +67,7 @@ const Dashboard: FC = ({ children }) => {
                     })}
                     to={item.to}
                   >
-                    {item.text}
+                    {t(item.text)}
                   </Link>
                 </li>
               );
@@ -82,7 +82,7 @@ const Dashboard: FC = ({ children }) => {
               })}
               type="button"
             >
-              Выйти
+              {t("exit")}
             </button>
           </li>
         </ul>

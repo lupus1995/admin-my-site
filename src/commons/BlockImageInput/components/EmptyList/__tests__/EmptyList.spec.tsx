@@ -18,8 +18,8 @@ describe("EmptyList", () => {
   it("check render button", () => {
     const { getByText } = render(<EmptyList {...baseProps} />);
 
-    expect(getByText(/Загрузить картинку/i)).toBeInTheDocument();
-    expect(getByText(/Загрузить картинку/i)).not.toHaveClass("disabledClass");
+    expect(getByText(/loadImage/i)).toBeInTheDocument();
+    expect(getByText(/loadImage/i)).not.toHaveClass("disabledClass");
   });
 
   it("check render disabled button", () => {
@@ -29,6 +29,6 @@ describe("EmptyList", () => {
     };
     const { getByText } = render(<EmptyList {...props} />);
 
-    expect(getByText(/Загрузить картинку/i)).toHaveClass("disabledClass");
+    expect(getByText(/loadImage/i)).toHaveClass("disabledClass");
   });
 });

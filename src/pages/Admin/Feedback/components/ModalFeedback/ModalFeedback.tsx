@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -17,6 +18,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
   selected,
   handleClearFeedback,
 }) => {
+  const { t } = useTranslation();
   const utilsStyles = useUtilsStyles();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
@@ -28,7 +30,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
     setIsDisabled(true);
     deleteFeedback({ ids: selected.map((item) => item._id) })
       .then((response: ResponseI) => {
-        toast(response.message, {
+        toast(t(response.message), {
           type: response.status ? "success" : "error",
           hideProgressBar: true,
           theme: "colored",
@@ -54,14 +56,14 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
             className={`${utilsStyles.button}`}
             type="button"
           >
-            Удалить выделенные записи с обратной связью?
+            {t("feedbackModalTitle")}
           </button>
         </FormRow>
       )}
 
       <AdminModal open={open}>
         <div className={`${utilsStyles.modalHeaderContainer}`}>
-          <h3>Удалить выделнные записи с обратной связью?</h3>
+          <h3>{t("feedbackModalTitle")}</h3>
           <button
             className={classNames(`${utilsStyles.button}`)}
             type="button"
@@ -72,10 +74,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
         </div>
 
         <div className={`${utilsStyles.modalContent}`}>
-          <p>
-            Вы действительно намерены удалить статью выделнные записи с обратной
-            связью?
-          </p>
+          <p>{t("feedbackModalSubtitle")}</p>
         </div>
         <div>
           <button
@@ -85,7 +84,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
             })}
             type="button"
           >
-            Удалить
+            {t("delete")}
           </button>
           <button
             onClick={handleCloseModal}
@@ -94,7 +93,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
             })}
             type="button"
           >
-            Отмена
+            {t("cancel")}
           </button>
         </div>
       </AdminModal>
