@@ -16,8 +16,8 @@
         "requiredText": "Поле обязательно",
         "selectedFile": "Выберите файл",
         "firstBlockSubtitleLabel": "Подзаголовок в первом блоке",
-        "aboutMeTitle": "Заголовок блока обо мне",
-        "aboutMeDescription": "Описание блока обо мне",
+        "aboutMeTitleLabel": "Заголовок блока обо мне",
+        "aboutMeDescriptionLabel": "Описание блока обо мне",
         "aboutMePhotoLabel": "Ссылка на фото в блоке обо мне",
         "submit": "Отправить",
 

@@ -1,12 +1,25 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
+import { get } from "local-storage";
 import { initReactI18next } from "react-i18next";
 
-import { getCurrentLanguager } from "utils/helpers";
+import { supportLanguages, defaultLanguage } from "utils/constants";
 
 import en from "./locales/en.json";
 import ru from "./locales/ru.json";
+
+// получение текущего языка из локальной истории браузера
+// если из локальной истории браузера не получилось достать версию языка
+// тогда устанавливается дефолтная версия языка для сайта
+const getCurrentLanguager = () => {
+  const languageFromLocalStorage: string = get("i18nextLng") || "";
+  const currentLanguage = supportLanguages.includes(languageFromLocalStorage)
+    ? languageFromLocalStorage
+    : defaultLanguage;
+
+  return currentLanguage;
+};
 
 // the translations
 // (tip move them in a JSON file and import them,

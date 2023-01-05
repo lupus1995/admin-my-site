@@ -19,15 +19,14 @@ describe("BlockImageInput", () => {
       errors: {
         ["name" as string]: { message: "error message" },
       },
-      // @ts-ignore
-      trigger: jest.fn,
+      trigger: jest.fn(),
       isSubmitted: false,
       name: "name",
       label: "label",
-      // @ts-ignore
-      watch: jest.fn,
+      watch: jest.fn(),
       isDisabled: false,
       disabledClass: "disabledClass",
+      register: jest.fn(),
     };
   });
 

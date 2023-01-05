@@ -3,6 +3,8 @@ import React, { ReactNode } from "react";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import reactI18next from "utils/mocks/react-i18next";
+
 import ArticleList from "../ArticleList";
 
 jest.mock("commons/Dashboard", () =>
@@ -20,6 +22,8 @@ jest.mock("react-router-dom", () => {
   };
 });
 
+jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
+
 jest.mock("pages/Admin/Articles/ArticleList/api", () => {
   const module = jest.requireActual("pages/Admin/Articles/ArticleList/api");
 
@@ -31,11 +35,23 @@ jest.mock("pages/Admin/Articles/ArticleList/api", () => {
           status: true,
           responseBody: [
             {
-              title: "title",
-              description: "description",
+              title: {
+                ru: "titleRU",
+                en: "titleEN",
+              },
+              description: {
+                ru: "descriptionRU",
+                en: "descriptionEN",
+              },
               thumbnail: "thumbnail",
-              text: "text",
-              keyWords: "keyWords",
+              text: {
+                ru: "textRU",
+                en: "textEN",
+              },
+              keyWords: {
+                ru: "keyWordsRU",
+                en: "keyWordsEN",
+              },
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
               publishedAt: new Date().toISOString(),
@@ -55,10 +71,9 @@ describe("ArticleList", () => {
 
     expect(getByText(/articlesOnSite/i)).toBeInTheDocument();
     expect(getByText(/createArticle/)).toBeInTheDocument();
-    expect(await findByAltText(/title/i)).toBeInTheDocument();
-    expect(await findByText(/title/i)).toBeInTheDocument();
-    expect(await findByText(/description/i)).toBeInTheDocument();
-    expect(await findByText(/description/i)).toBeInTheDocument();
+    expect(await findByAltText(/titleRU/i)).toBeInTheDocument();
+    expect(await findByText(/titleRU/i)).toBeInTheDocument();
+    expect(await findByText(/descriptionRU/i)).toBeInTheDocument();
     expect(await findByText(/edit/i)).toBeInTheDocument();
     expect(await findByText(/delete/i)).toBeInTheDocument();
   });

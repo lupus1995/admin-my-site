@@ -1,7 +1,3 @@
-import { get } from "local-storage";
-
-import { defaultLanguage, supportLanguages } from "./constants";
-
 export const getCircularReplacer = () => {
   const seen = new WeakSet();
   return (key: string, value: unknown) => {
@@ -15,15 +11,9 @@ export const getCircularReplacer = () => {
   };
 };
 
-export const getCurrentLanguager = () => {
-  const languageFromLocalStorage: string = get("i18nextLng") || "";
-  const currentLanguage = supportLanguages.includes(languageFromLocalStorage)
-    ? languageFromLocalStorage
-    : defaultLanguage;
-
-  return currentLanguage;
-};
-
+// проверяет наличие объекта window
+// сделано для того, чтобы на стороне ssr исключить рендеринг для компонента для которого
+// требуется наличие объекта window
 export const hasWindow = () => {
   return Boolean(window);
 };

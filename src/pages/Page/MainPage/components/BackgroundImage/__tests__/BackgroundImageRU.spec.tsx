@@ -2,6 +2,8 @@ import React from "react";
 
 import { render } from "@testing-library/react";
 
+import reactI18next from "utils/mocks/react-i18next";
+
 import BackgroundImage from "../BackgroundImage";
 import { BackgroundImageI } from "../itnterface";
 
@@ -14,18 +16,7 @@ jest.mock("pages/Page/MainPage/hook", () => {
   };
 });
 
-jest.mock("react-i18next", () => {
-  const module = jest.requireActual("react-i18next");
-
-  return {
-    ...module,
-    useTranslation: () => ({
-      i18n: {
-        language: "ru",
-      },
-    }),
-  };
-});
+jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
 describe("BackgroundImage", () => {
   let props: BackgroundImageI;

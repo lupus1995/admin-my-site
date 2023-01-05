@@ -111,7 +111,8 @@ const ArticleList = () => {
                     {article.title[i18n.language]}
                   </h3>
                   <span className="articleDescription">
-                    {article.description}
+                    {/* @ts-ignore */}
+                    {article.description[i18n.language]}
                   </span>
                 </div>
                 <div>
