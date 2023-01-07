@@ -54,6 +54,12 @@ const useStylesTag = createUseStyles({
       fontWeight: "300",
       position: "relative",
     },
+
+    button: {
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+    },
   },
 });
 

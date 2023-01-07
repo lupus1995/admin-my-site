@@ -99,7 +99,7 @@ const ArticleList = () => {
           <div className={`${style.articlesContainer}`}>
             {articles.map((article) => (
               <article key={article._id} className={style.articleItem}>
-                <div>
+                <FormRow>
                   <img
                     className={style.articleTumbnail}
                     src={article.thumbnail}
@@ -114,8 +114,8 @@ const ArticleList = () => {
                     {/* @ts-ignore */}
                     {article.description[i18n.language]}
                   </span>
-                </div>
-                <div>
+                </FormRow>
+                <div style={{ marginTop: "auto" }}>
                   <Link
                     className={`${utilsStyles.button} ${utilsStyles.mr15}`}
                     to={`/admin/articles/edit/${article._id}`}
@@ -151,7 +151,12 @@ const ArticleList = () => {
         </div>
 
         <div className={`${utilsStyles.modalContent}`}>
-          <p>{t("deleteArticleText", { title: deletedArticle?.title })}</p>
+          <p>
+            {t("deleteArticleText", {
+              /* @ts-ignore */
+              title: deletedArticle?.title[i18n.language],
+            })}
+          </p>
         </div>
         <div>
           <button

@@ -42,6 +42,9 @@ const useUtilsStyles = createUseStyles({
   flexColumn: {
     flexDirection: "column",
   },
+  spaceBetween: {
+    justifyContent: "space-between",
+  },
   mr15: {
     marginRight: "15px",
   },

@@ -2,7 +2,11 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   articlesForm: {
-    width: "500px",
+    width: "1000px",
+  },
+
+  colForm: {
+    width: "48%",
   },
 });
 

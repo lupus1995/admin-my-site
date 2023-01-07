@@ -25,6 +25,7 @@ const AdminCheckbox: FC<{
         className={classNames({
           [disabledClass]: isDisabled,
         })}
+        disabled={isDisabled}
         checked={value}
         borderWidth={1}
         borderRadius={0}
