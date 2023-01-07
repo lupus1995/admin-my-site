@@ -9,8 +9,8 @@ describe("Header", () => {
     const { getByText } = render(<Header />);
 
     expect(getByText(/WFC/i)).toBeInTheDocument();
-    expect(getByText(/Обо мне/i)).toBeInTheDocument();
-    expect(getByText(/Потрфолио/i)).toBeInTheDocument();
-    expect(getByText(/Контакты/i)).toBeInTheDocument();
+    expect(getByText(/aboutMeTitlePage/i)).toBeInTheDocument();
+    expect(getByText(/portfolioTitlePage/i)).toBeInTheDocument();
+    expect(getByText(/contactsTitlePage/i)).toBeInTheDocument();
   });
 });

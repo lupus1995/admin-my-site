@@ -76,6 +76,18 @@
         "hasAccount": "Do you have an account?",
         "register": "Register",
         "login": "Login",
-        "passwordDontRepeat": "Passwords don't match"
+        "passwordDontRepeat": "Passwords don't match",
+
+        "aboutMeTitlePage": "About me",
+        "portfolioTitlePage": "Portfolio",
+        "contactsTitlePage": "Contacts",
+
+        "errorCreateFeedback": "Error creating a feedback record",
+        "successCreateFeedback": "The record was saved successfully",
+
+        "userNameLastName": "Username Lastname",
+        "feedbackPage": "Your wishes and suggestions",
+
+        "copyright": "Copyright"
     }
 }

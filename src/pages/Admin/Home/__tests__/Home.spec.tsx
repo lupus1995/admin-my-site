@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
 
+import reactI18next from "utils/mocks/react-i18next";
+
 import Home from "../Home";
 
 jest.mock("react-router-dom", () => {
@@ -12,6 +14,17 @@ jest.mock("react-router-dom", () => {
     useNavigate: () => jest.fn,
   };
 });
+
+jest.mock("utils/helpers", () => {
+  const module = jest.requireActual("utils/helpers");
+
+  return {
+    ...module,
+    hasWindow: () => true,
+  };
+});
+
+jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
 jest.mock("pages/Admin/Home/api", () => {
   const module = jest.requireActual("pages/Admin/Home/api");
@@ -24,10 +37,22 @@ jest.mock("pages/Admin/Home/api", () => {
           status: true,
           responseBody: {
             firstBlockBackgroundImage: "firstBlockBackgroundImage",
-            firstBlockTitle: "firstBlockTitle",
-            firstBlockSubtitle: "firstBlockSubtitle",
-            aboutMeTitle: "aboutMeTitle",
-            aboutMeDescription: "aboutMeDescription",
+            firstBlockTitle: {
+              ru: "firstBlockTitleRU",
+              en: "firstBlockTitleEN",
+            },
+            firstBlockSubtitle: {
+              ru: "firstBlockSubtitleRU",
+              en: "firstBlockSubtitleEN",
+            },
+            aboutMeTitle: {
+              ru: "aboutMeTitleRU",
+              en: "aboutMeTitleEN",
+            },
+            aboutMeDescription: {
+              ru: "aboutMeDescriptionRU",
+              en: "aboutMeDescriptionEN",
+            },
             aboutMePhoto: "aboutMePhoto",
             _id: "_idasdasd",
           },
@@ -54,36 +79,54 @@ jest.mock("commons/AdminEditor", () =>
 
 describe("Home", () => {
   it("check render component", async () => {
-    const { getByText, findAllByText, findAllByRole } = render(<Home />);
+    const { getByText, getAllByText, findAllByText, findAllByRole } = render(
+      <Home />
+    );
 
     const BlockImageInput = await findAllByText(/BlockImageInput/i);
+    const AdminEditor = await getAllByText(/AdminEditor/i);
     const textBoxs = await findAllByRole("textbox");
 
-    const firstBlockTitle = textBoxs.find(
-      (item: HTMLInputElement) => item.name === "firstBlockTitle"
+    const firstBlockTitleRU = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "firstBlockTitle.ru"
     );
 
-    const firstBlockSubtitle = textBoxs.find(
-      (item: HTMLInputElement) => item.name === "firstBlockSubtitle"
+    const firstBlockTitleEN = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "firstBlockTitle.en"
     );
 
-    const aboutMeTitle = textBoxs.find(
-      (item: HTMLInputElement) => item.name === "aboutMeTitle"
+    const firstBlockSubtitleRU = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "firstBlockSubtitle.ru"
+    );
+
+    const firstBlockSubtitleEN = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "firstBlockSubtitle.en"
+    );
+
+    const aboutMeTitleRU = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "aboutMeTitle.ru"
+    );
+
+    const aboutMeTitleEN = textBoxs.find(
+      (item: HTMLInputElement) => item.name === "aboutMeTitle.en"
     );
 
     expect(getByText(/mainPage/i)).toBeInTheDocument();
     expect(BlockImageInput.length).toBe(2);
 
     expect(getByText("firstBlockTitleLabel")).toBeInTheDocument();
-    expect(firstBlockTitle).toBeInTheDocument();
+    expect(firstBlockTitleRU).toBeInTheDocument();
+    expect(firstBlockTitleEN).toBeInTheDocument();
 
     expect(getByText(/firstBlockSubtitleLabel/i)).toBeInTheDocument();
-    expect(firstBlockSubtitle).toBeInTheDocument();
+    expect(firstBlockSubtitleRU).toBeInTheDocument();
+    expect(firstBlockSubtitleEN).toBeInTheDocument();
 
     expect(getByText(/aboutMeTitleLabel/i)).toBeInTheDocument();
-    expect(aboutMeTitle).toBeInTheDocument();
+    expect(aboutMeTitleRU).toBeInTheDocument();
+    expect(aboutMeTitleEN).toBeInTheDocument();
 
-    expect(getByText(/AdminEditor/i)).toBeInTheDocument();
+    expect(AdminEditor.length).toBe(2);
     expect(getByText(/submit/i)).toBeInTheDocument();
   });
 });

@@ -76,7 +76,18 @@
         "hasAccount": "Вы имеете аккаунт?",
         "register": "Зарегистрируйтесь",
         "login": "Авторизуйтесь",
-        "passwordDontRepeat": "Пароли не сопадают"
-        
+        "passwordDontRepeat": "Пароли не сопадают",
+
+        "aboutMeTitlePage": "Обо мне",
+        "portfolioTitlePage": "Портфолио",
+        "contactsTitlePage": "Контакты",
+
+        "errorCreateFeedback": "Ошибка создания записи обратной связи",
+        "successCreateFeedback": "Запись успешно сохранена",
+
+        "userNameLastName": "Имя Фамилия",
+        "feedbackPage": "Ваши пожелания и предложения",
+
+        "copyright": "Все права защищены"
     }
 }

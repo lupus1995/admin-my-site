@@ -19,7 +19,7 @@ export const createFeedback = async ({
 
   if (response.status >= 400) {
     return {
-      message: "Ошибка создания записи обратной связи",
+      message: "errorCreateFeedback",
       status: false,
     };
   }
@@ -28,7 +28,7 @@ export const createFeedback = async ({
 
   return {
     status: true,
-    message: "Запись успешно сохранена",
+    message: "successCreateFeedback",
     responseBody: result,
   };
 };

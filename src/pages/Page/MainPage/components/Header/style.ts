@@ -28,6 +28,7 @@ const useStyles = createUseStyles({
   nav: {
     display: "flex",
     listStyle: "none",
+    alignItems: "baseline",
   },
 
   navItem: {
@@ -53,6 +54,15 @@ const useStyles = createUseStyles({
         return "15px";
       }
     },
+  },
+
+  buttonSeparator: {
+    margin: "0 10px",
+    color: "#fff",
+  },
+
+  activeButton: {
+    textDecoration: "underline",
   },
 });
 

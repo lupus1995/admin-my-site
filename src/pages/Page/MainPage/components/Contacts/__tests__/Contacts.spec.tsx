@@ -17,13 +17,13 @@ describe("Contacts", () => {
       (input: HTMLInputElement) => input.name === "text"
     );
 
-    expect(getByText(/Контакты/i)).toBeInTheDocument();
+    expect(getByText(/contactsTitlePage/i)).toBeInTheDocument();
     expect(getByTestId(/falseField/i)).toBeInTheDocument();
 
-    expect(getByText(/Имя Фамилия/i)).toBeInTheDocument();
+    expect(getByText(/userNameLastName/i)).toBeInTheDocument();
     expect(username).toBeInTheDocument();
 
-    expect(getByText(/Ваши пожелания и предложения/i)).toBeInTheDocument();
+    expect(getByText(/feedbackPage/i)).toBeInTheDocument();
     expect(text).toBeInTheDocument();
 
     expect(getByTestId(/submit/i)).toBeInTheDocument();

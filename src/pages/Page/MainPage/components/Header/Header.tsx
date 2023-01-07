@@ -1,13 +1,16 @@
 import React from "react";
 
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
+import { languages } from "utils/constants";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import useStyles from "./style";
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles({ theme: { is360, is481 } });
@@ -30,18 +33,42 @@ const Header = () => {
         <ul className={classNames(`${styles.nav}`)}>
           <li className={classNames(`${styles.navItem}`)}>
             <a className={classNames(`${styles.navItemLink}`)} href="#">
-              Обо мне
+              {t("aboutMeTitlePage")}
             </a>
           </li>
           <li className={classNames(`${styles.navItem}`)}>
             <a className={classNames(`${styles.navItemLink}`)} href="#">
-              Потрфолио
+              {t("portfolioTitlePage")}
             </a>
           </li>
           <li className={classNames(`${styles.navItem}`)}>
             <a className={classNames(`${styles.navItemLink}`)} href="#">
-              Контакты
+              {t("contactsTitlePage")}
             </a>
+          </li>
+
+          <li className={classNames(`${styles.navItem}`)}>
+            <button
+              onClick={() => {
+                i18n.changeLanguage(languages.ru);
+              }}
+              className={classNames(`${styles.navItemLink}`, {
+                [styles.activeButton]: i18n.language === languages.ru,
+              })}
+            >
+              ru
+            </button>
+            <span className={styles.buttonSeparator}>|</span>
+            <button
+              onClick={() => {
+                i18n.changeLanguage(languages.en);
+              }}
+              className={classNames(`${styles.navItemLink}`, {
+                [styles.activeButton]: i18n.language === languages.en,
+              })}
+            >
+              en
+            </button>
           </li>
         </ul>
       </nav>
