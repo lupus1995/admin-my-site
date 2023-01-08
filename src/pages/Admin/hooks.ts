@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { checkToken } from "utils/apiTokens";
 import { usePrevious } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -13,6 +14,18 @@ export const useDisabled = () => {
   return { isDisabled, setIsDisabled, disabledClass: utlisStyles.disabled };
 };
 
+export const useSession = () => {
+  // активация интервала для разлогинивания пользователя
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkToken();
+    }, 90000);
+
+    return () => clearInterval(interval);
+  }, []);
+};
+
+// обновление текста ошибок после смены языка локали
 export const useUpdateTextError = ({
   isSubmitted,
   trigger,

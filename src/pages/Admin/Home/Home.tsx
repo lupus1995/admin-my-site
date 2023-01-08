@@ -21,12 +21,13 @@ import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
-import { useDisabled, useUpdateTextError } from "../hooks";
+import { useDisabled, useSession, useUpdateTextError } from "../hooks";
 import { get, save } from "./api";
 import { HomeFormI } from "./interfaces";
 import useStyles from "./style";
 
 const Home = () => {
+  useSession();
   const navigate = useNavigate();
   const styles = useStyles();
   const stylesUtils = useStylesUtil();

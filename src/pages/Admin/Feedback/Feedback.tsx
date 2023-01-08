@@ -9,11 +9,13 @@ import FormRow from "commons/FormRow";
 import Title from "commons/Title";
 import useUtilsStyles from "utils/styles";
 
+import { useSession } from "../hooks";
 import { getFeedback } from "./api";
 import { FeedbackTable, ModalFeedback } from "./components";
 import { FeedbackI } from "./interface";
 
 const Feedback = () => {
+  useSession();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const utilsStyles = useUtilsStyles();

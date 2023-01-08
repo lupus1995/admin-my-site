@@ -10,6 +10,7 @@ import Dashboard from "commons/Dashboard";
 import FormRow from "commons/FormRow";
 import MessageForEmptyList from "commons/MessageForEmptyList";
 import Title from "commons/Title";
+import { useSession } from "pages/Admin/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { ArticleI } from "../interface";
@@ -17,6 +18,7 @@ import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
 import useStyles from "./style";
 
 const ArticleList = () => {
+  useSession();
   const { t, i18n } = useTranslation();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);

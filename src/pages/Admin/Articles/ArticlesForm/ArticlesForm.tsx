@@ -20,7 +20,7 @@ import FormRow from "commons/FormRow";
 import SpaceBetween from "commons/SpaceBetween";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
-import { useDisabled } from "pages/Admin/hooks";
+import { useDisabled, useSession } from "pages/Admin/hooks";
 import { hasWindow } from "utils/helpers";
 import { usePrevious } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
@@ -31,6 +31,7 @@ import { saveArticle, getArticle } from "./api";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
+  useSession();
   const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();

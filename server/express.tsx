@@ -43,8 +43,6 @@ app.use("*", (req, res) => {
   res.contentType("text/html");
   res.status(200);
 
-  console.log("indexHTML", indexHTML);
-
   return res.send(indexHTML);
 });
 
