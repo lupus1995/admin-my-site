@@ -41,7 +41,40 @@ export const getTokens = (): {
   };
 };
 
-export const checkToken = async (): Promise<ResponseI> => {
+export const checkAccessTokens = async (): Promise<ResponseI> => {
+  /**
+   * - проверяем актуальность accessToken
+   * - если актуален, то ничего не делаем
+   * - если просроченный и пользователь ничего не делал, то выводим из системы
+   */
+  const errorMessage = "errorToken";
+  const { accessToken } = getTokens();
+  if (!accessToken) {
+    return {
+      status: false,
+      message: errorMessage,
+      redirectTo: "/signin",
+    };
+  }
+
+  const response = await fetch(`${URL}/auth/access`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: accessToken,
+    },
+  });
+
+  const data: boolean = await response.json();
+
+  return {
+    status: data,
+    message: data ? "" : errorMessage,
+    redirectTo: "/signin",
+  };
+};
+
+export const updateTokens = async (): Promise<ResponseI> => {
   const { accessToken, refreshToken } = getTokens();
   const successMessage = "successToken";
   const errorMessage = "errorToken";

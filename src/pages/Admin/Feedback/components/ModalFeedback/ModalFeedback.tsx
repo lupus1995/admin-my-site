@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 
-import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -22,7 +21,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
   const utilsStyles = useUtilsStyles();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
-  const { disabledClass, setIsDisabled, isDisabled } = useDisabled();
+  const { setIsDisabled } = useDisabled();
 
   const handleCloseModal = () => setOpen(false);
   const handleOpenModal = () => setOpen(true);
@@ -61,41 +60,12 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
         </FormRow>
       )}
 
-      <AdminModal open={open}>
-        <div className={`${utilsStyles.modalHeaderContainer}`}>
-          <h3>{t("feedbackModalTitle")}</h3>
-          <button
-            className={classNames(`${utilsStyles.button}`)}
-            type="button"
-            onClick={handleCloseModal}
-          >
-            х
-          </button>
-        </div>
-
-        <div className={`${utilsStyles.modalContent}`}>
-          <p>{t("feedbackModalSubtitle")}</p>
-        </div>
-        <div>
-          <button
-            onClick={handleDeleteFeedback}
-            className={classNames(`${utilsStyles.button} ${utilsStyles.mr15}`, {
-              [disabledClass]: isDisabled,
-            })}
-            type="button"
-          >
-            {t("delete")}
-          </button>
-          <button
-            onClick={handleCloseModal}
-            className={classNames(`${utilsStyles.button}`, {
-              [disabledClass]: isDisabled,
-            })}
-            type="button"
-          >
-            {t("cancel")}
-          </button>
-        </div>
+      <AdminModal
+        handleClose={handleCloseModal}
+        handleCallback={handleDeleteFeedback}
+        open={open}
+      >
+        <p>{t("feedbackModalSubtitle")}</p>
       </AdminModal>
     </>
   );

@@ -1,4 +1,4 @@
-import { checkToken, getTokens } from "utils/apiTokens";
+import { updateTokens, getTokens } from "utils/apiTokens";
 import { URL } from "utils/constants";
 import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
@@ -10,7 +10,7 @@ export const getArticle = async ({
 }: {
   id: string;
 }): Promise<ResponseI<ArticleI | void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
 
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
@@ -39,7 +39,7 @@ export const getArticle = async ({
 };
 
 export const saveArticle = async (data: ArticleI): Promise<ResponseI> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
     const requestUrl = data?._id
@@ -61,9 +61,12 @@ export const saveArticle = async (data: ArticleI): Promise<ResponseI> => {
       };
     }
 
+    const { _id }: { _id: string } = await response.json();
+
     return {
       message: "successSaveForm",
       status: true,
+      redirectTo: `/admin/articles/edit/${data?._id || _id}`,
     };
   }
 

@@ -1,4 +1,4 @@
-import { checkToken, getTokens } from "utils/apiTokens";
+import { updateTokens, getTokens } from "utils/apiTokens";
 import { URL } from "utils/constants";
 import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
@@ -7,7 +7,7 @@ import { FeedbackI } from "./interface";
 
 // получение списка статей
 export const getFeedback = async (): Promise<ResponseI<FeedbackI[] | void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
 
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
@@ -43,7 +43,7 @@ export const deleteFeedback = async ({
 }: {
   ids: string[];
 }): Promise<ResponseI<FeedbackI[] | void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
 
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();

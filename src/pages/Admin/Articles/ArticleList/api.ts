@@ -1,4 +1,4 @@
-import { checkToken, getTokens } from "utils/apiTokens";
+import { updateTokens, getTokens } from "utils/apiTokens";
 import { URL } from "utils/constants";
 import { ResponseI } from "utils/interfaces";
 
@@ -6,7 +6,7 @@ import { ArticleI } from "../interface";
 
 // получение списка статей
 export const getArticles = async (): Promise<ResponseI<ArticleI[] | void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
 
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
@@ -40,7 +40,7 @@ export const getArticles = async (): Promise<ResponseI<ArticleI[] | void>> => {
 export const deletedArticle = async (
   articleId: string
 ): Promise<ResponseI<void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
 
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();

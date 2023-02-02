@@ -140,42 +140,17 @@ const ArticleList = () => {
         )}
       </div>
 
-      <AdminModal open={open}>
-        <div className={`${utilsStyles.modalHeaderContainer}`}>
-          <h3>{t("deteleArticle")}</h3>
-          <button
-            className={classNames(`${utilsStyles.button}`)}
-            type="button"
-            onClick={handleCloseModal}
-          >
-            х
-          </button>
-        </div>
-
-        <div className={`${utilsStyles.modalContent}`}>
-          <p>
-            {t("deleteArticleText", {
-              /* @ts-ignore */
-              title: deletedArticle?.title[i18n.language],
-            })}
-          </p>
-        </div>
-        <div>
-          <button
-            onClick={deleteArticle}
-            className={classNames(`${utilsStyles.button} ${utilsStyles.mr15}`)}
-            type="button"
-          >
-            {t("delete")}
-          </button>
-          <button
-            onClick={handleCloseModal}
-            className={classNames(`${utilsStyles.button}`)}
-            type="button"
-          >
-            {t("cancel")}
-          </button>
-        </div>
+      <AdminModal
+        open={open}
+        handleClose={handleCloseModal}
+        handleCallback={deleteArticle}
+      >
+        <p>
+          {t("deleteArticleText", {
+            /* @ts-ignore */
+            title: deletedArticle?.title[i18n.language],
+          })}
+        </p>
       </AdminModal>
     </Dashboard>
   );

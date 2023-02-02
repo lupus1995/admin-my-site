@@ -1,4 +1,4 @@
-import { checkToken, getTokens } from "utils/apiTokens";
+import { updateTokens, getTokens } from "utils/apiTokens";
 import { URL } from "utils/constants";
 import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
@@ -14,7 +14,7 @@ export const save = async ({
   isEditForm: boolean;
   id: string;
 }): Promise<ResponseI> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
     const requestUrl = isEditForm
@@ -46,7 +46,7 @@ export const save = async ({
 };
 
 export const get = async (): Promise<ResponseI<HomeFormI | void>> => {
-  const hasCorrectokens = await checkToken();
+  const hasCorrectokens = await updateTokens();
   if (hasCorrectokens.status) {
     const { accessToken } = getTokens();
     const response = await fetch(`${URL}/main-page`, {

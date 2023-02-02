@@ -105,5 +105,6 @@ describe("ArticlesForm", () => {
     expect(await findByText(/AdminCheckbox/i)).toBeInTheDocument();
 
     expect(await findByText(/submit/i)).toBeInTheDocument();
+    expect(await findByText(/return/i)).toBeInTheDocument();
   });
 });

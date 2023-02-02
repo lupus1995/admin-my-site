@@ -28,6 +28,7 @@ import useUtilsStyles from "utils/styles";
 
 import { ArticleI } from "../interface";
 import { saveArticle, getArticle } from "./api";
+import { LinkToArticleList } from "./components";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
@@ -349,10 +350,17 @@ const ArticlesForm = () => {
               label={t("hidePublishedArticleLabel")}
             />
 
-            <ButtonSubmit
-              isDisabled={isDisabled}
-              disabledClass={disabledClass}
-            />
+            <FormRow>
+              <ButtonSubmit
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+                hasFullWidth={false}
+              />
+              <LinkToArticleList
+                isDisabled={isDisabled}
+                disabledClass={disabledClass}
+              />
+            </FormRow>
           </Form>
         )}
       </div>

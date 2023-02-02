@@ -5,6 +5,7 @@ const useStyles = createUseStyles({
     width: "1030px",
     display: "flex",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
 
   articleItem: {
@@ -15,6 +16,7 @@ const useStyles = createUseStyles({
 
     display: "flex",
     flexDirection: "column",
+    marginBottom: "15px",
   },
 
   articleTumbnail: {

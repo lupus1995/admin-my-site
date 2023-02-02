@@ -2,8 +2,7 @@ import React, { FC } from "react";
 
 import Modal from "react-modal";
 
-// Modal.setAppElement("#modal");
-
+import { AdminBody, AdminFooter, AdminHeader } from "./components";
 const customStyles = {
   content: {
     top: "50%",
@@ -15,7 +14,11 @@ const customStyles = {
   },
 };
 
-const AdminModal: FC<{ open: boolean }> = ({ open, children }) => {
+const AdminModal: FC<{
+  open: boolean;
+  handleClose: () => void;
+  handleCallback: () => void;
+}> = ({ open, handleClose, handleCallback, children }) => {
   return (
     <Modal
       ariaHideApp={false}
@@ -23,7 +26,9 @@ const AdminModal: FC<{ open: boolean }> = ({ open, children }) => {
       style={customStyles}
       contentLabel="Example Modal"
     >
-      {children}
+      <AdminHeader handleClose={handleClose} />
+      <AdminBody>{children}</AdminBody>
+      <AdminFooter handleClose={handleClose} handleCallback={handleCallback} />
     </Modal>
   );
 };

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { checkToken } from "utils/apiTokens";
+import { checkAccessTokens, updateTokens } from "utils/apiTokens";
 import { usePrevious } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -15,13 +17,41 @@ export const useDisabled = () => {
 };
 
 export const useSession = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   // активация интервала для разлогинивания пользователя
   useEffect(() => {
     const interval = setInterval(() => {
-      checkToken();
+      checkAccessTokens().then((result) => {
+        if (!result.status) {
+          toast(t(result.message), {
+            type: "error",
+            hideProgressBar: true,
+            theme: "colored",
+          });
+
+          navigate("/signin");
+        }
+      });
     }, 90000);
 
     return () => clearInterval(interval);
+  }, [navigate, t]);
+
+  useEffect(() => {
+    updateTokens();
+
+    window.addEventListener("click", updateTokens);
+    window.addEventListener("keypress", updateTokens);
+    window.addEventListener("scroll", updateTokens);
+    window.addEventListener("mousemove", updateTokens);
+
+    return () => {
+      window.removeEventListener("click", updateTokens);
+      window.removeEventListener("keypress", updateTokens);
+      window.removeEventListener("scroll", updateTokens);
+      window.removeEventListener("mousemove", updateTokens);
+    };
   }, []);
 };
 

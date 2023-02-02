@@ -1,6 +1,6 @@
 import { when } from "jest-when";
 
-import { checkToken } from "../apiTokens";
+import { updateTokens } from "../apiTokens";
 
 /**
  * проверка токенов при наличии refresh токена
@@ -40,7 +40,7 @@ const trueResult = {
 };
 describe("check utils", () => {
   it("check refresh token", async () => {
-    const result = await checkToken();
+    const result = await updateTokens();
 
     expect(JSON.stringify(result)).toBe(JSON.stringify(trueResult));
   });

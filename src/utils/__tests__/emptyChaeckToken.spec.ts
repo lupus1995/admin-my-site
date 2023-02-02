@@ -1,4 +1,4 @@
-import { checkToken } from "../apiTokens";
+import { updateTokens } from "../apiTokens";
 
 /**
  * проверка токенов если их нет
@@ -24,7 +24,7 @@ const trueResult = {
 
 describe("check utils", () => {
   it("empty token", async () => {
-    const result = await checkToken();
+    const result = await updateTokens();
 
     expect(JSON.stringify(result)).toBe(JSON.stringify(trueResult));
   });
