@@ -31,6 +31,18 @@ const useStyles = createUseStyles({
   inputHidden: {
     display: "none",
   },
+
+  iconContainer: {
+    display: "flex",
+    alignItems: "baseline",
+  },
+
+  iconLinkItem: {
+    marginRight: "10px",
+    cursor: "pointer",
+    width: "24px",
+    height: "24px",
+  },
 });
 
 export default useStyles;

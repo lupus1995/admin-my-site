@@ -63,6 +63,7 @@ const AdminDatePicker: FC<{
           })}
           selected={startDate}
           onChange={onChange}
+          dateFormat="dd.MM.yyyy"
         />
         <TextError message={errors[name]?.message as string} />
       </FormRow>

@@ -37,6 +37,9 @@ const useStylesClasses = createUseStyles({
   blockBackground: {
     backgroundColor: "#f4f3f3",
   },
+  dFlex: {
+    display: "flex",
+  },
 });
 
 // общие стили для тегов основной страницы

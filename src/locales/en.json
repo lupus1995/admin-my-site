@@ -89,6 +89,9 @@
         "feedbackPage": "Your wishes and suggestions",
 
         "copyright": "Copyright",
-        "return": "Return"
+        "return": "Return",
+
+        "requiredField": "required field",
+        "errorDataMessage": "Error when receiving data, reload the page or contact the administrator"
     }
 }

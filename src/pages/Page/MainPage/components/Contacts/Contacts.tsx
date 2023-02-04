@@ -5,11 +5,13 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
-import { useDisabled } from "pages/Admin/hooks";
+import TextError from "commons/TextError";
+import { useDisabled, useUpdateTextError } from "pages/Admin/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { createFeedback } from "./api";
+import icons from "./icons";
 import { ContactsI } from "./interface";
 import useStyles from "./style";
 
@@ -21,7 +23,14 @@ const Contacts = () => {
 
   const { disabledClass, setIsDisabled, isDisabled } = useDisabled();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    formState: { errors, isSubmitted },
+  } = useForm();
+
+  useUpdateTextError({ trigger, isSubmitted });
 
   const onSubmit = (data: ContactsI) => {
     setIsDisabled(true);
@@ -62,8 +71,9 @@ const Contacts = () => {
               })}
               type="text"
               id="username"
-              {...register("username")}
+              {...register("username", { required: t("requiredField") })}
             />
+            <TextError message={errors.username?.message as string} />
           </div>
           <div className={`${style.inputWrapper}`}>
             <label className={`${style.label}`} htmlFor="text">
@@ -77,8 +87,9 @@ const Contacts = () => {
               id="text"
               cols={30}
               rows={10}
-              {...register("text")}
+              {...register("text", { required: t("requiredField") })}
             />
+            <TextError message={errors.text?.message as string} />
           </div>
 
           <div className={`${style.inputWrapper}`}>
@@ -91,7 +102,33 @@ const Contacts = () => {
             />
           </div>
         </form>
-        <div>ссылки на иконки, в разработке</div>
+        <div>
+          <ul className={classNames(`${style.iconContainer}`)}>
+            <li className={classNames(`${style.iconLinkItem}`)}>
+              <a href="https://t.me/lupus1995" target="_blank" rel="noreferrer">
+                {icons.telegram}
+              </a>
+            </li>
+            <li>
+              <a
+                className={classNames(`${style.iconLinkItem}`)}
+                href="https://vk.com/lupus1995"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {icons.vk}
+              </a>
+            </li>
+            <li>
+              <a
+                className={classNames(`${style.iconLinkItem}`)}
+                href="mailto:canya.panfilov.95@gmail.com"
+              >
+                {icons.mail}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

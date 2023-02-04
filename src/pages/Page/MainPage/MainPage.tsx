@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { get, getImageName } from "pages/Page/MainPage/api";
@@ -15,16 +16,14 @@ import {
 import { MainPageI } from "./interface";
 
 const MainPage = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState<MainPageI | null>(null);
   const [imageName, setImageName] = useState<{
     firstBlockBackgroundImage: string;
     aboutMePhoto: string;
   }>();
   useEffect(() => {
-    get({
-      message:
-        "Ошибка при получении данных, перезагрузите страницу или обратитесь к администратору",
-    }).then((result) => {
+    get({ message: t("errorDataMessage") }).then((result) => {
       if (!result.status) {
         toast(result.message, {
           type: "error",
@@ -40,7 +39,7 @@ const MainPage = () => {
       }
     });
 
-    getImageName().then((result) => {
+    getImageName({ message: t("errorDataMessage") }).then((result) => {
       if (!result.status) {
         toast(result.message, {
           type: "error",
@@ -55,7 +54,7 @@ const MainPage = () => {
         setImageName(result.responseBody);
       }
     });
-  }, []);
+  }, [t]);
 
   return (
     <>

@@ -3,7 +3,7 @@ import { URL } from "utils/constants";
 import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 
-import { HomeFormI } from "./interfaces";
+import { HomeFormI } from "../../interface";
 
 export const save = async ({
   data,

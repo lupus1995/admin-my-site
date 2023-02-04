@@ -13,7 +13,7 @@ import Title from "commons/Title";
 import { useSession } from "pages/Admin/hooks";
 import useUtilsStyles from "utils/styles";
 
-import { ArticleI } from "../interface";
+import { ArticleI } from "../../../interface";
 import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
 import useStyles from "./style";
 

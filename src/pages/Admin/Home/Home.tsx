@@ -21,9 +21,9 @@ import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
+import { HomeFormI } from "../../interface";
 import { useDisabled, useSession, useUpdateTextError } from "../hooks";
 import { get, save } from "./api";
-import { HomeFormI } from "./interfaces";
 import useStyles from "./style";
 
 const Home = () => {

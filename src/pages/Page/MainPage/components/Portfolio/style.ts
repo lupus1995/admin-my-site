@@ -25,6 +25,19 @@ const useStyles = createUseStyles({
 
   articlesContainer: {
     display: "flex",
+    textAlign: (props: MediaQueryI) => {
+      const { is721, is1081 } = props.theme;
+
+      if (is1081) {
+        return "left";
+      }
+
+      if (is721) {
+        return "center";
+      }
+
+      return "";
+    },
     flexDirection: (props: MediaQueryI) => {
       const { is721 } = props.theme;
       if (is721) {
@@ -39,54 +52,53 @@ const useStyles = createUseStyles({
 
   articleContainer: {
     width: (props: MediaQueryI) => {
-      const { is1367, is1921, is1081, is721, is360 } = props.theme;
+      const {
+        is1081,
+        is721,
+        isMin1600AndMax1920,
+        isMin1367AndMax1600,
+        is1921,
+      } = props.theme;
 
-      if (is1921) {
-        return "15%";
+      if (isMin1600AndMax1920 || is1921) {
+        return "24%";
       }
 
-      if (is1367) {
-        return "21%";
+      if (isMin1367AndMax1600) {
+        return "26%";
       }
 
       if (is1081) {
-        return "29%";
+        return "47.8%";
       }
 
       if (is721) {
-        return "47%";
-      }
-
-      if (is360) {
         return "100%";
       }
+
+      return "24%";
     },
     marginRight: (props: MediaQueryI) => {
-      const { is1367, is1921, is1081, is360 } = props.theme;
+      const { is1081, isMin1600AndMax1920, isMin1367AndMax1600, is1921 } =
+        props.theme;
 
       if (is1921) {
-        return "6.25%";
+        return "18px";
       }
 
-      if (is1367) {
-        return "5.3%";
+      if (isMin1600AndMax1920) {
+        return "1.3%";
+      }
+
+      if (isMin1367AndMax1600) {
+        return "11%";
       }
 
       if (is1081) {
-        return "6.5%";
+        return "4.2%";
       }
 
-      if (is360) {
-        return "100%";
-      }
-    },
-
-    margin: (props: MediaQueryI) => {
-      const { is721 } = props.theme;
-
-      if (is721) {
-        return "0 6% 30px 0";
-      }
+      return "1.3";
     },
 
     marginBottom: (props: MediaQueryI) => {
@@ -95,42 +107,52 @@ const useStyles = createUseStyles({
       if (is360) {
         return "30px";
       }
+
+      return "";
     },
 
-    "& :nth-child(5n)": {
+    "&:nth-child(5n)": {
       marginRight: (props: MediaQueryI) => {
         const { is1921 } = props.theme;
 
         if (is1921) {
-          return 0;
+          return "0px";
         }
+
+        return "";
       },
     },
-    "& :nth-child(4n)": {
+    "&:nth-child(4n)": {
       marginRight: (props: MediaQueryI) => {
-        const { isMin1367AndMax1920 } = props.theme;
+        const { isMin1600AndMax1920 } = props.theme;
 
-        if (isMin1367AndMax1920) {
-          return 0;
+        if (isMin1600AndMax1920) {
+          return "0px";
         }
+
+        return "";
       },
     },
-    "&: nth-child(3n)": {
+    "&:nth-child(3n)": {
       marginRight: (props: MediaQueryI) => {
-        const { isMin1081AndMax1366 } = props.theme;
+        const { isMin1367AndMax1600 } = props.theme;
 
-        if (isMin1081AndMax1366) {
-          return 0;
+        if (isMin1367AndMax1600) {
+          return "0px";
         }
+
+        return "";
       },
     },
-    "&: nth-child(2n)": {
+    "&:nth-child(2n)": {
       marginRight: (props: MediaQueryI) => {
-        const { isMin721AndMax1080 } = props.theme;
+        const { isMin721AndMax1080, isMin1081AndMax1366 } = props.theme;
 
-        if (isMin721AndMax1080) {
+        if (isMin721AndMax1080 || isMin1081AndMax1366) {
           return "0";
         }
+
+        return "";
       },
     },
 
@@ -141,6 +163,8 @@ const useStyles = createUseStyles({
         if (isMin721AndMax1080) {
           return "0";
         }
+
+        return "";
       },
     },
 
@@ -151,12 +175,26 @@ const useStyles = createUseStyles({
         if (isMin721AndMax1080) {
           return "0";
         }
+
+        return "";
       },
     },
   },
 
   previewImage: {
-    height: "200px",
+    height: (props: MediaQueryI) => {
+      const { is721, is1081 } = props.theme;
+
+      if (is1081) {
+        return "200px";
+      }
+
+      if (is721) {
+        return "280px";
+      }
+
+      return "200px";
+    },
     backgroundColor: "#333",
     borderRadius: "10px,",
   },
@@ -167,6 +205,14 @@ const useStyles = createUseStyles({
 
   previewDescription: {
     fontSize: "18px",
+  },
+
+  multilineEllipsis: {
+    overflow: "hidden",
+    display: "-webkit-box",
+    "-webkit-box-orient": "vertical",
+    "-webkit-line-clamp": 3,
+    "white-space": "pre-wrap",
   },
 });
 

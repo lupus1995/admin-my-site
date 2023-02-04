@@ -3,7 +3,7 @@ import { URL } from "utils/constants";
 import { getCircularReplacer } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 
-import { ArticleI } from "../interface";
+import { ArticleI } from "../../../interface";
 
 export const getArticle = async ({
   id,

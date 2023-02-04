@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import AdminCheckbox from "commons/AdminCheckbox";
 import AdminDatePicker from "commons/AdminDatePicker";
 import AdminEditor from "commons/AdminEditor";
 import BlockImageInput from "commons/BlockImageInput";
@@ -20,20 +19,19 @@ import FormRow from "commons/FormRow";
 import SpaceBetween from "commons/SpaceBetween";
 import TextError from "commons/TextError";
 import Title from "commons/Title";
-import { useDisabled, useSession } from "pages/Admin/hooks";
+import { useDisabled, useSession, useUpdateTextError } from "pages/Admin/hooks";
 import { hasWindow } from "utils/helpers";
-import { usePrevious } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { ArticleI } from "../interface";
+import { ArticleI } from "../../../interface";
 import { saveArticle, getArticle } from "./api";
-import { LinkToArticleList } from "./components";
+import { LinkToArticleList, HidePublishedArticle } from "./components";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
   useSession();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -51,7 +49,7 @@ const ArticlesForm = () => {
     trigger,
   } = useForm();
 
-  const prevLng = usePrevious(i18n.language);
+  useUpdateTextError({ trigger, isSubmitted });
 
   const utilsStyles = useUtilsStyles();
 
@@ -125,13 +123,6 @@ const ArticlesForm = () => {
       }
     }
   }, [id, isInitForm, navigate, register, setValue, t]);
-
-  // обновление сообщений если поменяли язык
-  useEffect(() => {
-    if (prevLng !== i18n.language && isSubmitted) {
-      trigger();
-    }
-  }, [errors, i18n.language, isSubmitted, prevLng, trigger]);
 
   return (
     <Dashboard>
@@ -341,13 +332,12 @@ const ArticlesForm = () => {
                 </div>
               </div>
             </FormRow>
-            <AdminCheckbox
-              isDisabled
+            <HidePublishedArticle
+              watch={watch}
+              isInitForm={isInitForm}
               disabledClass={disabledClass}
-              name="hidePublishedArticle"
               setValue={setValue}
-              value={watch("hidePublishedArticle")}
-              label={t("hidePublishedArticleLabel")}
+              isDisabled={isDisabled}
             />
 
             <FormRow>

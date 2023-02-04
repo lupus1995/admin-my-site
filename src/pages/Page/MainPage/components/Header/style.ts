@@ -44,14 +44,19 @@ const useStyles = createUseStyles({
     textDecoration: "none",
     fontSize: (props: MediaQueryI) => {
       const {
-        theme: { is360, is481 },
+        theme: { is360, is481, is721 },
       } = props;
-      if (is481) {
+
+      if (is721) {
         return "22px";
       }
 
-      if (is360) {
+      if (is481) {
         return "15px";
+      }
+
+      if (is360) {
+        return "12px";
       }
     },
   },

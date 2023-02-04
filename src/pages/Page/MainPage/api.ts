@@ -1,15 +1,13 @@
-import { HomeFormI } from "pages/Admin/Home/interfaces";
 import { URL } from "utils/constants";
 import { ResponseI } from "utils/interfaces";
 
+import { ApiErrorMessageI, HomeFormI } from "../../interface";
 import { ImageI, ImageNameI } from "./interface";
 
 // получение данных с бекенда для главной страницы
 export const get = async ({
-  message = "Ошибка получени данных для формы, попробуйте позже",
-}: {
-  message?: string;
-}): Promise<ResponseI<HomeFormI | void>> => {
+  message,
+}: ApiErrorMessageI): Promise<ResponseI<HomeFormI | void>> => {
   const response = await fetch(`${URL}/main-page`, {
     method: "get",
     headers: {
@@ -33,7 +31,9 @@ export const get = async ({
 };
 
 // получение данных об имени картинок на главной странице
-export const getImageName = async (): Promise<ResponseI<ImageNameI | void>> => {
+export const getImageName = async ({
+  message,
+}: ApiErrorMessageI): Promise<ResponseI<ImageNameI | void>> => {
   const response = await fetch(`${URL}/main-page/imageName`, {
     method: "get",
     headers: {
@@ -43,7 +43,7 @@ export const getImageName = async (): Promise<ResponseI<ImageNameI | void>> => {
 
   if (response.status >= 400) {
     return {
-      message: "Ошибка получения данных о названии картинок",
+      message,
       status: false,
     };
   }

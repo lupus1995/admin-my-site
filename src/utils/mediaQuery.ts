@@ -12,6 +12,8 @@ export interface MediaQueryI {
     isMin1367AndMax1920?: boolean;
     isMin1081AndMax1366?: boolean;
     isMin721AndMax1080?: boolean;
+    isMin1600AndMax1920?: boolean;
+    isMin1367AndMax1600?: boolean;
 
     isMinDevicePixelRatio?: boolean;
   };
@@ -23,11 +25,16 @@ export const useIsMediaQuery = () => {
   const is721 = useMediaQuery({ query: "(min-width: 721px)" });
   const is1081 = useMediaQuery({ query: "(min-width: 1081px)" });
   const is1367 = useMediaQuery({ query: "(min-width: 1367px)" });
+  const is1601 = useMediaQuery({ query: "(min-width: 1601px)" });
   const is1921 = useMediaQuery({ query: "(min-width: 1921px)" });
 
-  const isMin1367AndMax1920 = useMediaQuery({
-    query: "(min-width: 1367px) and (max-width: 1920px)",
+  const isMin1600AndMax1920 = useMediaQuery({
+    query: "(min-width: 1601px) and (max-width: 1920px)",
   });
+  const isMin1367AndMax1600 = useMediaQuery({
+    query: "(min-width: 1367px) and (max-width: 1600px)",
+  });
+  const isMin1367AndMax1920 = isMin1600AndMax1920 || isMin1367AndMax1600;
   const isMin1081AndMax1366 = useMediaQuery({
     query: "(min-width: 1081px) and (max-width: 1366px)",
   });
@@ -49,8 +56,11 @@ export const useIsMediaQuery = () => {
     is721,
     is1081,
     is1367,
+    is1601,
     is1921,
 
+    isMin1367AndMax1600,
+    isMin1600AndMax1920,
     isMin1367AndMax1920,
     isMin1081AndMax1366,
     isMin721AndMax1080,

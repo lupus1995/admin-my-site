@@ -11,9 +11,9 @@ import useStyles from "./style";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
-  const { is360, is481 } = useIsMediaQuery();
+  const { is360, is481, is721 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
-  const styles = useStyles({ theme: { is360, is481 } });
+  const styles = useStyles({ theme: { is360, is481, is721 } });
   return (
     <header
       className={classNames(
