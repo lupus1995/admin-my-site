@@ -3,16 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
+import Footer from "commons/Footer";
 import { get, getImageName } from "pages/Page/MainPage/api";
 
-import {
-  Header,
-  BackgroundImage,
-  AboutMe,
-  Portfolio,
-  Contacts,
-  Footer,
-} from "./components";
+import { Header } from "../commons";
+import { BackgroundImage, AboutMe, Portfolio, Contacts } from "./components";
 import { MainPageI } from "./interface";
 
 const MainPage = () => {

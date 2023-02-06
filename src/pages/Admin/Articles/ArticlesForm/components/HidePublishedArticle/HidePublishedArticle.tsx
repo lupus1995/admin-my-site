@@ -29,10 +29,17 @@ const HidePublishedArticle: FC<{
     return false;
   }, [isInitForm, publishedAt]);
 
+  const disabledCheckbox = useMemo(() => {
+    if (isDisabled) {
+      return true;
+    }
+    return isDisabledCheckbox;
+  }, [isDisabled, isDisabledCheckbox]);
+
   return (
     <AdminCheckbox
-      isDisabled={isDisabledCheckbox}
-      disabledClass={isDisabled || isDisabledCheckbox ? disabledClass : ""}
+      isDisabled={disabledCheckbox}
+      disabledClass={disabledCheckbox ? disabledClass : ""}
       name="hidePublishedArticle"
       setValue={setValue}
       value={watch("hidePublishedArticle")}

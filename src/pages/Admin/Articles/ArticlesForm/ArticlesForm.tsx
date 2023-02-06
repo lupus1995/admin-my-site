@@ -350,6 +350,17 @@ const ArticlesForm = () => {
                 isDisabled={isDisabled}
                 disabledClass={disabledClass}
               />
+              {id && (
+                <button
+                  className={classNames(`${utilsStyles.button}`, {
+                    [disabledClass]: isDisabled,
+                  })}
+                  type="button"
+                  onClick={() => navigate(`/article/${id}?isAdmin=true`)}
+                >
+                  Предпросмотр
+                </button>
+              )}
             </FormRow>
           </Form>
         )}

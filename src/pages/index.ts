@@ -6,3 +6,6 @@ export { default as ArticlesForm } from "./Admin/Articles/ArticlesForm";
 export { default as Feedback } from "./Admin/Feedback";
 
 export { default as MainPage } from "./Page/MainPage";
+export { default as PageNotFound } from "./Page/404Page";
+export { default as Article } from "./Page/Article";
+export { default as ListArticle } from "./Page/ListArticles";

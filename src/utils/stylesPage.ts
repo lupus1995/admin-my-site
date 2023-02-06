@@ -40,6 +40,22 @@ const useStylesClasses = createUseStyles({
   dFlex: {
     display: "flex",
   },
+  button: {
+    color: "#fff",
+    borderRadius: "5px",
+    width: "auto",
+    fontSize: "16px",
+    textAlign: "center",
+    backgroundColor: "#696cff",
+    borderColor: "#696cff",
+    padding: "7px 20px",
+    border: "none",
+    textDecoration: "none",
+    cursor: "pointer",
+  },
+  textCenter: {
+    textAlign: "center",
+  },
 });
 
 // общие стили для тегов основной страницы

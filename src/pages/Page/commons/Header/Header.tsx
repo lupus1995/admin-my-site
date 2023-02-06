@@ -2,6 +2,7 @@ import React from "react";
 
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { languages } from "utils/constants";
 import { useIsMediaQuery } from "utils/mediaQuery";
@@ -26,9 +27,9 @@ const Header = () => {
         )}
       >
         <span>
-          <a className={classNames(`${styles.navItemLink}`)} href="#">
+          <Link className={classNames(`${styles.navItemLink}`)} to="/">
             WFC
-          </a>
+          </Link>
         </span>
         <ul className={classNames(`${styles.nav}`)}>
           <li className={classNames(`${styles.navItem}`)}>
@@ -37,9 +38,12 @@ const Header = () => {
             </a>
           </li>
           <li className={classNames(`${styles.navItem}`)}>
-            <a className={classNames(`${styles.navItemLink}`)} href="#">
+            <Link
+              className={classNames(`${styles.navItemLink}`)}
+              to="/articles"
+            >
               {t("portfolioTitlePage")}
-            </a>
+            </Link>
           </li>
           <li className={classNames(`${styles.navItem}`)}>
             <a className={classNames(`${styles.navItemLink}`)} href="#">

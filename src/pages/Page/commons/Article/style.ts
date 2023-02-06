@@ -3,54 +3,46 @@ import { createUseStyles } from "react-jss";
 import { MediaQueryI } from "utils/mediaQuery";
 
 const useStyles = createUseStyles({
-  aboutMe: {
-    display: "flex",
-    marginRight: "15px",
-    textIndent: "15px",
+  time: {
+    textAlign: "right",
+    marginTop: "auto",
   },
-
-  aboutMePhoto: {
-    width: "calc(50% - 15px)",
-    marginRight: "15px",
+  previewLink: {
+    outline: "none",
+    textDecoration: "none",
+    color: "#000",
   },
-
-  aboutMeArticle: {
-    width: "50%",
+  previewTitle: {
+    fontSize: "30px",
+    marginBottom: "10px",
+  },
+  previewDescription: {
     fontSize: "18px",
-
-    "& p": {
-      marginBottom: "15px",
-    },
+    marginTop: "10px",
   },
-
-  articlesContainer: {
-    display: "flex",
-    textAlign: (props: MediaQueryI) => {
+  previewImage: {
+    height: (props: MediaQueryI) => {
       const { is721, is1081 } = props.theme;
 
       if (is1081) {
-        return "left";
+        return "200px";
       }
 
       if (is721) {
-        return "center";
+        return "280px";
       }
 
-      return "";
+      return "200px";
     },
-    flexDirection: (props: MediaQueryI) => {
-      const { is721 } = props.theme;
-      if (is721) {
-        return "row";
-      }
-
-      // для ширины 360px
-      return "row";
-    },
-    flexWrap: "wrap",
+    backgroundColor: "#333",
+    borderRadius: "10px,",
+    maxWidth: "100%",
   },
-
   articleContainer: {
+    boxShadow: "0px 0px 3px #000",
+    padding: "10px",
+    display: "flex",
+    flexDirection: "column",
     width: (props: MediaQueryI) => {
       const {
         is1081,
@@ -181,38 +173,31 @@ const useStyles = createUseStyles({
     },
   },
 
-  previewImage: {
-    height: (props: MediaQueryI) => {
+  articlesContainer: {
+    display: "flex",
+    textAlign: (props: MediaQueryI) => {
       const { is721, is1081 } = props.theme;
 
       if (is1081) {
-        return "200px";
+        return "left";
       }
 
       if (is721) {
-        return "280px";
+        return "center";
       }
 
-      return "200px";
+      return "";
     },
-    backgroundColor: "#333",
-    borderRadius: "10px,",
-  },
+    flexDirection: (props: MediaQueryI) => {
+      const { is721 } = props.theme;
+      if (is721) {
+        return "row";
+      }
 
-  previewTitle: {
-    fontSize: "30px",
-  },
-
-  previewDescription: {
-    fontSize: "18px",
-  },
-
-  multilineEllipsis: {
-    overflow: "hidden",
-    display: "-webkit-box",
-    "-webkit-box-orient": "vertical",
-    "-webkit-line-clamp": 3,
-    "white-space": "pre-wrap",
+      // для ширины 360px
+      return "row";
+    },
+    flexWrap: "wrap",
   },
 });
 

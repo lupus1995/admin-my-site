@@ -1,6 +1,7 @@
 import React from "react";
 
 import classNames from "classnames";
+import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 
 import { useIsMediaQuery } from "utils/mediaQuery";
@@ -19,7 +20,7 @@ const Footer = () => {
         `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block} ${stylesPage.blockBackground} ${styles.footer}`
       )}
     >
-      &#169; {t("copyright")} 2022
+      &#169; {t("copyright")} {format(new Date(), "yyyy")}
     </footer>
   );
 };

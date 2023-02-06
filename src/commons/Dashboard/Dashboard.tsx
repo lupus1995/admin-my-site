@@ -5,6 +5,7 @@ import { set } from "local-storage";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
+import Footer from "../Footer";
 import { SwitchLanguage } from "./components";
 import { urls } from "./constants";
 import { getRootParentLink } from "./helpers";
@@ -87,7 +88,10 @@ const Dashboard: FC = ({ children }) => {
           </li>
         </ul>
       </aside>
-      {children}
+      <div>
+        {children}
+        <Footer />
+      </div>
     </main>
   );
 };

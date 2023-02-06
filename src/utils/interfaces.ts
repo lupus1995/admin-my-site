@@ -14,3 +14,8 @@ export interface LanguageI {
   en: string;
   ru: string;
 }
+
+export interface UrlsI {
+  path: string;
+  Component: () => JSX.Element;
+}

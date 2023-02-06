@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import AdminModal from "commons/AdminModal";
 import Dashboard from "commons/Dashboard";
 import FormRow from "commons/FormRow";
 import MessageForEmptyList from "commons/MessageForEmptyList";
+import Pagination from "commons/Pagination/Pagination";
 import Title from "commons/Title";
 import { useSession } from "pages/Admin/hooks";
 import useUtilsStyles from "utils/styles";
@@ -60,8 +61,8 @@ const ArticleList = () => {
     });
   };
 
-  useEffect(() => {
-    getArticles().then((result) => {
+  const handleLoad = ({ offset, limit }: { offset: number; limit: number }) => {
+    return getArticles({ offset, limit }).then((result) => {
       if (!result.status) {
         toast(t(result.message), {
           type: "error",
@@ -70,12 +71,15 @@ const ArticleList = () => {
         });
 
         navigate(result.redirectTo);
+        return [];
       }
       if (result.responseBody) {
-        setArticles(result.responseBody);
+        setArticles([...articles, ...result.responseBody]);
       }
+
+      return result.responseBody || [];
     });
-  }, [navigate, t]);
+  };
 
   return (
     <Dashboard>
@@ -138,6 +142,8 @@ const ArticleList = () => {
             ))}
           </div>
         )}
+
+        <Pagination limit={10} handleLoad={handleLoad} />
       </div>
 
       <AdminModal
