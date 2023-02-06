@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
@@ -9,7 +9,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import useStyles from "./style";
 
-const Footer = () => {
+const Footer: FC = () => {
   const { t } = useTranslation();
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });

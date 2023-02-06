@@ -9,7 +9,7 @@ import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { ArticleI } from "../../../../interface";
-import { ArticlesContainer } from "../../../commons";
+import { ArticlesContainer } from "../../../components";
 import { getNewArticles } from "./api";
 
 const Portfolio = () => {

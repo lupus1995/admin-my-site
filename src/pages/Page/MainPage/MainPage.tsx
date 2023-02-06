@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Footer from "commons/Footer";
 import { get, getImageName } from "pages/Page/MainPage/api";
 
-import { Header } from "../commons";
+import { Header } from "../components";
 import { BackgroundImage, AboutMe, Portfolio, Contacts } from "./components";
 import { MainPageI } from "./interface";
 

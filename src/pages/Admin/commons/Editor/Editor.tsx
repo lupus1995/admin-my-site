@@ -4,9 +4,7 @@ import classNames from "classnames";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
-import { get } from "lodash";
-import { Editor } from "react-draft-wysiwyg";
-import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
+import { Editor as EditorDraft } from "react-draft-wysiwyg";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
   UseFormRegister,
@@ -16,40 +14,27 @@ import {
 } from "react-hook-form/dist/types/form";
 import { useTranslation } from "react-i18next";
 
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
-import TextError from "commons/TextError";
 import { usePrevious } from "utils/hooks";
 import useStylesUtil from "utils/styles";
 
-const AdminEditor: FC<{
+const Editor: FC<{
   setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   trigger: UseFormTrigger<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   isSubmitted: boolean;
-  errors: Partial<
-    FieldErrorsImpl<{
-      [x: string]: string;
-    }>
-  >;
   isDisabled: boolean;
   disabledClass: string;
   name: string;
-  label: string;
-  language: string;
 }> = ({
   setValue,
-  errors,
   isSubmitted,
   trigger,
   watch,
   isDisabled,
   disabledClass,
   name,
-  label,
   register,
-  language,
 }) => {
   const { t, i18n } = useTranslation();
   const prevLng = usePrevious(i18n.language);
@@ -101,12 +86,9 @@ const AdminEditor: FC<{
   }, [i18n.language, name, prevLng, register, t]);
 
   return (
-    <FormRow>
-      <FormLabel>
-        {label}, {language}
-      </FormLabel>
+    <>
       {isInitState && (
-        <Editor
+        <EditorDraft
           editorClassName={classNames(
             `${stylesUtils.input} ${stylesUtils.editor}`,
             {
@@ -124,9 +106,8 @@ const AdminEditor: FC<{
           defaultContentState={initState}
         />
       )}
-      <TextError message={get(errors, name)?.message as string} />
-    </FormRow>
+    </>
   );
 };
 
-export default AdminEditor;
+export default Editor;

@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import Multiline from "commons/Multiline/Multiline";
+import Multiline from "pages/Page/commons/Multiline/Multiline";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
 import { ArticleI } from "../../../interface";

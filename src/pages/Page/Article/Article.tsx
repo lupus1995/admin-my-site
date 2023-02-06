@@ -10,7 +10,7 @@ import { ArticleI } from "pages/interface";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { Header } from "../commons";
+import { Header } from "../components";
 import { getArticle, getArticleForAdmin } from "./api";
 import useStyle from "./style";
 

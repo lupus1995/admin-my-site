@@ -7,14 +7,10 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-import ButtonSubmit from "commons/ButtonSubmit";
-import Form from "commons/Form";
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
-import TextError from "commons/TextError";
 import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
+import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
 import { useDisabled } from "../hooks";
 import { signup } from "./api";
 import { SignUpI } from "./interfaces";

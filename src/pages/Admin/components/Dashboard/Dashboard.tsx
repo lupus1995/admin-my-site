@@ -5,7 +5,7 @@ import { set } from "local-storage";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-import Footer from "../Footer";
+import Footer from "../../../../commons/Footer";
 import { SwitchLanguage } from "./components";
 import { urls } from "./constants";
 import { getRootParentLink } from "./helpers";

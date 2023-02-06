@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 
-import FormRow from "commons/FormRow";
+import FormRow from "pages/Admin/commons/FormRow";
 import useUtilsStyles from "utils/styles";
 
 import { ListWithItemI } from "./interface";

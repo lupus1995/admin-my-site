@@ -4,11 +4,9 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
-import TextError from "commons/TextError";
 import { useUpdateTextError } from "pages/Admin/hooks";
 
+import { FormRow, FormLabel, TextError } from "../../commons";
 import { EmptyList, ListWithItem } from "./components";
 import { BlockImageInputI } from "./interface";
 import useStyles from "./style";

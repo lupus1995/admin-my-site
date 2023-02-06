@@ -7,21 +7,21 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import AdminEditor from "commons/AdminEditor";
-import BlockImageInput from "commons/BlockImageInput";
-import ButtonSubmit from "commons/ButtonSubmit";
-import Dashboard from "commons/Dashboard";
-import Form from "commons/Form";
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
 import SpaceBetween from "commons/SpaceBetween";
-import TextError from "commons/TextError";
-import Title from "commons/Title";
 import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
 import { HomeFormI } from "../../interface";
+import {
+  Title,
+  Form,
+  FormRow,
+  FormLabel,
+  TextError,
+  ButtonSubmit,
+} from "../commons";
+import { AdminEditor, BlockImageInput, Dashboard } from "../components";
 import { useDisabled, useSession, useUpdateTextError } from "../hooks";
 import { get, save } from "./api";
 import useStyles from "./style";

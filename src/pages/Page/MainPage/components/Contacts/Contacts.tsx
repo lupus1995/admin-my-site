@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
-import TextError from "commons/TextError";
+import { TextError } from "pages/Admin/commons";
 import { useDisabled, useUpdateTextError } from "pages/Admin/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";

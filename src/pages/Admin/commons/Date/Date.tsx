@@ -8,35 +8,23 @@ import {
   UseFormSetValue,
   UseFormTrigger,
 } from "react-hook-form/dist/types";
-import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
 
-import FormLabel from "commons/FormLabel";
-import FormRow from "commons/FormRow";
-import TextError from "commons/TextError";
 import useUtilsStyles from "utils/styles";
 
 import { prepareDate } from "./helpers";
 
-const AdminDatePicker: FC<{
+const Date: FC<{
   setValue: UseFormSetValue<FieldValues>;
   disabledClass: string;
   isDisabled: boolean;
   defaultValue: string;
   name: string;
-  label: string;
   trigger: UseFormTrigger<FieldValues>;
   isSubmitted: boolean;
-  errors: Partial<
-    FieldErrorsImpl<{
-      [x: string]: string;
-    }>
-  >;
 }> = ({
   disabledClass,
   isDisabled,
   name,
-  errors,
-  label,
   setValue,
   defaultValue,
   trigger,
@@ -53,22 +41,16 @@ const AdminDatePicker: FC<{
   };
 
   return (
-    <>
-      <FormRow>
-        <FormLabel>{label}</FormLabel>
-        <DatePicker
-          name={name}
-          className={classNames(`${utilsStyles.input}`, {
-            [disabledClass]: isDisabled,
-          })}
-          selected={startDate}
-          onChange={onChange}
-          dateFormat="dd.MM.yyyy"
-        />
-        <TextError message={errors[name]?.message as string} />
-      </FormRow>
-    </>
+    <DatePicker
+      name={name}
+      className={classNames(`${utilsStyles.input}`, {
+        [disabledClass]: isDisabled,
+      })}
+      selected={startDate}
+      onChange={onChange}
+      dateFormat="dd.MM.yyyy"
+    />
   );
 };
 
-export default AdminDatePicker;
+export default Date;

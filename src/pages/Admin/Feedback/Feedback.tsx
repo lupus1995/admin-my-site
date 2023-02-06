@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import Dashboard from "commons/Dashboard";
-import FormRow from "commons/FormRow";
-import Title from "commons/Title";
+import FormRow from "pages/Admin/commons/FormRow";
+import Title from "pages/Admin/commons/Title";
+import Dashboard from "pages/Admin/components/Dashboard";
 import useUtilsStyles from "utils/styles";
 
 import { useSession } from "../hooks";

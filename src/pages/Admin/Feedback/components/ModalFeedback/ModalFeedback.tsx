@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import AdminModal from "commons/AdminModal";
-import FormRow from "commons/FormRow";
+import FormRow from "pages/Admin/commons/FormRow";
+import AdminModal from "pages/Admin/components/AdminModal";
 import { useDisabled } from "pages/Admin/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";

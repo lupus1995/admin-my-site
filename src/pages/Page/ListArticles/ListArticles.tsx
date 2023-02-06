@@ -5,12 +5,12 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import Footer from "commons/Footer";
-import Pagination from "commons/Pagination";
+import Pagination from "pages/Page/components/Pagination";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { ArticleI } from "../../interface";
-import { ArticlesContainer, Header } from "../commons";
+import { ArticlesContainer, Header } from "../components";
 import { getArticles } from "./api";
 import useStyles from "./style";
 

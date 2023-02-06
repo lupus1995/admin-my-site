@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Footer from "commons/Footer";
 
-import { Header } from "../commons";
+import { Header } from "../components";
 
 const PageNotFound = () => {
   return (

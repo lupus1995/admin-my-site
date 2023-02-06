@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import AdminModal from "commons/AdminModal";
-import Dashboard from "commons/Dashboard";
-import FormRow from "commons/FormRow";
-import MessageForEmptyList from "commons/MessageForEmptyList";
-import Pagination from "commons/Pagination/Pagination";
-import Title from "commons/Title";
+import FormRow from "pages/Admin/commons/FormRow";
+import MessageForEmptyList from "pages/Admin/commons/MessageForEmptyList";
+import Title from "pages/Admin/commons/Title";
+import AdminModal from "pages/Admin/components/AdminModal";
+import Dashboard from "pages/Admin/components/Dashboard";
 import { useSession } from "pages/Admin/hooks";
+import Pagination from "pages/Page/components/Pagination/Pagination";
 import useUtilsStyles from "utils/styles";
 
 import { ArticleI } from "../../../interface";
