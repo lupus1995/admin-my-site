@@ -13,6 +13,7 @@
         "paths": {
             "utils/*": ["./src/utils/*"],
             "commons/*": ["./src/commons/*"],
+            "components/*": ["./src/components/*"],
             "pages/*": ["./src/pages/*"],
         }
     }

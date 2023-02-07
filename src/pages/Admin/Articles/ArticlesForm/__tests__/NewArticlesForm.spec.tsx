@@ -15,10 +15,18 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-jest.mock("commons/Dashboard", () =>
-  // eslint-disable-next-line react/display-name
-  ({ children }: { children: ReactNode }) => <>{children}</>
-);
+jest.mock("pages/Admin/components", () => {
+  const module = jest.requireActual("pages/Admin/components");
+
+  return {
+    ...module,
+    Dashboard: ({ children }: { children: ReactNode }) => <>{children}</>,
+    AdminEditor: () => <span>AdminEditor</span>,
+    BlockImageInput: () => <span>BlockImageInput</span>,
+    AdminDatePicker: () => <span>AdminDatePicker</span>,
+    AdminCheckbox: () => <span>AdminCheckbox</span>,
+  };
+});
 
 jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
   const module = jest.requireActual("pages/Admin/Articles/ArticlesForm/api");
@@ -46,15 +54,6 @@ jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
     ),
   };
 });
-
-// eslint-disable-next-line react/display-name
-jest.mock("commons/BlockImageInput", () => () => <span>BlockImageInput</span>);
-// eslint-disable-next-line react/display-name
-jest.mock("commons/AdminEditor", () => () => <span>AdminEditor</span>);
-// eslint-disable-next-line react/display-name
-jest.mock("commons/AdminDatePicker", () => () => <span>AdminDatePicker</span>);
-// eslint-disable-next-line react/display-name
-jest.mock("commons/AdminCheckbox", () => () => <span>AdminCheckbox</span>);
 
 describe("NewArticlesForm", () => {
   it("check render component", async () => {

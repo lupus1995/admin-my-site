@@ -7,7 +7,7 @@ import reactI18next from "utils/mocks/react-i18next";
 
 import ArticleList from "../ArticleList";
 
-jest.mock("commons/Dashboard", () =>
+jest.mock("pages/Admin/components/Dashboard", () =>
   // eslint-disable-next-line react/display-name
   ({ children }: { children: ReactNode }) => <>{children}</>
 );

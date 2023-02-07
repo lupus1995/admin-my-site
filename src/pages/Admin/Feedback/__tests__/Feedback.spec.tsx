@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 
 import Feedback from "../Feedback";
 
-jest.mock("commons/Dashboard", () =>
+jest.mock("../../components/Dashboard", () =>
   // eslint-disable-next-line react/display-name
   ({ children }: { children: ReactNode }) => <>{children}</>
 );

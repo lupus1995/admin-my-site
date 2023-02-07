@@ -8,6 +8,6 @@ describe("Footer", () => {
   it("check render component", () => {
     const { getByText } = render(<Footer />);
 
-    expect(getByText(/copyright 2022/i)).toBeInTheDocument();
+    expect(getByText(/copyright 2023/i)).toBeInTheDocument();
   });
 });

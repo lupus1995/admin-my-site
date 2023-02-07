@@ -4,11 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import FormRow from "pages/Admin/commons/FormRow";
-import Title from "pages/Admin/commons/Title";
-import Dashboard from "pages/Admin/components/Dashboard";
 import useUtilsStyles from "utils/styles";
 
+import { Title, FormRow } from "../commons";
+import { Dashboard } from "../components";
 import { useSession } from "../hooks";
 import { getFeedback } from "./api";
 import { FeedbackTable, ModalFeedback } from "./components";

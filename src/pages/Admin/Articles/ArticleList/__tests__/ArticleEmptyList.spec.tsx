@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 
 import ArticleList from "../ArticleList";
 
-jest.mock("commons/Dashboard", () =>
+jest.mock("pages/Admin/components/Dashboard", () =>
   // eslint-disable-next-line react/display-name
   ({ children }: { children: ReactNode }) => <>{children}</>
 );

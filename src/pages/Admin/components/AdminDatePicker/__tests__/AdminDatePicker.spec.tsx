@@ -58,6 +58,6 @@ describe("AdminDatePicker", () => {
     // @ts-ignore
     const { getByRole } = render(<AdminDatePicker {...newProps} />);
 
-    expect((getByRole("textbox") as HTMLInputElement).value).toBe("12/20/2022");
+    expect((getByRole("textbox") as HTMLInputElement).value).toBe("20.12.2022");
   });
 });

@@ -56,7 +56,7 @@ describe("AdminEditor", () => {
     const { getByText } = render(<AdminEditor {...props} />);
 
     expect(getByText(/label/i)).toBeInTheDocument();
-    expect(getByText(/input-0-2-1 editor-0-2-4/i)).toBeInTheDocument();
+    expect(getByText(/input-0-2-3 editor-0-2-6/i)).toBeInTheDocument();
     expect(getByText(/Editor/)).toBeInTheDocument();
     expect(getByText(/error message/i)).toBeInTheDocument();
   });

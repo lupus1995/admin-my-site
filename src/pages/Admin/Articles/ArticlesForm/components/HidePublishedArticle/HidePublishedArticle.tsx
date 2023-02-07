@@ -8,7 +8,7 @@ import {
 } from "react-hook-form/dist/types";
 import { useTranslation } from "react-i18next";
 
-import AdminCheckbox from "pages/Admin/components/AdminCheckbox";
+import { AdminCheckbox } from "pages/Admin/components";
 
 const HidePublishedArticle: FC<{
   watch: UseFormWatch<FieldValues>;

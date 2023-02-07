@@ -62,20 +62,16 @@ jest.mock("pages/Admin/Home/api", () => {
   };
 });
 
-jest.mock("commons/Dashboard", () =>
-  // eslint-disable-next-line react/display-name
-  ({ children }: { children: ReactNode }) => <>{children}</>
-);
+jest.mock("../../components", () => {
+  const module = jest.requireActual("../../components");
 
-jest.mock("commons/BlockImageInput", () =>
-  // eslint-disable-next-line react/display-name
-  () => <span>BlockImageInput</span>
-);
-
-jest.mock("commons/AdminEditor", () =>
-  // eslint-disable-next-line react/display-name
-  () => <span>AdminEditor</span>
-);
+  return {
+    ...module,
+    Dashboard: ({ children }: { children: JSX.Element }) => <>{children}</>,
+    BlockImageInput: () => <span>BlockImageInput</span>,
+    AdminEditor: () => <span>AdminEditor</span>,
+  };
+});
 
 describe("Home", () => {
   it("check render component", async () => {

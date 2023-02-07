@@ -39,17 +39,27 @@ jest.mock("pages/Page/MainPage/api", () => {
   };
 });
 
-jest.mock("pages/Page/MainPage/components", () => {
-  const module = jest.requireActual("pages/Page/MainPage/components");
+jest.mock("../../components", () => {
+  const module = jest.requireActual("../../components");
 
   return {
     ...module,
     Header: () => <span>Header</span>,
+  };
+});
+
+// eslint-disable-next-line react/display-name
+jest.mock("commons/Footer", () => () => <span>Footer</span>);
+
+jest.mock("../components", () => {
+  const module = jest.requireActual("../components");
+
+  return {
+    ...module,
     BackgroundImage: () => <span>BackgroundImage</span>,
     AboutMe: () => <span>AboutMe</span>,
     Portfolio: () => <span>Portfolio</span>,
     Contacts: () => <span>Contacts</span>,
-    Footer: () => <span>Footer</span>,
   };
 });
 
