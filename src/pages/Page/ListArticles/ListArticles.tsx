@@ -4,13 +4,13 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
-import Footer from "commons/Footer";
-import Pagination from "pages/Page/components/Pagination";
+import Pagination from "components/Pagination";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { ArticleI } from "../../interface";
-import { ArticlesContainer, Header } from "../components";
+import { ArticlesContainer } from "../components";
+import { WrapperPage } from "../widgets";
 import { getArticles } from "./api";
 import useStyles from "./style";
 
@@ -54,17 +54,16 @@ const ListArticle = () => {
 
   return (
     <>
-      <Header />
-
-      <div
-        className={classNames(
-          `${styles.articlesWrapper} ${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.blockBackground}`
-        )}
-      >
-        <ArticlesContainer articles={articles} />
-        <Pagination limit={8} handleLoad={handleLoad} />
-      </div>
-      <Footer />
+      <WrapperPage>
+        <div
+          className={classNames(
+            `${styles.articlesWrapper} ${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.blockBackground}`
+          )}
+        >
+          <ArticlesContainer articles={articles} />
+          <Pagination limit={8} handleLoad={handleLoad} />
+        </div>
+      </WrapperPage>
     </>
   );
 };

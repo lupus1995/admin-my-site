@@ -4,6 +4,7 @@ import injectSheet from "react-jss";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { PageNotFound } from "pages/index";
 import { useStylesTag } from "utils/stylesPage";
 import urls from "utils/urls";
 
@@ -31,6 +32,7 @@ const App = () => {
             />
           );
         })}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer />
     </>

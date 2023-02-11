@@ -5,12 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import Footer from "commons/Footer";
 import { ArticleI } from "pages/interface";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { Header } from "../components";
+import { WrapperPage } from "../widgets";
 import { getArticle, getArticleForAdmin } from "./api";
 import useStyle from "./style";
 
@@ -53,8 +52,7 @@ const Article = () => {
   }, [article, id, isAdmin, navigate, t]);
 
   return (
-    <>
-      <Header />
+    <WrapperPage>
       {article && (
         <>
           <div
@@ -84,8 +82,7 @@ const Article = () => {
           </div>
         </>
       )}
-      <Footer />
-    </>
+    </WrapperPage>
   );
 };
 

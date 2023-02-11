@@ -44,13 +44,8 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     width: (props: MediaQueryI) => {
-      const {
-        is1081,
-        is721,
-        isMin1600AndMax1920,
-        isMin1367AndMax1600,
-        is1921,
-      } = props.theme;
+      const { is1081, isMin1600AndMax1920, isMin1367AndMax1600, is1921 } =
+        props.theme;
 
       if (isMin1600AndMax1920 || is1921) {
         return "24%";
@@ -64,11 +59,7 @@ const useStyles = createUseStyles({
         return "47.8%";
       }
 
-      if (is721) {
-        return "100%";
-      }
-
-      return "24%";
+      return "100%";
     },
     marginRight: (props: MediaQueryI) => {
       const { is1081, isMin1600AndMax1920, isMin1367AndMax1600, is1921 } =

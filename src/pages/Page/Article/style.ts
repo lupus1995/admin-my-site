@@ -2,7 +2,6 @@ import { createUseStyles } from "react-jss";
 
 const useStyle = createUseStyles({
   articleWrapper: {
-    paddingTop: "63px",
     maxWidth: "1200px",
     margin: "0 auto",
   },

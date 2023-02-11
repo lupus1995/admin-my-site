@@ -1,11 +1,15 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
-  footer: {
-    padding: "15px 30px",
-    textAlign: "center",
+  page404Wrapper: {
     marginTop: "auto",
-    width: "100%",
+    textAlign: "center",
+
+    "@global": {
+      p: {
+        marginBottom: "15px",
+      },
+    },
   },
 });
 
