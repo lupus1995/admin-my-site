@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
-import Pagination from "components/Pagination";
+import Pagination from "components/Pagination/Pagination";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
