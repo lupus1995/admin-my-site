@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 
 import injectSheet from "react-jss";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { PageNotFound } from "pages/index";
+import { hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 import urls from "utils/urls";
 
@@ -12,13 +13,22 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-datepicker/dist/react-datepicker.css";
 import resetDefaultStylesBrowsers from "./resetDefaultStylesBrowsers";
-import roboto from "./roboto";
+
+const Roboto = lazy(() => {
+  if (hasWindow()) {
+    return import("./RobotoFont");
+  }
+
+  return null;
+});
 
 const App = () => {
   resetDefaultStylesBrowsers();
-  roboto();
   return (
     <>
+      <Suspense fallback="">
+        <Roboto />
+      </Suspense>
       <Routes>
         {urls.map((url) => {
           const { path, Component } = url;

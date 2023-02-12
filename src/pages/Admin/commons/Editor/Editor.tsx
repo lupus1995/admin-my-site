@@ -1,10 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, lazy, Suspense, useEffect, useState } from "react";
 
-import classNames from "classnames";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
-import { Editor as EditorDraft } from "react-draft-wysiwyg";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
   UseFormRegister,
@@ -14,8 +11,16 @@ import {
 } from "react-hook-form/dist/types/form";
 import { useTranslation } from "react-i18next";
 
+import { hasWindow } from "utils/helpers";
 import { usePrevious } from "utils/hooks";
-import useStylesUtil from "utils/styles";
+
+const EditorContainer = lazy(() => {
+  if (hasWindow()) {
+    return import("./EditorContainer");
+  }
+
+  return null;
+});
 
 const Editor: FC<{
   setValue: UseFormSetValue<FieldValues>;
@@ -41,7 +46,6 @@ const Editor: FC<{
 
   const [isInitState, setIsInitState] = useState<boolean>(false);
   const [initState, setInitState] = useState(null);
-  const stylesUtils = useStylesUtil();
 
   const uploadCallback = (file: File) => {
     return new Promise((resolve) => {
@@ -65,14 +69,19 @@ const Editor: FC<{
   useEffect(() => {
     if (!isInitState) {
       if (watch(name)) {
-        const contentBlock = htmlToDraft(watch(name));
+        if (hasWindow()) {
+          import("html-to-draftjs").then((htmlToDraft) => {
+            // @ts-ignore
+            const contentBlock = htmlToDraft(watch(name));
 
-        if (contentBlock) {
-          const contentState = ContentState.createFromBlockArray(
-            contentBlock.contentBlocks
-          );
-          const editorState = convertToRaw(contentState);
-          setInitState(editorState);
+            if (contentBlock) {
+              const contentState = ContentState.createFromBlockArray(
+                contentBlock.contentBlocks
+              );
+              const editorState = convertToRaw(contentState);
+              setInitState(editorState);
+            }
+          });
         }
       }
       setIsInitState(!isInitState);
@@ -87,24 +96,16 @@ const Editor: FC<{
 
   return (
     <>
-      {isInitState && (
-        <EditorDraft
-          editorClassName={classNames(
-            `${stylesUtils.input} ${stylesUtils.editor}`,
-            {
-              [disabledClass]: isDisabled,
-            }
-          )}
-          onEditorStateChange={handleEditorChange}
-          toolbar={{
-            image: {
-              previewImage: true,
-              uploadCallback,
-            },
-          }}
-          readOnly={isDisabled}
-          defaultContentState={initState}
-        />
+      {isInitState && hasWindow() && (
+        <Suspense fallback={"loading"}>
+          <EditorContainer
+            initState={initState}
+            disabledClass={disabledClass}
+            isDisabled={isDisabled}
+            handleEditorChange={handleEditorChange}
+            uploadCallback={uploadCallback}
+          />
+        </Suspense>
       )}
     </>
   );

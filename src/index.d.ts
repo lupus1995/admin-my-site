@@ -7,3 +7,6 @@ declare global {
     gtag: (...args: any[]) => void;
   }
 }
+
+declare module "*.woff";
+declare module "*.woff2";

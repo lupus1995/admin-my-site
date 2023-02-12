@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import Pagination from "components/Pagination/Pagination";
+import Pagination from "components/Pagination";
 import { FormRow, Title, MessageForEmptyList } from "pages/Admin/commons";
 import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
