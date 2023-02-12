@@ -1,3 +1,5 @@
+import { LazyExoticComponent } from "react";
+
 export interface TokenI {
   accessToken: string;
   refreshToken: string;
@@ -17,5 +19,5 @@ export interface LanguageI {
 
 export interface UrlsI {
   path: string;
-  Component: () => JSX.Element;
+  Component: LazyExoticComponent<() => JSX.Element>;
 }

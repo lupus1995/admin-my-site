@@ -15,5 +15,5 @@ export const getCircularReplacer = () => {
 // сделано для того, чтобы на стороне ssr исключить рендеринг для компонента для которого
 // требуется наличие объекта window
 export const hasWindow = () => {
-  return Boolean(window);
+  return typeof window !== "undefined";
 };

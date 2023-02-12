@@ -11,10 +11,12 @@ import urls from "utils/urls";
 import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-datepicker/dist/react-datepicker.css";
-import "./resetDefaultStylesBrowsers.css";
-import "./roboto.css";
+import resetDefaultStylesBrowsers from "./resetDefaultStylesBrowsers";
+import roboto from "./roboto";
 
 const App = () => {
+  resetDefaultStylesBrowsers();
+  roboto();
   return (
     <>
       <Routes>

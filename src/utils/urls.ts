@@ -1,17 +1,17 @@
-import {
-  MainPage,
-  ListArticle,
-  Article,
-  SignUp,
-  SignIn,
-  Home,
-  ArticleList,
-  ArticlesForm,
-  Feedback,
-  PageNotFound,
-} from "pages/index";
+import { lazy } from "react";
 
 import { UrlsI } from "./interfaces";
+
+const MainPage = lazy(() => import("pages/Page/MainPage"));
+const ListArticle = lazy(() => import("pages/Page/ListArticles"));
+const Article = lazy(() => import("pages/Page/Article"));
+const PageNotFound = lazy(() => import("pages/Page/404Page"));
+const SignUp = lazy(() => import("pages/Admin/SignUp"));
+const SignIn = lazy(() => import("pages/Admin/SignIn"));
+const Home = lazy(() => import("pages/Admin/Home"));
+const ArticleList = lazy(() => import("pages/Admin/Articles/ArticleList"));
+const ArticlesForm = lazy(() => import("pages/Admin/Articles/ArticlesForm"));
+const Feedback = lazy(() => import("pages/Admin/Feedback"));
 
 const urls: UrlsI[] = [
   {
