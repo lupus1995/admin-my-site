@@ -9,10 +9,16 @@ import { hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 import urls from "utils/urls";
 
-import "react-toastify/dist/ReactToastify.css";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "react-datepicker/dist/react-datepicker.css";
 import resetDefaultStylesBrowsers from "./resetDefaultStylesBrowsers";
+
+// if (typeof window !== "undefined") {
+//   // @ts-ignore
+//   import "react-toastify/dist/ReactToastify.css";
+//   // @ts-ignore
+//   import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+//   // @ts-ignore
+//   import "react-datepicker/dist/react-datepicker.css";
+// }
 
 const Roboto = lazy(() => {
   if (hasWindow()) {
