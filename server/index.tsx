@@ -9,6 +9,7 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 
 import App from "../src/App";
+import { createGenerateId, JssProvider, SheetsRegistry } from "react-jss";
 
 dotenv.config();
 
@@ -25,9 +26,14 @@ app.use("*", (req, res) => {
     encoding: "utf8",
   });
 
+  const sheets = new SheetsRegistry();
+  const generateId = createGenerateId();
+
   const appHTML = ReactDOMServer.renderToString(
     <StaticRouter location={req.originalUrl}>
-      <App />
+      <JssProvider registry={sheets} generateId={generateId}>
+        <App />
+      </JssProvider>
     </StaticRouter>
   );
 
@@ -43,6 +49,6 @@ app.use("*", (req, res) => {
   return res.send(indexHTML);
 });
 
-app.listen("9000", () => {
-  console.log("Express server started at <http://localhost:9000>");
+app.listen("9002", () => {
+  console.log("Express server started at <http://localhost:9002>");
 });

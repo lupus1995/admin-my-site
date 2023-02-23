@@ -1,40 +1,25 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 
 import injectSheet from "react-jss";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { PageNotFound } from "pages/index";
-import { hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 import urls from "utils/urls";
 
 import resetDefaultStylesBrowsers from "./resetDefaultStylesBrowsers";
+import useStyles from "./roboto";
 
-// if (typeof window !== "undefined") {
-//   // @ts-ignore
-//   import "react-toastify/dist/ReactToastify.css";
-//   // @ts-ignore
-//   import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-//   // @ts-ignore
-//   import "react-datepicker/dist/react-datepicker.css";
-// }
-
-const Roboto = lazy(() => {
-  if (hasWindow()) {
-    return import("./RobotoFont");
-  }
-
-  return null;
-});
+import "react-toastify/dist/ReactToastify.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const App = () => {
   resetDefaultStylesBrowsers();
+  useStyles();
   return (
     <>
-      <Suspense fallback="">
-        <Roboto />
-      </Suspense>
       <Routes>
         {urls.map((url) => {
           const { path, Component } = url;

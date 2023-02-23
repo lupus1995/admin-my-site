@@ -6,7 +6,7 @@ import { Editor as EditorDraft, EditorState } from "react-draft-wysiwyg";
 import useStylesUtil from "utils/styles";
 
 const EditorContainer: FC<{
-  initState: any;
+  initState: unknown;
   disabledClass: string;
   isDisabled: boolean;
   handleEditorChange: (editorState: EditorState) => void;
@@ -35,6 +35,7 @@ const EditorContainer: FC<{
         },
       }}
       readOnly={isDisabled}
+      // @ts-ignore
       defaultContentState={initState}
     />
   );
