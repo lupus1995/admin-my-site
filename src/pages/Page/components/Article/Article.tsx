@@ -3,13 +3,13 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import Multiline from "pages/Page/commons/Multiline/Multiline";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
 import { ArticleI } from "../../../interface";
 import useStyles from "./style";
+import Link from "next/link";
 
 const Article: FC<{ article: ArticleI }> = ({ article }) => {
   const {
@@ -50,7 +50,7 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
           src={article.thumbnail}
         />
       </div>
-      <Link className={`${styles.previewLink}`} to={`/article/${article._id}`}>
+      <Link className={`${styles.previewLink}`} href={`/article/${article._id}`}>
         <Multiline numberLine={2}>
           <h4 className={classNames(`${styles.previewTitle}`)}>
             {/* @ts-ignore */}

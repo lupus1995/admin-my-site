@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback } from "react";
 
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -8,28 +8,17 @@ import useUtilsStyles from "utils/styles";
 
 import useStyle from "./style";
 
-interface PaginationResponse<T = unknown[]> {
-  handleLoad: ({
-    offset,
-    limit,
-  }: {
-    offset: number;
-    limit: number;
-  }) => Promise<T>;
-  limit: number;
+interface PaginationResponse {
+  handleLoad: () => Promise<void>;
   // управление выводом кнопки, если не нужно выводить вообще
   notVisibleButton?: boolean;
 }
 
 const Pagination: FC<PaginationResponse> = ({
   handleLoad,
-  limit,
   notVisibleButton = false,
 }) => {
   const { t } = useTranslation();
-  const [offset, setOffset] = useState<number>(0);
-  const [visibleButton, setVisibleButton] = useState<boolean>(false);
-  const [isFirstLoadData, setIsFirstLoadData] = useState<boolean>(false);
   const { isDisabled, disabledClass, setIsDisabled } = useDisabled();
 
   const styles = useStyle();
@@ -37,28 +26,14 @@ const Pagination: FC<PaginationResponse> = ({
 
   const handleClick = useCallback(() => {
     setIsDisabled(true);
-    handleLoad({ offset, limit }).then((data) => {
+    handleLoad().then(() => {
       setIsDisabled(false);
-      if (data.length === limit) {
-        setOffset(offset + 1);
-        setVisibleButton(true);
-        return;
-      }
-
-      setVisibleButton(false);
     });
-  }, [limit, handleLoad, offset, setIsDisabled]);
-
-  useEffect(() => {
-    if (!isFirstLoadData) {
-      handleClick();
-      setIsFirstLoadData(true);
-    }
-  }, [limit, handleClick, handleLoad, isFirstLoadData, offset]);
+  }, [handleLoad, setIsDisabled]);
 
   return (
     <>
-      {visibleButton && !notVisibleButton && (
+      {!notVisibleButton && (
         <div className={`${styles.pagination}`}>
           <button
             disabled={isDisabled}

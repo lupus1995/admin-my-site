@@ -6,12 +6,12 @@ export const getRootParentLink = ({
 }: {
   activeLink: LinkI | undefined;
 }): LinkI => {
-  if (activeLink.parent === null) {
+  if (activeLink?.parent === null) {
     return activeLink;
   }
 
   const parentLink = urls.find((item) => {
-    if (item.to === activeLink.parent) {
+    if (item.to === activeLink?.parent) {
       return item;
     }
   });

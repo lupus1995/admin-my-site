@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { checkAccessTokens, updateTokens } from "utils/apiTokens";
@@ -17,7 +17,7 @@ export const useDisabled = () => {
 };
 
 export const useSession = () => {
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const { t } = useTranslation();
   // активация интервала для разлогинивания пользователя
   useEffect(() => {
@@ -30,29 +30,40 @@ export const useSession = () => {
             theme: "colored",
           });
 
-          navigate("/signin");
+          push("/signin");
         }
       });
     }, 90000);
 
     return () => clearInterval(interval);
-  }, [navigate, t]);
+  }, [push, t]);
 
   useEffect(() => {
-    updateTokens();
+    const redirect = () =>
+      updateTokens().then((result) => {
+        if (!result.status) {
+          toast(t(result.message), {
+            type: "error",
+            hideProgressBar: true,
+            theme: "colored",
+          });
 
-    window.addEventListener("click", updateTokens);
-    window.addEventListener("keypress", updateTokens);
-    window.addEventListener("scroll", updateTokens);
-    window.addEventListener("mousemove", updateTokens);
+          push(result.redirectTo);
+        }
+      });
+
+    window.addEventListener("click", redirect);
+    window.addEventListener("keypress", redirect);
+    window.addEventListener("scroll", redirect);
+    window.addEventListener("mousemove", redirect);
 
     return () => {
-      window.removeEventListener("click", updateTokens);
-      window.removeEventListener("keypress", updateTokens);
-      window.removeEventListener("scroll", updateTokens);
-      window.removeEventListener("mousemove", updateTokens);
+      window.removeEventListener("click", redirect);
+      window.removeEventListener("keypress", redirect);
+      window.removeEventListener("scroll", redirect);
+      window.removeEventListener("mousemove", redirect);
     };
-  }, []);
+  }, [push, t]);
 };
 
 // обновление текста ошибок после смены языка локали

@@ -3,9 +3,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { get } from "lodash";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
@@ -28,16 +28,18 @@ import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { ArticleI } from "../../../interface";
 import { saveArticle, getArticle } from "./api";
 import { LinkToArticleList, HidePublishedArticle } from "./components";
 import useStyles from "./style";
+import { ArticleI } from "../../../interface";
 
 const ArticlesForm = () => {
   useSession();
   const { t } = useTranslation();
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const {
+    push,
+    query: { id },
+  } = useRouter();
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const { disabledClass, setIsDisabled, isDisabled } = useDisabled();
@@ -76,7 +78,7 @@ const ArticlesForm = () => {
         });
 
         if (response.redirectTo) {
-          navigate(response.redirectTo);
+          push(response.redirectTo);
         }
       })
       .finally(() => setIsDisabled(false));
@@ -97,7 +99,7 @@ const ArticlesForm = () => {
       register("updatedAt");
       register("hidePublishedArticle");
 
-      if (id) {
+      if (typeof id === "string") {
         getArticle({ id })
           .then((result) => {
             if (!result.status) {
@@ -107,7 +109,7 @@ const ArticlesForm = () => {
                 theme: "colored",
               });
 
-              navigate(result.redirectTo);
+              push(result.redirectTo);
             }
 
             if (result.responseBody) {
@@ -120,13 +122,15 @@ const ArticlesForm = () => {
           })
           .finally(() => setIsInitForm(true));
       } else {
+        setValue("text.ru", "");
+        setValue("text.en", "");
         setValue("createdAt", format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'"));
         setValue("updatedAt", format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'"));
         setValue("hidePublishedArticle", false);
         setIsInitForm(true);
       }
     }
-  }, [id, isInitForm, navigate, register, setValue, t]);
+  }, [id, isInitForm, push, register, setValue, t]);
 
   return (
     <Dashboard>
@@ -360,7 +364,7 @@ const ArticlesForm = () => {
                     [disabledClass]: isDisabled,
                   })}
                   type="button"
-                  onClick={() => navigate(`/article/${id}?isAdmin=true`)}
+                  onClick={() => push(`/article/${id}?isAdmin=true`)}
                 >
                   Предпросмотр
                 </button>

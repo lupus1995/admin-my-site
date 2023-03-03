@@ -3,7 +3,7 @@ import { lazy } from "react";
 import { UrlsI } from "./interfaces";
 
 const MainPage = lazy(() => import("pages/Page/MainPage"));
-const ListArticle = lazy(() => import("pages/Page/ListArticles"));
+const Articles = lazy(() => import("pages/Page/Articles"));
 const Article = lazy(() => import("pages/Page/Article"));
 const PageNotFound = lazy(() => import("pages/Page/404Page"));
 const SignUp = lazy(() => import("pages/Admin/SignUp"));
@@ -20,7 +20,7 @@ const urls: UrlsI[] = [
   },
   {
     path: "/articles",
-    Component: ListArticle,
+    Component: Articles,
   },
   {
     path: "/article/:id",

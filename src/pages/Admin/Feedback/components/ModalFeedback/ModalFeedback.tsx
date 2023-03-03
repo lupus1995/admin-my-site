@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,8 +11,8 @@ import { useDisabled } from "pages/Admin/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { deleteFeedback } from "../../api";
 import { ModalFeedbackI } from "./interface";
+import { deleteFeedback } from "../../api";
 
 const ModalFeedback: FC<ModalFeedbackI> = ({
   selected,
@@ -19,7 +20,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
 }) => {
   const { t } = useTranslation();
   const utilsStyles = useUtilsStyles();
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const { setIsDisabled } = useDisabled();
 
@@ -36,7 +37,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
         });
 
         if (response.redirectTo) {
-          navigate(response.redirectTo);
+          push(response.redirectTo);
         }
       })
       .finally(() => {

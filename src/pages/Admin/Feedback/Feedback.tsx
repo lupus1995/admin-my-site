@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useUtilsStyles from "utils/styles";
 
-import { Title, FormRow } from "../commons";
-import { Dashboard } from "../components";
-import { useSession } from "../hooks";
 import { getFeedback } from "./api";
 import { FeedbackTable, ModalFeedback } from "./components";
 import { FeedbackI } from "./interface";
+import { Title, FormRow } from "../commons";
+import { Dashboard } from "../components";
+import { useSession } from "../hooks";
 
 const Feedback = () => {
   useSession();
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const utilsStyles = useUtilsStyles();
   const [feedback, setFeedback] = useState<FeedbackI[]>([]);
   const [selected, setSelected] = useState<FeedbackI[]>([]);
@@ -36,14 +36,14 @@ const Feedback = () => {
           theme: "colored",
         });
 
-        navigate(result.redirectTo);
+        push(result.redirectTo);
       }
 
       if (result.responseBody) {
         setFeedback(result.responseBody);
       }
     });
-  }, [navigate, t]);
+  }, [push, t]);
 
   return (
     <Dashboard>

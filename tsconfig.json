@@ -1,20 +1,46 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "outDir": "./dist",
-        "target": "esnext",
-        "module": "esnext",
-        "jsx": "react",
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "node",
-        "paths": {
-            "utils/*": ["./src/utils/*"],
-            "commons/*": ["./src/commons/*"],
-            "components/*": ["./src/components/*"],
-            "pages/*": ["./src/pages/*"],
-        }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "commons/*": [
+        "./src/commons/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "pages/*": [
+        "./src/pages/*"
+      ]
     }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,55 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import Footer from "commons/Footer";
-import { get, getImageName } from "pages/Page/MainPage/api";
 
-import { Header } from "../components";
 import { BackgroundImage, AboutMe, Portfolio, Contacts } from "./components";
-import { MainPageI } from "./interface";
+import { MainPageI, MainPagePropsI } from "./interface";
+import { Header } from "../components";
 
-const MainPage = () => {
+const MainPage: FC<MainPagePropsI> = ({
+  dataResponse,
+  imageNameResponse,
+  newArticlesResponse,
+}) => {
   const { t } = useTranslation();
-  const [data, setData] = useState<MainPageI | null>(null);
+  const [data, setData] = useState<MainPageI | null>(
+    dataResponse.responseBody || null
+  );
   const [imageName, setImageName] = useState<{
     firstBlockBackgroundImage: string;
     aboutMePhoto: string;
-  }>();
+  }>(
+    imageNameResponse.responseBody || {
+      firstBlockBackgroundImage: "",
+      aboutMePhoto: "",
+    }
+  );
   useEffect(() => {
-    get({ message: t("errorDataMessage") }).then((result) => {
-      if (!result.status) {
-        toast(result.message, {
-          type: "error",
-          hideProgressBar: true,
-          theme: "colored",
-        });
+    if (!dataResponse.status) {
+      toast(t(dataResponse.message as string), {
+        type: "error",
+        hideProgressBar: true,
+        theme: "colored",
+      });
+    }
 
-        return;
-      }
+    if (dataResponse.responseBody) {
+      setData(dataResponse.responseBody);
+    }
 
-      if (result.responseBody) {
-        setData(result.responseBody);
-      }
-    });
+    if (!imageNameResponse.status) {
+      toast(t(imageNameResponse.message as string), {
+        type: "error",
+        hideProgressBar: true,
+        theme: "colored",
+      });
 
-    getImageName({ message: t("errorDataMessage") }).then((result) => {
-      if (!result.status) {
-        toast(result.message, {
-          type: "error",
-          hideProgressBar: true,
-          theme: "colored",
-        });
+      return;
+    }
 
-        return;
-      }
-
-      if (result.responseBody) {
-        setImageName(result.responseBody);
-      }
-    });
-  }, [t]);
+    if (imageNameResponse.responseBody) {
+      setImageName(imageNameResponse.responseBody);
+    }
+  }, [dataResponse, imageNameResponse, t]);
 
   return (
     <>
@@ -66,7 +70,7 @@ const MainPage = () => {
             aboutMeTitle={data.aboutMeTitle}
             imageName={imageName.aboutMePhoto}
           />
-          <Portfolio />
+          <Portfolio newArticlesResponse={newArticlesResponse} />
           <Contacts />
           <Footer />
         </>

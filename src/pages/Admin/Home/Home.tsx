@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
 import { get as getLodash } from "lodash";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
@@ -12,6 +12,8 @@ import { hasWindow } from "utils/helpers";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
+import { get, save } from "./api";
+import useStyles from "./style";
 import { HomeFormI } from "../../interface";
 import {
   Title,
@@ -23,12 +25,10 @@ import {
 } from "../commons";
 import { AdminEditor, BlockImageInput, Dashboard } from "../components";
 import { useDisabled, useSession, useUpdateTextError } from "../hooks";
-import { get, save } from "./api";
-import useStyles from "./style";
 
 const Home = () => {
   useSession();
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const styles = useStyles();
   const stylesUtils = useStylesUtil();
   const {
@@ -41,6 +41,8 @@ const Home = () => {
   } = useForm();
   const { t } = useTranslation();
   useUpdateTextError({ trigger, isSubmitted });
+
+  console.log('watch', watch());
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
@@ -58,7 +60,7 @@ const Home = () => {
         });
 
         if (response.redirectTo) {
-          navigate(response.redirectTo);
+          push(response.redirectTo);
         }
       })
       .finally(() => setIsDisabled(false));
@@ -86,7 +88,7 @@ const Home = () => {
               theme: "colored",
             });
 
-            navigate(result.redirectTo);
+            push(result.redirectTo);
           }
 
           if (result.responseBody) {
@@ -101,7 +103,7 @@ const Home = () => {
         })
         .finally(() => setIsInitForm(!isInitForm));
     }
-  }, [isInitForm, navigate, register, setValue, t]);
+  }, [isInitForm, push, register, setValue, t]);
 
   return (
     <Dashboard>

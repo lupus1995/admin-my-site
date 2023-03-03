@@ -1,13 +1,13 @@
 import React from "react";
 
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { WrapperPage } from "../widgets";
 import useStyles from "./style";
+import { WrapperPage } from "../widgets";
 
 const PageNotFound = () => {
   const { is360, is481 } = useIsMediaQuery();
@@ -17,7 +17,7 @@ const PageNotFound = () => {
     <WrapperPage>
       <div className={styles.page404Wrapper}>
         <p>Страница не найдена. Обратитесь к владельцу сайта</p>
-        <Link className={classNames(`${stylesPage.button}`)} to="/">
+        <Link className={classNames(`${stylesPage.button}`)} href="/">
           Главная страница
         </Link>
       </div>

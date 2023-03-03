@@ -94,6 +94,7 @@
         "requiredField": "required field",
         "errorDataMessage": "Error when receiving data, reload the page or contact the administrator",
         
-        "loadMoreArticle": "View more articles"
+        "loadMoreArticle": "View more articles",
+        "paginationError": "Error loading data for pagination"
     }
 }

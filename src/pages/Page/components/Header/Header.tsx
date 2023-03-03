@@ -1,8 +1,9 @@
 import React from "react";
 
 import classNames from "classnames";
+import cookies from "js-cookie";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { languages } from "utils/constants";
 import { useIsMediaQuery } from "utils/mediaQuery";
@@ -27,7 +28,7 @@ const Header = () => {
         )}
       >
         <span>
-          <Link className={classNames(`${styles.navItemLink}`)} to="/">
+          <Link className={classNames(`${styles.navItemLink}`)} href="/">
             WFC
           </Link>
         </span>
@@ -40,7 +41,7 @@ const Header = () => {
           <li className={classNames(`${styles.navItem}`)}>
             <Link
               className={classNames(`${styles.navItemLink}`)}
-              to="/articles"
+              href="/articles"
             >
               {t("portfolioTitlePage")}
             </Link>
@@ -54,7 +55,9 @@ const Header = () => {
           <li className={classNames(`${styles.navItem}`)}>
             <button
               onClick={() => {
-                i18n.changeLanguage(languages.ru);
+                i18n.changeLanguage(languages.ru, () => {
+                  cookies.set("i18nextLng", languages.ru);
+                });
               }}
               className={classNames(`${styles.navItemLink}`, {
                 [styles.activeButton]: i18n.language === languages.ru,
@@ -65,7 +68,9 @@ const Header = () => {
             <span className={styles.buttonSeparator}>|</span>
             <button
               onClick={() => {
-                i18n.changeLanguage(languages.en);
+                i18n.changeLanguage(languages.en, () => {
+                  cookies.set("i18nextLng", languages.en);
+                });
               }}
               className={classNames(`${styles.navItemLink}`, {
                 [styles.activeButton]: i18n.language === languages.en,

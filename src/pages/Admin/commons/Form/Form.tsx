@@ -1,19 +1,11 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { FieldValues } from "react-hook-form/dist/types/fields";
-import { UseFormHandleSubmit } from "react-hook-form/dist/types/form";
 
+import { FormI } from "./interface";
 import useStyles from "./style";
-import { FORM_POSITION_TYPE } from "./types";
 
-const Form: FC<{
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: FieldValues) => void;
-  className?: string;
-  formPosition: FORM_POSITION_TYPE;
-  isCenter?: boolean;
-}> = ({
+const Form: FC<FormI> = ({
   children,
   handleSubmit,
   onSubmit,

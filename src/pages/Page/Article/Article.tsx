@@ -1,59 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useLayoutEffect, useState } from "react";
 
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { ArticleI } from "pages/interface";
+import { ResponseI } from "utils/interfaces";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { WrapperPage } from "../widgets";
-import { getArticle, getArticleForAdmin } from "./api";
 import useStyle from "./style";
+import { WrapperPage } from "../widgets";
 
 // страница сайта для отрисовки отдельной статьи
-const Article = () => {
-  const navigate = useNavigate();
+const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
+  response,
+}) => {
+  const router = useRouter();
+  const { push } = router;
   const { t, i18n } = useTranslation();
   const { is360, is481 } = useIsMediaQuery();
-  const { id } = useParams<{ id: string }>();
-  const [searchParams] = useSearchParams();
-  const isAdmin = searchParams.get("isAdmin");
-  const [article, setArticle] = useState<ArticleI | null>(null);
+  // если в ответе есть responseBody (статья), то сразу ее отрисовываем
+  const [article, setArticle] = useState<ArticleI | null>(
+    response?.responseBody ? response?.responseBody : null
+  );
   const styles = useStyle();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
+  // сайд эффект остался для сценария, когда статья не прогрузилась и в этом случае необходимо отобразить ошибку
+  // ошибка выводится в виде сообщеня попапа в правом верхнем углу
   useEffect(() => {
-    if (!article) {
-      const params = { id, isAdmin, message: t("errorDataMessage") };
-      const request = isAdmin === "true" ? getArticleForAdmin : getArticle;
-      request(params).then((result) => {
-        if (!result.status) {
-          toast(result.message, {
-            type: "error",
-            hideProgressBar: true,
-            theme: "colored",
-          });
-
-          if (result.redirectTo) {
-            navigate(result.redirectTo);
-          }
-
-          return;
-        }
-
-        if (result.responseBody) {
-          setArticle(result.responseBody);
-        }
+    if (!response.status) {
+      toast(t(response.message as string), {
+        type: "error",
+        hideProgressBar: true,
+        theme: "colored",
       });
+
+      if (response.redirectTo) {
+        push(response.redirectTo);
+      }
+
+      return;
     }
-  }, [article, id, isAdmin, navigate, t]);
+
+    if (response.responseBody) {
+      setArticle(response.responseBody);
+    }
+  }, [article, push, response, t]);
 
   return (
     <WrapperPage>
-      {article && (
+      {article && article !== null && (
         <>
           <div
             className={`${styles.articleWrapper} ${stylesPage.wrapper} ${stylesPage.container}`}

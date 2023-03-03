@@ -2,27 +2,24 @@ import React, { FC, useCallback, useState } from "react";
 
 import classNames from "classnames";
 import { set } from "local-storage";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-import Footer from "../../../../commons/Footer";
 import { SwitchLanguage } from "./components";
 import { urls } from "./constants";
 import { getRootParentLink } from "./helpers";
 import { LinkI } from "./interface";
 import useStyles from "./style";
+import Footer from "../../../../commons/Footer";
 
 const Dashboard: FC = ({ children }) => {
   const style = useStyles();
-  const location = useLocation();
-  const params = useParams<Record<string, string>>();
-  const navigation = useNavigate();
+  const router = useRouter();
+  const { pathname, push } = router;
   const [activeLink, setActiveLink] = useState<LinkI>(() => {
-    const pathWithoutParam = Object.values(params).reduce(
-      (path, param) => path.replace("/" + param, ""),
-      location.pathname
-    );
-    const activeLinkAddress = urls.find((item) => item.to === pathWithoutParam);
+    const activeLinkAddress = urls.find((item) => item.to === pathname);
+    // console.log('activeLinkAddress', activeLinkAddress);
     const link = getRootParentLink({
       activeLink: activeLinkAddress,
     });
@@ -31,10 +28,10 @@ const Dashboard: FC = ({ children }) => {
   });
 
   const handleExit = useCallback(() => {
-    navigation("/signin");
+    push("/signin");
     set("accessToken", "");
     set("refreshToken", "");
-  }, [navigation]);
+  }, [push]);
   const { t } = useTranslation();
 
   return (
@@ -66,7 +63,7 @@ const Dashboard: FC = ({ children }) => {
                     className={classNames({
                       [style.dashboardLink]: true,
                     })}
-                    to={item.to}
+                    href={item.to}
                   >
                     {t(item.text)}
                   </Link>

@@ -17,7 +17,7 @@ export const urls: LinkI[] = [
     parent: "/admin/articles",
   },
   {
-    to: "/admin/articles/edit",
+    to: "/admin/articles/edit/[id]",
     text: "",
     parent: "/admin/articles",
   },

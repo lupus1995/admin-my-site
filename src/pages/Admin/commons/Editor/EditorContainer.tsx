@@ -1,9 +1,15 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { Editor as EditorDraft, EditorState } from "react-draft-wysiwyg";
+import dynamic from "next/dynamic";
+import { EditorProps, EditorState } from "react-draft-wysiwyg";
 
 import useStylesUtil from "utils/styles";
+
+const EditorDraft = dynamic<EditorProps>(
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 const EditorContainer: FC<{
   initState: any;

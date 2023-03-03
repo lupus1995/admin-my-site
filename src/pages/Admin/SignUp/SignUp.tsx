@@ -2,25 +2,26 @@ import React from "react";
 
 import classNames from "classnames";
 import { set } from "local-storage";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
-import { useDisabled } from "../hooks";
 import { signup } from "./api";
 import { SignUpI } from "./interfaces";
 import useStyles from "./style";
+import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
+import { useDisabled } from "../hooks";
 
 const SignUp = () => {
   const { t } = useTranslation();
   const style = useStyles();
   const stylesUtil = useUtilsStyles();
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const {
     register,
     handleSubmit,
@@ -41,7 +42,7 @@ const SignUp = () => {
         hideProgressBar: true,
         theme: "colored",
       });
-      navigate("/admin");
+      push("/admin");
     } catch (e: unknown) {
       toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
       setError("username", { type: "custom", message: "" });
@@ -112,7 +113,7 @@ const SignUp = () => {
 
       <div className={style.signupText}>
         <span>{t("hasAccount")}</span>{" "}
-        <Link className={style.signupLink} to="/signin">
+        <Link className={style.signupLink} href="/signin">
           {t("login")}
         </Link>
       </div>

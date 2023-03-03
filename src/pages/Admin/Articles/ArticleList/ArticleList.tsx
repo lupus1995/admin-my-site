@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import Pagination from "components/Pagination";
+import { usePagination } from "components/Pagination/hooks";
 import { FormRow, Title, MessageForEmptyList } from "pages/Admin/commons";
 import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
 import useUtilsStyles from "utils/styles";
 
-import { ArticleI } from "../../../interface";
 import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
 import useStyles from "./style";
+import { ArticleI } from "../../../interface";
 
 const ArticleList = () => {
   useSession();
@@ -21,11 +23,11 @@ const ArticleList = () => {
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const [open, setOpen] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const style = useStyles();
 
   const utilsStyles = useUtilsStyles();
-  const handleClick = () => navigate("/admin/articles/create");
+  const handleClick = () => push("/admin/articles/create");
 
   const handleOpenModal = (article: ArticleI) => {
     setOpen(true);
@@ -47,7 +49,7 @@ const ArticleList = () => {
       });
 
       if (result.redirectTo) {
-        navigate(result.redirectTo);
+        push(result.redirectTo);
       }
 
       if (result.status) {
@@ -58,25 +60,35 @@ const ArticleList = () => {
     });
   };
 
-  const handleLoad = ({ offset, limit }: { offset: number; limit: number }) => {
-    return getArticles({ offset, limit }).then((result) => {
+  const { notVisibleButton, handleLoad } = usePagination({
+    request: getArticles,
+    limit: 10,
+    params: {
+      limit: 10,
+      message: "errorDataMessage",
+    },
+    afterSaveResult: (newArticles: ArticleI[]) =>
+      setArticles([...articles, ...newArticles]),
+  });
+
+  useEffect(() => {
+    getArticles({
+      offset: 0,
+      limit: 10,
+    }).then((result) => {
       if (!result.status) {
-        toast(t(result.message), {
+        toast(t(result.message as string), {
           type: "error",
           hideProgressBar: true,
           theme: "colored",
         });
-
-        navigate(result.redirectTo);
-        return [];
       }
+
       if (result.responseBody) {
-        setArticles([...articles, ...result.responseBody]);
+        setArticles(result.responseBody);
       }
-
-      return result.responseBody || [];
     });
-  };
+  }, [t]);
 
   return (
     <Dashboard>
@@ -121,7 +133,7 @@ const ArticleList = () => {
                 <div style={{ marginTop: "auto" }}>
                   <Link
                     className={`${utilsStyles.button} ${utilsStyles.mr15}`}
-                    to={`/admin/articles/edit/${article._id}`}
+                    href={`/admin/articles/edit/${article._id}`}
                   >
                     {t("edit")}
                   </Link>
@@ -140,7 +152,10 @@ const ArticleList = () => {
           </div>
         )}
 
-        <Pagination limit={10} handleLoad={handleLoad} />
+        <Pagination
+          notVisibleButton={notVisibleButton}
+          handleLoad={handleLoad}
+        />
       </div>
 
       <AdminModal

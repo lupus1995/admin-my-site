@@ -1,4 +1,4 @@
-import React, { FC, lazy, Suspense, useEffect, useState } from "react";
+import React, { FC, Suspense, useEffect, useState } from "react";
 
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
@@ -11,16 +11,9 @@ import {
 } from "react-hook-form/dist/types/form";
 import { useTranslation } from "react-i18next";
 
-import { hasWindow } from "utils/helpers";
 import { usePrevious } from "utils/hooks";
 
-const EditorContainer = lazy(() => {
-  if (hasWindow()) {
-    return import("./EditorContainer");
-  }
-
-  return null;
-});
+import EditorContainer from "./EditorContainer";
 
 const Editor: FC<{
   setValue: UseFormSetValue<FieldValues>;
@@ -67,24 +60,22 @@ const Editor: FC<{
 
   // парсинг данных html в структуру данных для текстового редактора
   useEffect(() => {
-    if (!isInitState) {
-      if (watch(name)) {
-        if (hasWindow()) {
-          import("html-to-draftjs").then((htmlToDraft) => {
-            // @ts-ignore
-            const contentBlock = htmlToDraft(watch(name));
+    if (watch(name) !== undefined) {
+      if (!isInitState) {
+        import("html-to-draftjs").then((htmlToDraft) => {
+          const contentBlock = htmlToDraft.default(watch(name));
 
-            if (contentBlock) {
-              const contentState = ContentState.createFromBlockArray(
-                contentBlock.contentBlocks
-              );
-              const editorState = convertToRaw(contentState);
-              setInitState(editorState);
-            }
-          });
-        }
+          if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(
+              contentBlock.contentBlocks
+            );
+            const editorState = convertToRaw(contentState);
+            setInitState(editorState);
+          }
+        });
+
+        setIsInitState(!isInitState);
       }
-      setIsInitState(!isInitState);
     }
   }, [isInitState, name, watch]);
 
@@ -94,18 +85,18 @@ const Editor: FC<{
     }
   }, [i18n.language, name, prevLng, register, t]);
 
+  console.log('isInitState', isInitState);
+
   return (
     <>
-      {isInitState && hasWindow() && (
-        <Suspense fallback={"loading"}>
-          <EditorContainer
-            initState={initState}
-            disabledClass={disabledClass}
-            isDisabled={isDisabled}
-            handleEditorChange={handleEditorChange}
-            uploadCallback={uploadCallback}
-          />
-        </Suspense>
+      {isInitState && (
+        <EditorContainer
+          initState={initState}
+          disabledClass={disabledClass}
+          isDisabled={isDisabled}
+          handleEditorChange={handleEditorChange}
+          uploadCallback={uploadCallback}
+        />
       )}
     </>
   );
