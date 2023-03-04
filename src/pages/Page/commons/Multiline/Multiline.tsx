@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { Children, cloneElement, FC, isValidElement } from "react";
 
 import useStyles from "./style";
 
@@ -7,9 +7,9 @@ const Multiline: FC<{ numberLine?: number }> = ({
   numberLine = 3,
 }) => {
   const style = useStyles({ theme: { numberLine } });
-  const childrenWithProps = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
+  const childrenWithProps = Children.map(children, (child) => {
+    if (isValidElement(child)) {
+      return cloneElement(child, {
         ...child.props,
         className: `${child.props?.className} ${style.multilineEllipsis}`,
       });

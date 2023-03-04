@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
+// eslint-disable-next-line import/named
 import { get as getLodash } from "lodash";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -41,8 +42,6 @@ const Home = () => {
   } = useForm();
   const { t } = useTranslation();
   useUpdateTextError({ trigger, isSubmitted });
-
-  console.log('watch', watch());
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);

@@ -1,8 +1,8 @@
 import { URL } from "utils/constants";
 import { ResponseI } from "utils/interfaces";
 
-import { ApiErrorMessageI, HomeFormI } from "../../interface";
 import { ImageI, ImageNameI } from "./interface";
+import { ApiErrorMessageI, HomeFormI } from "../../interface";
 
 // получение данных с бекенда для главной страницы
 export const get = async ({

@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import FormRow from "pages/Admin/commons/FormRow";

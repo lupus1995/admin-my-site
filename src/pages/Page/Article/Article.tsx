@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { format } from "date-fns";
 import { useRouter } from "next/router";

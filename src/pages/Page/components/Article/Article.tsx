@@ -2,14 +2,14 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import Multiline from "pages/Page/commons/Multiline/Multiline";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
-import { ArticleI } from "../../../interface";
 import useStyles from "./style";
-import Link from "next/link";
+import { ArticleI } from "../../../interface";
 
 const Article: FC<{ article: ArticleI }> = ({ article }) => {
   const {
@@ -50,7 +50,10 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
           src={article.thumbnail}
         />
       </div>
-      <Link className={`${styles.previewLink}`} href={`/article/${article._id}`}>
+      <Link
+        className={`${styles.previewLink}`}
+        href={`/article/${article._id}`}
+      >
         <Multiline numberLine={2}>
           <h4 className={classNames(`${styles.previewTitle}`)}>
             {/* @ts-ignore */}

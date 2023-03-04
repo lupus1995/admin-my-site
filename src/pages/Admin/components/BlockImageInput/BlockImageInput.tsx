@@ -6,10 +6,10 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import { useUpdateTextError } from "pages/Admin/hooks";
 
-import { FormRow, FormLabel, TextError } from "../../commons";
 import { EmptyList, ListWithItem } from "./components";
 import { BlockImageInputI } from "./interface";
 import useStyles from "./style";
+import { FormRow, FormLabel, TextError } from "../../commons";
 
 const BlockImageInput: FC<BlockImageInputI> = ({
   setValue,

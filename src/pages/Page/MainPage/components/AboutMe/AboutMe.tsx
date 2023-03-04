@@ -7,9 +7,9 @@ import { useTranslation } from "react-i18next";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { useImages } from "../../hook";
 import { AboutMeI } from "./interface";
 import useStyles from "./style";
+import { useImages } from "../../hook";
 
 const AboutMe: FC<AboutMeI> = ({
   aboutMeDescription,

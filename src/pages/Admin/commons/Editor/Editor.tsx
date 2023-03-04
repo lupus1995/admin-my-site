@@ -1,4 +1,4 @@
-import React, { FC, Suspense, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
@@ -84,8 +84,6 @@ const Editor: FC<{
       register(name, { required: t("requiredText") });
     }
   }, [i18n.language, name, prevLng, register, t]);
-
-  console.log('isInitState', isInitState);
 
   return (
     <>

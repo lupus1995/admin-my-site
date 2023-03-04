@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
+// eslint-disable-next-line import/named
 import { get } from "lodash";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";

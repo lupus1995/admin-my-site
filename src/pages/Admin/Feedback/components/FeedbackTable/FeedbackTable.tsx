@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 
 // @ts-ignore
 import Checkbox from "react-custom-checkbox";
@@ -20,7 +20,7 @@ const FeedbackTable: FC<FeedbackTableI> = ({
     _id: string;
     username: string;
     text: string;
-  }>[] = React.useMemo(
+  }>[] = useMemo(
     () => [
       {
         Header: "",

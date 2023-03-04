@@ -12,6 +12,7 @@ const EditorDraft = dynamic<EditorProps>(
 );
 
 const EditorContainer: FC<{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initState: any;
   disabledClass: string;
   isDisabled: boolean;

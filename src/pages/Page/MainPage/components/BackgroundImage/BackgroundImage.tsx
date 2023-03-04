@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
-import { useImages } from "../../hook";
 import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
+import { useImages } from "../../hook";
 
 const BackgroundImage: FC<BackgroundImageI> = ({
   imageName,
