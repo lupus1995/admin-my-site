@@ -11,6 +11,7 @@ import {
 } from "react-hook-form/dist/types/form";
 import { useTranslation } from "react-i18next";
 
+import { hasWindow } from "utils/helpers";
 import { usePrevious } from "utils/hooks";
 
 import EditorContainer from "./EditorContainer";
@@ -60,22 +61,20 @@ const Editor: FC<{
 
   // парсинг данных html в структуру данных для текстового редактора
   useEffect(() => {
-    if (watch(name) !== undefined) {
-      if (!isInitState) {
-        import("html-to-draftjs").then((htmlToDraft) => {
-          const contentBlock = htmlToDraft.default(watch(name));
+    if (!isInitState) {
+      import("html-to-draftjs").then((htmlToDraft) => {
+        const contentBlock = htmlToDraft.default(watch(name) || "");
 
-          if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(
-              contentBlock.contentBlocks
-            );
-            const editorState = convertToRaw(contentState);
-            setInitState(editorState);
-          }
-        });
+        if (contentBlock) {
+          const contentState = ContentState.createFromBlockArray(
+            contentBlock.contentBlocks
+          );
+          const editorState = convertToRaw(contentState);
+          setInitState(editorState);
+        }
+      });
 
-        setIsInitState(!isInitState);
-      }
+      setIsInitState(!isInitState);
     }
   }, [isInitState, name, watch]);
 

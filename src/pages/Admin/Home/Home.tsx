@@ -86,8 +86,6 @@ const Home = () => {
               hideProgressBar: true,
               theme: "colored",
             });
-
-            push(result.redirectTo);
           }
 
           if (result.responseBody) {

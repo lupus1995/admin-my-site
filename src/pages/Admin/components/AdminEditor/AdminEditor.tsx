@@ -41,13 +41,14 @@ const AdminEditor: FC<{
   name,
   label,
   register,
+  language,
 }) => {
   const { i18n } = useTranslation();
 
   return (
     <FormRow>
       <FormLabel>
-        {label}, {i18n.language}
+        {label}, {language || i18n.language}
       </FormLabel>
       <Editor
         setValue={setValue}
