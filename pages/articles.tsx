@@ -1,5 +1,8 @@
 import React, { FC } from "react";
 
+import Head from "next/head";
+import { useTranslation } from "react-i18next";
+
 import { ArticleI } from "pages/interface";
 import { ResponseI } from "utils/interfaces";
 
@@ -28,7 +31,15 @@ export async function getServerSideProps(): Promise<{
 const Index: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
   response,
 }) => {
-  return <Articles response={response} />;
+  const { t } = useTranslation();
+  return (
+    <>
+      <Head>
+        <title>{t("portfolioTitlePage")}</title>
+      </Head>
+      <Articles response={response} />
+    </>
+  );
 };
 
 export default Index;

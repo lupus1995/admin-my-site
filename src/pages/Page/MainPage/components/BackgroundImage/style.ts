@@ -22,6 +22,7 @@ const useStyles = createUseStyles({
   title: {
     width: "100%",
     display: "block",
+    textTransform: "uppercase",
     fontSize: (props: MediaQueryI) => {
       const {
         theme: { is360, is481, is721 },
@@ -36,6 +37,7 @@ const useStyles = createUseStyles({
   subtitle: {
     width: "100%",
     display: "block",
+    textTransform: "uppercase",
     fontSize: (props: MediaQueryI) => {
       const {
         theme: { is360, is481, is721 },

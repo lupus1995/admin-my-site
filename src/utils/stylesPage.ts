@@ -22,6 +22,7 @@ const useStylesClasses = createUseStyles({
   wrapper: {
     maxWidth: "1920px",
     margin: "0 auto",
+    width: "100%",
   },
   titleBlock: {
     fontSize: "35px",

@@ -47,7 +47,7 @@ const Articles: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
         >
           <ArticlesContainer articles={articles} />
           <Pagination
-            notVisibleButton={notVisibleButton}
+            notVisibleButton={notVisibleButton || articles.length < limit}
             handleLoad={handleLoad}
           />
         </div>

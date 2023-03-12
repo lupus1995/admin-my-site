@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import Head from "next/head";
+
 import { get, getImageName } from "pages/Page/MainPage/api";
 import { getNewArticles } from "pages/Page/MainPage/components/Portfolio/api";
 import { MainPagePropsI } from "pages/Page/MainPage/interface";
@@ -32,11 +34,16 @@ const Index: FC<MainPagePropsI> = ({
   newArticlesResponse,
 }) => {
   return (
-    <MainPage
-      dataResponse={dataResponse}
-      imageNameResponse={imageNameResponse}
-      newArticlesResponse={newArticlesResponse}
-    />
+    <>
+      <Head>
+        <title>WEB FOR SELF</title>
+      </Head>
+      <MainPage
+        dataResponse={dataResponse}
+        imageNameResponse={imageNameResponse}
+        newArticlesResponse={newArticlesResponse}
+      />
+    </>
   );
 };
 
