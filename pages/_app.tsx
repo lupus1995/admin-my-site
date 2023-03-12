@@ -2,12 +2,14 @@ import React from "react";
 
 import App, { AppContext, AppProps } from "next/app";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
+import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "../src/resetDefaultStylesBrowsers.css";
 import "../src/roboto.css";
+
 import { getCurrentLanguager } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 
@@ -21,6 +23,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <JssProvider registry={sheets} generateId={generateId}>
       <Component {...pageProps} />
+      <ToastContainer />
     </JssProvider>
   );
 };

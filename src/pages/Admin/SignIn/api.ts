@@ -16,8 +16,7 @@ export const signin = async (formData: SignInI): Promise<TokenI> => {
   const data = await response.json();
 
   if (data.statusCode >= 400) {
-    const message = data.message.join("\n");
-    throw message;
+    throw data.message;
   }
 
   return data;
