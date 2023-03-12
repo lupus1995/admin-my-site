@@ -3,12 +3,11 @@ import React from "react";
 import classNames from "classnames";
 import { set } from "local-storage";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 
+import { useLanguage } from "utils/hooks";
 import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
@@ -19,7 +18,7 @@ import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
 import { useDisabled } from "../hooks";
 
 const SignUp = () => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const style = useStyles();
   const stylesUtil = useUtilsStyles();
   const { push } = useRouter();

@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import { get } from "lodash";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
@@ -26,6 +25,7 @@ import {
 } from "pages/Admin/components";
 import { useDisabled, useSession, useUpdateTextError } from "pages/Admin/hooks";
 import { hasWindow } from "utils/helpers";
+import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
@@ -36,7 +36,7 @@ import { ArticleI } from "../../../interface";
 
 const ArticlesForm = () => {
   useSession();
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const {
     push,
     query: { id },

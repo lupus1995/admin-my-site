@@ -2,15 +2,15 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 const LinkToArticleList: FC<{ isDisabled: boolean; disabledClass: string }> = ({
   isDisabled,
   disabledClass,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const { push } = useRouter();
   const utilsStyles = useUtilsStyles();
 

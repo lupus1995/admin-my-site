@@ -6,9 +6,9 @@ import {
   FieldValues,
   UseFormSetValue,
 } from "react-hook-form/dist/types";
-import { useTranslation } from "react-i18next";
 
 import { AdminCheckbox } from "pages/Admin/components";
+import { useLanguage } from "utils/hooks";
 
 const HidePublishedArticle: FC<{
   watch: UseFormWatch<FieldValues>;
@@ -17,7 +17,7 @@ const HidePublishedArticle: FC<{
   setValue: UseFormSetValue<FieldValues>;
   isDisabled: boolean;
 }> = ({ watch, isInitForm, disabledClass, setValue, isDisabled }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const publishedAt = watch("publishedAt");
   const isDisabledCheckbox = useMemo(() => {
     if (isInitForm) {

@@ -3,9 +3,9 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
 
 import Multiline from "pages/Page/commons/Multiline/Multiline";
+import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
 import useStyles from "./style";
@@ -26,7 +26,7 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
     isMin1367AndMax1600,
   } = useIsMediaQuery();
 
-  const { i18n } = useTranslation();
+  const { language } = useLanguage();
   const styles = useStyles({
     theme: {
       is360,
@@ -57,14 +57,14 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
         <Multiline numberLine={2}>
           <h4 className={classNames(`${styles.previewTitle}`)}>
             {/* @ts-ignore */}
-            {article.title[i18n.language]}
+            {article.title[language]}
           </h4>
         </Multiline>
       </Link>
       <Multiline numberLine={3}>
         <p className={classNames(`${styles.previewDescription}`)}>
           {/* @ts-ignore */}
-          {article.description[i18n.language]}
+          {article.description[language]}
         </p>
       </Multiline>
 

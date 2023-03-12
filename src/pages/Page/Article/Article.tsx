@@ -2,10 +2,10 @@ import React, { FC, useEffect, useState } from "react";
 
 import { format } from "date-fns";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ArticleI } from "pages/interface";
+import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
@@ -19,7 +19,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
 }) => {
   const router = useRouter();
   const { push } = router;
-  const { t, i18n } = useTranslation();
+  const { t, language } = useLanguage();
   const { is360, is481 } = useIsMediaQuery();
   // если в ответе есть responseBody (статья), то сразу ее отрисовываем
   const [article, setArticle] = useState<ArticleI | null>(
@@ -59,21 +59,21 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
           >
             <h3 className={styles.previewTitle}>
               {/* @ts-ignore */}
-              {article.title[i18n.language]}
+              {article.title[language]}
             </h3>
             <div className={`${styles.articleImageContainer}`}>
               <img
                 className={`${styles.articleImage}`}
                 src={article.thumbnail}
                 // @ts-ignore
-                alt={article.title[i18n.language]}
+                alt={article.title[language]}
               />
             </div>
 
             <div
               className={styles.articleText}
               // @ts-ignore
-              dangerouslySetInnerHTML={{ __html: article.text[i18n.language] }}
+              dangerouslySetInnerHTML={{ __html: article.text[language] }}
             />
             <div className={`${styles.articlePublishedDate}`}>
               <time>{format(new Date(article.publishedAt), "dd.MM.yyyy")}</time>

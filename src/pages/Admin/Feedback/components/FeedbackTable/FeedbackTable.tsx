@@ -2,11 +2,11 @@ import React, { FC, useMemo } from "react";
 
 // @ts-ignore
 import Checkbox from "react-custom-checkbox";
-import { useTranslation } from "react-i18next";
 import { useTable, Column } from "react-table";
 
 import FormRow from "pages/Admin/commons/FormRow";
 import MessageForEmptyList from "pages/Admin/commons/MessageForEmptyList";
+import { useLanguage } from "utils/hooks";
 
 import { FeedbackTableI } from "./inteface";
 
@@ -15,7 +15,7 @@ const FeedbackTable: FC<FeedbackTableI> = ({
   selected,
   setSelected,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const columns: Column<{
     _id: string;
     username: string;

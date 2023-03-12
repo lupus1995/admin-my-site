@@ -2,11 +2,11 @@ import React from "react";
 
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { TextError } from "pages/Admin/commons";
 import { useDisabled, useUpdateTextError } from "pages/Admin/hooks";
+import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
@@ -16,7 +16,7 @@ import { ContactsI } from "./interface";
 import useStyles from "./style";
 
 const Contacts = () => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const style = useStyles();
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });

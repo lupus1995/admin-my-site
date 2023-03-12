@@ -1,15 +1,15 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 const AdminFooter: FC<{
   handleCallback: () => void;
   handleClose: () => void;
 }> = ({ handleCallback, handleClose }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const utilsStyles = useUtilsStyles();
   return (
     <div>

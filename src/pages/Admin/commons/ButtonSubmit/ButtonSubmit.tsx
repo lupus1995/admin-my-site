@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
+
+import { useLanguage } from "utils/hooks";
 
 import useStyles from "./style";
 
@@ -10,7 +11,7 @@ const ButtonSubmit: FC<{
   disabledClass: string;
   hasFullWidth?: boolean;
 }> = ({ isDisabled, disabledClass, hasFullWidth = true }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const styles = useStyles();
 
   return (

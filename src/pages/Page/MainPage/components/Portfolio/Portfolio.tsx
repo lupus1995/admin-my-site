@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from "react";
 
 import classNames from "classnames";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
+import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
@@ -15,7 +15,7 @@ import { ArticlesContainer } from "../../../components";
 const Portfolio: FC<{ newArticlesResponse: ResponseI<void | ArticleI[]> }> = ({
   newArticlesResponse,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });

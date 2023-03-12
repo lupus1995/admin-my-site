@@ -1,20 +1,20 @@
 import React, { useCallback } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
 import { languages } from "utils/constants";
+import { useLanguage } from "utils/hooks";
 
 import useStyles from "../../style";
 
 const SwitchLanguage = () => {
   const style = useStyles();
-  const { i18n } = useTranslation();
+  const { changeLanguage, language: i18nLanguage } = useLanguage();
   const handleChangeLanguage = useCallback(
     ({ language }) => {
-      i18n.changeLanguage(language);
+      changeLanguage(language);
     },
-    [i18n]
+    [changeLanguage]
   );
 
   const handleChangeRus = useCallback(() => {
@@ -32,7 +32,7 @@ const SwitchLanguage = () => {
         className={classNames({
           [style.dashboardLink]: true,
           [style.dashboardButton]: true,
-          [style.activeLanguage]: i18n.language === languages.ru,
+          [style.activeLanguage]: i18nLanguage === languages.ru,
         })}
         type="button"
       >
@@ -44,7 +44,7 @@ const SwitchLanguage = () => {
         className={classNames({
           [style.dashboardLink]: true,
           [style.dashboardButton]: true,
-          [style.activeLanguage]: i18n.language === languages.en,
+          [style.activeLanguage]: i18nLanguage === languages.en,
         })}
         type="button"
       >

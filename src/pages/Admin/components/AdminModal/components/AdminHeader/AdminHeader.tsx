@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import useStyles from "../../style";
@@ -10,7 +10,7 @@ import useStyles from "../../style";
 const AdminHeader: FC<{ handleClose: () => void }> = ({ handleClose }) => {
   const styles = useStyles();
   const utilsStyles = useUtilsStyles();
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   return (
     <div className={`${styles.modalHeaderContainer}`}>
       <h3>{t("deteleArticle")}</h3>

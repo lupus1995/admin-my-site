@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import Pagination from "components/Pagination";
@@ -11,6 +10,7 @@ import { usePagination } from "components/Pagination/hooks";
 import { FormRow, Title, MessageForEmptyList } from "pages/Admin/commons";
 import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
@@ -19,7 +19,7 @@ import { ArticleI } from "../../../interface";
 
 const ArticleList = () => {
   useSession();
-  const { t, i18n } = useTranslation();
+  const { t, languange } = useLanguage();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -119,15 +119,15 @@ const ArticleList = () => {
                     className={style.articleTumbnail}
                     src={article.thumbnail}
                     // @ts-ignore+
-                    alt={article.title[i18n.language]}
+                    alt={article.title[language]}
                   />
                   <h3 className="articleTitle">
                     {/* @ts-ignore */}
-                    {article.title[i18n.language]}
+                    {article.title[language]}
                   </h3>
                   <span className="articleDescription">
                     {/* @ts-ignore */}
-                    {article.description[i18n.language]}
+                    {article.description[language]}
                   </span>
                 </FormRow>
                 <div style={{ marginTop: "auto" }}>
@@ -166,7 +166,7 @@ const ArticleList = () => {
         <p>
           {t("deleteArticleText", {
             /* @ts-ignore */
-            title: deletedArticle?.title[i18n.language],
+            title: deletedArticle?.title[language],
           })}
         </p>
       </AdminModal>

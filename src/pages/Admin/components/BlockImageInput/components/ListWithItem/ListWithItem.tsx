@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
 import FormRow from "pages/Admin/commons/FormRow";
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { ListWithItemI } from "./interface";
@@ -18,7 +18,7 @@ const ListWithItem: FC<ListWithItemI> = ({
   onImageRemove,
   index,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const utilsStyles = useUtilsStyles();
   const styles = useStyles();
   return (

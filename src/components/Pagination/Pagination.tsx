@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
 import { useDisabled } from "pages/Admin/hooks";
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import useStyle from "./style";
@@ -18,7 +18,7 @@ const Pagination: FC<PaginationResponse> = ({
   handleLoad,
   notVisibleButton = false,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const { isDisabled, disabledClass, setIsDisabled } = useDisabled();
 
   const styles = useStyle();

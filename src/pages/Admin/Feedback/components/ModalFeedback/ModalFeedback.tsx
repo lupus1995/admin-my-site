@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
 
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import FormRow from "pages/Admin/commons/FormRow";
 import AdminModal from "pages/Admin/components/AdminModal";
 import { useDisabled } from "pages/Admin/hooks";
+import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
@@ -17,7 +17,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
   selected,
   handleClearFeedback,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const utilsStyles = useUtilsStyles();
   const { push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);

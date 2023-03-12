@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { EmptyListI } from "./interface";
@@ -13,7 +13,7 @@ const EmptyList: FC<EmptyListI> = ({
   onImageUpload,
   classesForButton,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const utilsStyles = useUtilsStyles();
   return (
     <button

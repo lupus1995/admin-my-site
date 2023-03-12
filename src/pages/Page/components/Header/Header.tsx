@@ -3,16 +3,16 @@ import React from "react";
 import classNames from "classnames";
 import cookies from "js-cookie";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
 
 import { languages } from "utils/constants";
+import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import useStyles from "./style";
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
+  const { t, language, changeLanguage } = useLanguage();
   const { is360, is481, is721 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles({ theme: { is360, is481, is721 } });
@@ -55,12 +55,12 @@ const Header = () => {
           <li className={classNames(`${styles.navItem}`)}>
             <button
               onClick={() => {
-                i18n.changeLanguage(languages.ru, () => {
+                changeLanguage(languages.ru, () => {
                   cookies.set("i18nextLng", languages.ru);
                 });
               }}
               className={classNames(`${styles.navItemLink}`, {
-                [styles.activeButton]: i18n.language === languages.ru,
+                [styles.activeButton]: language === languages.ru,
               })}
             >
               ru
@@ -68,12 +68,12 @@ const Header = () => {
             <span className={styles.buttonSeparator}>|</span>
             <button
               onClick={() => {
-                i18n.changeLanguage(languages.en, () => {
+                changeLanguage(languages.en, () => {
                   cookies.set("i18nextLng", languages.en);
                 });
               }}
               className={classNames(`${styles.navItemLink}`, {
-                [styles.activeButton]: i18n.language === languages.en,
+                [styles.activeButton]: language === languages.en,
               })}
             >
               en

@@ -9,9 +9,8 @@ import {
   UseFormTrigger,
   UseFormWatch,
 } from "react-hook-form/dist/types/form";
-import { useTranslation } from "react-i18next";
 
-import { usePrevious } from "utils/hooks";
+import { useLanguage, usePrevious } from "utils/hooks";
 
 import EditorContainer from "./EditorContainer";
 
@@ -34,8 +33,8 @@ const Editor: FC<{
   name,
   register,
 }) => {
-  const { t, i18n } = useTranslation();
-  const prevLng = usePrevious(i18n.language);
+  const { t, language } = useLanguage();
+  const prevLng = usePrevious(language);
 
   const [isInitState, setIsInitState] = useState<boolean>(false);
   const [initState, setInitState] = useState(null);
@@ -78,10 +77,10 @@ const Editor: FC<{
   }, [isInitState, name, watch]);
 
   useEffect(() => {
-    if (prevLng !== i18n.language) {
+    if (prevLng !== language) {
       register(name, { required: t("requiredText") });
     }
-  }, [i18n.language, name, prevLng, register, t]);
+  }, [language, name, prevLng, register, t]);
 
   return (
     <>

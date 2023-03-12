@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { checkAccessTokens, updateTokens } from "utils/apiTokens";
-import { usePrevious } from "utils/hooks";
+import { useLanguage, usePrevious } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 // блокирует ввод данных и не дает возможности использовать события js/ts
@@ -18,7 +17,7 @@ export const useDisabled = () => {
 
 export const useSession = () => {
   const { push } = useRouter();
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   // активация интервала для разлогинивания пользователя
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,14 +73,14 @@ export const useUpdateTextError = ({
   isSubmitted: boolean;
   trigger: () => void;
 }) => {
-  const { i18n } = useTranslation();
+  const { languange } = useLanguage();
 
-  const prevLng = usePrevious(i18n.language);
+  const prevLng = usePrevious(languange);
 
   // обновление сообщений если поменяли язык
   useEffect(() => {
-    if (prevLng !== i18n.language && isSubmitted) {
+    if (prevLng !== languange && isSubmitted) {
       trigger();
     }
-  }, [i18n.language, isSubmitted, prevLng, trigger]);
+  }, [isSubmitted, languange, prevLng, trigger]);
 };

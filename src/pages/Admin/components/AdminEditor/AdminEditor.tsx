@@ -10,7 +10,8 @@ import {
   UseFormTrigger,
   UseFormWatch,
 } from "react-hook-form/dist/types/form";
-import { useTranslation } from "react-i18next";
+
+import { useLanguage } from "utils/hooks";
 
 import { FormLabel, FormRow, TextError, Editor } from "../../commons";
 
@@ -43,12 +44,12 @@ const AdminEditor: FC<{
   register,
   language,
 }) => {
-  const { i18n } = useTranslation();
+  const { language: i18nLanguage } = useLanguage();
 
   return (
     <FormRow>
       <FormLabel>
-        {label}, {language || i18n.language}
+        {label}, {language || i18nLanguage}
       </FormLabel>
       <Editor
         setValue={setValue}

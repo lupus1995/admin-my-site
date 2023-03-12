@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
+import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { getFeedback } from "./api";
@@ -15,7 +15,7 @@ import { useSession } from "../hooks";
 
 const Feedback = () => {
   useSession();
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const { push } = useRouter();
   const utilsStyles = useUtilsStyles();
   const [feedback, setFeedback] = useState<FeedbackI[]>([]);

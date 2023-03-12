@@ -2,15 +2,15 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import useStyles from "./style";
 
 const Footer: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles();

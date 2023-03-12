@@ -4,7 +4,8 @@ import classNames from "classnames";
 import { set } from "local-storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
+
+import { useLanguage } from "utils/hooks";
 
 import { SwitchLanguage } from "./components";
 import { urls } from "./constants";
@@ -32,7 +33,7 @@ const Dashboard: FC = ({ children }) => {
     set("accessToken", "");
     set("refreshToken", "");
   }, [push]);
-  const { t } = useTranslation();
+  const { t } = useLanguage();
 
   return (
     <main className={style.pageWrapper}>

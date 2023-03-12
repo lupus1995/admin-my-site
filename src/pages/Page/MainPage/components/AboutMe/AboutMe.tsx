@@ -2,8 +2,8 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import parse from "html-react-parser";
-import { useTranslation } from "react-i18next";
 
+import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
@@ -16,11 +16,13 @@ const AboutMe: FC<AboutMeI> = ({
   aboutMeTitle,
   imageName,
 }) => {
-  const { i18n } = useTranslation();
+  const { language } = useLanguage();
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
   const imageUrl = useImages({ imageName });
+
+  console.log("language", language);
 
   const styles = useStyles();
   return (
@@ -31,7 +33,7 @@ const AboutMe: FC<AboutMeI> = ({
     >
       <h3 className={classNames(`${stylesPage.titleBlock}`)}>
         {/* @ts-ignore */}
-        {aboutMeTitle[i18n.language]}
+        {aboutMeTitle[language]}
       </h3>
       <div className={classNames(`${styles.aboutMe}`)}>
         <div className={classNames(`${styles.aboutMePhoto}`)}>
@@ -39,7 +41,7 @@ const AboutMe: FC<AboutMeI> = ({
         </div>
         <article className={classNames(`${styles.aboutMeArticle}`)}>
           {/* @ts-ignore */}
-          {parse(aboutMeDescription[i18n.language])}
+          {parse(aboutMeDescription[language])}
         </article>
       </div>
     </div>

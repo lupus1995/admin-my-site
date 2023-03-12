@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import { useUpdateTextError } from "pages/Admin/hooks";
+import { useLanguage } from "utils/hooks";
 
 import { EmptyList, ListWithItem } from "./components";
 import { BlockImageInputI } from "./interface";
@@ -23,7 +23,7 @@ const BlockImageInput: FC<BlockImageInputI> = ({
   disabledClass,
   register,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   useUpdateTextError({ trigger, isSubmitted });
   const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const [isInitValues, setIsInitValues] = useState<boolean>(false);

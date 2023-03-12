@@ -5,11 +5,11 @@ import classNames from "classnames";
 import { get as getLodash } from "lodash";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
 import { hasWindow } from "utils/helpers";
+import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useStylesUtil from "utils/styles";
 
@@ -40,7 +40,7 @@ const Home = () => {
     setValue,
     trigger,
   } = useForm();
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   useUpdateTextError({ trigger, isSubmitted });
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);

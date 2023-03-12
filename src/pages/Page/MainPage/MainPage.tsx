@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import Footer from "commons/Footer";
+import { useLanguage } from "utils/hooks";
 
 import { BackgroundImage, AboutMe, Portfolio, Contacts } from "./components";
 import { MainPageI, MainPagePropsI } from "./interface";
@@ -14,7 +14,7 @@ const MainPage: FC<MainPagePropsI> = ({
   imageNameResponse,
   newArticlesResponse,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
   const [data, setData] = useState<MainPageI | null>(
     dataResponse.responseBody || null
   );
