@@ -60,19 +60,21 @@ const Editor: FC<{
   // парсинг данных html в структуру данных для текстового редактора
   useEffect(() => {
     if (!isInitState) {
-      import("html-to-draftjs").then((htmlToDraft) => {
-        const contentBlock = htmlToDraft.default(watch(name) || "");
+      import("html-to-draftjs")
+        .then((htmlToDraft) => {
+          const contentBlock = htmlToDraft.default(watch(name) || "");
 
-        if (contentBlock) {
-          const contentState = ContentState.createFromBlockArray(
-            contentBlock.contentBlocks
-          );
-          const editorState = convertToRaw(contentState);
-          setInitState(editorState);
-        }
-      });
-
-      setIsInitState(!isInitState);
+          if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(
+              contentBlock.contentBlocks
+            );
+            const editorState = convertToRaw(contentState);
+            setInitState(editorState);
+          }
+        })
+        .finally(() => {
+          setIsInitState(!isInitState);
+        });
     }
   }, [isInitState, name, watch]);
 
