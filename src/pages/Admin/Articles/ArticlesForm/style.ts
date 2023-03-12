@@ -8,6 +8,10 @@ const useStyles = createUseStyles({
   colForm: {
     width: "48%",
   },
+
+  previewButton: {
+    marginLeft: 15,
+  },
 });
 
 export default useStyles;

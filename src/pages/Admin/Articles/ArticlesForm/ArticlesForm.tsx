@@ -361,9 +361,12 @@ const ArticlesForm = () => {
               />
               {id && (
                 <button
-                  className={classNames(`${utilsStyles.button}`, {
-                    [disabledClass]: isDisabled,
-                  })}
+                  className={classNames(
+                    `${utilsStyles.button} ${styles.previewButton}`,
+                    {
+                      [disabledClass]: isDisabled,
+                    }
+                  )}
                   type="button"
                   onClick={() => push(`/article/${id}?isAdmin=true`)}
                 >

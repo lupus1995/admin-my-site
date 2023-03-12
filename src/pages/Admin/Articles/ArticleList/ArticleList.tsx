@@ -14,6 +14,7 @@ import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
+import { limit } from "./constants";
 import useStyles from "./style";
 import { ArticleI } from "../../../interface";
 
@@ -62,9 +63,9 @@ const ArticleList = () => {
 
   const { notVisibleButton, handleLoad } = usePagination({
     request: getArticles,
-    limit: 10,
+    limit,
     params: {
-      limit: 10,
+      limit,
       message: "errorDataMessage",
     },
     afterSaveResult: (newArticles: ArticleI[]) =>
@@ -74,7 +75,7 @@ const ArticleList = () => {
   useEffect(() => {
     getArticles({
       offset: 0,
-      limit: 10,
+      limit,
     }).then((result) => {
       if (!result.status) {
         toast(t(result.message as string), {
@@ -153,7 +154,7 @@ const ArticleList = () => {
         )}
 
         <Pagination
-          notVisibleButton={notVisibleButton}
+          notVisibleButton={notVisibleButton || articles.length < limit}
           handleLoad={handleLoad}
         />
       </div>
