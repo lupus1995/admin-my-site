@@ -11,7 +11,6 @@ import {
 } from "react-hook-form/dist/types/form";
 import { useTranslation } from "react-i18next";
 
-import { hasWindow } from "utils/helpers";
 import { usePrevious } from "utils/hooks";
 
 import EditorContainer from "./EditorContainer";
