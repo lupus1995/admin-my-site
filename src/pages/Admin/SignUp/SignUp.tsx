@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import { set } from "local-storage";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
