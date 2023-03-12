@@ -73,14 +73,14 @@ export const useUpdateTextError = ({
   isSubmitted: boolean;
   trigger: () => void;
 }) => {
-  const { languange } = useLanguage();
+  const { language: i18nLanguage } = useLanguage();
 
-  const prevLng = usePrevious(languange);
+  const prevLng = usePrevious(i18nLanguage);
 
   // обновление сообщений если поменяли язык
   useEffect(() => {
-    if (prevLng !== languange && isSubmitted) {
+    if (prevLng !== i18nLanguage && isSubmitted) {
       trigger();
     }
-  }, [isSubmitted, languange, prevLng, trigger]);
+  }, [isSubmitted, i18nLanguage, prevLng, trigger]);
 };

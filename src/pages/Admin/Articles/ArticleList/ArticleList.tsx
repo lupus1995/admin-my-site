@@ -19,7 +19,7 @@ import { ArticleI } from "../../../interface";
 
 const ArticleList = () => {
   useSession();
-  const { t, languange } = useLanguage();
+  const { t, language } = useLanguage();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
   const [open, setOpen] = useState<boolean>(false);
