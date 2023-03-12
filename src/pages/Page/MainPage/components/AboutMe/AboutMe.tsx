@@ -22,8 +22,6 @@ const AboutMe: FC<AboutMeI> = ({
 
   const imageUrl = useImages({ imageName });
 
-  console.log("language", language);
-
   const styles = useStyles();
   return (
     <div
