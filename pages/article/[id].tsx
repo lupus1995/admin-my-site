@@ -25,7 +25,10 @@ export async function getServerSideProps({
 
     return {
       props: {
-        response,
+        response: {
+          ...response,
+          redirectTo: "/404",
+        },
       },
     };
   }
@@ -58,11 +61,15 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
 
   return (
     <>
-      <Head>
-        {/* @ts-ignore   */}
-        <title>{responseArticle.responseBody.title[language]}</title>
-      </Head>
-      {initData && <Article response={responseArticle} />}
+      {initData && (
+        <>
+          <Head>
+            {/* @ts-ignore   */}
+            <title>{responseArticle.responseBody?.title[language]}</title>
+          </Head>
+          <Article response={responseArticle} />
+        </>
+      )}
     </>
   );
 };

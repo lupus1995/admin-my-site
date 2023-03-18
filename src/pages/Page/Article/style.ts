@@ -39,6 +39,8 @@ const useStyle = createUseStyles({
 
       img: {
         marginTop: "20px",
+        maxWidth: "100%",
+        textAlign: "center",
       },
     },
   },
