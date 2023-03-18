@@ -59,7 +59,7 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
   return (
     <>
       <Head>
-        {/* @ts-ignore */}
+        {/* @ts-ignore   */}
         <title>{responseArticle.responseBody.title[language]}</title>
       </Head>
       {initData && <Article response={responseArticle} />}

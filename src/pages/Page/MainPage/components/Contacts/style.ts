@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
   },
 
   contacts: {
-    width: "500px",
+    maxWidth: "500px",
     margin: "0 auto",
   },
 
