@@ -20,7 +20,7 @@ const AboutMe: FC<AboutMeI> = ({
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
-  const imageUrl = useImages({ imageName });
+  const { imageUrl } = useImages({ imageName });
 
   const styles = useStyles();
   return (

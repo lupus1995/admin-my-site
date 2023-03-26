@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
+import Head from "next/head";
 import { toast } from "react-toastify";
 
 import Footer from "commons/Footer";
@@ -14,7 +15,7 @@ const MainPage: FC<MainPagePropsI> = ({
   imageNameResponse,
   newArticlesResponse,
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [data, setData] = useState<MainPageI | null>(
     dataResponse.responseBody || null
   );
@@ -59,6 +60,16 @@ const MainPage: FC<MainPagePropsI> = ({
     <>
       {data && imageName && (
         <>
+          <Head>
+            {/* @ts-ignore */}
+            <meta name="description" content={data.descriptionPage[language]} />
+            {/* @ts-ignore */}
+            <meta name="keywords" content={data.keyWordsPage[language]} />
+
+            {/* мета теги для вк */}
+            <meta name="og:title" content="WEB FOR SELF" />
+            <meta name="og:type" content="website" />
+          </Head>
           <Header />
           <BackgroundImage
             firstBlockTitle={data.firstBlockTitle}

@@ -77,6 +77,10 @@ const Home = () => {
       register("aboutMeDescription.ru", { required: t("requiredText") });
       register("aboutMeDescription.en", { required: t("requiredText") });
       register("aboutMePhoto", { required: t("selectedFile") });
+      register("descriptionPage.ru", { required: t("requiredText") });
+      register("descriptionPage.en", { required: t("requiredText") });
+      register("keyWordsPage.ru", { required: t("requiredText") });
+      register("keyWordsPage.en", { required: t("requiredText") });
 
       get()
         .then((result) => {
@@ -301,6 +305,88 @@ const Home = () => {
               disabledClass={disabledClass}
               register={register}
             />
+
+            <FormLabel>{t("descriptionPageLabel")}</FormLabel>
+            <FormRow>
+              <SpaceBetween>
+                <span>ru</span>
+                <input
+                  className={classNames(`${stylesUtils.input}`, {
+                    [disabledClass]: isDisabled,
+                  })}
+                  type="text"
+                  {...register("descriptionPage.ru", {
+                    required: t("requiredText"),
+                  })}
+                />
+              </SpaceBetween>
+              <TextError
+                message={
+                  getLodash(errors, "descriptionPage.ru")?.message as string
+                }
+              />
+            </FormRow>
+
+            <FormRow>
+              <SpaceBetween>
+                <span>en</span>
+                <input
+                  className={classNames(`${stylesUtils.input}`, {
+                    [disabledClass]: isDisabled,
+                  })}
+                  type="text"
+                  {...register("descriptionPage.en", {
+                    required: t("requiredText"),
+                  })}
+                />
+              </SpaceBetween>
+              <TextError
+                message={
+                  getLodash(errors, "descriptionPage.en")?.message as string
+                }
+              />
+            </FormRow>
+
+            <FormLabel>{t("keyWordsPageLabel")}</FormLabel>
+            <FormRow>
+              <SpaceBetween>
+                <span>ru</span>
+                <input
+                  className={classNames(`${stylesUtils.input}`, {
+                    [disabledClass]: isDisabled,
+                  })}
+                  type="text"
+                  {...register("keyWordsPage.ru", {
+                    required: t("requiredText"),
+                  })}
+                />
+              </SpaceBetween>
+              <TextError
+                message={
+                  getLodash(errors, "keyWordsPage.ru")?.message as string
+                }
+              />
+            </FormRow>
+
+            <FormRow>
+              <SpaceBetween>
+                <span>en</span>
+                <input
+                  className={classNames(`${stylesUtils.input}`, {
+                    [disabledClass]: isDisabled,
+                  })}
+                  type="text"
+                  {...register("keyWordsPage.en", {
+                    required: t("requiredText"),
+                  })}
+                />
+              </SpaceBetween>
+              <TextError
+                message={
+                  getLodash(errors, "keyWordsPage.en")?.message as string
+                }
+              />
+            </FormRow>
 
             <ButtonSubmit
               isDisabled={isDisabled}

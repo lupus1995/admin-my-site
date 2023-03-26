@@ -83,5 +83,5 @@ export const useImages = ({ imageName }: { imageName: string }) => {
     });
   }, [imageName]);
 
-  return imageUrl;
+  return { imageUrl };
 };

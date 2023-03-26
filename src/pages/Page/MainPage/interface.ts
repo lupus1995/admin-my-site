@@ -13,6 +13,8 @@ export interface MainPageI {
   aboutMeTitle: LanguageI;
   aboutMeDescription: LanguageI;
   firstBlockBackgroundImage: string;
+  keyWordsPage: LanguageI;
+  descriptionPage: LanguageI;
 }
 
 export interface ImageNameI {

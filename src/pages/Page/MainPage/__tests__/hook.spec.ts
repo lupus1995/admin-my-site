@@ -31,6 +31,6 @@ describe("hook", () => {
   it("check render useImages", () => {
     const { result } = renderHook(() => useImages({ imageName: "imageName" }));
 
-    expect(typeof result.current === "string").toBeTruthy();
+    expect(typeof result.current.imageUrl === "string").toBeTruthy();
   });
 });

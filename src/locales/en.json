@@ -95,6 +95,9 @@
         "errorDataMessage": "Error when receiving data, reload the page or contact the administrator",
         
         "loadMoreArticle": "View more articles",
-        "paginationError": "Error loading data for pagination"
+        "paginationError": "Error loading data for pagination",
+
+        "descriptionPageLabel": "Description of the page for search engine robots",
+        "keyWordsPageLabel": "Keywords for search engine robots"
     }
 }

@@ -8,6 +8,8 @@ export interface HomeFormI {
   aboutMeTitle: LanguageI;
   aboutMeDescription: LanguageI;
   aboutMePhoto: string;
+  keyWordsPage: LanguageI;
+  descriptionPage: LanguageI;
   _id?: string;
 }
 
