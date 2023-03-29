@@ -1,10 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
 
 import { format } from "date-fns";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 import { ArticleI } from "pages/interface";
+import { URL } from "utils/constants";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import { useIsMediaQuery } from "utils/mediaQuery";
@@ -49,39 +51,66 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
       setArticle(response.responseBody);
     }
   }, [article, push, response, t]);
-
   return (
-    <WrapperPage>
-      {article && article !== null && (
-        <>
-          <div
-            className={`${styles.articleWrapper} ${stylesPage.wrapper} ${stylesPage.container}`}
-          >
-            <h3 className={styles.previewTitle}>
-              {/* @ts-ignore */}
-              {article.title[language]}
-            </h3>
-            <div className={`${styles.articleImageContainer}`}>
-              <img
-                className={`${styles.articleImage}`}
-                src={article.thumbnail}
-                // @ts-ignore
-                alt={article.title[language]}
-              />
-            </div>
+    <>
+      <Head>
+        {/* @ts-ignore */}
+        <title>{article.title[language]}</title>
+        {/* @ts-ignore */}
+        <meta name="description" content={article.description[language]} />
+        {/* @ts-ignore */}
+        <meta name="keywords" content={article.keyWords[language]} />
 
+        {/* мета теги для вк */}
+        {/* @ts-ignore */}
+        <meta name="og:title" content={article.title[language]} />
+        <meta name="og:type" content="article" />
+
+        {/* @ts-ignore */}
+        <meta
+          name="vk:image"
+          content={`${URL}/articles/${article._id}/thumbnail`}
+        />
+        {/* @ts-ignore */}
+        <meta
+          name="og:image"
+          content={`${URL}/articles/${article._id}/thumbnail`}
+        />
+      </Head>
+      <WrapperPage>
+        {article && article !== null && (
+          <>
             <div
-              className={styles.articleText}
-              // @ts-ignore
-              dangerouslySetInnerHTML={{ __html: article.text[language] }}
-            />
-            <div className={`${styles.articlePublishedDate}`}>
-              <time>{format(new Date(article.publishedAt), "dd.MM.yyyy")}</time>
+              className={`${styles.articleWrapper} ${stylesPage.wrapper} ${stylesPage.container}`}
+            >
+              <h3 className={styles.previewTitle}>
+                {/* @ts-ignore */}
+                {article.title[language]}
+              </h3>
+              <div className={`${styles.articleImageContainer}`}>
+                <img
+                  className={`${styles.articleImage}`}
+                  src={article.thumbnail}
+                  // @ts-ignore
+                  alt={article.title[language]}
+                />
+              </div>
+
+              <div
+                className={styles.articleText}
+                // @ts-ignore
+                dangerouslySetInnerHTML={{ __html: article.text[language] }}
+              />
+              <div className={`${styles.articlePublishedDate}`}>
+                <time>
+                  {format(new Date(article.publishedAt), "dd.MM.yyyy")}
+                </time>
+              </div>
             </div>
-          </div>
-        </>
-      )}
-    </WrapperPage>
+          </>
+        )}
+      </WrapperPage>
+    </>
   );
 };
 
