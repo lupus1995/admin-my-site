@@ -15,13 +15,3 @@ export interface MainPageI {
   keyWordsPage: LanguageI;
   descriptionPage: LanguageI;
 }
-
-export interface ImageNameI {
-  firstBlockBackgroundImage: string;
-  aboutMePhoto: string;
-}
-
-export interface ImageI {
-  size: number;
-  file: string;
-}

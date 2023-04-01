@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 import Multiline from "pages/Page/commons/Multiline/Multiline";
+import { useImageName } from "pages/Page/MainPage/hook";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
@@ -24,6 +25,7 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
     isMin721AndMax1080,
     isMin1600AndMax1920,
     isMin1367AndMax1600,
+    isMinDevicePixelRatio,
   } = useIsMediaQuery();
 
   const { language } = useLanguage();
@@ -42,13 +44,22 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
       isMin1367AndMax1600,
     },
   });
+
+  const { imageUrl } = useImageName({
+    imageName: article.thumbnail,
+    is360,
+    is481,
+    is721,
+    is1081,
+    is1367,
+    is1921,
+    isMinDevicePixelRatio,
+  });
+
   return (
     <article className={classNames(`${styles.articleContainer}`)}>
       <div>
-        <img
-          className={classNames(`${styles.previewImage}`)}
-          src={article.thumbnail}
-        />
+        <img className={classNames(`${styles.previewImage}`)} src={imageUrl} />
       </div>
       <Link
         className={`${styles.previewLink}`}

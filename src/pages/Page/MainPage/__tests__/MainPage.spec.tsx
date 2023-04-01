@@ -25,17 +25,6 @@ jest.mock("pages/Page/MainPage/api", () => {
         })
       )
     ),
-    getImageName: jest.fn().mockResolvedValue(
-      new Promise((res) =>
-        res({
-          status: true,
-          responseBody: {
-            firstBlockBackgroundImage: "firstBlockBackgroundImage",
-            aboutMePhoto: "aboutMePhoto",
-          },
-        })
-      )
-    ),
   };
 });
 
