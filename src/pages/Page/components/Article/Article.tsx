@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 import Multiline from "pages/Page/commons/Multiline/Multiline";
-import { useImageName } from "pages/Page/MainPage/hook";
+import { useImageName } from "pages/Page/widgets/HookGetSizeImage/hook";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 

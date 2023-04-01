@@ -10,7 +10,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
-import { useImageName } from "../../hook";
+import { useImageName } from "../../../widgets/HookGetSizeImage/hook";
 
 const BackgroundImage: FC<BackgroundImageI> = ({
   imageName,

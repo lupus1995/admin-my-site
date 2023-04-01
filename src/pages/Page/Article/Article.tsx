@@ -14,6 +14,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import useStyle from "./style";
 import { WrapperPage } from "../widgets";
+import { useImageName } from "../widgets/HookGetSizeImage/hook";
 
 // страница сайта для отрисовки отдельной статьи
 const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
@@ -22,11 +23,23 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
   const router = useRouter();
   const { push } = router;
   const { t, language } = useLanguage();
-  const { is360, is481 } = useIsMediaQuery();
+  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
+    useIsMediaQuery();
   // если в ответе есть responseBody (статья), то сразу ее отрисовываем
   const [article, setArticle] = useState<ArticleI | null>(
     response?.responseBody ? response?.responseBody : null
   );
+
+  const { imageUrl } = useImageName({
+    imageName: article.thumbnail,
+    is360,
+    is481,
+    is721,
+    is1081,
+    is1367,
+    is1921,
+    isMinDevicePixelRatio,
+  });
   const styles = useStyle();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
@@ -64,7 +77,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
         {/* мета теги для вк */}
         {/* @ts-ignore */}
         <meta name="og:title" content={article.title[language]} />
-        <meta name="og:type" content="article" />
+        <meta name="og:type" content="website" />
 
         {/* @ts-ignore */}
         <meta
@@ -76,6 +89,8 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
           name="og:image"
           content={`${URL}/articles/${article._id}/thumbnail`}
         />
+        {/* @ts-ignore */}
+        <meta name="og:description" content={article.description[language]} />
       </Head>
       <WrapperPage>
         {article && article !== null && (
@@ -90,7 +105,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
               <div className={`${styles.articleImageContainer}`}>
                 <img
                   className={`${styles.articleImage}`}
-                  src={article.thumbnail}
+                  src={imageUrl}
                   // @ts-ignore
                   alt={article.title[language]}
                 />
