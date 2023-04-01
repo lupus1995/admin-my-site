@@ -1,10 +1,8 @@
-import { HomeFormI, ArticleI } from "pages/interface";
+import { HomeFormI } from "pages/interface";
 import { LanguageI, ResponseI } from "utils/interfaces";
 
 export interface MainPagePropsI {
   dataResponse: ResponseI<void | HomeFormI>;
-  imageNameResponse: ResponseI<void | ImageNameI>;
-  newArticlesResponse: ResponseI<void | ArticleI[]>;
 }
 
 export interface MainPageI {
@@ -13,6 +11,7 @@ export interface MainPageI {
   aboutMeTitle: LanguageI;
   aboutMeDescription: LanguageI;
   firstBlockBackgroundImage: string;
+  aboutMePhoto: string;
   keyWordsPage: LanguageI;
   descriptionPage: LanguageI;
 }

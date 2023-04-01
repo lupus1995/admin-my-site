@@ -1,71 +1,271 @@
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useIsMediaQuery } from "utils/mediaQuery";
-
-import { getImages } from "./api";
 import { SIZES_FOR_FILES } from "./constants";
-import { findImage } from "./helpers";
-import { ImageI } from "./interface";
+import { fetchImageUrl } from "./helpers";
 
-export const useImages = ({ imageName }: { imageName: string }) => {
-  const [images, setImages] = useState<ImageI[]>([]);
-  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
-    useIsMediaQuery();
+export const useImageName = ({
+  imageName,
+  is360,
+  is481,
+  is721,
+  is1081,
+  is1367,
+  is1921,
+  isMinDevicePixelRatio,
+}: {
+  imageName: string;
+  is360: boolean;
+  is481: boolean;
+  is721: boolean;
+  is1081: boolean;
+  is1367: boolean;
+  is1921: boolean;
+  isMinDevicePixelRatio: boolean;
+}) => {
+  const [sizes, setSizes] = useState<{
+    is360: string;
+    is481: string;
+    is721: string;
+    is1081: string;
+    is1367: string;
+    is1921: string;
+    "IS_360@2x": string;
+    "IS_481@2x": string;
+    "IS_721@2x": string;
+    "IS_1081@2x": string;
+    "IS_1367@2x": string;
+    "IS_1921@2x": string;
+  }>({
+    is360: "",
+    is481: "",
+    is721: "",
+    is1081: "",
+    is1367: "",
+    is1921: "",
+    "IS_360@2x": "",
+    "IS_481@2x": "",
+    "IS_721@2x": "",
+    "IS_1081@2x": "",
+    "IS_1367@2x": "",
+    "IS_1921@2x": "",
+  });
+  const [imageUrl, setImageUrl] = useState<string>("");
 
-  const imageUrl = useMemo(() => {
+  useEffect(() => {
     if (isMinDevicePixelRatio) {
       if (is1921) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_1921@2X"] });
+        let url = sizes["IS_1921@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_1921@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_1921@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+
+        return;
       }
 
       if (is1367) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_1367@2X"] });
+        let url = sizes["IS_1367@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_1367@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_1367@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+
+        return;
       }
 
       if (is1081) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_1081@2X"] });
+        let url = sizes["IS_1081@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_1081@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_1081@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+
+        return;
       }
 
       if (is721) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_721@2X"] });
+        let url = sizes["IS_721@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_721@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_721@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+
+        return;
       }
 
       if (is481) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_481@2X"] });
+        let url = sizes["IS_481@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_481@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_481@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+
+        return;
       }
 
       if (is360) {
-        return findImage({ images, findSize: SIZES_FOR_FILES["IS_360@2X"] });
+        let url = sizes["IS_360@2x"];
+        if (!url) {
+          url = fetchImageUrl({
+            imageName,
+            size: SIZES_FOR_FILES["IS_360@2X"],
+          });
+          setSizes({
+            ...sizes,
+            "IS_360@2x": url,
+          });
+        }
+
+        setImageUrl(url);
+        return;
       }
     }
 
     if (is1921) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_1921 });
+      let url = sizes.is1921;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_1921,
+        });
+        setSizes({
+          ...sizes,
+          is1921: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
     if (is1367) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_1367 });
+      let url = sizes.is1367;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_1367,
+        });
+        setSizes({
+          ...sizes,
+          is1367: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
     if (is1081) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_1081 });
+      let url = sizes.is1081;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_1081,
+        });
+        setSizes({
+          ...sizes,
+          is1081: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
     if (is721) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_721 });
+      let url = sizes.is721;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_721,
+        });
+        setSizes({
+          ...sizes,
+          is721: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
     if (is481) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_481 });
+      let url = sizes.is481;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_481,
+        });
+        setSizes({
+          ...sizes,
+          is481: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
     if (is360) {
-      return findImage({ images, findSize: SIZES_FOR_FILES.IS_360 });
+      let url = sizes.is360;
+      if (!url) {
+        url = fetchImageUrl({
+          imageName,
+          size: SIZES_FOR_FILES.IS_360,
+        });
+        setSizes({
+          ...sizes,
+          is360: url,
+        });
+      }
+
+      setImageUrl(url);
+      return;
     }
 
-    return "";
+    setImageUrl("");
   }, [
-    images,
+    imageName,
     is1081,
     is1367,
     is1921,
@@ -73,15 +273,8 @@ export const useImages = ({ imageName }: { imageName: string }) => {
     is481,
     is721,
     isMinDevicePixelRatio,
+    sizes,
   ]);
-
-  useEffect(() => {
-    getImages({ imageName }).then(({ status, responseBody }) => {
-      if (status) {
-        setImages(responseBody);
-      }
-    });
-  }, [imageName]);
 
   return { imageUrl };
 };

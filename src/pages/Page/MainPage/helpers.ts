@@ -1,12 +1,12 @@
-import { ImageI } from "./interface";
+import { URL } from "utils/constants";
 
 // поиск необходимой картинки под нужный размер
-export const findImage = ({
-  images, // массив картинок
-  findSize, // искомый размер,
+export const fetchImageUrl = ({
+  imageName, // имя картинки
+  size, // искомый размер,
 }: {
-  images: ImageI[];
-  findSize: number;
+  imageName: string;
+  size: number;
 }): string => {
-  return images.find(({ size }) => size === findSize)?.file || "";
+  return `${URL}/main-page/${size}/${imageName}`;
 };

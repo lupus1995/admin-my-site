@@ -10,7 +10,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
-import { useImages } from "../../hook";
+import { useImageName } from "../../hook";
 
 const BackgroundImage: FC<BackgroundImageI> = ({
   imageName,
@@ -18,12 +18,22 @@ const BackgroundImage: FC<BackgroundImageI> = ({
   firstBlockSubtitle,
 }) => {
   const { language } = useLanguage();
-  const { is360, is481, is721 } = useIsMediaQuery();
+  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
+    useIsMediaQuery();
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles({ theme: { is360, is481, is721 } });
 
-  const { imageUrl } = useImages({ imageName });
+  const { imageUrl } = useImageName({
+    imageName,
+    is360,
+    is481,
+    is721,
+    is1081,
+    is1367,
+    is1921,
+    isMinDevicePixelRatio,
+  });
 
   return (
     <>
@@ -34,7 +44,7 @@ const BackgroundImage: FC<BackgroundImageI> = ({
         <meta name="og:image" content={`${URL}/main-page/510/${imageName}`} />
       </Head>
       <div
-        style={{ backgroundImage: `url("${imageUrl}")` }}
+        style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : {}}
         className={classNames(`${styles.firstBlock} ${stylesPage.block}`)}
       >
         <div

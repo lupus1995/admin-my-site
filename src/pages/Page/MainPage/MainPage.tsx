@@ -1,32 +1,35 @@
 import React, { FC, useEffect, useState } from "react";
 
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { toast } from "react-toastify";
 
-import Footer from "commons/Footer";
 import { useLanguage } from "utils/hooks";
 
-import { BackgroundImage, AboutMe, Portfolio, Contacts } from "./components";
+import { BackgroundImage } from "./components";
 import { MainPageI, MainPagePropsI } from "./interface";
 import { Header } from "../components";
 
-const MainPage: FC<MainPagePropsI> = ({
-  dataResponse,
-  imageNameResponse,
-  newArticlesResponse,
-}) => {
+const AboutMe = dynamic(() => import("./components/AboutMe"), {
+  ssr: false,
+});
+
+const Portfolio = dynamic(() => import("./components/Portfolio"), {
+  ssr: false,
+});
+
+const Contacts = dynamic(() => import("./components/Contacts"), {
+  ssr: false,
+});
+
+const Footer = dynamic(() => import("commons/Footer"), {
+  ssr: false,
+});
+
+const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
   const { t, language } = useLanguage();
   const [data, setData] = useState<MainPageI | null>(
     dataResponse.responseBody || null
-  );
-  const [imageName, setImageName] = useState<{
-    firstBlockBackgroundImage: string;
-    aboutMePhoto: string;
-  }>(
-    imageNameResponse.responseBody || {
-      firstBlockBackgroundImage: "",
-      aboutMePhoto: "",
-    }
   );
   useEffect(() => {
     if (!dataResponse.status) {
@@ -40,25 +43,11 @@ const MainPage: FC<MainPagePropsI> = ({
     if (dataResponse.responseBody) {
       setData(dataResponse.responseBody);
     }
-
-    if (!imageNameResponse.status) {
-      toast(t(imageNameResponse.message as string), {
-        type: "error",
-        hideProgressBar: true,
-        theme: "colored",
-      });
-
-      return;
-    }
-
-    if (imageNameResponse.responseBody) {
-      setImageName(imageNameResponse.responseBody);
-    }
-  }, [dataResponse, imageNameResponse, t]);
+  }, [dataResponse, t]);
 
   return (
     <>
-      {data && imageName && (
+      {data && (
         <>
           <Head>
             {/* @ts-ignore */}
@@ -74,14 +63,14 @@ const MainPage: FC<MainPagePropsI> = ({
           <BackgroundImage
             firstBlockTitle={data.firstBlockTitle}
             firstBlockSubtitle={data.firstBlockSubtitle}
-            imageName={imageName.firstBlockBackgroundImage}
+            imageName={data.firstBlockBackgroundImage}
           />
           <AboutMe
             aboutMeDescription={data.aboutMeDescription}
             aboutMeTitle={data.aboutMeTitle}
-            imageName={imageName.aboutMePhoto}
+            imageName={data.aboutMePhoto}
           />
-          <Portfolio newArticlesResponse={newArticlesResponse} />
+          <Portfolio />
           <Contacts />
           <Footer />
         </>
