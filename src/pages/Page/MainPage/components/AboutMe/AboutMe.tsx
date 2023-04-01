@@ -9,7 +9,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import { AboutMeI } from "./interface";
 import useStyles from "./style";
-import { useImageName } from "../../hook";
+import { useImageName } from "../../../widgets/HookGetSizeImage/hook";
 
 const AboutMe: FC<AboutMeI> = ({
   aboutMeDescription,
