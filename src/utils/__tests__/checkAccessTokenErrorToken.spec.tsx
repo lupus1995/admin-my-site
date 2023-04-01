@@ -1,5 +1,7 @@
 import { when } from "jest-when";
 
+import { URL } from "utils/constants";
+
 import { updateTokens } from "../apiTokens";
 
 /**
@@ -25,13 +27,13 @@ jest.mock("local-storage", () => {
 });
 
 global.fetch = jest.fn((path) => {
-  if (path === "http://localhost:3000/auth/access") {
+  if (path === `${URL}/auth/access`) {
     return Promise.resolve({
       json: () => Promise.resolve(false),
     });
   }
 
-  if (path === "http://localhost:3000/auth/refresh")
+  if (path === `${URL}/auth/refresh`)
     return Promise.resolve({
       status: 403,
     });

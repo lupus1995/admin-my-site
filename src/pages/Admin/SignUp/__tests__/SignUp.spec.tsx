@@ -4,13 +4,15 @@ import { fireEvent, render } from "@testing-library/react";
 
 import SignUp from "../SignUp";
 
-jest.mock("react-router-dom", () => {
-  const module = jest.requireActual("react-router-dom");
+jest.mock("next/router", () => {
+  const module = jest.requireActual("next/router");
 
   return {
     ...module,
     Link: ({ children }: { children: ReactNode }) => <>{children}</>,
-    useNavigate: () => jest.fn,
+    useRouter: jest.fn().mockReturnValue({
+      push: jest.fn(),
+    }),
   };
 });
 

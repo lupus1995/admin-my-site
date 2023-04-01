@@ -6,12 +6,14 @@ import reactI18next from "utils/mocks/react-i18next";
 
 import Home from "../Home";
 
-jest.mock("react-router-dom", () => {
-  const module = jest.requireActual("react-router-dom");
+jest.mock("next/router", () => {
+  const module = jest.requireActual("next/router");
 
   return {
     ...module,
-    useNavigate: () => jest.fn,
+    useRouter: jest.fn().mockReturnValue({
+      push: jest.fn(),
+    }),
   };
 });
 

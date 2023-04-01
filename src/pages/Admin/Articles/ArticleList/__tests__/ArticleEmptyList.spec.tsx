@@ -9,12 +9,12 @@ jest.mock("pages/Admin/components/Dashboard", () =>
   ({ children }: { children: ReactNode }) => <>{children}</>
 );
 
-jest.mock("react-router-dom", () => {
-  const module = jest.requireActual("react-router-dom");
+jest.mock("next/router", () => {
+  const module = jest.requireActual("next/router");
 
   return {
     ...module,
-    useNavigate: () => jest.fn,
+    useRouter: () => jest.fn,
     Link: ({ children }: { children: ReactNode }) => <span>{children}</span>,
   };
 });

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { SIZES_FOR_FILES } from "./constants";
 import { fetchImageUrl } from "./helpers";
+import { ImageNameWidthI } from "./interface";
 
 export const useImageName = ({
   imageName,
@@ -12,16 +13,7 @@ export const useImageName = ({
   is1367,
   is1921,
   isMinDevicePixelRatio,
-}: {
-  imageName: string;
-  is360: boolean;
-  is481: boolean;
-  is721: boolean;
-  is1081: boolean;
-  is1367: boolean;
-  is1921: boolean;
-  isMinDevicePixelRatio: boolean;
-}) => {
+}: ImageNameWidthI) => {
   const [sizes, setSizes] = useState<{
     is360: string;
     is481: string;

@@ -4,13 +4,17 @@ import { render } from "@testing-library/react";
 
 import ArticlesForm from "../ArticlesForm";
 
-jest.mock("react-router-dom", () => {
-  const module = jest.requireActual("react-router-dom");
+jest.mock("next/router", () => {
+  const module = jest.requireActual("next/router");
 
   return {
     ...module,
-    useNavigate: () => jest.fn,
-    useParams: () => ({ id: "id" }),
+    useRouter: jest.fn().mockReturnValue({
+      push: jest.fn(),
+      query: {
+        id: "id",
+      },
+    }),
   };
 });
 

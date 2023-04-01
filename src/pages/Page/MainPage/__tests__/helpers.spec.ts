@@ -1,23 +1,14 @@
-import { findImage } from "../helpers";
+import { URL } from "utils/constants";
 
-const initData = [
-  {
-    size: 1,
-    file: "file1",
-  },
-  {
-    size: 2,
-    file: "file2",
-  },
-];
+import { fetchImageUrl } from "../helpers";
 
 describe("helpers", () => {
   it("findImage", () => {
-    const result = findImage({
-      images: initData,
-      findSize: 2,
+    const result = fetchImageUrl({
+      imageName: "image.png",
+      size: 510,
     });
 
-    expect(result).toBe("file2");
+    expect(result).toBe(`${URL}/main-page/510/image.png`);
   });
 });

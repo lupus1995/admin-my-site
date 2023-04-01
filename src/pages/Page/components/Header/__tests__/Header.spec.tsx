@@ -4,8 +4,8 @@ import { render } from "@testing-library/react";
 
 import Header from "../Header";
 
-jest.mock("react-router-dom", () => {
-  const module = jest.requireActual("react-router-dom");
+jest.mock("next/router", () => {
+  const module = jest.requireActual("next/router");
 
   return {
     ...module,

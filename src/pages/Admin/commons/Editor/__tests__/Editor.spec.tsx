@@ -51,11 +51,11 @@ describe("Editor", () => {
       label: "label",
     };
   });
-  it("check render component", () => {
+  it("check render component", async () => {
     // @ts-ignore
-    const { getByText } = render(<AdminEditor {...props} />);
+    const { findByText } = render(<AdminEditor {...props} />);
 
-    expect(getByText(/input-0-2-1 editor-0-2-4/i)).toBeInTheDocument();
-    expect(getByText(/Editor/)).toBeInTheDocument();
+    expect(await findByText(/input-0-2-1 editor-0-2-4/i)).toBeInTheDocument();
+    expect(await findByText(/Editor/)).toBeInTheDocument();
   });
 });

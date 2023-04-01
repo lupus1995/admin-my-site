@@ -20,7 +20,6 @@ const Dashboard: FC = ({ children }) => {
   const { pathname, push } = router;
   const [activeLink, setActiveLink] = useState<LinkI>(() => {
     const activeLinkAddress = urls.find((item) => item.to === pathname);
-    // console.log('activeLinkAddress', activeLinkAddress);
     const link = getRootParentLink({
       activeLink: activeLinkAddress,
     });
