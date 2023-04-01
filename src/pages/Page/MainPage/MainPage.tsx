@@ -58,6 +58,11 @@ const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
             {/* мета теги для вк */}
             <meta name="og:title" content="WEB FOR SELF" />
             <meta name="og:type" content="website" />
+            <meta
+              name="og:description"
+              // @ts-ignore
+              content={data.descriptionPage[language]}
+            />
           </Head>
           <Header />
           <BackgroundImage
