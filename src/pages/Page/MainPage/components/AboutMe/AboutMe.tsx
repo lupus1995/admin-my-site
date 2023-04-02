@@ -9,7 +9,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import { AboutMeI } from "./interface";
 import useStyles from "./style";
-import { useImageName } from "../../../widgets/HookGetSizeImage/hook";
+import { useImageName } from "../../../../../commons/HookGetSizeImage/hook";
 
 const AboutMe: FC<AboutMeI> = ({
   aboutMeDescription,
@@ -17,19 +17,11 @@ const AboutMe: FC<AboutMeI> = ({
   imageName,
 }) => {
   const { language } = useLanguage();
-  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
-    useIsMediaQuery();
+  const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
   const { imageUrl } = useImageName({
     imageName,
-    is360,
-    is481,
-    is721,
-    is1081,
-    is1367,
-    is1921,
-    isMinDevicePixelRatio,
   });
 
   const styles = useStyles();

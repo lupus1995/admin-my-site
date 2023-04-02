@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import classNames from "classnames";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
+import { useImageName } from "commons/HookGetSizeImage/hook";
 import { useUpdateTextError } from "pages/Admin/hooks";
 import { useLanguage } from "utils/hooks";
 
@@ -24,18 +25,20 @@ const BlockImageInput: FC<BlockImageInputI> = ({
   register,
 }) => {
   const { t } = useLanguage();
+  const { imageUrl } = useImageName({
+    imageName: watch(name),
+  });
   useUpdateTextError({ trigger, isSubmitted });
   const [currentValues, setCurrentValues] = useState<ImageListType>([]);
   const [isInitValues, setIsInitValues] = useState<boolean>(false);
   const styles = useStyles();
   useEffect(() => {
-    const nameValue = watch(name);
-    if (!isInitValues) {
-      if (nameValue) setCurrentValues([{ data_url: nameValue }]);
+    if (!isInitValues && imageUrl) {
+      setCurrentValues([{ data_url: [imageUrl] }]);
       setIsInitValues(!isInitValues);
     }
     register(name, { required: t("selectedFile") });
-  }, [name, isInitValues, watch, register, t]);
+  }, [name, isInitValues, watch, register, t, imageUrl]);
 
   const maxNumber = 1;
 

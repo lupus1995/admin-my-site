@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 
+import { useIsMediaQuery } from "utils/mediaQuery";
+
 import { SIZES_FOR_FILES } from "./constants";
 import { fetchImageUrl } from "./helpers";
 import { ImageNameWidthI } from "./interface";
 
-export const useImageName = ({
-  imageName,
-  is360,
-  is481,
-  is721,
-  is1081,
-  is1367,
-  is1921,
-  isMinDevicePixelRatio,
-}: ImageNameWidthI) => {
+export const useImageName = ({ imageName }: ImageNameWidthI) => {
+  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
+    useIsMediaQuery();
   const [sizes, setSizes] = useState<{
     is360: string;
     is481: string;

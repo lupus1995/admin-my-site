@@ -10,7 +10,7 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
-import { useImageName } from "../../../widgets/HookGetSizeImage/hook";
+import { useImageName } from "../../../../../commons/HookGetSizeImage/hook";
 
 const BackgroundImage: FC<BackgroundImageI> = ({
   imageName,
@@ -18,21 +18,13 @@ const BackgroundImage: FC<BackgroundImageI> = ({
   firstBlockSubtitle,
 }) => {
   const { language } = useLanguage();
-  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
-    useIsMediaQuery();
+  const { is360, is481, is721 } = useIsMediaQuery();
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles({ theme: { is360, is481, is721 } });
 
   const { imageUrl } = useImageName({
     imageName,
-    is360,
-    is481,
-    is721,
-    is1081,
-    is1367,
-    is1921,
-    isMinDevicePixelRatio,
   });
 
   return (

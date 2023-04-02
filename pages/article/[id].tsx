@@ -1,11 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
 
 import { ArticleI } from "pages/interface";
 import Article from "pages/Page/Article";
-import { getArticle, getArticleForAdmin } from "pages/Page/Article/api";
+import { getArticle } from "pages/Page/Article/api";
 import { ResponseI } from "utils/interfaces";
 
 export async function getServerSideProps({
@@ -31,6 +30,20 @@ export async function getServerSideProps({
     };
   }
 
+  if (isAdmin === "true" && typeof id === "string") {
+    const params = { id, message: "errorDataMessage" };
+    const response = await getArticle(params);
+
+    return {
+      props: {
+        response: {
+          ...response,
+          redirectTo: "/404",
+        },
+      },
+    };
+  }
+
   return {
     props: {
       response: null,
@@ -39,23 +52,6 @@ export async function getServerSideProps({
 }
 
 const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
-  // const [responseArticle, setResponseArticle] = useState(response);
-  // const [initData, setInitData] = useState(true);
-  // const {
-  //   query: { id, isAdmin },
-  // } = useRouter();
-
-  // useEffect(() => {
-  //   if (isAdmin === "true" && typeof id === "string") {
-  //     const params = { id, message: "errorDataMessage" };
-  //     getArticleForAdmin(params)
-  //       .then(setResponseArticle)
-  //       .finally(() => setInitData(true));
-  //   } else {
-  //     setInitData(true);
-  //   }
-  // }, [id, isAdmin]);
-
   return <>{<Article response={response} />}</>;
 };
 

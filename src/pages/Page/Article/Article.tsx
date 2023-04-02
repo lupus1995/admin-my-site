@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
+import { useImageName } from "commons/HookGetSizeImage/hook";
 import { ArticleI } from "pages/interface";
 import { URL } from "utils/constants";
 import { useLanguage } from "utils/hooks";
@@ -14,7 +15,6 @@ import { useStylesClasses } from "utils/stylesPage";
 
 import useStyle from "./style";
 import { WrapperPage } from "../widgets";
-import { useImageName } from "../widgets/HookGetSizeImage/hook";
 
 // страница сайта для отрисовки отдельной статьи
 const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
@@ -23,8 +23,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
   const router = useRouter();
   const { push } = router;
   const { t, language } = useLanguage();
-  const { is360, is481, is721, is1081, is1367, is1921, isMinDevicePixelRatio } =
-    useIsMediaQuery();
+  const { is360, is481 } = useIsMediaQuery();
   // если в ответе есть responseBody (статья), то сразу ее отрисовываем
   const [article, setArticle] = useState<ArticleI | null>(
     response?.responseBody ? response?.responseBody : null
@@ -32,13 +31,6 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
 
   const { imageUrl } = useImageName({
     imageName: article.thumbnail,
-    is360,
-    is481,
-    is721,
-    is1081,
-    is1367,
-    is1921,
-    isMinDevicePixelRatio,
   });
   const styles = useStyle();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });

@@ -4,8 +4,8 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import Link from "next/link";
 
+import { useImageName } from "commons/HookGetSizeImage/hook";
 import Multiline from "pages/Page/commons/Multiline/Multiline";
-import { useImageName } from "pages/Page/widgets/HookGetSizeImage/hook";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
@@ -25,7 +25,6 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
     isMin721AndMax1080,
     isMin1600AndMax1920,
     isMin1367AndMax1600,
-    isMinDevicePixelRatio,
   } = useIsMediaQuery();
 
   const { language } = useLanguage();
@@ -47,13 +46,6 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
 
   const { imageUrl } = useImageName({
     imageName: article.thumbnail,
-    is360,
-    is481,
-    is721,
-    is1081,
-    is1367,
-    is1921,
-    isMinDevicePixelRatio,
   });
 
   return (
