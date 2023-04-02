@@ -14,6 +14,7 @@ import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
+import ArticleItem from "./ArticleItem";
 import { limit } from "./constants";
 import useStyles from "./style";
 import { ArticleI } from "../../../interface";
@@ -115,22 +116,7 @@ const ArticleList = () => {
           <div className={`${style.articlesContainer}`}>
             {articles.map((article) => (
               <article key={article._id} className={style.articleItem}>
-                <FormRow>
-                  <img
-                    className={style.articleTumbnail}
-                    src={article.thumbnail}
-                    // @ts-ignore+
-                    alt={article.title[language]}
-                  />
-                  <h3 className="articleTitle">
-                    {/* @ts-ignore */}
-                    {article.title[language]}
-                  </h3>
-                  <span className="articleDescription">
-                    {/* @ts-ignore */}
-                    {article.description[language]}
-                  </span>
-                </FormRow>
+                <ArticleItem article={article} />
                 <div style={{ marginTop: "auto" }}>
                   <Link
                     className={`${utilsStyles.button} ${utilsStyles.mr15}`}

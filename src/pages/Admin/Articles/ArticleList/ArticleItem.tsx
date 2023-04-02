@@ -1,11 +1,14 @@
 import React, { FC } from "react";
 
 import { useImageName } from "commons/HookGetSizeImage/hook";
+import { FormRow } from "pages/Admin/commons";
 import { ArticleI } from "pages/interface";
+import { useLanguage } from "utils/hooks";
 
 import useStyles from "./style";
 
 const ArticleItem: FC<{ article: ArticleI }> = ({ article }) => {
+  const { language } = useLanguage();
   const { imageUrl } = useImageName({
     imageName: article.thumbnail,
   });
@@ -13,7 +16,7 @@ const ArticleItem: FC<{ article: ArticleI }> = ({ article }) => {
   const style = useStyles();
 
   return (
-    <>
+    <FormRow>
       <img
         className={style.articleTumbnail}
         src={imageUrl}
@@ -28,7 +31,7 @@ const ArticleItem: FC<{ article: ArticleI }> = ({ article }) => {
         {/* @ts-ignore */}
         {article.description[language]}
       </span>
-    </>
+    </FormRow>
   );
 };
 
