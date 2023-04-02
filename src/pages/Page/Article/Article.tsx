@@ -104,6 +104,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
               </h3>
               <div className={`${styles.articleImageContainer}`}>
                 <img
+                  loading="lazy"
                   className={`${styles.articleImage}`}
                   src={imageUrl}
                   // @ts-ignore
