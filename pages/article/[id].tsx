@@ -39,24 +39,24 @@ export async function getServerSideProps({
 }
 
 const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
-  const [responseArticle, setResponseArticle] = useState(response);
-  const [initData, setInitData] = useState(false);
-  const {
-    query: { id, isAdmin },
-  } = useRouter();
+  // const [responseArticle, setResponseArticle] = useState(response);
+  // const [initData, setInitData] = useState(true);
+  // const {
+  //   query: { id, isAdmin },
+  // } = useRouter();
 
-  useEffect(() => {
-    if (isAdmin === "true" && typeof id === "string") {
-      const params = { id, message: "errorDataMessage" };
-      getArticleForAdmin(params)
-        .then(setResponseArticle)
-        .finally(() => setInitData(true));
-    } else {
-      setInitData(true);
-    }
-  }, [id, isAdmin]);
+  // useEffect(() => {
+  //   if (isAdmin === "true" && typeof id === "string") {
+  //     const params = { id, message: "errorDataMessage" };
+  //     getArticleForAdmin(params)
+  //       .then(setResponseArticle)
+  //       .finally(() => setInitData(true));
+  //   } else {
+  //     setInitData(true);
+  //   }
+  // }, [id, isAdmin]);
 
-  return <>{initData && <Article response={responseArticle} />}</>;
+  return <>{<Article response={response} />}</>;
 };
 
 export default Index;
