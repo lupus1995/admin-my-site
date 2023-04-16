@@ -37,6 +37,12 @@ const useStyle = createUseStyles({
         paddingLeft: "15px",
       },
 
+      ol: {
+        listStyle: "conic-gradient",
+        margin: "20px 0",
+        paddingLeft: "15px",
+      },
+
       img: {
         marginTop: "20px",
         maxWidth: "100%",

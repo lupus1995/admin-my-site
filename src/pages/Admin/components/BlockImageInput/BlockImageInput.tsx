@@ -37,6 +37,11 @@ const BlockImageInput: FC<BlockImageInputI> = ({
       setCurrentValues([{ data_url: [imageUrl] }]);
       setIsInitValues(!isInitValues);
     }
+
+    if (!isInitValues && imageUrl === undefined) {
+      setIsInitValues(!isInitValues);
+    }
+
     register(name, { required: t("selectedFile") });
   }, [name, isInitValues, watch, register, t, imageUrl]);
 

@@ -263,5 +263,9 @@ export const useImageName = ({ imageName }: ImageNameWidthI) => {
     sizes,
   ]);
 
+  if (!imageName) {
+    return { imageUrl: undefined };
+  }
+
   return { imageUrl };
 };

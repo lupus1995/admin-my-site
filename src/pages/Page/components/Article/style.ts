@@ -77,11 +77,7 @@ const useStyles = createUseStyles({
         return "11%";
       }
 
-      if (is1081) {
-        return "4.2%";
-      }
-
-      return "1.3";
+      return "auto";
     },
 
     marginBottom: (props: MediaQueryI) => {
@@ -156,7 +152,7 @@ const useStyles = createUseStyles({
         const { isMin721AndMax1080 } = props.theme;
 
         if (isMin721AndMax1080) {
-          return "0";
+          return "30px";
         }
 
         return "";

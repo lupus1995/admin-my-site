@@ -17,14 +17,14 @@ const AboutMe: FC<AboutMeI> = ({
   imageName,
 }) => {
   const { language } = useLanguage();
-  const { is360, is481 } = useIsMediaQuery();
+  const { is360, is481, is1081 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
 
   const { imageUrl } = useImageName({
     imageName,
   });
 
-  const styles = useStyles();
+  const styles = useStyles({ theme: { is1081 } });
   return (
     <div
       className={classNames(
