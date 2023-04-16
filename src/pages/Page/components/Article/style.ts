@@ -62,8 +62,7 @@ const useStyles = createUseStyles({
       return "100%";
     },
     marginRight: (props: MediaQueryI) => {
-      const { is1081, isMin1600AndMax1920, isMin1367AndMax1600, is1921 } =
-        props.theme;
+      const { isMin1600AndMax1920, isMin1367AndMax1600, is1921 } = props.theme;
 
       if (is1921) {
         return "18px";
