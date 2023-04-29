@@ -39,7 +39,6 @@ const calculateCharts = ({
   xRatio,
   ctx,
   proxy,
-  tooltip,
 }: {
   columns: [Array<string | number>];
   colors: {
@@ -55,14 +54,6 @@ const calculateCharts = ({
     hide: () => void;
   };
 }) => {
-  const xCoordinates = columns
-    .find((col) => {
-      const name = getName({ column: col });
-
-      return isTypeX({ types, name });
-    })
-    .filter((coordinates) => typeof coordinates === "number");
-
   columns.forEach((col) => {
     const name = getName({ column: col });
     const color = getColor({ colors, name });
@@ -78,7 +69,7 @@ const calculateCharts = ({
 
       calculateGraph({ ctx, coords, options: { color } });
 
-      coords.forEach(([x, y], index) => {
+      coords.forEach(([x, y]) => {
         if (
           isOver({
             mouse: proxy.mouse,
@@ -88,16 +79,82 @@ const calculateCharts = ({
           })
         ) {
           circle({ ctx, coord: [x, y], color, circleRadius: CIRCLE_RADIUS });
-
-          tooltip.show({
-            left: proxy.mouse.tooltip.left,
-            top: proxy.mouse.tooltip.top,
-            dataTooltip: {
-              title: format(new Date(xCoordinates[index]), "MMM d"),
-              dates: [],
-            },
-          });
         }
+      });
+    }
+  });
+};
+
+// отрисовка тултипа на графике
+const calculateTooltip = ({
+  columns,
+  types,
+  colors,
+  tooltip,
+  proxy,
+  xRatio,
+}: {
+  colors: {
+    [color: string]: string;
+  };
+  columns: [Array<string | number>];
+  types: { [type: string]: string };
+  proxy: ProxyI;
+  tooltip: {
+    show: ({ left, top, dataTooltip }: TooltipI) => void;
+    hide: () => void;
+  };
+  xRatio: number;
+}) => {
+  const xCoordinates = columns
+    .find((col) => {
+      const name = getName({ column: col });
+
+      return isTypeX({ types, name });
+    })
+    .filter((coordinates) => typeof coordinates === "number");
+
+  const yCoordinatesList = columns
+    .filter((col) => {
+      const name = getName({ column: col });
+
+      return isTypeLine({ types, name });
+    })
+    .map((col) => {
+      return col.filter((coordinates) => typeof coordinates === "number");
+    });
+
+  xCoordinates.forEach((item, index) => {
+    if (
+      proxy.mouse &&
+      isOver({
+        mouse: proxy.mouse,
+        x: index * xRatio,
+        length: xCoordinates.length,
+        dpiWidth: DPI_WIDTH,
+      })
+    ) {
+      const data = yCoordinatesList.map(
+        (yCoordinatesItem, indexYCoordinates) => {
+          const name = columns[indexYCoordinates + 1][0] as string;
+          return {
+            name,
+            color: getColor({
+              colors,
+              name,
+            }),
+            value: yCoordinatesItem[index].toString(),
+          };
+        }
+      );
+
+      tooltip.show({
+        left: proxy.mouse.tooltip.left,
+        top: proxy.mouse.tooltip.top,
+        dataTooltip: {
+          title: format(new Date(xCoordinates[index]), "MMM d"),
+          dates: data,
+        },
       });
     }
   });
@@ -121,7 +178,7 @@ export const chart = ({
   canvas.height = DPI_HEIGHT;
   canvas.width = DPI_WIDTH;
 
-  console.log("columns", columns);
+  // console.log("columns", columns);
   // console.log('types', types);
   // console.log('colors', colors);
 
@@ -161,6 +218,14 @@ export const chart = ({
         colors,
         proxy,
         tooltip,
+      });
+      calculateTooltip({
+        columns,
+        types,
+        tooltip,
+        proxy,
+        colors,
+        xRatio,
       });
     };
   };

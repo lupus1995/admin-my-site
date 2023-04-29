@@ -23,14 +23,17 @@ export interface AxisXI {
   };
 }
 
+export interface DataTooltipI {
+  title: string;
+  dates: {
+    color: string;
+    value: string;
+    name: string;
+  }[];
+}
+
 export interface TooltipI {
   left: number;
   top: number;
-  dataTooltip: {
-    title: string;
-    dates: {
-      color: string;
-      value: string;
-    }[];
-  };
+  dataTooltip: DataTooltipI;
 }
