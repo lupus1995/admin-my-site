@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 
-import { TYPE_LINE } from "./constants";
+import { TYPE_LINE, TYPE_X } from "./constants";
 import { AxisXI, ProxyI } from "./interface";
 
 // название оси ординат или абсцисс
@@ -30,6 +30,15 @@ export const isTypeLine = ({
   types: { [type: string]: string };
   name: string;
 }) => types[name] === TYPE_LINE;
+
+// определяем является график осью абсцисс
+export const isTypeX = ({
+  types,
+  name,
+}: {
+  types: { [type: string]: string };
+  name: string;
+}) => types[name] === TYPE_X;
 
 // расчет дельты для масштабирования графика по оси y
 export const calculateYRatio = ({

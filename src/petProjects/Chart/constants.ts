@@ -12,3 +12,4 @@ export const VIEW_WIDTH = DPI_WIDTH;
 export const CIRCLE_RADIUS = 8;
 
 export const TYPE_LINE = "line";
+export const TYPE_X = "x";

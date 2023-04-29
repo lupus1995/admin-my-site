@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 import {
   CIRCLE_RADIUS,
   DPI_HEIGHT,
@@ -9,7 +11,7 @@ import {
   VIEW_WIDTH,
   WIDTH,
 } from "./constants";
-import { DATA_CANVASI, ProxyI } from "./interface";
+import { DATA_CANVASI, ProxyI, TooltipI } from "./interface";
 import { tooltipSettings } from "./tooltip";
 import {
   calculateCoordsForOneChart,
@@ -25,6 +27,7 @@ import {
   getName,
   isOver,
   isTypeLine,
+  isTypeX,
 } from "./utils";
 
 // расчет и отрисовка графика
@@ -36,6 +39,7 @@ const calculateCharts = ({
   xRatio,
   ctx,
   proxy,
+  tooltip,
 }: {
   columns: [Array<string | number>];
   colors: {
@@ -46,7 +50,19 @@ const calculateCharts = ({
   xRatio: number;
   ctx: CanvasRenderingContext2D;
   proxy: ProxyI;
+  tooltip: {
+    show: ({ left, top, dataTooltip }: TooltipI) => void;
+    hide: () => void;
+  };
 }) => {
+  const xCoordinates = columns
+    .find((col) => {
+      const name = getName({ column: col });
+
+      return isTypeX({ types, name });
+    })
+    .filter((coordinates) => typeof coordinates === "number");
+
   columns.forEach((col) => {
     const name = getName({ column: col });
     const color = getColor({ colors, name });
@@ -62,7 +78,7 @@ const calculateCharts = ({
 
       calculateGraph({ ctx, coords, options: { color } });
 
-      for (const [x, y] of coords) {
+      coords.forEach(([x, y], index) => {
         if (
           isOver({
             mouse: proxy.mouse,
@@ -72,9 +88,17 @@ const calculateCharts = ({
           })
         ) {
           circle({ ctx, coord: [x, y], color, circleRadius: CIRCLE_RADIUS });
-          break;
+
+          tooltip.show({
+            left: proxy.mouse.tooltip.left,
+            top: proxy.mouse.tooltip.top,
+            dataTooltip: {
+              title: format(new Date(xCoordinates[index]), "MMM d"),
+              dates: [],
+            },
+          });
         }
-      }
+      });
     }
   });
 };
@@ -97,7 +121,7 @@ export const chart = ({
   canvas.height = DPI_HEIGHT;
   canvas.width = DPI_WIDTH;
 
-  // console.log('columns', columns);
+  console.log("columns", columns);
   // console.log('types', types);
   // console.log('colors', colors);
 
@@ -128,7 +152,16 @@ export const chart = ({
         dpiWidth: DPI_WIDTH,
         padding: PADDING,
       });
-      calculateCharts({ columns, types, yRatio, xRatio, ctx, colors, proxy });
+      calculateCharts({
+        columns,
+        types,
+        yRatio,
+        xRatio,
+        ctx,
+        colors,
+        proxy,
+        tooltip,
+      });
     };
   };
 
