@@ -3,7 +3,7 @@
 import { format } from "date-fns";
 
 import { TYPE_LINE } from "./constants";
-import { AxisXI, ProxyI, TooltipI } from "./interface";
+import { AxisXI, ProxyI } from "./interface";
 
 // название оси ординат или абсцисс
 // координаты представлены собой массив
@@ -146,7 +146,8 @@ export const computeBoundariesByYAxios = ({
   let minY: number, maxY: number;
 
   columns.forEach((col) => {
-    if (types[col[0]] !== "line") {
+    const name = getName({ column: col });
+    if (!isTypeLine({ name, types })) {
       return;
     }
 

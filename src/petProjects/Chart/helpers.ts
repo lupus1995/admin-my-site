@@ -21,7 +21,10 @@ import {
   computeBoundariesByYAxios,
   createXAxis,
   createYAxis,
+  getColor,
+  getName,
   isOver,
+  isTypeLine,
 } from "./utils";
 
 // расчет и отрисовка графика
@@ -45,10 +48,10 @@ const calculateCharts = ({
   proxy: ProxyI;
 }) => {
   columns.forEach((col) => {
-    const name = col[0];
-    const color = colors[name];
+    const name = getName({ column: col });
+    const color = getColor({ colors, name });
 
-    if (types[name] === "line") {
+    if (isTypeLine({ types, name })) {
       const coords: [number, number][] = calculateCoordsForOneChart({
         col,
         xRatio,
@@ -88,7 +91,6 @@ export const chart = ({
   const { columns, types, colors } = data;
   const tooltip = tooltipSettings({ element: tooltipDomElement });
   let raf: number;
-  // console.log(columns);
   const ctx = canvas.getContext("2d");
   canvas.style.height = `${HEIGHT}px`;
   canvas.style.width = `${WIDTH}px`;
@@ -100,7 +102,6 @@ export const chart = ({
   // console.log('colors', colors);
 
   const paint = ({ proxy }: { proxy: ProxyI }) => {
-    console.log('proxy', proxy);
     return () => {
       clear({ ctx, dpiWidth: DPI_WIDTH, dpiHeight: DPI_HEIGHT });
       const { minY, maxY } = computeBoundariesByYAxios({ columns, types });
