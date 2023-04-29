@@ -33,7 +33,9 @@ export const tooltipSettings = ({ element }: { element: HTMLDivElement }) => {
       });
       element.insertAdjacentHTML("afterbegin", template(dataTooltip));
     },
-    // @ts-ignore
-    hide: () => css({ element: el, styles: { display: "none" } }),
+    hide: () => {
+      clear({ element });
+      css({ element, styles: { display: "none" } });
+    },
   };
 };

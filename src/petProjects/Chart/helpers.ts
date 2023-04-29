@@ -254,6 +254,7 @@ export const chart = ({
 
   const mouseleave = () => {
     proxy.mouse = null;
+    tooltip.hide();
   };
 
   canvas.addEventListener("mousemove", mousemove);
