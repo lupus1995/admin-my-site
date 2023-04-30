@@ -26,15 +26,27 @@ export const chart = ({
   data,
   tooltipDomElement,
   refCanvasSlider,
+  arrowLeft,
+  arrowRight,
+  windowChart,
 }: {
   canvas: HTMLCanvasElement;
   data: DATA_CANVASI;
   tooltipDomElement: HTMLDivElement;
   refCanvasSlider: HTMLCanvasElement;
+  arrowLeft: HTMLDivElement;
+  arrowRight: HTMLDivElement;
+  windowChart: HTMLDivElement;
 }) => {
   const { columns, types, colors } = data;
   const tooltip = tooltipSettings({ element: tooltipDomElement });
-  const slider = sliderChart({ canvas: refCanvasSlider, data });
+  const slider = sliderChart({
+    canvas: refCanvasSlider,
+    data,
+    arrowLeft,
+    arrowRight,
+    windowChart,
+  });
   let raf: number;
   const ctx = canvas.getContext("2d");
   canvas.style.height = `${HEIGHT}px`;

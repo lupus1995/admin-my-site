@@ -17,6 +17,28 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
   },
+  canvasContainer: {
+    position: "relative",
+    height: "40px",
+    display: "flex",
+  },
+  arrowLeft: {
+    height: "inherit",
+    background: "rgba(0,0,0,.5)",
+    zIndex: 1,
+  },
+  arrowRight: {
+    height: "inherit",
+    background: "rgba(0,0,0,.5)",
+    zIndex: 1,
+  },
+  windowChart: {
+    height: "inherit",
+  },
+  canvasSlider: {
+    position: "absolute",
+    top: "0px",
+  },
 });
 
 export default useStyles;

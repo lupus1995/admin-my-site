@@ -13,6 +13,12 @@ const Chart = () => {
   const refCanvasSlider: React.MutableRefObject<null | HTMLCanvasElement> =
     useRef(null);
 
+  const arrowRight: React.MutableRefObject<null | HTMLDivElement> =
+    useRef(null);
+  const arrowLeft: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
+  const windowChart: React.MutableRefObject<null | HTMLDivElement> =
+    useRef(null);
+
   const styles = useStyles();
 
   useEffect(() => {
@@ -21,6 +27,9 @@ const Chart = () => {
       data: getChartData() as unknown as DATA_CANVASI,
       tooltipDomElement: refTooltip.current,
       refCanvasSlider: refCanvasSlider.current,
+      arrowLeft: arrowLeft.current,
+      arrowRight: arrowRight.current,
+      windowChart: windowChart.current,
     });
 
     test.init();
@@ -31,7 +40,15 @@ const Chart = () => {
       <div className={styles.tooltip} ref={refTooltip}></div>
       <div className={styles.canvasWrapper}>
         <canvas className={`${styles.canvas}`} ref={refCanvasChart} />
-        <canvas ref={refCanvasSlider}></canvas>
+        <div className={styles.canvasContainer}>
+          <div className={styles.arrowLeft} ref={arrowLeft}></div>
+          <div className={styles.windowChart} ref={windowChart}></div>
+          <div className={styles.arrowRight} ref={arrowRight}></div>
+          <canvas
+            className={styles.canvasSlider}
+            ref={refCanvasSlider}
+          ></canvas>
+        </div>
       </div>
     </main>
   );
