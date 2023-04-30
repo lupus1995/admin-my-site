@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
 import { getChartData } from "./data";
-import { chart } from "./helpers";
-import { DATA_CANVASI } from "./interface";
+import { chart } from "./libs/chart";
+import { DATA_CANVASI } from "./libs/interface";
 import useStyles from "./style";
 
 const Chart = () => {
