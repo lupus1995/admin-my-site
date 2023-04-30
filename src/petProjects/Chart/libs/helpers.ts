@@ -24,6 +24,9 @@ export const calculateCharts = ({
   xRatio,
   ctx,
   proxy,
+  hasCircle,
+  dpiHeight,
+  padding,
 }: {
   columns: [Array<string | number>];
   colors: {
@@ -33,11 +36,10 @@ export const calculateCharts = ({
   yRatio: number;
   xRatio: number;
   ctx: CanvasRenderingContext2D;
-  proxy: ProxyI;
-  tooltip: {
-    show: ({ left, top, dataTooltip }: TooltipI) => void;
-    hide: () => void;
-  };
+  proxy?: ProxyI;
+  hasCircle: boolean;
+  dpiHeight: number;
+  padding: number;
 }) => {
   columns.forEach((col) => {
     const name = getName({ column: col });
@@ -48,11 +50,15 @@ export const calculateCharts = ({
         col,
         xRatio,
         yRatio,
-        dpiHeight: DPI_HEIGHT,
-        padding: PADDING,
+        dpiHeight,
+        padding,
       });
 
       calculateGraph({ ctx, coords, options: { color } });
+
+      if (!hasCircle || !proxy) {
+        return;
+      }
 
       coords.forEach(([x, y]) => {
         if (

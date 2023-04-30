@@ -10,6 +10,7 @@ import {
 } from "./constants";
 import { calculateCharts, calculateTooltip } from "./helpers";
 import { DATA_CANVASI, ProxyI } from "./interface";
+import { sliderChart } from "./slider";
 import { tooltipSettings } from "./tooltip";
 import {
   computeBoundariesByYAxios,
@@ -24,13 +25,16 @@ export const chart = ({
   canvas,
   data,
   tooltipDomElement,
+  refCanvasSlider,
 }: {
   canvas: HTMLCanvasElement;
   data: DATA_CANVASI;
   tooltipDomElement: HTMLDivElement;
+  refCanvasSlider: HTMLCanvasElement;
 }) => {
   const { columns, types, colors } = data;
   const tooltip = tooltipSettings({ element: tooltipDomElement });
+  const slider = sliderChart({ canvas: refCanvasSlider, data });
   let raf: number;
   const ctx = canvas.getContext("2d");
   canvas.style.height = `${HEIGHT}px`;
@@ -77,7 +81,9 @@ export const chart = ({
         ctx,
         colors,
         proxy,
-        tooltip,
+        hasCircle: true,
+        dpiHeight: DPI_HEIGHT,
+        padding: PADDING,
       });
       calculateTooltip({
         columns,

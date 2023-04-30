@@ -13,6 +13,10 @@ const useStyles = createUseStyles({
     border: "1px solid black",
     position: "relative",
   },
+  canvasWrapper: {
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 
 export default useStyles;
