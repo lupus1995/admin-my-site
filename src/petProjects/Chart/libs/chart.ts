@@ -147,6 +147,7 @@ export const chart = ({
       cancelAnimationFrame(raf);
       canvas.removeEventListener("mousemove", mousemove);
       canvas.removeEventListener("mouseleave", mouseleave);
+      slider.destroy();
     },
   };
 };

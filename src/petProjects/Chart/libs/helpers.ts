@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 
-import { DPI_HEIGHT, PADDING, DPI_WIDTH, CIRCLE_RADIUS } from "./constants";
+import { DPI_WIDTH, CIRCLE_RADIUS } from "./constants";
 import { ProxyI, TooltipI } from "./interface";
 import {
   getName,

@@ -1,62 +1,16 @@
 import { DPI_WIDTH, VIEW_WIDTH, WIDTH } from "./constants";
 import { calculateCharts } from "./helpers";
+import { setPosition } from "./helpers.slider";
 import { DATA_CANVASI } from "./interface";
 import {
   computeBoundariesByYAxios,
   calculateYRatio,
   calculateXRatio,
-  css,
 } from "./utils";
+import { initMouseEvent, getDelta } from "./utils.slider";
 
 const HEIGHT = 40;
 const DPI_HEIGHT = HEIGHT * 2;
-
-const setPosition = ({
-  left,
-  right,
-  windowChart,
-  arrowLeft,
-  arrowRight,
-}: {
-  left: number;
-  right: number;
-  windowChart: HTMLDivElement;
-  arrowLeft: HTMLButtonElement;
-  arrowRight: HTMLButtonElement;
-}) => {
-  const minWidth = WIDTH * 0.05;
-  const currentWidth = WIDTH - right - left;
-
-  if (currentWidth < minWidth) {
-    css({ element: windowChart, styles: { minWidth: `${minWidth}px` } });
-    return;
-  }
-
-  if (left < 0) {
-    css({ element: windowChart, styles: { left: 0 } });
-    css({ element: arrowLeft, styles: { width: 0 } });
-    return;
-  }
-
-  if (right < 0) {
-    css({ element: windowChart, styles: { right: 0 } });
-    css({ element: arrowRight, styles: { width: 0 } });
-
-    return;
-  }
-
-  css({
-    element: windowChart,
-    styles: {
-      width: `${currentWidth}px`,
-      left: `${left}px`,
-      right: `${right}px`,
-    },
-  });
-
-  css({ element: arrowRight, styles: { width: `${right}px` } });
-  css({ element: arrowLeft, styles: { width: `${left}px` } });
-};
 
 export const sliderChart = ({
   canvas,
@@ -103,18 +57,19 @@ export const sliderChart = ({
     windowChart,
     arrowLeft,
     arrowRight,
+    width: WIDTH,
   });
 
   const mousedownWindowChart = (event: MouseEvent) => {
-    const startX = event.pageX;
-    const dimensions = {
+    const { startX, dimensions } = initMouseEvent({
+      pageX: event.pageX,
       left: parseInt(windowChart.style.left),
       right: parseInt(windowChart.style.right),
       width: parseInt(windowChart.style.width),
-    };
+    });
 
     document.onmousemove = (e: MouseEvent) => {
-      const delta = startX - e.pageX;
+      const delta = getDelta({ startX, pageX: e.pageX });
 
       if (delta === 0) {
         return;
@@ -129,20 +84,21 @@ export const sliderChart = ({
         windowChart,
         arrowLeft,
         arrowRight,
+        width: WIDTH,
       });
     };
   };
 
   const mouseDownArrowLeft = (event: MouseEvent) => {
-    const startX = event.pageX;
-    const dimensions = {
+    const { startX, dimensions } = initMouseEvent({
+      pageX: event.pageX,
       left: parseInt(windowChart.style.left),
       right: parseInt(windowChart.style.right),
       width: parseInt(windowChart.style.width),
-    };
+    });
 
     document.onmousemove = (e: MouseEvent) => {
-      const delta = startX - e.pageX;
+      const delta = getDelta({ startX, pageX: e.pageX });
 
       if (delta === 0) {
         return;
@@ -157,20 +113,21 @@ export const sliderChart = ({
         windowChart,
         arrowLeft,
         arrowRight,
+        width: WIDTH,
       });
     };
   };
 
   const mouseDownArrowRight = (event: MouseEvent) => {
-    const startX = event.pageX;
-    const dimensions = {
+    const { startX, dimensions } = initMouseEvent({
+      pageX: event.pageX,
       left: parseInt(windowChart.style.left),
       right: parseInt(windowChart.style.right),
       width: parseInt(windowChart.style.width),
-    };
+    });
 
     document.onmousemove = (e: MouseEvent) => {
-      const delta = startX - e.pageX;
+      const delta = getDelta({ startX, pageX: e.pageX });
 
       if (delta === 0) {
         return;
@@ -184,6 +141,7 @@ export const sliderChart = ({
         windowChart,
         arrowLeft,
         arrowRight,
+        width: WIDTH,
       });
     };
   };
@@ -217,12 +175,14 @@ export const sliderChart = ({
         windowChart,
         arrowLeft,
         arrowRight,
+        width: WIDTH,
       });
-
-      // windowChart.addEventListener("mousedown", mousedown);
     },
-    // destroy: () => {
-
-    // }
+    destroy: () => {
+      windowChart.removeEventListener("mousedown", mousedownWindowChart);
+      arrowLeft.removeEventListener("mousedown", mouseDownArrowLeft);
+      arrowRight.removeEventListener("mousedown", mouseDownArrowRight);
+      document.removeEventListener("mouseup", mouseup);
+    },
   };
 };
