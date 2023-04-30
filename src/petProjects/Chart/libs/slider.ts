@@ -21,8 +21,8 @@ const setPosition = ({
   left: number;
   right: number;
   windowChart: HTMLDivElement;
-  arrowLeft: HTMLDivElement;
-  arrowRight: HTMLDivElement;
+  arrowLeft: HTMLButtonElement;
+  arrowRight: HTMLButtonElement;
 }) => {
   const minWidth = WIDTH * 0.05;
   const currentWidth = WIDTH - right - left;
@@ -67,8 +67,8 @@ export const sliderChart = ({
 }: {
   canvas: HTMLCanvasElement;
   data: DATA_CANVASI;
-  arrowLeft: HTMLDivElement;
-  arrowRight: HTMLDivElement;
+  arrowLeft: HTMLButtonElement;
+  arrowRight: HTMLButtonElement;
   windowChart: HTMLDivElement;
 }) => {
   const { columns, types, colors } = data;
@@ -104,4 +104,125 @@ export const sliderChart = ({
     arrowLeft,
     arrowRight,
   });
+
+  const mousedownWindowChart = (event: MouseEvent) => {
+    const startX = event.pageX;
+    const dimensions = {
+      left: parseInt(windowChart.style.left),
+      right: parseInt(windowChart.style.right),
+      width: parseInt(windowChart.style.width),
+    };
+
+    document.onmousemove = (e: MouseEvent) => {
+      const delta = startX - e.pageX;
+
+      if (delta === 0) {
+        return;
+      }
+
+      const left = dimensions.left - delta;
+      const right = WIDTH - left - dimensions.width;
+
+      setPosition({
+        left,
+        right,
+        windowChart,
+        arrowLeft,
+        arrowRight,
+      });
+    };
+  };
+
+  const mouseDownArrowLeft = (event: MouseEvent) => {
+    const startX = event.pageX;
+    const dimensions = {
+      left: parseInt(windowChart.style.left),
+      right: parseInt(windowChart.style.right),
+      width: parseInt(windowChart.style.width),
+    };
+
+    document.onmousemove = (e: MouseEvent) => {
+      const delta = startX - e.pageX;
+
+      if (delta === 0) {
+        return;
+      }
+
+      const left = WIDTH - (dimensions.width + delta) - dimensions.right;
+      const right = WIDTH - (dimensions.width + delta) - left;
+
+      setPosition({
+        left,
+        right,
+        windowChart,
+        arrowLeft,
+        arrowRight,
+      });
+    };
+  };
+
+  const mouseDownArrowRight = (event: MouseEvent) => {
+    const startX = event.pageX;
+    const dimensions = {
+      left: parseInt(windowChart.style.left),
+      right: parseInt(windowChart.style.right),
+      width: parseInt(windowChart.style.width),
+    };
+
+    document.onmousemove = (e: MouseEvent) => {
+      const delta = startX - e.pageX;
+
+      if (delta === 0) {
+        return;
+      }
+
+      const right = WIDTH - (dimensions.width - delta) - dimensions.left;
+
+      setPosition({
+        left: dimensions.left,
+        right,
+        windowChart,
+        arrowLeft,
+        arrowRight,
+      });
+    };
+  };
+
+  const mouseup = () => {
+    document.onmousemove = null;
+  };
+
+  windowChart.addEventListener("mousedown", mousedownWindowChart);
+  arrowLeft.addEventListener("mousedown", mouseDownArrowLeft);
+  arrowRight.addEventListener("mousedown", mouseDownArrowRight);
+  document.addEventListener("mouseup", mouseup);
+
+  return {
+    init: () => {
+      calculateCharts({
+        columns,
+        types,
+        yRatio,
+        xRatio,
+        ctx,
+        colors,
+        hasCircle: false,
+        dpiHeight: DPI_HEIGHT,
+        padding: -5,
+      });
+
+      setPosition({
+        left: 0,
+        right: WIDTH - WIDTH * 0.3,
+        windowChart,
+        arrowLeft,
+        arrowRight,
+      });
+
+      // windowChart.addEventListener("mousedown", mousedown);
+    },
+    // destroy: () => {
+
+    // }
+  };
 };

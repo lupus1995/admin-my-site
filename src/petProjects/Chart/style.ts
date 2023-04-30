@@ -25,15 +25,19 @@ const useStyles = createUseStyles({
   arrowLeft: {
     height: "inherit",
     background: "rgba(0,0,0,.5)",
+    // position: "relative",
     zIndex: 1,
   },
   arrowRight: {
     height: "inherit",
     background: "rgba(0,0,0,.5)",
+    // position: "relative",
     zIndex: 1,
   },
   windowChart: {
     height: "inherit",
+    // position: "relative",
+    zIndex: 1,
   },
   canvasSlider: {
     position: "absolute",

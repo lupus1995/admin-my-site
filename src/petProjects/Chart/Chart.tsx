@@ -13,9 +13,10 @@ const Chart = () => {
   const refCanvasSlider: React.MutableRefObject<null | HTMLCanvasElement> =
     useRef(null);
 
-  const arrowRight: React.MutableRefObject<null | HTMLDivElement> =
+  const arrowRight: React.MutableRefObject<null | HTMLButtonElement> =
     useRef(null);
-  const arrowLeft: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
+  const arrowLeft: React.MutableRefObject<null | HTMLButtonElement> =
+    useRef(null);
   const windowChart: React.MutableRefObject<null | HTMLDivElement> =
     useRef(null);
 
@@ -41,9 +42,24 @@ const Chart = () => {
       <div className={styles.canvasWrapper}>
         <canvas className={`${styles.canvas}`} ref={refCanvasChart} />
         <div className={styles.canvasContainer}>
-          <div className={styles.arrowLeft} ref={arrowLeft}></div>
-          <div className={styles.windowChart} ref={windowChart}></div>
-          <div className={styles.arrowRight} ref={arrowRight}></div>
+          <button
+            data-element="arrow"
+            data-type="left"
+            className={styles.arrowLeft}
+            ref={arrowLeft}
+          ></button>
+          <div
+            data-element="window"
+            data-type="window"
+            className={styles.windowChart}
+            ref={windowChart}
+          ></div>
+          <button
+            data-element="arrow"
+            data-type="right"
+            className={styles.arrowRight}
+            ref={arrowRight}
+          ></button>
           <canvas
             className={styles.canvasSlider}
             ref={refCanvasSlider}

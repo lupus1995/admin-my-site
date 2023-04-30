@@ -34,8 +34,8 @@ export const chart = ({
   data: DATA_CANVASI;
   tooltipDomElement: HTMLDivElement;
   refCanvasSlider: HTMLCanvasElement;
-  arrowLeft: HTMLDivElement;
-  arrowRight: HTMLDivElement;
+  arrowLeft: HTMLButtonElement;
+  arrowRight: HTMLButtonElement;
   windowChart: HTMLDivElement;
 }) => {
   const { columns, types, colors } = data;
@@ -139,7 +139,10 @@ export const chart = ({
   canvas.addEventListener("mouseleave", mouseleave);
 
   return {
-    init: () => paint({ proxy })(),
+    init: () => {
+      paint({ proxy })();
+      slider.init();
+    },
     destroy: () => {
       cancelAnimationFrame(raf);
       canvas.removeEventListener("mousemove", mousemove);
