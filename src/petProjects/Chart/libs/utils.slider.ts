@@ -1,3 +1,5 @@
+export const noop = () => {};
+
 // расчет дельты
 export const getDelta = ({
   startX,

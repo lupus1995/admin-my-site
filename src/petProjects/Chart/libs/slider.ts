@@ -7,7 +7,7 @@ import {
   calculateYRatio,
   calculateXRatio,
 } from "./utils";
-import { initMouseEvent, getDelta } from "./utils.slider";
+import { initMouseEvent, getDelta, noop } from "./utils.slider";
 
 const HEIGHT = 40;
 const DPI_HEIGHT = HEIGHT * 2;
@@ -31,6 +31,8 @@ export const sliderChart = ({
   canvas.height = DPI_HEIGHT;
   canvas.style.height = `${HEIGHT}px`;
   canvas.style.width = `${WIDTH}px`;
+
+  let nextFn: (args: unknown) => void = noop;
 
   const { minY, maxY } = computeBoundariesByYAxios({ columns, types });
   const yRatio = calculateYRatio({ minY, maxY, viewHeight: DPI_HEIGHT });
@@ -60,6 +62,17 @@ export const sliderChart = ({
     width: WIDTH,
   });
 
+  const getPosition = (): [number, number] => {
+    const left = parseInt(arrowLeft.style.width);
+    const right = WIDTH - parseInt(arrowRight.style.width);
+
+    return [(left * 100) / WIDTH, (right * 100) / WIDTH];
+  };
+
+  const next = () => {
+    nextFn(getPosition());
+  };
+
   const mousedownWindowChart = (event: MouseEvent) => {
     const { startX, dimensions } = initMouseEvent({
       pageX: event.pageX,
@@ -86,6 +99,7 @@ export const sliderChart = ({
         arrowRight,
         width: WIDTH,
       });
+      next();
     };
   };
 
@@ -115,6 +129,7 @@ export const sliderChart = ({
         arrowRight,
         width: WIDTH,
       });
+      next();
     };
   };
 
@@ -143,6 +158,7 @@ export const sliderChart = ({
         arrowRight,
         width: WIDTH,
       });
+      next();
     };
   };
 
@@ -156,6 +172,10 @@ export const sliderChart = ({
   document.addEventListener("mouseup", mouseup);
 
   return {
+    subscibe: ({ fn }: { fn: ([]) => void }) => {
+      nextFn = fn;
+      fn(getPosition());
+    },
     init: () => {
       calculateCharts({
         columns,

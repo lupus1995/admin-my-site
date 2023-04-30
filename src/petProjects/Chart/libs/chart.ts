@@ -119,6 +119,12 @@ export const chart = ({
     }
   ) as unknown as ProxyI;
 
+  slider.subscibe({
+    fn: (pos) => {
+      console.log("pos", pos);
+    },
+  });
+
   const mousemove = ({ clientX, clientY }: MouseEvent) => {
     const { left, top } = canvas.getBoundingClientRect();
     proxy.mouse = {
