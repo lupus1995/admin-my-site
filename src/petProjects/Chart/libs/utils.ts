@@ -9,8 +9,9 @@ import { AxisXI, ProxyI } from "./interface";
 // координаты представлены собой массив
 // в массиве первым объектом является название координат, остальные значения - это координаты графика
 // по названию координат можно определить их цвет на графике
-export const getName = ({ column }: { column: Array<string | number> }) =>
-  column[0].toString();
+export const getName = ({ column }: { column: Array<string | number> }) => {
+  return column[0].toString();
+};
 
 // получение определенного цвета в объекта
 // ключами в объекте служат названия оси ординат (ось у)
@@ -149,7 +150,7 @@ export const computeBoundariesByYAxios = ({
   columns,
   types,
 }: {
-  columns: [Array<string | number>];
+  columns: (string | number)[][];
   types: { [type: string]: string };
 }): { minY: number; maxY: number } => {
   let minY: number, maxY: number;

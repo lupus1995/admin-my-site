@@ -61,10 +61,27 @@ export const chart = ({
   const paint = ({ proxy }: { proxy: ProxyI }) => {
     return () => {
       clear({ ctx, dpiWidth: DPI_WIDTH, dpiHeight: DPI_HEIGHT });
-      const { minY, maxY } = computeBoundariesByYAxios({ columns, types });
+      const length = columns[0].length;
+      const leftIndex = Math.round((length * proxy.pos[0]) / 100);
+      const rightIndex = Math.round((length * proxy.pos[1]) / 100);
+
+      const filteredColumns = columns.map((col) => {
+        const result = col.slice(leftIndex, rightIndex);
+
+        if (typeof result[0] !== "string") {
+          result.unshift(col[0]);
+        }
+
+        return result;
+      });
+
+      const { minY, maxY } = computeBoundariesByYAxios({
+        columns: filteredColumns,
+        types,
+      });
       const yRatio = calculateYRatio({ minY, maxY, viewHeight: VIEW_HEIGHT });
       const xRatio = calculateXRatio({
-        countXCoords: data.columns[0].length,
+        countXCoords: filteredColumns[0].length,
         viewWidth: VIEW_WIDTH,
       });
       createYAxis({
@@ -78,7 +95,7 @@ export const chart = ({
       });
       createXAxis({
         ctx,
-        data: columns[0],
+        data: filteredColumns[0],
         xRatio,
         proxy,
         dpiHeight: DPI_HEIGHT,
@@ -86,7 +103,7 @@ export const chart = ({
         padding: PADDING,
       });
       calculateCharts({
-        columns,
+        columns: filteredColumns,
         types,
         yRatio,
         xRatio,
@@ -98,7 +115,7 @@ export const chart = ({
         padding: PADDING,
       });
       calculateTooltip({
-        columns,
+        columns: filteredColumns,
         types,
         tooltip,
         proxy,
@@ -120,8 +137,8 @@ export const chart = ({
   ) as unknown as ProxyI;
 
   slider.subscibe({
-    fn: (pos) => {
-      console.log("pos", pos);
+    fn: (pos: [number, number]) => {
+      proxy.pos = pos;
     },
   });
 

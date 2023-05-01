@@ -28,7 +28,7 @@ export const calculateCharts = ({
   dpiHeight,
   padding,
 }: {
-  columns: [Array<string | number>];
+  columns: (string | number)[][];
   colors: {
     [color: string]: string;
   };
@@ -88,7 +88,7 @@ export const calculateTooltip = ({
   colors: {
     [color: string]: string;
   };
-  columns: [Array<string | number>];
+  columns: (string | number)[][];
   types: { [type: string]: string };
   proxy: ProxyI;
   tooltip: {

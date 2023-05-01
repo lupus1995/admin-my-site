@@ -13,6 +13,7 @@ export interface DATA_CANVASI {
 
 export interface ProxyI {
   mouse: AxisXI;
+  pos: [number, number];
 }
 
 export interface AxisXI {
