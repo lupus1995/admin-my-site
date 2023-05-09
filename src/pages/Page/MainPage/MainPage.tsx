@@ -7,11 +7,13 @@ import { toast } from "react-toastify";
 import { useLanguage } from "utils/hooks";
 
 import { BackgroundImage } from "./components";
+import { AboutMeSkeleton } from "./components/AboutMe";
 import { MainPageI, MainPagePropsI } from "./interface";
 import { Header } from "../components";
 
-const AboutMe = dynamic(() => import("./components/AboutMe"), {
+const AboutMe = dynamic(() => import("./components/AboutMe/AboutMe"), {
   ssr: false,
+  loading: AboutMeSkeleton,
 });
 
 const Portfolio = dynamic(() => import("./components/Portfolio"), {
