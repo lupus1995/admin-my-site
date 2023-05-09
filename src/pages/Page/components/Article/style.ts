@@ -185,6 +185,11 @@ const useStyles = createUseStyles({
     },
     flexWrap: "wrap",
   },
+
+  articleLinkSkeleton: {
+    height: "27px",
+    width: "100%",
+  },
 });
 
 export default useStyles;

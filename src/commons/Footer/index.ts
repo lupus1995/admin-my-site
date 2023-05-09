@@ -1,3 +1,4 @@
 import Footer from "./Footer";
+import FooterSkeleton from "./FooterSkeleton";
 
-export default Footer;
+export { Footer, FooterSkeleton };

@@ -1,4 +1,4 @@
 export { default as BackgroundImage } from "./BackgroundImage";
-export { default as AboutMe } from "./AboutMe";
-export { default as Portfolio } from "./Portfolio";
-export { default as Contacts } from "./Contacts";
+export { AboutMe, AboutMeSkeleton } from "./AboutMe";
+export { Portfolio, PortfolioSkeleton } from "./Portfolio";
+export { Contacts, ContactsSkeleton } from "./Contacts";
