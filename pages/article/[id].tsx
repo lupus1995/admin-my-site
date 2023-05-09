@@ -1,11 +1,63 @@
-import React, { FC } from "react";
+import { ParsedUrlQuery } from "querystring";
+
+import React, { FC, useEffect, useState } from "react";
 
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 
+import { getArticle as getArticleForAdmin } from "pages/Admin/Articles/ArticlesForm/api";
 import { ArticleI } from "pages/interface";
 import Article from "pages/Page/Article";
 import { getArticle } from "pages/Page/Article/api";
 import { ResponseI } from "utils/interfaces";
+
+interface ArticleQueryParamsI extends ParsedUrlQuery {
+  isAdmin: string;
+  id: string;
+}
+
+function getResponse(response: ResponseI<void | ArticleI>) {
+  return {
+    ...response,
+    redirectTo: "/404",
+  };
+}
+
+function hasId(id: string) {
+  return typeof id === "string";
+}
+
+function hasAdmin(isAdmin: string) {
+  return isAdmin === "true";
+}
+
+function visibleForAdmin({
+  isAdmin,
+  id,
+}: {
+  isAdmin: string | undefined;
+  id: string;
+}) {
+  if (hasId(id)) {
+    return hasAdmin(isAdmin);
+  }
+
+  return false;
+}
+
+function visibleForUser({
+  isAdmin,
+  id,
+}: {
+  isAdmin: string | undefined;
+  id: string;
+}) {
+  return hasId(id) && !hasAdmin(isAdmin);
+}
+
+/**
+ * проверка на админа происходит в компоненте, потому что на стороне сервера нельзя прочитать local storage
+ */
 
 export async function getServerSideProps({
   query,
@@ -14,32 +66,15 @@ export async function getServerSideProps({
     response: ResponseI<void | ArticleI> | null;
   };
 }> {
-  const { id, isAdmin } = query;
+  const { id, isAdmin } = query as ArticleQueryParamsI;
 
-  if (isAdmin !== "true" && typeof id === "string") {
+  if (visibleForUser({ isAdmin, id })) {
     const params = { id, message: "errorDataMessage" };
     const response = await getArticle(params);
 
     return {
       props: {
-        response: {
-          ...response,
-          redirectTo: "/404",
-        },
-      },
-    };
-  }
-
-  if (isAdmin === "true" && typeof id === "string") {
-    const params = { id, message: "errorDataMessage" };
-    const response = await getArticle(params);
-
-    return {
-      props: {
-        response: {
-          ...response,
-          redirectTo: "/404",
-        },
+        response: getResponse(response),
       },
     };
   }
@@ -52,7 +87,25 @@ export async function getServerSideProps({
 }
 
 const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
-  return <>{<Article response={response} />}</>;
+  const [responseArticle, setResponseArticle] = useState(response);
+  const query = useRouter().query as ArticleQueryParamsI;
+
+  const { id, isAdmin } = query;
+
+  useEffect(() => {
+    if (visibleForAdmin({ isAdmin, id })) {
+      const params: { id: string } = { id };
+      getArticleForAdmin(params).then((data) => {
+        setResponseArticle(getResponse(data));
+      });
+    }
+  }, [id, isAdmin]);
+
+  if (responseArticle === null) {
+    return null;
+  }
+
+  return <>{<Article response={responseArticle} />}</>;
 };
 
 export default Index;

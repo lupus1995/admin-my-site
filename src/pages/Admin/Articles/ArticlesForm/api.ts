@@ -8,11 +8,11 @@ import { ArticleI } from "../../../interface";
 export const getArticle = async ({
   id,
 }: {
-  id: string;
+  id: string | undefined;
 }): Promise<ResponseI<ArticleI | void>> => {
   const hasCorrectokens = await updateTokens();
 
-  if (hasCorrectokens.status) {
+  if (hasCorrectokens.status && typeof id === "string") {
     const { accessToken } = getTokens();
     const response = await fetch(`${URL}/articles/${id}`, {
       method: "get",
