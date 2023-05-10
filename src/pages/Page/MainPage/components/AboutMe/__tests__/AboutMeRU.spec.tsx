@@ -8,14 +8,6 @@ import AboutMe from "../AboutMe";
 import { AboutMeI } from "../interface";
 
 jest.mock("html-react-parser", () => (data: string) => data);
-jest.mock("pages/Page/MainPage/hook", () => {
-  const module = jest.requireActual("pages/Page/MainPage/hook");
-
-  return {
-    ...module,
-    useImages: () => "image.name",
-  };
-});
 
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
@@ -30,7 +22,6 @@ describe("AboutMe", () => {
         ru: "aboutMeTitleRU",
         en: "aboutMeTitleEN",
       },
-      imageName: "useImages",
     };
     const { getByText, getByAltText } = render(<AboutMe {...props} />);
 

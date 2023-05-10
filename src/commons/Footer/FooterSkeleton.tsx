@@ -14,6 +14,7 @@ const FooterSkeleton = () => {
   const skeletonStyle = useStyleSkeleton();
   return (
     <footer
+      data-testid="footerSkeleton"
       className={classNames(
         `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block} ${stylesPage.blockBackground} ${styles.footer} ${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
       )}

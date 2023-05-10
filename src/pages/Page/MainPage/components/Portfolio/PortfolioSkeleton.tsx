@@ -22,6 +22,7 @@ const PortfolioSkeleton = () => {
       )}
     >
       <div
+        data-testid="portfolioTitle"
         className={classNames(
           `${stylesPage.titleBlock} ${skeletonStyle.titleBlockSkeleton} ${skeletonStyle.skeleton}`
         )}

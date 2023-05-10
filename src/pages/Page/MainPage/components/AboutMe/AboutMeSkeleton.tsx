@@ -18,23 +18,30 @@ const AboutMeSkeleton = () => {
 
   return (
     <div
+      data-testid="aboutMeWrapper"
       className={classNames(
         `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block}`
       )}
     >
       <div
+        data-testid="aboutMeTitle"
         className={classNames(
           `${stylesPage.titleBlock} ${skeletonStyle.titleBlockSkeleton} ${skeletonStyle.skeleton}`
         )}
       />
 
-      <div className={classNames(`${styles.aboutMe}`)}>
+      <div
+        data-testid="aboutMeContainer"
+        className={classNames(`${styles.aboutMe}`)}
+      >
         <div
+          data-testid="aboutMePhoto"
           className={classNames(
             `${styles.aboutMePhoto} ${styles.aboutMeBlockSkeleton} ${skeletonStyle.skeleton}`
           )}
         />
         <article
+          data-testid="aboutMeArticle"
           className={classNames(
             `${styles.aboutMeArticle} ${styles.aboutMeBlockSkeleton} ${skeletonStyle.skeleton}`
           )}

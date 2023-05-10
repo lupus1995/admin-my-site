@@ -96,6 +96,11 @@ const useStyleSkeleton = createUseStyles({
     marginLeft: "auto",
     marginRight: "auto",
   },
+
+  skeletonLine: {
+    height: "20px",
+    marginBottom: "10px",
+  },
 });
 
 export { useStylesClasses, useStylesTag, useStyleSkeleton };

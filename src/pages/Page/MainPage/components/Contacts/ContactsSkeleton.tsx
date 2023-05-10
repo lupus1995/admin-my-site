@@ -15,11 +15,13 @@ const ContactsSkeleton = () => {
 
   return (
     <div
+      data-testid="formWrapper"
       className={classNames(
         `${stylesPage.container} ${stylesPage.block} ${stylesPage.wrapper}`
       )}
     >
       <div
+        data-testid="titleFormWrapper"
         className={classNames(
           `${stylesPage.titleBlock} ${skeletonStyle.titleBlockSkeleton} ${skeletonStyle.skeleton}`
         )}
@@ -27,21 +29,25 @@ const ContactsSkeleton = () => {
       <div className={`${style.contacts}`}>
         <div className={`${style.inputWrapper}`}>
           <div
+            data-testid="formLabelUsername"
             className={classNames(
               `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton} ${style.label}`
             )}
           />
           <div
+            data-testid="formInputUsername"
             className={classNames(
               `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
             )}
           />
           <div
+            data-testid="formLabelFeedback"
             className={classNames(
               `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton} ${style.label}`
             )}
           />
           <div
+            data-testid="formInputFeedback"
             className={classNames(
               `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
             )}
@@ -49,11 +55,7 @@ const ContactsSkeleton = () => {
         </div>
         <div className={`${style.inputWrapper}`}>
           <div
-            className={classNames(
-              `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton} ${style.label}`
-            )}
-          />
-          <div
+            data-testid="formInputSubmit"
             className={classNames(
               `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
             )}
