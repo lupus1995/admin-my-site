@@ -2,6 +2,7 @@ import React, { FC } from "react";
 
 import Head from "next/head";
 
+import YandexMetrics from "commons/YandexMetrics";
 import { get } from "pages/Page/MainPage/api";
 import { MainPagePropsI } from "pages/Page/MainPage/interface";
 
@@ -25,6 +26,7 @@ const Index: FC<MainPagePropsI> = ({ dataResponse }) => {
       <Head>
         <title>WEB FOR SELF</title>
       </Head>
+      <YandexMetrics />
       <MainPage dataResponse={dataResponse} />
     </>
   );

@@ -15,25 +15,14 @@ import { getCurrentLanguager, hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 
 import i18n from "../src/i18n";
-const env = process.env.NODE_ENV;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useStylesTag();
   const sheets = new SheetsRegistry();
   const generateId = createGenerateId();
 
-  const visibleYandexMetrics =
-    env === "production" &&
-    hasWindow() &&
-    window?.location.origin === "https://webforself.ru";
-
   return (
     <JssProvider registry={sheets} generateId={generateId}>
-      {visibleYandexMetrics && (
-        <Head>
-          <meta name="yandex-verification" content="1b8ba196c8180663" />
-        </Head>
-      )}
       <Component {...pageProps} />
       <ToastContainer />
     </JssProvider>

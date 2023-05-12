@@ -5,6 +5,7 @@ import React, { FC, useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
+import YandexMetrics from "commons/YandexMetrics";
 import { getArticle as getArticleForAdmin } from "pages/Admin/Articles/ArticlesForm/api";
 import { ArticleI } from "pages/interface";
 import Article from "pages/Page/Article";
@@ -105,7 +106,12 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
     return null;
   }
 
-  return <>{<Article response={responseArticle} />}</>;
+  return (
+    <>
+      <YandexMetrics />
+      <Article response={responseArticle} />
+    </>
+  );
 };
 
 export default Index;

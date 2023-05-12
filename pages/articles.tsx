@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 
+import YandexMetrics from "commons/YandexMetrics";
 import { ArticleI } from "pages/interface";
 import { ResponseI } from "utils/interfaces";
 
@@ -37,6 +38,7 @@ const Index: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
       <Head>
         <title>{t("portfolioTitlePage")}</title>
       </Head>
+      <YandexMetrics />
       <Articles response={response} />
     </>
   );
