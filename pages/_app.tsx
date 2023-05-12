@@ -26,6 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   const visibleYandexMetrics =
     env === "production" &&
+    hasWindow() &&
     window?.location.origin === "https://nest.webforself.ru";
 
   return (
