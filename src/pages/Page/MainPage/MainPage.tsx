@@ -34,6 +34,10 @@ const Footer = dynamic(() => import("commons/Footer/Footer"), {
 });
 
 const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
+  const env = process.env.NODE_ENV;
+
+  // eslint-disable-next-line no-console
+  console.log("env", env);
   const { t, language } = useLanguage();
   const [data, setData] = useState<MainPageI | null>(
     dataResponse.responseBody || null
