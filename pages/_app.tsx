@@ -2,7 +2,6 @@ import React from "react";
 
 import App, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
 import { ToastContainer } from "react-toastify";
 
@@ -12,7 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../src/resetDefaultStylesBrowsers.css";
 import "../src/roboto.css";
 
-import { URL } from "utils/constants";
 import { getCurrentLanguager, hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 
@@ -27,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const visibleYandexMetrics =
     env === "production" &&
     hasWindow() &&
-    window?.location.origin === "https://nest.webforself.ru";
+    window?.location.origin === "https://webforself.ru";
 
   return (
     <JssProvider registry={sheets} generateId={generateId}>
