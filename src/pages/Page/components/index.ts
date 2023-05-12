@@ -1,4 +1,8 @@
-import { Article, ArticlesContainer } from "./Article";
+import {
+  Article,
+  ArticlesContainer,
+  ArticlesContainerSkeleton,
+} from "./Article";
 
 export { default as Header } from "./Header";
-export { Article, ArticlesContainer };
+export { Article, ArticlesContainer, ArticlesContainerSkeleton };

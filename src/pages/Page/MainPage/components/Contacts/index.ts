@@ -1,3 +1,4 @@
 import Contacts from "./Contacts";
+import ContactsSkeleton from "./ContactsSkeleton";
 
-export default Contacts;
+export { Contacts, ContactsSkeleton };

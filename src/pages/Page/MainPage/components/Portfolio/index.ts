@@ -1,3 +1,4 @@
 import Portfolio from "./Portfolio";
+import PortfolioSkeleton from "./PortfolioSkeleton";
 
-export default Portfolio;
+export { Portfolio, PortfolioSkeleton };

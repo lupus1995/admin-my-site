@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import Footer from "commons/Footer";
+import { Footer } from "commons/Footer";
 import { Header } from "pages/Page/components";
 
 import useStyle from "./style";

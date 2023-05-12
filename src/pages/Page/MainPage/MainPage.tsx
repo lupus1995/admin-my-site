@@ -4,29 +4,40 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { toast } from "react-toastify";
 
+import { FooterSkeleton } from "commons/Footer";
 import { useLanguage } from "utils/hooks";
 
-import { BackgroundImage } from "./components";
+import { BackgroundImage, ContactsSkeleton } from "./components";
+import { AboutMeSkeleton } from "./components/AboutMe";
+import { PortfolioSkeleton } from "./components/Portfolio";
 import { MainPageI, MainPagePropsI } from "./interface";
 import { Header } from "../components";
 
-const AboutMe = dynamic(() => import("./components/AboutMe"), {
+const AboutMe = dynamic(() => import("./components/AboutMe/AboutMe"), {
   ssr: false,
+  loading: AboutMeSkeleton,
 });
 
-const Portfolio = dynamic(() => import("./components/Portfolio"), {
+const Portfolio = dynamic(() => import("./components/Portfolio/Portfolio"), {
   ssr: false,
+  loading: PortfolioSkeleton,
 });
 
-const Contacts = dynamic(() => import("./components/Contacts"), {
+const Contacts = dynamic(() => import("./components/Contacts/Contacts"), {
   ssr: false,
+  loading: ContactsSkeleton,
 });
 
-const Footer = dynamic(() => import("commons/Footer"), {
+const Footer = dynamic(() => import("commons/Footer/Footer"), {
   ssr: false,
+  loading: FooterSkeleton,
 });
 
 const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
+  const env = process.env.NODE_ENV;
+
+  // eslint-disable-next-line no-console
+  console.log("env", env);
   const { t, language } = useLanguage();
   const [data, setData] = useState<MainPageI | null>(
     dataResponse.responseBody || null
@@ -45,41 +56,41 @@ const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
     }
   }, [dataResponse, t]);
 
+  if (!dataResponse.status) {
+    return null;
+  }
+
   return (
     <>
-      {data && (
-        <>
-          <Head>
-            {/* @ts-ignore */}
-            <meta name="description" content={data.descriptionPage[language]} />
-            {/* @ts-ignore */}
-            <meta name="keywords" content={data.keyWordsPage[language]} />
+      <Head>
+        {/* @ts-ignore */}
+        <meta name="description" content={data.descriptionPage[language]} />
+        {/* @ts-ignore */}
+        <meta name="keywords" content={data.keyWordsPage[language]} />
 
-            {/* мета теги для вк */}
-            <meta name="og:title" content="WEB FOR SELF" />
-            <meta name="og:type" content="website" />
-            <meta
-              name="og:description"
-              // @ts-ignore
-              content={data.descriptionPage[language]}
-            />
-          </Head>
-          <Header />
-          <BackgroundImage
-            firstBlockTitle={data.firstBlockTitle}
-            firstBlockSubtitle={data.firstBlockSubtitle}
-            imageName={data.firstBlockBackgroundImage}
-          />
-          <AboutMe
-            aboutMeDescription={data.aboutMeDescription}
-            aboutMeTitle={data.aboutMeTitle}
-            imageName={data.aboutMePhoto}
-          />
-          <Portfolio />
-          <Contacts />
-          <Footer />
-        </>
-      )}
+        {/* мета теги для вк */}
+        <meta name="og:title" content="WEB FOR SELF" />
+        <meta name="og:type" content="website" />
+        <meta
+          name="og:description"
+          // @ts-ignore
+          content={data.descriptionPage[language]}
+        />
+      </Head>
+      <Header />
+      <BackgroundImage
+        firstBlockTitle={data.firstBlockTitle}
+        firstBlockSubtitle={data.firstBlockSubtitle}
+        imageName={data.firstBlockBackgroundImage}
+      />
+      <AboutMe
+        aboutMeDescription={data.aboutMeDescription}
+        aboutMeTitle={data.aboutMeTitle}
+        imageName={data.aboutMePhoto}
+      />
+      <Portfolio />
+      <Contacts />
+      <Footer />
     </>
   );
 };

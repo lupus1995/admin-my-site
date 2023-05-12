@@ -7,6 +7,7 @@ export interface MediaQueryI {
     is721?: boolean;
     is1081?: boolean;
     is1367?: boolean;
+    is1601?: boolean;
     is1921?: boolean;
 
     isMin1367AndMax1920?: boolean;

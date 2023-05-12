@@ -30,7 +30,7 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
   );
 
   const { imageUrl } = useImageName({
-    imageName: article.thumbnail,
+    imageName: article?.thumbnail,
   });
   const styles = useStyle();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
@@ -56,6 +56,11 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
       setArticle(response.responseBody);
     }
   }, [article, push, response, t]);
+
+  if (article === null) {
+    return null;
+  }
+
   return (
     <>
       <Head>

@@ -6,7 +6,7 @@ import Head from "next/head";
 import { URL } from "utils/constants";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
-import { useStylesClasses } from "utils/stylesPage";
+import { useStyleSkeleton, useStylesClasses } from "utils/stylesPage";
 
 import { BackgroundImageI } from "./itnterface";
 import useStyles from "./style";
@@ -22,6 +22,7 @@ const BackgroundImage: FC<BackgroundImageI> = ({
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const styles = useStyles({ theme: { is360, is481, is721 } });
+  const stylesSkeleton = useStyleSkeleton();
 
   const { imageUrl } = useImageName({
     imageName,
@@ -37,7 +38,9 @@ const BackgroundImage: FC<BackgroundImageI> = ({
       </Head>
       <div
         style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : {}}
-        className={classNames(`${styles.firstBlock} ${stylesPage.block}`)}
+        className={classNames(`${styles.firstBlock} ${stylesPage.block}`, {
+          [stylesSkeleton.skeleton]: Boolean(imageUrl),
+        })}
       >
         <div
           className={classNames(

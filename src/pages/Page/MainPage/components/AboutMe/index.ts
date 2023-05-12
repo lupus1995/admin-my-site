@@ -1,3 +1,4 @@
 import AboutMe from "./AboutMe";
+import AboutMeSkeleton from "./AboutMeSkeleton";
 
-export default AboutMe;
+export { AboutMe, AboutMeSkeleton };

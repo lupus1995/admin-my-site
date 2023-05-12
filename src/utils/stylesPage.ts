@@ -28,10 +28,12 @@ const useStylesClasses = createUseStyles({
     fontSize: "35px",
     textAlign: "center",
     marginBottom: "30px",
-    paddingTop: "100px",
   },
   block: {
     paddingBottom: () => {
+      return "100px";
+    },
+    paddingTop: () => {
       return "100px";
     },
   },
@@ -83,4 +85,22 @@ const useStylesTag = createUseStyles({
   },
 });
 
-export { useStylesClasses, useStylesTag };
+const useStyleSkeleton = createUseStyles({
+  skeleton: {
+    backgroundColor: "#ccc",
+  },
+
+  titleBlockSkeleton: {
+    height: "52px",
+    width: "400px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+
+  skeletonLine: {
+    height: "20px",
+    marginBottom: "10px",
+  },
+});
+
+export { useStylesClasses, useStylesTag, useStyleSkeleton };

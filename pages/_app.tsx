@@ -1,6 +1,8 @@
 import React from "react";
 
 import App, { AppContext, AppProps } from "next/app";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
 import { ToastContainer } from "react-toastify";
 
@@ -10,18 +12,29 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../src/resetDefaultStylesBrowsers.css";
 import "../src/roboto.css";
 
-import { getCurrentLanguager } from "utils/helpers";
+import { URL } from "utils/constants";
+import { getCurrentLanguager, hasWindow } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 
 import i18n from "../src/i18n";
+const env = process.env.NODE_ENV;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useStylesTag();
   const sheets = new SheetsRegistry();
   const generateId = createGenerateId();
 
+  const visibleYandexMetrics =
+    env === "production" &&
+    window?.location.origin === "https://nest.webforself.ru";
+
   return (
     <JssProvider registry={sheets} generateId={generateId}>
+      {visibleYandexMetrics && (
+        <Head>
+          <meta name="yandex-verification" content="1b8ba196c8180663" />
+        </Head>
+      )}
       <Component {...pageProps} />
       <ToastContainer />
     </JssProvider>
@@ -48,6 +61,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   return {
     ...appProps,
+    pageProps: { ...appProps.pageProps },
   };
 };
 
