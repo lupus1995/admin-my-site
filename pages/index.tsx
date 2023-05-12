@@ -25,8 +25,8 @@ const Index: FC<MainPagePropsI> = ({ dataResponse }) => {
     <>
       <Head>
         <title>WEB FOR SELF</title>
+        <YandexMetrics />
       </Head>
-      <YandexMetrics />
       <MainPage dataResponse={dataResponse} />
     </>
   );

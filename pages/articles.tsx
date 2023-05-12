@@ -37,8 +37,8 @@ const Index: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
     <>
       <Head>
         <title>{t("portfolioTitlePage")}</title>
+        <YandexMetrics />
       </Head>
-      <YandexMetrics />
       <Articles response={response} />
     </>
   );

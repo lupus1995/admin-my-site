@@ -3,6 +3,7 @@ import { ParsedUrlQuery } from "querystring";
 import React, { FC, useEffect, useState } from "react";
 
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import YandexMetrics from "commons/YandexMetrics";
@@ -108,7 +109,9 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
 
   return (
     <>
-      <YandexMetrics />
+      <Head>
+        <YandexMetrics />
+      </Head>
       <Article response={responseArticle} />
     </>
   );

@@ -15,9 +15,7 @@ const YandexMetrics = () => {
   return (
     <>
       {visibleYandexMetrics && (
-        <Head>
-          <meta name="yandex-verification" content="1b8ba196c8180663" />
-        </Head>
+        <meta name="yandex-verification" content="1b8ba196c8180663" />
       )}
     </>
   );
