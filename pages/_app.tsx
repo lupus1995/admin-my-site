@@ -1,6 +1,7 @@
 import React from "react";
 
 import App, { AppContext, AppProps } from "next/app";
+import Head from "next/head";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
 import { ToastContainer } from "react-toastify";
 
@@ -15,13 +16,21 @@ import { useStylesTag } from "utils/stylesPage";
 
 import i18n from "../src/i18n";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const env = process.env.NODE_ENV;
+const hostNameEnv = process.env.NEXT_PUBLIC_HOSTNAME;
+
+const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
   useStylesTag();
   const sheets = new SheetsRegistry();
   const generateId = createGenerateId();
 
   return (
     <JssProvider registry={sheets} generateId={generateId}>
+      {host === hostNameEnv && env === "production" && (
+        <Head>
+          <meta name="yandex-verification" content="1b8ba196c8180663" />
+        </Head>
+      )}
       <Component {...pageProps} />
       <ToastContainer />
     </JssProvider>
@@ -29,13 +38,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 };
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
+  let host = "";
   if (appContext.ctx.req) {
     const {
       ctx: {
-        // @ts-ignore
-        req: { cookies },
+        req: {
+          // @ts-ignore
+          cookies,
+          headers: { host: hostName },
+        },
       },
     } = appContext;
+
+    host = hostName;
 
     // инициализация на сервере языка разметки
     // если этого не сделать, то может возникнуть ошибка рендеринга между сервером и клиентом
@@ -48,7 +63,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   return {
     ...appProps,
-    pageProps: { ...appProps.pageProps },
+    host,
   };
 };
 

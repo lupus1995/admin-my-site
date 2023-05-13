@@ -6,7 +6,6 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import YandexMetrics from "commons/YandexMetrics";
 import { getArticle as getArticleForAdmin } from "pages/Admin/Articles/ArticlesForm/api";
 import { ArticleI } from "pages/interface";
 import Article from "pages/Page/Article";
@@ -109,9 +108,6 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
 
   return (
     <>
-      <Head>
-        <YandexMetrics />
-      </Head>
       <Article response={responseArticle} />
     </>
   );
