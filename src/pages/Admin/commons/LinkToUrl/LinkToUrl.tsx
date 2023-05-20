@@ -6,15 +6,14 @@ import { useRouter } from "next/router";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
-const LinkToArticleList: FC<{ isDisabled: boolean; disabledClass: string }> = ({
-  isDisabled,
-  disabledClass,
-}) => {
+import { LinkToUrlPropsI } from "./interface";
+
+const LinkToUrl: FC<LinkToUrlPropsI> = ({ isDisabled, disabledClass, url }) => {
   const { t } = useLanguage();
   const { push } = useRouter();
   const utilsStyles = useUtilsStyles();
 
-  const handleClick = () => push("/admin/articles");
+  const handleClick = () => push(url);
 
   return (
     <button
@@ -29,4 +28,4 @@ const LinkToArticleList: FC<{ isDisabled: boolean; disabledClass: string }> = ({
   );
 };
 
-export default LinkToArticleList;
+export default LinkToUrl;
