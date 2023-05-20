@@ -30,3 +30,16 @@ export interface ArticleI {
 export interface ApiErrorMessageI {
   message: string;
 }
+
+export interface ProjectI {
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  title: LanguageI;
+  thumbnail: string;
+  description: LanguageI;
+  linkToProjectOnUi: string;
+  keyWords: LanguageI;
+  hidePublished: boolean;
+  _id?: string;
+}
