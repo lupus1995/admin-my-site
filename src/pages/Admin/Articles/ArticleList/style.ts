@@ -18,10 +18,6 @@ const useStyles = createUseStyles({
     flexDirection: "column",
     marginBottom: "15px",
   },
-
-  articleTumbnail: {
-    maxWidth: "100%",
-  },
 });
 
 export default useStyles;
