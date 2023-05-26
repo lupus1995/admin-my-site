@@ -47,6 +47,14 @@ const Header = () => {
             </Link>
           </li>
           <li className={classNames(`${styles.navItem}`)}>
+            <Link
+              className={classNames(`${styles.navItemLink}`)}
+              href="/projects"
+            >
+              {t("projectsTitlePage")}
+            </Link>
+          </li>
+          <li className={classNames(`${styles.navItem}`)}>
             <a className={classNames(`${styles.navItemLink}`)} href="#">
               {t("contactsTitlePage")}
             </a>

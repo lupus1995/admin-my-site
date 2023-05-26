@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
@@ -10,57 +9,33 @@ import { usePagination } from "components/Pagination/hooks";
 import { FormRow, Title, MessageForEmptyList } from "pages/Admin/commons";
 import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
+import { ItemWrapper } from "pages/Admin/widget";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
-import { getArticles, deletedArticle as deletedArticleRequest } from "./api";
+import { getArticles } from "./api";
 import ArticleItem from "./ArticleItem";
 import { limit } from "./constants";
+import { useArticleModal } from "./hooks";
 import useStyles from "./style";
 import { ArticleI } from "../../../interface";
 
 const ArticleList = () => {
   useSession();
   const { t, language } = useLanguage();
-  const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
   const [articles, setArticles] = useState<ArticleI[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
   const { push } = useRouter();
   const style = useStyles();
+  const {
+    toggleModal,
+    handleOpenModal,
+    handleCloseModal,
+    handleDeletedArticle,
+    deletedArticle,
+  } = useArticleModal({ articles, setArticles });
 
   const utilsStyles = useUtilsStyles();
   const handleClick = () => push("/admin/articles/create");
-
-  const handleOpenModal = (article: ArticleI) => {
-    setOpen(true);
-    setDeletedArticle(article);
-  };
-
-  const handleCloseModal = () => {
-    setOpen(false);
-    setDeletedArticle(null);
-  };
-
-  const deleteArticle = () => {
-    deletedArticleRequest(deletedArticle._id).then((result) => {
-      const successMessage = "successDeleteArticle";
-      toast(t(result.status ? successMessage : result.message), {
-        type: result.status ? "success" : "error",
-        hideProgressBar: true,
-        theme: "colored",
-      });
-
-      if (result.redirectTo) {
-        push(result.redirectTo);
-      }
-
-      if (result.status) {
-        setArticles(articles.filter((item) => item._id !== deletedArticle._id));
-      }
-
-      handleCloseModal();
-    });
-  };
 
   const { notVisibleButton, handleLoad } = usePagination({
     request: getArticles,
@@ -115,26 +90,13 @@ const ArticleList = () => {
         {articles.length > 0 && (
           <div className={`${style.articlesContainer}`}>
             {articles.map((article) => (
-              <article key={article._id} className={style.articleItem}>
+              <ItemWrapper
+                handleClick={() => handleOpenModal(article)}
+                key={article._id}
+                href={`/admin/articles/edit/${article._id}`}
+              >
                 <ArticleItem article={article} />
-                <div style={{ marginTop: "auto" }}>
-                  <Link
-                    className={`${utilsStyles.button} ${utilsStyles.mr15}`}
-                    href={`/admin/articles/edit/${article._id}`}
-                  >
-                    {t("edit")}
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleOpenModal(article);
-                    }}
-                    className={utilsStyles.button}
-                    type="button"
-                  >
-                    {t("delete")}
-                  </button>
-                </div>
-              </article>
+              </ItemWrapper>
             ))}
           </div>
         )}
@@ -146,9 +108,9 @@ const ArticleList = () => {
       </div>
 
       <AdminModal
-        open={open}
+        open={toggleModal}
         handleClose={handleCloseModal}
-        handleCallback={deleteArticle}
+        handleCallback={handleDeletedArticle}
       >
         <p>
           {t("deleteArticleText", {

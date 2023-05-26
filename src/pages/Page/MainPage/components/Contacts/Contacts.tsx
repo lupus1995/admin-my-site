@@ -48,7 +48,7 @@ const Contacts = () => {
   return (
     <div
       className={classNames(
-        `${stylesPage.container} ${stylesPage.block} ${stylesPage.wrapper}`
+        `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block} ${stylesPage.blockBackground}`
       )}
     >
       <h3 className={`${stylesPage.titleBlock}`}>{t("contactsTitlePage")}</h3>

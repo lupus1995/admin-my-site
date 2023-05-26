@@ -8,3 +8,4 @@ export { default as ButtonSubmit } from "./ButtonSubmit";
 export { default as Form } from "./Form";
 export { default as MessageForEmptyList } from "./MessageForEmptyList";
 export { default as Title } from "./Title";
+export { default as LinkToUrl } from "./LinkToUrl";

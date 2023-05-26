@@ -26,4 +26,19 @@ export const urls: LinkI[] = [
     text: "feedback",
     parent: null,
   },
+  {
+    to: "/admin/projects",
+    text: "projectsTitlePage",
+    parent: null,
+  },
+  {
+    to: "/admin/projects/create",
+    text: "",
+    parent: "/admin/projects",
+  },
+  {
+    to: "/admin/projects/edit/[id]",
+    text: "",
+    parent: "/admin/projects",
+  },
 ];

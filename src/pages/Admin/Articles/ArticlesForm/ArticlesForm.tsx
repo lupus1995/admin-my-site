@@ -1,12 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 import classNames from "classnames";
-import { format } from "date-fns";
 // eslint-disable-next-line import/named
 import { get } from "lodash";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
 import {
@@ -16,6 +14,7 @@ import {
   FormLabel,
   TextError,
   ButtonSubmit,
+  LinkToUrl,
 } from "pages/Admin/commons";
 import {
   Dashboard,
@@ -24,15 +23,13 @@ import {
   AdminDatePicker,
 } from "pages/Admin/components";
 import { useDisabled, useSession, useUpdateTextError } from "pages/Admin/hooks";
+import { HidePublished } from "pages/Admin/widget";
 import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
-import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { saveArticle, getArticle } from "./api";
-import { LinkToArticleList, HidePublishedArticle } from "./components";
+import { useInitFormArticle, useSaveArticle } from "./hooks";
 import useStyles from "./style";
-import { ArticleI } from "../../../interface";
 
 const ArticlesForm = () => {
   useSession();
@@ -41,8 +38,6 @@ const ArticlesForm = () => {
     push,
     query: { id },
   } = useRouter();
-
-  const [isInitForm, setIsInitForm] = useState<boolean>(false);
   const { disabledClass, setIsDisabled, isDisabled } = useDisabled();
 
   const styles = useStyles();
@@ -68,76 +63,15 @@ const ArticlesForm = () => {
     return t("createdArticle");
   }, [id, t]);
 
-  const onSubmit = (data: ArticleI) => {
-    setIsDisabled(true);
-    saveArticle(data)
-      .then((response: ResponseI) => {
-        toast(t(response.message), {
-          type: response.status ? "success" : "error",
-          hideProgressBar: true,
-          theme: "colored",
-        });
+  const onSubmit = useSaveArticle({ setIsDisabled });
 
-        if (response.redirectTo) {
-          push(response.redirectTo);
-        }
-      })
-      .finally(() => setIsDisabled(false));
-  };
-
-  useEffect(() => {
-    if (!isInitForm) {
-      register("title.ru", { required: t("requiredText") });
-      register("title.en", { required: t("requiredText") });
-      register("description.ru", { required: t("requiredText") });
-      register("description.en", { required: t("requiredText") });
-      register("text.ru", { required: t("requiredText") });
-      register("text.en", { required: t("requiredText") });
-      register("keyWords.ru", { required: t("requiredText") });
-      register("keyWords.en", { required: t("requiredText") });
-      register("publishedAt", { required: t("requiredText") });
-      register("createdAt");
-      register("updatedAt");
-      register("hidePublishedArticle");
-
-      if (typeof id === "string") {
-        getArticle({ id })
-          .then((result) => {
-            if (!result.status) {
-              toast(t(result.message), {
-                type: "error",
-                hideProgressBar: true,
-                theme: "colored",
-              });
-
-              push(result.redirectTo);
-            }
-
-            if (result.responseBody) {
-              Object.entries(result.responseBody).forEach(
-                ([key, value]: [string, string]) => {
-                  setValue(key, value);
-                }
-              );
-            }
-          })
-          .finally(() => setIsInitForm(true));
-      } else {
-        setValue("text.ru", "");
-        setValue("text.en", "");
-        setValue("createdAt", format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'"));
-        setValue("updatedAt", format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'"));
-        setValue("hidePublishedArticle", false);
-        setIsInitForm(true);
-      }
-    }
-  }, [id, isInitForm, push, register, setValue, t]);
+  const isInitFormArticle = useInitFormArticle({ register, setValue });
 
   return (
     <Dashboard>
       <div>
         <Title title={titleText} />
-        {isInitForm && (
+        {isInitFormArticle && (
           <Form
             onSubmit={onSubmit}
             handleSubmit={handleSubmit}
@@ -341,12 +275,16 @@ const ArticlesForm = () => {
                 </div>
               </div>
             </FormRow>
-            <HidePublishedArticle
+
+            <HidePublished
               watch={watch}
-              isInitForm={isInitForm}
+              isInitForm={isInitFormArticle}
               disabledClass={disabledClass}
               setValue={setValue}
               isDisabled={isDisabled}
+              name="hidePublishedArticle"
+              label={t("hidePublishedArticleLabel")}
+              publishedAtValue={watch("publishedAt")}
             />
 
             <FormRow>
@@ -355,9 +293,10 @@ const ArticlesForm = () => {
                 disabledClass={disabledClass}
                 hasFullWidth={false}
               />
-              <LinkToArticleList
+              <LinkToUrl
                 isDisabled={isDisabled}
                 disabledClass={disabledClass}
+                url="/admin/articles"
               />
               {id && (
                 <button
