@@ -7,7 +7,7 @@ import { useStyleSkeleton } from "utils/stylesPage";
 
 import useStyles from "./style";
 
-const ArticleSkeleton: FC = () => {
+const ContentSkeleton: FC = () => {
   const {
     is360,
     is481,
@@ -40,32 +40,39 @@ const ArticleSkeleton: FC = () => {
   const skeletonStyle = useStyleSkeleton();
 
   return (
-    <article className={classNames(`${styles.articleContainer}`)}>
+    <article
+      data-testid="contentContainer"
+      className={classNames(`${styles.contentContainer}`)}
+    >
       <div className={classNames(`${styles.previewImage}`)} />
       <div
+        data-testid="contentLinkSkeleton"
         className={classNames(
-          `${styles.articleLinkSkeleton} ${skeletonStyle.skeleton}`
+          `${styles.contentLinkSkeleton} ${skeletonStyle.skeleton}`
         )}
-      ></div>
+      />
       <div>
         <div
+          data-testid="skeletonLine"
           className={classNames(
             `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
           )}
-        ></div>
+        />
         <div
+          data-testid="skeletonLine"
           className={classNames(
             `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
           )}
-        ></div>
+        />
         <div
+          data-testid="skeletonLine"
           className={classNames(
             `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
           )}
-        ></div>
+        />
       </div>
 
-      <div className={classNames(`${styles.time}`)}>
+      <div data-testid="time" className={classNames(`${styles.time}`)}>
         <div
           className={classNames(
             `${skeletonStyle.skeletonLine} ${skeletonStyle.skeleton}`
@@ -76,4 +83,4 @@ const ArticleSkeleton: FC = () => {
   );
 };
 
-export default ArticleSkeleton;
+export default ContentSkeleton;

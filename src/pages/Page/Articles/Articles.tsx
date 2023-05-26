@@ -12,7 +12,8 @@ import { getArticles } from "./api";
 import { limit } from "./constants";
 import useStyles from "./style";
 import { ArticleI } from "../../interface";
-import { ArticlesContainer } from "../components";
+import { ContentsContainer } from "../components";
+import { useGetConents } from "../components/Content/hooks";
 import { WrapperPage } from "../widgets";
 
 // страница сайта для отображения всех статей на сайте
@@ -37,6 +38,8 @@ const Articles: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
       setArticles([...articles, ...newArticles]),
   });
 
+  const contents = useGetConents(articles, "article");
+
   return (
     <>
       <WrapperPage>
@@ -45,7 +48,7 @@ const Articles: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
             `${styles.articlesWrapper} ${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.blockBackground}`
           )}
         >
-          <ArticlesContainer articles={articles} />
+          <ContentsContainer contents={contents} />
           <Pagination
             notVisibleButton={notVisibleButton || articles.length < limit}
             handleLoad={handleLoad}

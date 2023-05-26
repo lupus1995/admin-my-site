@@ -3,17 +3,19 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { ProjectI } from "pages/interface";
+import { useLanguage } from "utils/hooks";
 
 import { getProjects } from "./api";
 
 export const useInitProjects = () => {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState<ProjectI[]>([]);
   const [visibleSkeleton, setVisibleSkeleton] = useState<boolean>(false);
 
   useEffect(() => {
     setVisibleSkeleton(true);
     getProjects({
-      message: "errorDataMessage",
+      message: t("errorDataMessage"),
     })
       .then((response) => {
         if (!response.status) {
@@ -31,7 +33,7 @@ export const useInitProjects = () => {
         }
       })
       .finally(() => setVisibleSkeleton(false));
-  }, []);
+  }, [t]);
 
   return { projects, visibleSkeleton };
 };

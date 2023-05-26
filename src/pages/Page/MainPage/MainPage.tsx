@@ -9,9 +9,14 @@ import { useLanguage } from "utils/hooks";
 
 import { BackgroundImage, ContactsSkeleton } from "./components";
 import { AboutMeSkeleton } from "./components/AboutMe";
-import { PortfolioSkeleton } from "./components/Portfolio";
 import { MainPageI, MainPagePropsI } from "./interface";
 import { Header } from "../components";
+import { WrapperContentMainPageBlock } from "../widgets";
+
+const Projects = dynamic(() => import("./components/Projects/Projects"), {
+  ssr: false,
+  loading: WrapperContentMainPageBlock,
+});
 
 const AboutMe = dynamic(() => import("./components/AboutMe/AboutMe"), {
   ssr: false,
@@ -20,7 +25,7 @@ const AboutMe = dynamic(() => import("./components/AboutMe/AboutMe"), {
 
 const Portfolio = dynamic(() => import("./components/Portfolio/Portfolio"), {
   ssr: false,
-  loading: PortfolioSkeleton,
+  loading: WrapperContentMainPageBlock,
 });
 
 const Contacts = dynamic(() => import("./components/Contacts/Contacts"), {
@@ -85,6 +90,7 @@ const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
         imageName={data.aboutMePhoto}
       />
       <Portfolio />
+      <Projects />
       <Contacts />
       <Footer />
     </>

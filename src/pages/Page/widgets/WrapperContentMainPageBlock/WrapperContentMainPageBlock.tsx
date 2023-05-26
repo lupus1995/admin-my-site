@@ -5,9 +5,9 @@ import classNames from "classnames";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStyleSkeleton, useStylesClasses } from "utils/stylesPage";
 
-import { ArticlesContainerSkeleton } from "../../../components";
+import ContentsContainerSkeleton from "../../components/Content/ContentsContainerSkeleton";
 
-const PortfolioSkeleton = () => {
+const WrapperContentMainPageBlock = () => {
   const { is360, is481, is721, is1367, is1921, is1081 } = useIsMediaQuery();
 
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
@@ -17,20 +17,21 @@ const PortfolioSkeleton = () => {
 
   return (
     <div
+      data-testid="wrapper"
       className={classNames(
         `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block}`
       )}
     >
       <div
-        data-testid="portfolioTitle"
+        data-testid="title"
         className={classNames(
           `${stylesPage.titleBlock} ${skeletonStyle.titleBlockSkeleton} ${skeletonStyle.skeleton}`
         )}
       />
 
-      <ArticlesContainerSkeleton />
+      <ContentsContainerSkeleton />
     </div>
   );
 };
 
-export default PortfolioSkeleton;
+export default WrapperContentMainPageBlock;

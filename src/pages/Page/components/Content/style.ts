@@ -38,7 +38,7 @@ const useStyles = createUseStyles({
     borderRadius: "10px,",
     maxWidth: "100%",
   },
-  articleContainer: {
+  contentContainer: {
     boxShadow: "0px 0px 3px #000",
     padding: "10px",
     display: "flex",
@@ -159,7 +159,7 @@ const useStyles = createUseStyles({
     },
   },
 
-  articlesContainer: {
+  contentsContainer: {
     display: "flex",
     textAlign: (props: MediaQueryI) => {
       const { is721, is1081 } = props.theme;
@@ -186,7 +186,7 @@ const useStyles = createUseStyles({
     flexWrap: "wrap",
   },
 
-  articleLinkSkeleton: {
+  contentLinkSkeleton: {
     height: "27px",
     width: "100%",
   },

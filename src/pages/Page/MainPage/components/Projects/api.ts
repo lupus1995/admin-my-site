@@ -1,4 +1,5 @@
 import { ProjectI } from "pages/interface";
+import { URL } from "utils/constants";
 
 // получение проектов
 export const getProjects = async ({ message }: { message: string }) => {

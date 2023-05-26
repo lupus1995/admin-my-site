@@ -11,8 +11,8 @@ jest.mock("../../../../components", () => {
 
   return {
     ...module,
-    ArticlesContainer: () => <span>ArticlesContainer</span>,
-    ArticlesContainerSkeleton: () => <span>ArticlesContainerSkeleton</span>,
+    ContentsContainer: () => <span>ContentsContainer</span>,
+    ContentsContainerSkeleton: () => <span>ContentsContainerSkeleton</span>,
   };
 });
 
@@ -36,12 +36,12 @@ describe("Portfolio", () => {
   it("check visible skeleton", async () => {
     const { findByText } = render(<Portfolio />);
 
-    expect(await findByText("ArticlesContainerSkeleton")).toBeInTheDocument();
+    expect(await findByText("ContentsContainerSkeleton")).toBeInTheDocument();
   });
 
   it("check hidden  skeleton", async () => {
     const { findByText } = render(<Portfolio />);
 
-    expect(await findByText("ArticlesContainer")).toBeInTheDocument();
+    expect(await findByText("ContentsContainer")).toBeInTheDocument();
   });
 });

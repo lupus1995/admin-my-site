@@ -4,10 +4,10 @@ import classNames from "classnames";
 
 import { useIsMediaQuery } from "utils/mediaQuery";
 
-import ArticleSkeleton from "./ArticleSkeleton";
+import ContentSkeleton from "./ContentSkeleton";
 import useStyles from "./style";
 
-const ArticlesContainerSkeleton: FC = () => {
+const ContentsContainerSkeleton: FC = () => {
   const {
     is360,
     is481,
@@ -38,14 +38,17 @@ const ArticlesContainerSkeleton: FC = () => {
   });
 
   return (
-    <div className={classNames(`${styles.articlesContainer}`)}>
-      <ArticleSkeleton />
-      <ArticleSkeleton />
-      <ArticleSkeleton />
-      <ArticleSkeleton />
-      <ArticleSkeleton />
+    <div
+      data-testid="contentsContainer"
+      className={classNames(`${styles.contentsContainer}`)}
+    >
+      <ContentSkeleton />
+      <ContentSkeleton />
+      <ContentSkeleton />
+      <ContentSkeleton />
+      <ContentSkeleton />
     </div>
   );
 };
 
-export default ArticlesContainerSkeleton;
+export default ContentsContainerSkeleton;

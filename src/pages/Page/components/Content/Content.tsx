@@ -10,9 +10,9 @@ import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
 import useStyles from "./style";
-import { ArticleI } from "../../../interface";
+import { ContentI } from "../../../interface";
 
-const Article: FC<{ article: ArticleI }> = ({ article }) => {
+const Content: FC<{ contentItem: ContentI }> = ({ contentItem }) => {
   const {
     is360,
     is481,
@@ -45,37 +45,38 @@ const Article: FC<{ article: ArticleI }> = ({ article }) => {
   });
 
   const { imageUrl } = useImageName({
-    imageName: article.thumbnail,
+    imageName: contentItem.thumbnail,
   });
 
   return (
-    <article className={classNames(`${styles.articleContainer}`)}>
+    <article className={classNames(`${styles.contentContainer}`)}>
       <div>
-        <img className={classNames(`${styles.previewImage}`)} src={imageUrl} />
+        <img
+          data-testid={imageUrl}
+          className={classNames(`${styles.previewImage}`)}
+          src={imageUrl}
+        />
       </div>
-      <Link
-        className={`${styles.previewLink}`}
-        href={`/article/${article._id}`}
-      >
+      <Link className={`${styles.previewLink}`} href={contentItem.url}>
         <Multiline numberLine={2}>
           <h4 className={classNames(`${styles.previewTitle}`)}>
             {/* @ts-ignore */}
-            {article.title[language]}
+            {contentItem.title[language]}
           </h4>
         </Multiline>
       </Link>
       <Multiline numberLine={3}>
         <p className={classNames(`${styles.previewDescription}`)}>
           {/* @ts-ignore */}
-          {article.description[language]}
+          {contentItem.description[language]}
         </p>
       </Multiline>
 
       <div className={classNames(`${styles.time}`)}>
-        <time>{format(new Date(article.publishedAt), "dd.MM.yyyy")}</time>
+        <time>{format(new Date(contentItem.publishedAt), "dd.MM.yyyy")}</time>
       </div>
     </article>
   );
 };
 
-export default Article;
+export default Content;

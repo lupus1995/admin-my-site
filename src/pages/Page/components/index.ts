@@ -1,8 +1,8 @@
 import {
-  Article,
-  ArticlesContainer,
-  ArticlesContainerSkeleton,
-} from "./Article";
+  Content,
+  ContentsContainer,
+  ContentsContainerSkeleton,
+} from "./Content";
 
 export { default as Header } from "./Header";
-export { Article, ArticlesContainer, ArticlesContainerSkeleton };
+export { Content, ContentsContainer, ContentsContainerSkeleton };

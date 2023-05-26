@@ -17,7 +17,7 @@ const Footer: FC = () => {
   return (
     <footer
       className={classNames(
-        `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block} ${stylesPage.blockBackground} ${styles.footer}`
+        `${stylesPage.wrapper} ${stylesPage.container} ${stylesPage.block} ${styles.footer}`
       )}
     >
       &#169; {t("copyright")} {format(new Date(), "yyyy")}

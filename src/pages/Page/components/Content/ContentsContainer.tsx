@@ -2,13 +2,15 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 
-import { ArticleI } from "pages/interface";
+import { ContentI } from "pages/interface";
 import { useIsMediaQuery } from "utils/mediaQuery";
 
-import Article from "./Article";
+import Content from "./Content";
 import useStyles from "./style";
 
-const ArticlesContainer: FC<{ articles: ArticleI[] }> = ({ articles }) => {
+const ContentsContainer: FC<{
+  contents: ContentI[];
+}> = ({ contents }) => {
   const {
     is360,
     is481,
@@ -39,12 +41,15 @@ const ArticlesContainer: FC<{ articles: ArticleI[] }> = ({ articles }) => {
   });
 
   return (
-    <div className={classNames(`${styles.articlesContainer}`)}>
-      {articles.map((article) => (
-        <Article article={article} key={article._id} />
+    <div
+      data-testid="contentsContainer"
+      className={classNames(`${styles.contentsContainer}`)}
+    >
+      {contents.map((contentItem) => (
+        <Content contentItem={contentItem} key={contentItem._id} />
       ))}
     </div>
   );
 };
 
-export default ArticlesContainer;
+export default ContentsContainer;

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import classNames from "classnames";
 import Link from "next/link";
-import { toast } from "react-toastify";
 
+import { useGetConents } from "pages/Page/components/Content/hooks";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import { useInitArticles } from "./hooks";
 import {
-  ArticlesContainer,
-  ArticlesContainerSkeleton,
+  ContentsContainer,
+  ContentsContainerSkeleton,
 } from "../../../components";
 
 const Portfolio = () => {
@@ -19,6 +19,8 @@ const Portfolio = () => {
   const { is360, is481 } = useIsMediaQuery();
   const stylesPage = useStylesClasses({ theme: { is360, is481 } });
   const { articles, visibleSkeleton } = useInitArticles();
+
+  const contents = useGetConents(articles, "article");
 
   return (
     <div
@@ -29,8 +31,8 @@ const Portfolio = () => {
       <h3 className={classNames(`${stylesPage.titleBlock}`)}>
         {t("portfolioTitlePage")}
       </h3>
-      {!visibleSkeleton && <ArticlesContainer articles={articles} />}
-      {visibleSkeleton && <ArticlesContainerSkeleton />}
+      {!visibleSkeleton && <ContentsContainer contents={contents} />}
+      {visibleSkeleton && <ContentsContainerSkeleton />}
       <div className={`${stylesPage.textCenter}`}>
         <Link className={classNames(`${stylesPage.button}`)} href="/articles">
           {t("loadMoreArticle")}
