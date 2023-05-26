@@ -54,10 +54,6 @@ export const chart = ({
   canvas.height = DPI_HEIGHT;
   canvas.width = DPI_WIDTH;
 
-  // console.log("columns", columns);
-  // console.log('types', types);
-  // console.log('colors', colors);
-
   const paint = ({ proxy }: { proxy: ProxyI }) => {
     return () => {
       clear({ ctx, dpiWidth: DPI_WIDTH, dpiHeight: DPI_HEIGHT });
@@ -148,7 +144,7 @@ export const chart = ({
       x: (clientX - left) * 2,
       tooltip: {
         left: clientX - left,
-        top: clientY - top,
+        top: clientY - top + 200,
       },
     };
   };

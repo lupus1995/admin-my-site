@@ -1,13 +1,16 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
+  mainWrapper: {
+    minHeight: "100vh",
+  },
   main: {
     padding: "15px",
   },
   tooltip: {
     position: "absolute",
     backgroundColor: "#fff",
-    zIndex: 1,
+    zIndex: 2,
   },
   canvas: {
     border: "1px solid black",
@@ -16,6 +19,7 @@ const useStyles = createUseStyles({
   canvasWrapper: {
     display: "flex",
     flexDirection: "column",
+    marginTop: "100px",
   },
   canvasContainer: {
     position: "relative",
