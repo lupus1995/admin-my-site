@@ -79,12 +79,12 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
         {/* @ts-ignore */}
         <meta
           name="vk:image"
-          content={`${URL}/articles/${article._id}/thumbnail`}
+          content={`${URL}/articles/1280/${article._id}/thumbnail`}
         />
         {/* @ts-ignore */}
         <meta
           name="og:image"
-          content={`${URL}/articles/${article._id}/thumbnail`}
+          content={`${URL}/articles/510/${article._id}/thumbnail`}
         />
         {/* @ts-ignore */}
         <meta name="og:description" content={article.description[language]} />

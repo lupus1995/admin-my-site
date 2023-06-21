@@ -32,7 +32,7 @@ const BackgroundImage: FC<BackgroundImageI> = ({
     <>
       <Head>
         {/* @ts-ignore */}
-        <meta name="vk:image" content={`${URL}/main-page/510/${imageName}`} />
+        <meta name="vk:image" content={`${URL}/main-page/1280/${imageName}`} />
         {/* @ts-ignore */}
         <meta name="og:image" content={`${URL}/main-page/510/${imageName}`} />
       </Head>
