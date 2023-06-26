@@ -9,7 +9,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "test": "jest --coverage",
-    "lint": "eslint --fix --ext .ts,.tsx"
+    "lint": "eslint --fix --ext .ts,.tsx ."
   },
   "lint-staged": {
     ".{ts,tsx}": [
