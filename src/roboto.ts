@@ -13,8 +13,8 @@ const useStyles = createUseStyles({
   "@font-face": [
     {
       fontFamily: "Roboto",
-      fontStyle: "normal",  
-      fontWeight: 700,      
+      fontStyle: "normal",
+      fontWeight: 700,
       fontDisplay: "swap",
       src: `url("${RobotoBoldWoff2}") format("woff2"),
         url("${RobotoBoldWoff}") format("woff")`,

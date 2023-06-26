@@ -10,10 +10,7 @@ const checkRefteshToken = async () => {
     method: "post",
     headers: {
       "Content-Type": "application/json",
- 
-       
 
-       
       authorization: refreshToken,
     },
   });
