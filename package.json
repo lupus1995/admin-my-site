@@ -12,7 +12,10 @@
     "lint": "eslint --fix --ext .ts,.tsx ."
   },
   "lint-staged": {
-    ".ts": [
+    "./src/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint"
+    ],
+    "./pages/**/*.{ts,tsx,js,jsx}": [
       "npm run lint"
     ]
   },
