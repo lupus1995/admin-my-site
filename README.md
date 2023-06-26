@@ -1,55 +1,56 @@
-# webpack-ssr
+Авторский блог Панфилова Александра. Это репозиторий для юай части моего блога.
 
-## EN
+Целью блога является публикация моих статей на моем авторском [сайте](https://webforself.ru), а также тестирование своих теорий в вебе, обучение новым технолгиям и практикам на сайте.
 
-Setting up webpack for frontend projects. It also contains a ssr template made on express.
+Этот репозиторий представляет собой базу по опубликованным статьям, в которых я описываю свой опыт и результаты своих экспериментов. Также на сайте есть раздел с проектами, который будет содержать в себе мои петпроекты и их результат.
 
-Console commands for project management
+Также в проекте в качестве эксперимента используется библиотека cssinjs. Она используется, потому что изначально проект разрабатывался без каких-либо фреймврков и была цель завести ssr. На тот момент удалось завести только с вышеупомянутой библиотекой.
 
-- npm run start - starts the main frontend project in development mode, server side rendering is available in production mode;
-- npm run build - starts building the frontend project for deployment to the server. The contents of the assembly are placed in the dist folder;
-- npm run build:dev - runs the build of the express server in order to start server side rendering for the project
-- npm run dev - starts the express server in server side rendering mode, you need to run the npm run build:dev command before running this command.
+Потом от идеи сделать собственный ssr пришлось отказаться и взять готовое решение в виде nextjs. Cssinjs переписывать не захотелось, поэтому было принято решение оставить его и использовать дальше.
 
-Design modes in a project
+Минус cssinjs состоит в его работе с медиа запросами. Из коробки он не умеет определять ширину экрана и тип устройства, как это делает чистый css. Для решения данной проблемы необходимо использовать сторонние библиотеки и дополнительный интерфейс, который сможет определить какой стиль, когда можно использовать.
 
-- production - mode for the final assembly of the frontend project, server side rendering is available only in the mode;
-- development - main development mode in the project.
+## Консольные команды и инструкция по запуску
 
-In the project, each mode has its own entry point into the project. For production mode - index.prod.tsx, for development - index.dev.tsx.
+```bash
+# запускает режим разработки
+npm run dev
+# построение сборки для продакшина и генерации карты сайта
+npm run build
+# генерация карты сайта, запускается автоматически после выполнения команды npm run build
+npm run postbuild
+# запускает готовую сборку продакшина, если сборки нет, то необходимо ее перед этим сгенерировать
+npm run start
+# запускает тесты
+npm run test
+```
 
-Project start instructions
+## Описание проекта
 
-- clone the repository;
-- install npm packages, development was carried out on the 16th version of node js;
-- for main development, run the npm run start command;
-- to build a build on the server, run npm run build and npm run build:dev, take the finished files from the build, if necessary, correct the path to the server side rendering build files, for finer tuning of server side rendering;
-- to check the final build of the frontend, run the following commands npm run build, npm run build:dev, npm run dev - this command will start the local server, which will display the build result and how it will behave on the server.
+На проекте используется nextjs, соответственно вместе с ним ипользуется и server side rendering. Входной точкой является папка pages, согласно документации фреймворка. Далее, в зависимости от урла, необходимо найти файл, который обслуживает данный урл. Все остальные рабочие файлы в моем проекте находятся в папке src.
 
-#
+- commons общие файлы;
+- components - компоненты, которые содержат бизнес логику или простую логику, на данный момент у меня здесь только пагинация
+- font - папка со шрифтами, которые используются в проекте. В данном случае я их использую локально, чтобы не быть зависимым от посторонних сервисов;
+- locales - папка с переводами и русского языков;
+- pages - папкас основным кодом страниц. Она состоит из двух модулей: из административной панели и общедоступных страниц;
+- petProjects - папка, которая будет в себе содержать пет проекты. На данный момент здесь содержится только мои наработки с графиками;
+- utils - папка с утилитами, которые используются во всем проекте;
 
-## RU
+## Конфигурационные файлы
 
-Настройка webpack для frontend проектов. Также содержит в себе заготовку ssr сделанную на express.
-
-Консольные команды для управленя проектом
-
-- npm run start - запускает основной проект frontend в режиме разработки, server side rendering доступен в режиме production;
-- npm run build - запускает сборку frontend проекта для деплоя на сервер. Содержимое сборки помещается в папку dist;
-- npm run build:dev - запускает сборку сервера express для того чтобы запустить server side rendering для проекта
-- npm run dev - запускает сервер express в режиме server side rendering, перед запуском этой команды необходимо запустить команду npm run build:dev.
-
-Режимы разработи в проекте
-
-- production - режим для финальной сборки frontend проекта, server side rendering доступен только в режиме;
-- development - режим основной разработки в проекте.
-
-В проекте под каждый режим своя точка входа в проект. Для режима production - index.prod.tsx, для development - index.dev.tsx.
-
-Инструкция по запуску проекта
-
-- склониовать репозиторий;
-- установить npm пакеты, разработка велась на 16-й версии node js;
-- для основной разработки запустить команду npm run start;
-- для построения сборки на сервер запустить npm run build и npm run build:dev, забрать готовые файлы из сборки, по необходимости поправить путь к файлам сборки server side rendering, для более тонкой настройки server side rendering;
-- для проверки финальной сборки фронтенда запустить следующие команды npm run build, npm run build:dev, npm run dev - данная команда запустит локальный сервер, который выведет результат сборки и то как она будет себя вести на сервере.
+- i18n - настройка мультиязычности на сайте;
+- roboto - подключение шрифтов;
+- babel - настройка полифилов для js;
+- env - константы, которые зависят от окружения. Файл необходимо создать после клонирования проекта с гитхаба. Далее идет список переменных, которые необходимы для работы проекта:
+- - NEXT_PUBLIC_HOSTNAME - название хоста;
+- - NEXT_PUBLIC_BACKEND_URL - урл для запросов на бекенд;
+- eslintrc - настройка правил для написания кода typesript и javascript;
+- gitignore - игнорирование папок и файлов, которые не должны попасть в репозиторий;
+- jest.config и jest.setup - настройка тестового окружения для запуска тестов;
+- next-sitemap.config - настройки по генерации карты сайта в автоматическом режиме;
+- next-env - необходим для корректной работы typescript в nextjs;
+- next.config - конфигурационный файл nextjs;
+- tsconfig - настройка языка typescript;
+- package.json - файл, содержащий информацию о зависимостях на проекте и содержит скрипты и дополнительную информацию об проекте, которая нужна для релиза;
+- reademe - описание проекта и работа с ним.
