@@ -17,10 +17,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": [
-      "npm run lint"
-    ],
-    "pages/**/*.{ts,tsx,js,jsx}": [
+    "./**/*.{ts,tsx,js,jsx}": [
       "npm run lint"
     ]
   },
