@@ -11,16 +11,6 @@
     "test": "jest --coverage",
     "lint": "eslint --fix --ext .ts,.tsx ."
   },
-  "husky": {
-    "hooks": {
-      "precommit": "eslint --fix --ext .ts,.tsx ."
-    }
-  },
-  "lint-staged": {
-    "./**/*.{ts,tsx,js,jsx}": [
-      "npm run lint"
-    ]
-  },
   "author": "./dist/bundle.js",
   "license": "ISC",
   "dependencies": {
