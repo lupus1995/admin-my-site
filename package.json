@@ -11,18 +11,18 @@
     "test": "jest --coverage",
     "lint": "eslint --fix --ext .ts,.tsx ."
   },
-  "lint-staged": {
-    "./src/**/*.{ts,tsx,js,jsx}": [
-      "npm run lint"
-    ],
-    "./pages/**/*.{ts,tsx,js,jsx}": [
-      "npm run lint"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint"
+    ],
+    "pages/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint"
+    ]
   },
   "author": "./dist/bundle.js",
   "license": "ISC",
