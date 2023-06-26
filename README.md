@@ -23,7 +23,13 @@ npm run postbuild
 npm run start
 # запускает тесты
 npm run test
+# запускает установку husky
+npm run prepare
+# добавляет хук на коммит перед тем как он будет добавлен
+npm run add:pre-commit
 ```
+
+Команды npm run prepare и npm run add:pre-commit должны быть запущены один раз, после этого их не надо повторно запускать.
 
 ## Описание проекта
 
