@@ -25,5 +25,9 @@ jobs:
             cp ../client/.env .env
             npm i
             npm run build
+            cd ../
+            rm -rf ./client
+            mv clientNew client
+            pm2 restart nextjs
 
 
