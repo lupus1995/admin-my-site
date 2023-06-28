@@ -18,5 +18,10 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             whoami
-            ls -a
+            mkdir clientNew && cd clientNew
+            git clone git@github.com:lupus1995/admin-my-site.git .
+            cp ../client/.env .env
+            npm i
+            npm run build
+
 
