@@ -2,6 +2,7 @@ import React from "react";
 
 import { render } from "@testing-library/react";
 
+import * as hooks from "../hooks";
 import Portfolio from "../Portfolio";
 
 jest.mock("next/link", () => () => <span>Link</span>);
@@ -16,32 +17,48 @@ jest.mock("../../../../components", () => {
   };
 });
 
-jest.mock("../api", () => {
-  const module = jest.requireActual("../api");
-
+jest.mock("../hooks", () => {
   return {
-    ...module,
-    getNewArticles: jest.fn().mockResolvedValue(jest.fn()),
+    __esModule: true,
+    ...jest.requireActual("../hooks"),
   };
 });
 
 describe("Portfolio", () => {
   it("check render component with visible default part", () => {
+    jest.spyOn(hooks, "useInitArticles").mockImplementation(
+      jest.fn().mockReturnValue({
+        articles: [],
+        visibleSkeleton: false,
+      })
+    );
     const { getByText } = render(<Portfolio />);
 
     expect(getByText(/Link/i)).toBeInTheDocument();
     expect(getByText("portfolioTitlePage")).toBeInTheDocument();
   });
 
-  it("check visible skeleton", async () => {
-    const { findByText } = render(<Portfolio />);
+  it("check visible skeleton", () => {
+    jest.spyOn(hooks, "useInitArticles").mockImplementation(
+      jest.fn().mockReturnValue({
+        articles: [],
+        visibleSkeleton: true,
+      })
+    );
+    const { getByText } = render(<Portfolio />);
 
-    expect(await findByText("ContentsContainerSkeleton")).toBeInTheDocument();
+    expect(getByText("ContentsContainerSkeleton")).toBeInTheDocument();
   });
 
-  it("check hidden  skeleton", async () => {
-    const { findByText } = render(<Portfolio />);
+  it("check hidden skeleton", () => {
+    jest.spyOn(hooks, "useInitArticles").mockImplementation(
+      jest.fn().mockReturnValue({
+        articles: [],
+        visibleSkeleton: false,
+      })
+    );
+    const { getByText } = render(<Portfolio />);
 
-    expect(await findByText("ContentsContainer")).toBeInTheDocument();
+    expect(getByText("ContentsContainer")).toBeInTheDocument();
   });
 });
