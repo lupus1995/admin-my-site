@@ -1,15 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
-import { IToken, SignUpI } from "./models";
+import { IResponse } from "store/models/response";
+
+import { IToken, SignInI, SignUpI } from "./models";
 import { URL } from "../../../src/utils/constants";
 
 const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({ baseUrl: URL }),
   endpoints: (build) => ({
-    signup: build.mutation<IToken, SignUpI>({
+    signup: build.mutation<IResponse<IToken>, SignUpI>({
       query: (data) => ({
         url: "/auth/blog/signup",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    signin: build.mutation<IResponse<IToken>, SignInI>({
+      query: (data) => ({
+        url: "/auth/blog/login",
         method: "POST",
         body: data,
       }),
@@ -17,9 +26,15 @@ const authApi = createApi({
   }),
 });
 
-const { useSignupMutation } = authApi;
+const { useSignupMutation, useSigninMutation } = authApi;
 const auth = authApi.reducerPath;
 const authReducer = authApi.reducer;
 const authMiddleware = authApi.middleware;
 
-export { auth, authReducer, authMiddleware, useSignupMutation };
+export {
+  auth,
+  authReducer,
+  authMiddleware,
+  useSignupMutation,
+  useSigninMutation,
+};

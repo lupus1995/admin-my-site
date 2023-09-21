@@ -8,3 +8,8 @@ export interface IToken {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface SignInI {
+  username: string;
+  password: string;
+}
