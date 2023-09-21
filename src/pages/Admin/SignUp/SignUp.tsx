@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 
-import { useSignupMutation } from "store/services/AuthService";
+import { useSignupMutation } from "store/services/auth/AuthService";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 

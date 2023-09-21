@@ -1,14 +1,3 @@
-export interface SignUpI {
-  username: string;
-  password: string;
-  confirmPassoword: string;
-}
-
-export interface IToken {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export interface ValidationError {
   /**
    * Object that was validated.
@@ -42,10 +31,4 @@ export interface ValidationError {
   contexts?: {
     [type: string]: any;
   };
-}
-
-export interface IResponse<T> {
-  errors: ValidationError[];
-  data: T;
-  status: number;
 }
