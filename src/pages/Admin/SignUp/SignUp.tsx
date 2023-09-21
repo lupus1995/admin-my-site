@@ -7,11 +7,10 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 
+import { useSignupMutation } from "store/services/AuthService";
 import { useLanguage } from "utils/hooks";
-import { TokenI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
 
-import { signup } from "./api";
 import { SignUpI } from "./interfaces";
 import useStyles from "./style";
 import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
@@ -22,6 +21,8 @@ const SignUp = () => {
   const style = useStyles();
   const stylesUtil = useUtilsStyles();
   const { push } = useRouter();
+  const [fetchData] = useSignupMutation();
+
   const {
     register,
     handleSubmit,
@@ -31,11 +32,18 @@ const SignUp = () => {
   } = useForm();
   const { isDisabled, setIsDisabled, disabledClass } = useDisabled();
   const onSubmit = async (formData: SignUpI) => {
-    try {
-      setIsDisabled(true);
-      const tokens: TokenI = await signup(formData);
-      set("accessToken", tokens.accessToken);
-      set("refreshToken", tokens.refreshToken);
+    setIsDisabled(true);
+    const result = await fetchData(formData);
+    if ("error" in result) {
+      toast("Ошибка заполнения формы", {
+        type: "error",
+        hideProgressBar: true,
+        theme: "colored",
+      });
+      setError("username", { type: "custom", message: "" });
+    } else {
+      set("accessToken", result.data.data.accessToken);
+      set("refreshToken", result.data.data.refreshToken);
 
       toast(t("successRegister"), {
         type: "success",
@@ -43,9 +51,6 @@ const SignUp = () => {
         theme: "colored",
       });
       push("/admin");
-    } catch (e: unknown) {
-      toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
-      setError("username", { type: "custom", message: "" });
     }
 
     setIsDisabled(false);

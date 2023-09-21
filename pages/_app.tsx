@@ -3,6 +3,7 @@ import React from "react";
 import App, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
+import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -15,9 +16,12 @@ import { getCurrentLanguager } from "utils/helpers";
 import { useStylesTag } from "utils/stylesPage";
 
 import i18n from "../src/i18n";
+import { setupStore } from "../store/store";
 
 const env = process.env.NODE_ENV;
 const hostNameEnv = process.env.NEXT_PUBLIC_HOSTNAME;
+
+const store = setupStore();
 
 const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
   useStylesTag();
@@ -25,15 +29,17 @@ const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
   const generateId = createGenerateId();
 
   return (
-    <JssProvider registry={sheets} generateId={generateId}>
-      {host === hostNameEnv && env === "production" && (
-        <Head>
-          <meta name="yandex-verification" content="1b8ba196c8180663" />
-        </Head>
-      )}
-      <Component {...pageProps} />
-      <ToastContainer />
-    </JssProvider>
+    <Provider store={store}>
+      <JssProvider registry={sheets} generateId={generateId}>
+        {host === hostNameEnv && env === "production" && (
+          <Head>
+            <meta name="yandex-verification" content="1b8ba196c8180663" />
+          </Head>
+        )}
+        <Component {...pageProps} />
+        <ToastContainer />
+      </JssProvider>
+    </Provider>
   );
 };
 

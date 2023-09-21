@@ -1,5 +1,5 @@
 // @ts-check
-
+const path = require('path')
 /**
  * @type {import('next').NextConfig}
  **/
@@ -16,10 +16,20 @@ const nextConfig = {
       {
         source: "/signup",
         destination: "/signin",
-        permanent: true,
+        permanent: false,
       },
     ];
   },
 };
 
-module.exports = nextConfig;
+module.exports = {
+  ...nextConfig,
+  webpack: (config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'store': path.resolve(__dirname, 'store'),
+    }
+    return config
+  },
+};

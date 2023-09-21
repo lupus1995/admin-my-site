@@ -59,16 +59,13 @@
       "typescript": {
         "alwaysTryTypes": true,
         "project": "./tsconfig.json"
+      },
+      "alias": {
+        "map": [
+          ["store", "./store/*"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
-      // "alias": {
-      //   "map": [
-      //     ["utils", "./src/utils/*"],
-      //     ["commons", "./src/commons/*"],
-      //     ["components", "./src/components/*"],
-      //     ["pages", "./src/pages/*"]
-      //   ],
-      //   "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      // }
     }
   }
 }
