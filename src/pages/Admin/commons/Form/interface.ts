@@ -1,4 +1,4 @@
-import { UseFormHandleSubmit, FieldValues } from "react-hook-form/dist/types";
+import { UseFormHandleSubmit, FieldValues } from "react-hook-form";
 
 import { FORM_POSITION_TYPE } from "./types";
 

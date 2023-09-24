@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { FieldValues, UseFormSetValue } from "react-hook-form/dist/types";
+import { FieldValues, UseFormSetValue } from "react-hook-form";
 
 import { Checkbox, FormRow } from "pages/Admin/commons";
 

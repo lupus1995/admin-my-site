@@ -1,5 +1,6 @@
-import { ApiErrorMessageI, ArticleI } from "pages/interface";
 import { updateTokens, getTokens } from "utils/apiTokens";
+
+import { ApiErrorMessageI, ArticleI } from "pages/interface";
 import { URL } from "utils/constants";
 import { ResponseI } from "utils/interfaces";
 
