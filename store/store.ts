@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import { auth, authReducer, authMiddleware } from "./services/auth/AuthService";
+import { auth, authReducer, authMiddleware } from "./services/auth";
+import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 
 const rootReducer = combineReducers({
   [auth]: authReducer,
+  [tokens]: tokensReducer,
 });
 
 export const setupStore = () => {
@@ -11,7 +13,9 @@ export const setupStore = () => {
     devTools: true,
     reducer: rootReducer,
     middleware: (getDeafaultMeadlware) => {
-      return getDeafaultMeadlware().concat(authMiddleware);
+      return getDeafaultMeadlware()
+        .concat(authMiddleware)
+        .concat(tokensMiddleware);
     },
   });
 };

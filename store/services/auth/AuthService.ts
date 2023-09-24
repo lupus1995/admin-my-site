@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 import { IResponse } from "store/models/response";
+import { IToken } from "store/models/tokens";
 
-import { IToken, SignInI, SignUpI } from "./models";
+import { SignInI, SignUpI } from "./models";
 import { URL } from "../../../src/utils/constants";
 
 const authApi = createApi({
