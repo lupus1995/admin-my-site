@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line import/named
+import { throttle } from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
@@ -38,7 +40,7 @@ export const useSession = () => {
   }, [push, t]);
 
   useEffect(() => {
-    const redirect = () =>
+    const callbackEventListener = () =>
       updateTokens().then((result) => {
         if (!result.status) {
           toast(t(result.message), {
@@ -50,6 +52,8 @@ export const useSession = () => {
           push(result.redirectTo);
         }
       });
+
+    const redirect = throttle(callbackEventListener, 3000);
 
     window.addEventListener("click", redirect);
     window.addEventListener("keypress", redirect);
