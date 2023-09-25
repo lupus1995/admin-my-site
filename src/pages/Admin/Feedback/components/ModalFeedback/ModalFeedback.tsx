@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import FormRow from "pages/Admin/commons/FormRow";
 import AdminModal from "pages/Admin/components/AdminModal";
 import { useDisabled } from "pages/Admin/hooks";
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 import useUtilsStyles from "utils/styles";
@@ -17,6 +18,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
   selected,
   handleClearFeedback,
 }) => {
+  const dispatch = useAppDispatch();
   const { t } = useLanguage();
   const utilsStyles = useUtilsStyles();
   const { push } = useRouter();
@@ -27,7 +29,7 @@ const ModalFeedback: FC<ModalFeedbackI> = ({
   const handleOpenModal = () => setOpen(true);
   const handleDeleteFeedback = () => {
     setIsDisabled(true);
-    deleteFeedback({ ids: selected.map((item) => item._id) })
+    dispatch(deleteFeedback({ ids: selected.map((item) => item._id) }))
       .then((response: ResponseI) => {
         toast(t(response.message), {
           type: response.status ? "success" : "error",

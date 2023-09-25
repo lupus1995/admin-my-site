@@ -7,17 +7,17 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+import { useSigninMutation } from "store/services/auth/AuthService";
 import { useLanguage } from "utils/hooks";
-import { TokenI } from "utils/interfaces";
 import useUtilStyles from "utils/styles";
 
-import { signin } from "./api";
 import { SignInI } from "./interfaces";
 import useStyles from "./style";
 import { ButtonSubmit, Form, FormLabel, FormRow, TextError } from "../commons";
 import { useDisabled } from "../hooks";
 
 const SignIn = () => {
+  const [fetchData] = useSigninMutation();
   const { t } = useLanguage();
   const { push } = useRouter();
   const {
@@ -30,11 +30,18 @@ const SignIn = () => {
   const stylesUtil = useUtilStyles();
   const { disabledClass, isDisabled, setIsDisabled } = useDisabled();
   const onSubmit = async (formData: SignInI) => {
-    try {
-      setIsDisabled(true);
-      const tokens: TokenI = await signin(formData);
-      set("accessToken", tokens.accessToken);
-      set("refreshToken", tokens.refreshToken);
+    setIsDisabled(true);
+    const result = await fetchData(formData);
+    if ("error" in result) {
+      toast("Ошибка авторизации, попробуйте позже повторить попытку", {
+        type: "error",
+        hideProgressBar: true,
+        theme: "colored",
+      });
+      setError("username", { type: "custom", message: "" });
+    } else {
+      set("accessToken", result.data.data.accessToken);
+      set("refreshToken", result.data.data.refreshToken);
 
       toast(t("signInSuccess"), {
         type: "success",
@@ -42,11 +49,7 @@ const SignIn = () => {
         theme: "colored",
       });
       push("/admin");
-    } catch (e: unknown) {
-      toast(e, { type: "error", hideProgressBar: true, theme: "colored" });
-      setError("username", { type: "custom", message: "" });
     }
-
     setIsDisabled(false);
   };
   return (

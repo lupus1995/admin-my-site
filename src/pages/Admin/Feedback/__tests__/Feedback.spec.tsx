@@ -1,8 +1,14 @@
 import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
+import fetchMock from "jest-fetch-mock";
+import * as redux from "react-redux";
 
 import Feedback from "../Feedback";
+
+fetchMock.enableMocks();
+
+jest.mock("react-redux");
 
 jest.mock("../../components/Dashboard", () =>
   // eslint-disable-next-line react/display-name
@@ -43,6 +49,9 @@ jest.mock("pages/Admin/Feedback/components", () => {
 
 describe("Feedback", () => {
   it("check render component", async () => {
+    jest
+      .spyOn(redux, "useDispatch")
+      .mockReturnValue(jest.fn().mockResolvedValue(jest.fn));
     const { findByText } = render(<Feedback />);
 
     expect(await findByText("feedback")).toBeInTheDocument();

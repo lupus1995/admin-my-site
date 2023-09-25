@@ -3,11 +3,7 @@ import React, { FC, useState } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import DatePicker from "react-datepicker";
-import {
-  FieldValues,
-  UseFormSetValue,
-  UseFormTrigger,
-} from "react-hook-form/dist/types";
+import { FieldValues, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 
 import useUtilsStyles from "utils/styles";
 

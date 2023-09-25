@@ -6,6 +6,7 @@ import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { ProjectI } from "pages/interface";
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 
@@ -23,10 +24,11 @@ export const useSaveProject = ({
 }) => {
   const { t } = useLanguage();
   const { push } = useRouter();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: ProjectI) => {
     setIsDisabled(true);
-    saveProject(data)
+    dispatch(saveProject(data))
       .then((response: ResponseI) => {
         toast(t(response.message), {
           type: response.status ? "success" : "error",
@@ -57,6 +59,7 @@ export const useInitFormProjects = ({
     push,
     query: { id },
   } = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!isInitForm) {
@@ -72,7 +75,7 @@ export const useInitFormProjects = ({
       register("hidePublished");
 
       if (typeof id === "string") {
-        getProject({ id })
+        dispatch(getProject({ id }))
           .then((result) => {
             if (!result.status) {
               toast(t(result.message), {
@@ -100,7 +103,7 @@ export const useInitFormProjects = ({
         setIsInitForm(true);
       }
     }
-  }, [id, isInitForm, push, register, setValue, t]);
+  }, [dispatch, id, isInitForm, push, register, setValue, t]);
 
   return isInitForm;
 };
@@ -112,6 +115,7 @@ export const useProjectModal = ({
   projects: ProjectI[];
   setProjects: React.Dispatch<React.SetStateAction<ProjectI[]>>;
 }) => {
+  const dispatch = useAppDispatch();
   const { t } = useLanguage();
   const { push } = useRouter();
   const { toggleModal, closeModal, openModal } = useToggleModal();
@@ -131,7 +135,7 @@ export const useProjectModal = ({
   }, [closeModal]);
 
   const handleDeletedProject = useCallback(() => {
-    deletedProjectRequest(deletedProject._id).then((result) => {
+    dispatch(deletedProjectRequest(deletedProject._id)).then((result) => {
       const successMessage = "successDeleteProject";
       toast(t(result.status ? successMessage : result.message), {
         type: result.status ? "success" : "error",
@@ -149,7 +153,15 @@ export const useProjectModal = ({
 
       handleCloseModal();
     });
-  }, [deletedProject?._id, handleCloseModal, projects, push, setProjects, t]);
+  }, [
+    deletedProject._id,
+    dispatch,
+    handleCloseModal,
+    projects,
+    push,
+    setProjects,
+    t,
+  ]);
 
   return {
     toggleModal,

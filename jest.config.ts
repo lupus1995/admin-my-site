@@ -23,6 +23,7 @@ const customJestConfig = {
     "^commons(.*)$": "<rootDir>/src/commons$1",
     "^components(.*)$": "<rootDir>/src/components$1",
     "^pages(.*)$": "<rootDir>/src/pages$1",
+    "^store(.*)$": "<rootDir>/store$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };

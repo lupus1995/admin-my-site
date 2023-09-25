@@ -2,8 +2,21 @@ import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import fetchMock from "jest-fetch-mock";
 
 import ArticlesForm from "../ArticlesForm";
+
+jest.mock("react-redux");
+fetchMock.enableMocks();
+
+jest.mock("pages/Admin/hooks", () => {
+  const module = jest.requireActual("pages/Admin/hooks");
+
+  return {
+    ...module,
+    useSession: jest.fn(),
+  };
+});
 
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");

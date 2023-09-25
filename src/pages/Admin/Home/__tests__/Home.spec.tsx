@@ -1,10 +1,16 @@
 import React from "react";
 
 import { render } from "@testing-library/react";
+import fetchMock from "jest-fetch-mock";
+import * as redux from "react-redux";
 
 import reactI18next from "utils/mocks/react-i18next";
 
 import Home from "../Home";
+
+fetchMock.enableMocks();
+
+jest.mock("react-redux");
 
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");
@@ -33,34 +39,7 @@ jest.mock("pages/Admin/Home/api", () => {
 
   return {
     ...module,
-    get: jest.fn().mockResolvedValue(
-      new Promise((res) =>
-        res({
-          status: true,
-          responseBody: {
-            firstBlockBackgroundImage: "firstBlockBackgroundImage",
-            firstBlockTitle: {
-              ru: "firstBlockTitleRU",
-              en: "firstBlockTitleEN",
-            },
-            firstBlockSubtitle: {
-              ru: "firstBlockSubtitleRU",
-              en: "firstBlockSubtitleEN",
-            },
-            aboutMeTitle: {
-              ru: "aboutMeTitleRU",
-              en: "aboutMeTitleEN",
-            },
-            aboutMeDescription: {
-              ru: "aboutMeDescriptionRU",
-              en: "aboutMeDescriptionEN",
-            },
-            aboutMePhoto: "aboutMePhoto",
-            _id: "_idasdasd",
-          },
-        })
-      )
-    ),
+    get: jest.fn(),
   };
 });
 
@@ -77,12 +56,36 @@ jest.mock("../../components", () => {
 
 describe("Home", () => {
   it("check render component", async () => {
-    const { getByText, getAllByText, findAllByText, findAllByRole } = render(
-      <Home />
+    jest.spyOn(redux, "useDispatch").mockReturnValue(
+      jest.fn().mockResolvedValue({
+        status: true,
+        responseBody: {
+          firstBlockBackgroundImage: "firstBlockBackgroundImage",
+          firstBlockTitle: {
+            ru: "firstBlockTitleRU",
+            en: "firstBlockTitleEN",
+          },
+          firstBlockSubtitle: {
+            ru: "firstBlockSubtitleRU",
+            en: "firstBlockSubtitleEN",
+          },
+          aboutMeTitle: {
+            ru: "aboutMeTitleRU",
+            en: "aboutMeTitleEN",
+          },
+          aboutMeDescription: {
+            ru: "aboutMeDescriptionRU",
+            en: "aboutMeDescriptionEN",
+          },
+          aboutMePhoto: "aboutMePhoto",
+          _id: "_idasdasd",
+        },
+      })
     );
+    const { getByText, findAllByText, findAllByRole } = render(<Home />);
 
     const BlockImageInput = await findAllByText(/BlockImageInput/i);
-    const AdminEditor = await getAllByText(/AdminEditor/i);
+    const AdminEditor = await findAllByText(/AdminEditor/i);
     const textBoxs = await findAllByRole("textbox");
 
     const firstBlockTitleRU = textBoxs.find(

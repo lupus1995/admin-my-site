@@ -5,3 +5,4 @@ dist
 .swc
 coverage
 public
+.vscode

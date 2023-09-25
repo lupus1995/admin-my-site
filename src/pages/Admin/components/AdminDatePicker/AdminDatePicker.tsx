@@ -4,8 +4,8 @@ import {
   FieldValues,
   UseFormSetValue,
   UseFormTrigger,
-} from "react-hook-form/dist/types";
-import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
+  FieldErrorsImpl,
+} from "react-hook-form";
 
 import { Date, FormRow, TextError, FormLabel } from "../../commons";
 

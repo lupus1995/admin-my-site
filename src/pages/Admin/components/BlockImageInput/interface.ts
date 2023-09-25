@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
-} from "react-hook-form/dist/types";
+} from "react-hook-form";
 
 export interface BlockImageInputI {
   watch: UseFormWatch<FieldValues>;
