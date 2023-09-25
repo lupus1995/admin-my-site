@@ -20,10 +20,7 @@ const nextConfig = {
       },
     ];
   },
-};
 
-module.exports = {
-  ...nextConfig,
   webpack: (config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     config.resolve.alias = {
@@ -33,3 +30,5 @@ module.exports = {
     return config
   },
 };
+
+module.exports = nextConfig

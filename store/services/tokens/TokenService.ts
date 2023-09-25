@@ -12,14 +12,18 @@ const tokensApi = createApi({
       query: (data) => ({
         url: "/auth/refresh",
         method: "POST",
-        authorization: data,
+        headers: {
+          authorization: data,
+        },
       }),
     }),
     checkAccessToken: build.mutation<boolean, string | undefined>({
       query: (data) => ({
         url: "/auth/access",
         method: "POST",
-        authorization: data,
+        headers: {
+          authorization: data,
+        },
       }),
     }),
   }),

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -21,6 +22,8 @@ const Feedback = () => {
   const [feedback, setFeedback] = useState<FeedbackI[]>([]);
   const [selected, setSelected] = useState<FeedbackI[]>([]);
 
+  const dispatch = useAppDispatch();
+
   const handleClearFeedback = () => {
     const deletedFeedback = selected.map((item) => item._id);
     setFeedback(feedback.filter((item) => !deletedFeedback.includes(item._id)));
@@ -28,7 +31,7 @@ const Feedback = () => {
   };
 
   useEffect(() => {
-    getFeedback().then((result) => {
+    dispatch(getFeedback()).then((result) => {
       if (!result.status) {
         toast(t(result.message), {
           type: "error",
@@ -43,7 +46,7 @@ const Feedback = () => {
         setFeedback(result.responseBody);
       }
     });
-  }, [push, t]);
+  }, [dispatch, push, t]);
 
   return (
     <Dashboard>

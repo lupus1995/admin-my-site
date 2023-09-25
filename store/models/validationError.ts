@@ -4,7 +4,7 @@ export interface ValidationError {
    *
    * OPTIONAL - configurable via the ValidatorOptions.validationError.target option
    */
-  target?: Record<string, any>;
+  target?: Record<string, unknown>;
   /**
    * Object's property that hasn't passed validation.
    */
@@ -14,7 +14,7 @@ export interface ValidationError {
    *
    * OPTIONAL - configurable via the ValidatorOptions.validationError.value option
    */
-  value?: any;
+  value?: unknown;
   /**
    * Constraints that failed validation with error messages.
    */
@@ -29,6 +29,6 @@ export interface ValidationError {
    * A transient set of data passed through to the validation result for response mapping
    */
   contexts?: {
-    [type: string]: any;
+    [type: string]: unknown;
   };
 }

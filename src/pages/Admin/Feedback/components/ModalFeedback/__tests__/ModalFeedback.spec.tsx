@@ -1,9 +1,13 @@
 import React from "react";
 
 import { fireEvent, render } from "@testing-library/react";
+import fetchMock from "jest-fetch-mock";
 
 import { ModalFeedbackI } from "../interface";
 import ModalFeedback from "../ModalFeedback";
+
+fetchMock.enableMocks();
+jest.mock("react-redux");
 
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");

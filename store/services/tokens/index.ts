@@ -1,4 +1,4 @@
-import { updateTokens, checkAccessTokens } from "./ducks";
+import { updateTokens, checkAccessTokens, getTokens } from "./ducks";
 import {
   useUpdateRefreshTokenMutation,
   useCheckAccessTokenMutation,
@@ -17,4 +17,5 @@ export {
   endpoints,
   updateTokens,
   checkAccessTokens,
+  getTokens,
 };

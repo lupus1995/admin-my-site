@@ -2,10 +2,15 @@ import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import fetchMock from "jest-fetch-mock";
+import * as redux from "react-redux";
 
 import reactI18next from "utils/mocks/react-i18next";
 
 import ArticleList from "../ArticleList";
+
+fetchMock.enableMocks();
+jest.mock("react-redux");
 
 jest.mock("pages/Admin/components/Dashboard", () =>
   // eslint-disable-next-line react/display-name
@@ -26,49 +31,41 @@ jest.mock("next/router", () => {
 
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
-jest.mock("pages/Admin/Articles/ArticleList/api", () => {
-  const module = jest.requireActual("pages/Admin/Articles/ArticleList/api");
-
-  return {
-    ...module,
-    getArticles: jest.fn().mockResolvedValue(
-      new Promise((res) =>
-        res({
-          status: true,
-          responseBody: [
-            {
-              title: {
-                ru: "titleRU",
-                en: "titleEN",
-              },
-              description: {
-                ru: "descriptionRU",
-                en: "descriptionEN",
-              },
-              thumbnail: "thumbnail",
-              text: {
-                ru: "textRU",
-                en: "textEN",
-              },
-              keyWords: {
-                ru: "keyWordsRU",
-                en: "keyWordsEN",
-              },
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              publishedAt: new Date().toISOString(),
-              hidePublishedArticle: false,
-              _id: "dfgdfg",
-            },
-          ],
-        })
-      )
-    ),
-  };
-});
+const data = {
+  status: true,
+  responseBody: [
+    {
+      title: {
+        ru: "titleRU",
+        en: "titleEN",
+      },
+      description: {
+        ru: "descriptionRU",
+        en: "descriptionEN",
+      },
+      thumbnail: "thumbnail",
+      text: {
+        ru: "textRU",
+        en: "textEN",
+      },
+      keyWords: {
+        ru: "keyWordsRU",
+        en: "keyWordsEN",
+      },
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      publishedAt: new Date().toISOString(),
+      hidePublishedArticle: false,
+      _id: "dfgdfg",
+    },
+  ],
+};
 
 describe("ArticleList", () => {
   it("check render component", async () => {
+    jest
+      .spyOn(redux, "useDispatch")
+      .mockReturnValue(jest.fn().mockResolvedValue(data));
     const { getByText, findByAltText, findByText } = render(<ArticleList />);
 
     expect(getByText(/articlesOnSite/i)).toBeInTheDocument();
@@ -81,6 +78,9 @@ describe("ArticleList", () => {
   });
 
   it("check render modal", async () => {
+    jest
+      .spyOn(redux, "useDispatch")
+      .mockReturnValue(jest.fn().mockResolvedValue(data));
     const { findByText, findAllByText } = render(<ArticleList />);
 
     userEvent.click(await findByText(/delete/i));

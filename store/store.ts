@@ -3,10 +3,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { auth, authReducer, authMiddleware } from "./services/auth";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   [auth]: authReducer,
   [tokens]: tokensReducer,
 });
+
+export const middlewares = [authMiddleware, tokensMiddleware];
 
 export const setupStore = () => {
   return configureStore({
