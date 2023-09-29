@@ -24,6 +24,7 @@ const customJestConfig = {
     "^components(.*)$": "<rootDir>/src/components$1",
     "^pages(.*)$": "<rootDir>/src/pages$1",
     "^store(.*)$": "<rootDir>/store$1",
+    "^websockets(.*)$": "<rootDir>/websockets$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };

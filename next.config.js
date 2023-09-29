@@ -26,6 +26,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       'store': path.resolve(__dirname, 'store'),
+      'websokets': path.resolve(__dirname, 'websokets')
     }
     return config
   },
