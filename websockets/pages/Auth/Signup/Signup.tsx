@@ -5,8 +5,9 @@ import { set } from "local-storage";
 import { useRouter } from "next/router";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { SignupI, useSignupMutation } from "websockets/entities/Auth";
 import { Heading } from "websockets/share";
@@ -30,6 +31,7 @@ const Signup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const onSubmit = async (data: SignupI) => {
@@ -134,27 +136,36 @@ const Signup = () => {
               {errors.email?.message}
             </InputWrapperError>
           </InputWrapper>
-          <InputWrapper>
-            <span className="p-float-label">
-              <InputText
-                className={classNames(`${styles.input}`, {
-                  ["p-invalid"]: errors.password,
-                })}
-                id="password"
-                {...register("password", {
-                  required: "Поле обязательно",
-                  minLength: {
-                    value: 12,
-                    message: "Минимальная длина пароля 12 символов",
-                  },
-                })}
-              />
-              <label htmlFor="password">Пароль</label>
-            </span>
-            <InputWrapperError visibleError={Boolean(errors.password)}>
-              {errors.password?.message}
-            </InputWrapperError>
-          </InputWrapper>
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: "Поле обязательно",
+              minLength: {
+                value: 12,
+                message: "Минимальная длина пароля 12 символов",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <InputWrapper>
+                <span className="p-float-label">
+                  <Password
+                    id={field.name}
+                    {...field}
+                    inputRef={field.ref}
+                    feedback={false}
+                    className={classNames(`${styles.input}`, {
+                      ["p-invalid"]: fieldState.error,
+                    })}
+                  />
+                  <label htmlFor={field.name}>Пароль</label>
+                </span>
+                <InputWrapperError visibleError={Boolean(fieldState.error)}>
+                  {fieldState?.error?.message}
+                </InputWrapperError>
+              </InputWrapper>
+            )}
+          />
         </div>
 
         <ButtonWrapper>
