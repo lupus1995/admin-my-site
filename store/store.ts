@@ -7,14 +7,20 @@ import {
   auth as authWebsocket,
   authReducer as authWebscoketsReducer,
 } from "../websockets/entities/Auth";
+import {
+  usersMiddleware,
+  users,
+  usersReducer,
+  interlocutorReducer,
+} from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
   [auth]: authReducer,
   [tokens]: tokensReducer,
   [authWebsocket]: authWebscoketsReducer,
+  [users]: usersReducer,
+  interlocutor: interlocutorReducer,
 });
-
-export const middlewares = [authMiddleware, tokensMiddleware];
 
 export const setupStore = () => {
   return configureStore({
@@ -24,7 +30,8 @@ export const setupStore = () => {
       return getDeafaultMeadlware().concat(
         authMiddleware,
         tokensMiddleware,
-        authWebsocketsMiddleware
+        authWebsocketsMiddleware,
+        usersMiddleware
       );
     },
   });

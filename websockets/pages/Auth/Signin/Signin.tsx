@@ -36,8 +36,6 @@ const Signin = () => {
     control,
   } = useForm();
 
-console.log('errors', errors);
-
   const onSubmit = async (data: LoginI) => {
     const result = await fetchData(data);
     if ("error" in result) {

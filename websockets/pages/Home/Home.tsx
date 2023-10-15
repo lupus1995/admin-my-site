@@ -1,5 +1,12 @@
 import React from "react";
 
-const Home = () => <p>страница веб сокетов</p>;
+import { InterlocutorsList } from "./components";
+
+const Home = () => (
+  <>
+    <InterlocutorsList />
+    <p>страница веб сокетов</p>
+  </>
+);
 
 export default Home;
