@@ -4,7 +4,10 @@ import classNames from "classnames";
 import { DataView } from "primereact/dataview";
 
 import { useSession } from "pages/Admin/hooks";
-import { usePaginationInterlocutor } from "websockets/entities/Users";
+import {
+  useGetInterlocutors,
+  usePaginationInterlocutor,
+} from "websockets/entities/Users";
 
 import { Footer, Template, Header } from "./components";
 import { useListInterlocutors } from "./hooks";
@@ -12,8 +15,10 @@ import useStyles from "./styles";
 
 const InterlocutorsList = memo(() => {
   const styles = useStyles();
-  const { handlePagination, interlocutors, isLoading } =
+  const interlocutors = useGetInterlocutors();
+  const { handlePagination, isLoading, handleInitPagination } =
     usePaginationInterlocutor();
+
   useSession();
   const ds = useRef(null);
   const list = useListInterlocutors(interlocutors);
@@ -30,7 +35,7 @@ const InterlocutorsList = memo(() => {
         itemTemplate={Template}
         rows={list.length}
         footer={<Footer handlePagination={handlePagination} />}
-        header={<Header />}
+        header={<Header handleInitPagination={handleInitPagination} />}
       />
     </div>
   );

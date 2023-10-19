@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "store/store";
 
-import { UserI } from "./types";
+import { UserI } from "../types";
 
 const initialState: UserI[] = [];
 
@@ -13,9 +13,15 @@ const interlocutorSlice = createSlice({
     addInterlocutors: (state, action: PayloadAction<UserI[]>) => {
       state.push(...action.payload);
     },
+    clearInterlocutors: (state) => {
+      state = [];
+      return state;
+    },
   },
 });
 
-export const interlocutorSelector = (state: RootState) => state.interlocutor;
-export const { addInterlocutors } = interlocutorSlice.actions;
+export const interlocutorSelector = (state: RootState) =>
+  state.websockets.interlocutor;
+export const { addInterlocutors, clearInterlocutors } =
+  interlocutorSlice.actions;
 export default interlocutorSlice.reducer;

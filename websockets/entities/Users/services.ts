@@ -26,12 +26,31 @@ export const usersApi = createApi({
         },
       }),
     }),
+
+    searchInterlocutors: build.query<UserI[], PaginationI & { search: string }>(
+      {
+        query: ({ limit, offset, search }) => ({
+          url: `/user/seach-interlocutors`,
+          params: {
+            limit,
+            offset,
+            search,
+          },
+        }),
+      }
+    ),
   }),
 });
 
-const { getInterlocutors } = usersApi.endpoints;
+const { getInterlocutors, searchInterlocutors } = usersApi.endpoints;
 const usersMiddleware = usersApi.middleware;
 const users = usersApi.reducerPath;
 const usersReducer = usersApi.reducer;
 
-export { getInterlocutors, usersMiddleware, users, usersReducer };
+export {
+  getInterlocutors,
+  searchInterlocutors,
+  usersMiddleware,
+  users,
+  usersReducer,
+};

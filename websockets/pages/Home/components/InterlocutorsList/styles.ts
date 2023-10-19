@@ -25,6 +25,11 @@ const useStyles = createUseStyles({
   },
   interlocutorInfo: {
     textAlign: "left",
+    width: "100%",
+  },
+
+  interlocutorButton: {
+    width: "100%",
   },
 });
 

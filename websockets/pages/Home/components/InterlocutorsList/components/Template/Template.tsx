@@ -17,11 +17,15 @@ const Template: FC<
       | "interlocutorAvatar"
       | "interlocutorsDate"
       | "interlocutorInfo"
+      | "interlocutorButton"
     >;
   }
 > = ({ interlocutor, message, styles }) => {
   return (
-    <button type="button">
+    <button
+      type="button"
+      className={classNames(`${styles.interlocutorButton}`)}
+    >
       <div className={classNames(`${styles.interlocutorItem}`)}>
         <div className={classNames(`${styles.interlocutorAvatar}`)}>
           <Avatar image={interlocutor.avatar} size="large" shape="circle" />
