@@ -12,6 +12,7 @@ import {
   users,
   usersReducer,
   interlocutorReducer,
+  searchSliceReducer,
 } from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
@@ -19,7 +20,10 @@ export const rootReducer = combineReducers({
   [tokens]: tokensReducer,
   [authWebsocket]: authWebscoketsReducer,
   [users]: usersReducer,
-  interlocutor: interlocutorReducer,
+  websockets: combineReducers({
+    interlocutor: interlocutorReducer,
+    searchSlice: searchSliceReducer,
+  }),
 });
 
 export const setupStore = () => {
