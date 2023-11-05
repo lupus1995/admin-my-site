@@ -52,10 +52,10 @@ export const useInitFormArticle = ({
   const dispatch = useAppDispatch();
   const { t } = useLanguage();
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
-  const {
-    push,
-    query: { id },
-  } = useRouter();
+  const router = useRouter();
+  const { push, query } = router;
+
+  const { id } = query || { id: null };
 
   useEffect(() => {
     if (!isInitForm) {
