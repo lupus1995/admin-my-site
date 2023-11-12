@@ -21,7 +21,7 @@ const Projects = () => {
   useSession();
   const dispatch = useAppDispatch();
   const utilsStyles = useUtilsStyles();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { push } = useRouter();
   const [projects, setProjects] = useState<ProjectI[]>([]);
   const {

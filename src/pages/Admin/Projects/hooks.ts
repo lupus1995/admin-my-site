@@ -154,7 +154,7 @@ export const useProjectModal = ({
       handleCloseModal();
     });
   }, [
-    deletedProject._id,
+    deletedProject?._id,
     dispatch,
     handleCloseModal,
     projects,

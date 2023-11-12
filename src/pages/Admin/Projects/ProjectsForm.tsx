@@ -22,7 +22,7 @@ import {
 } from "../commons";
 import { AdminDatePicker, BlockImageInput, Dashboard } from "../components";
 import { useDisabled, useSession, useUpdateTextError } from "../hooks";
-import HidePublished from "../widget/HidePublished";
+import { HidePublished } from "../widget";
 
 const ProjectsForm = () => {
   useSession();
