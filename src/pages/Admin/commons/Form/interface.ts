@@ -8,4 +8,5 @@ export interface FormI<T = null> {
   className?: string;
   formPosition: FORM_POSITION_TYPE;
   isCenter?: boolean;
+  children?: React.ReactNode;
 }
