@@ -1,10 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 import classNames from "classnames";
 
 import useStyles from "./styles";
 
-const WrapperForm: FC<{ onSubmit: () => void }> = ({ onSubmit, children }) => {
+const WrapperForm: FC<{ onSubmit: () => void; children: ReactNode }> = ({
+  onSubmit,
+  children,
+}) => {
   const styles = useStyles();
 
   return (
