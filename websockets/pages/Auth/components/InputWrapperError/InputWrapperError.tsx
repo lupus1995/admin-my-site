@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 import classNames from "classnames";
 
 import useStyles from "./styles";
 
-const InputWrapperError: FC<{ visibleError: boolean }> = ({
-  visibleError,
-  children,
-}) => {
+const InputWrapperError: FC<{
+  visibleError: boolean;
+  children: ReactNode;
+}> = ({ visibleError, children }) => {
   const styles = useStyles();
 
   if (!visibleError) {
