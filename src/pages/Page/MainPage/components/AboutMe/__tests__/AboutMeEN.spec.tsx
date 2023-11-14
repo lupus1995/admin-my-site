@@ -22,6 +22,7 @@ describe("AboutMe", () => {
         ru: "aboutMeTitleRU",
         en: "aboutMeTitleEN",
       },
+      imageName: "",
     };
     const { getByText, getByAltText } = render(<AboutMe {...props} />);
 
