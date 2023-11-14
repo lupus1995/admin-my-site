@@ -12,7 +12,7 @@ import {
   searchInterlocutors,
 } from "./services";
 import { interlocutorReducer, searchSliceReducer } from "./slice";
-import { PaginationI, UserI, InterlocutorI } from "./types";
+import { PaginationI, UserI, InterlocutorI, MessageI } from "./types";
 
 export {
   searchInterlocutors,
@@ -28,4 +28,4 @@ export {
   useGetSearch,
 };
 
-export type { PaginationI, UserI, InterlocutorI };
+export type { PaginationI, UserI, InterlocutorI, MessageI };
