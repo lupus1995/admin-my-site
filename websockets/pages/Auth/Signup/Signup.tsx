@@ -80,7 +80,7 @@ const Signup = () => {
               <label htmlFor="username">Имя</label>
             </span>
             <InputWrapperError visibleError={Boolean(errors.firstname)}>
-              {errors.firstname?.message}
+              {errors.firstname?.message as string}
             </InputWrapperError>
           </InputWrapper>
           <InputWrapper>
@@ -96,7 +96,7 @@ const Signup = () => {
               <label htmlFor="lastname">Фамилия</label>
             </span>
             <InputWrapperError visibleError={Boolean(errors.lastname)}>
-              {errors.lastname?.message}
+              {errors.lastname?.message as string}
             </InputWrapperError>
           </InputWrapper>
           <InputWrapper>
@@ -112,7 +112,7 @@ const Signup = () => {
               <label htmlFor="username">Username</label>
             </span>
             <InputWrapperError visibleError={Boolean(errors.username)}>
-              {errors.username?.message}
+              {errors.username?.message as string}
             </InputWrapperError>
           </InputWrapper>
           <InputWrapper>
@@ -133,7 +133,7 @@ const Signup = () => {
               <label htmlFor="email">E-mail</label>
             </span>
             <InputWrapperError visibleError={Boolean(errors.email)}>
-              {errors.email?.message}
+              {errors.email?.message as string}
             </InputWrapperError>
           </InputWrapper>
           <Controller
