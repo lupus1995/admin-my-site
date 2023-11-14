@@ -1,8 +1,14 @@
-import React, { Children, cloneElement, FC, isValidElement } from "react";
+import React, {
+  Children,
+  cloneElement,
+  FC,
+  isValidElement,
+  ReactNode,
+} from "react";
 
 import useStyles from "./style";
 
-const Multiline: FC<{ numberLine?: number }> = ({
+const Multiline: FC<{ numberLine?: number; children: ReactNode }> = ({
   children,
   numberLine = 3,
 }) => {
