@@ -83,7 +83,7 @@ const Signin = () => {
                 <label htmlFor="username">Username/email</label>
               </span>
               <InputWrapperError visibleError={Boolean(errors.usernameOrEmail)}>
-                {errors.usernameOrEmail?.message}
+                {errors.usernameOrEmail?.message as string}
               </InputWrapperError>
             </InputWrapper>
 
