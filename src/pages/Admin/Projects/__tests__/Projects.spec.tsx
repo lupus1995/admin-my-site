@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import * as redux from "react-redux";
 
 import reactI18next from "utils/mocks/react-i18next";
