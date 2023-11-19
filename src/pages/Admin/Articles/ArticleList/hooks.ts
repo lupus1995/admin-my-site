@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import { useToggleModal } from "pages/Admin/components/AdminModal/hooks";
 import { ArticleI } from "pages/interface";
+import { useAppDispatch } from "store/hooks";
 
 import { deletedArticle as deletedArticleRequest } from "./api";
 
@@ -16,6 +17,7 @@ export const useArticleModal = ({
   setArticles: React.Dispatch<React.SetStateAction<ArticleI[]>>;
   articles: ArticleI[];
 }) => {
+  const dispatch = useAppDispatch();
   const { push } = useRouter();
   const { toggleModal, closeModal, openModal } = useToggleModal();
   const [deletedArticle, setDeletedArticle] = useState<ArticleI | null>(null);
@@ -34,7 +36,7 @@ export const useArticleModal = ({
   }, [closeModal]);
 
   const handleDeletedArticle = useCallback(() => {
-    deletedArticleRequest(deletedArticle._id).then((result) => {
+    dispatch(deletedArticleRequest(deletedArticle._id)).then((result) => {
       const successMessage = "successDeleteArticle";
       toast(t(result.status ? successMessage : result.message), {
         type: result.status ? "success" : "error",
@@ -52,7 +54,7 @@ export const useArticleModal = ({
 
       handleCloseModal();
     });
-  }, [articles, deletedArticle?._id, handleCloseModal, push, setArticles]);
+  }, [articles, deletedArticle, dispatch, handleCloseModal, push, setArticles]);
 
   return {
     toggleModal,

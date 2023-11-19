@@ -1,4 +1,4 @@
-import { UseFormHandleSubmit, FieldValues } from "react-hook-form/dist/types";
+import { UseFormHandleSubmit, FieldValues } from "react-hook-form";
 
 import { FORM_POSITION_TYPE } from "./types";
 
@@ -8,4 +8,5 @@ export interface FormI<T = null> {
   className?: string;
   formPosition: FORM_POSITION_TYPE;
   isCenter?: boolean;
+  children?: React.ReactNode;
 }

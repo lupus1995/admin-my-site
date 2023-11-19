@@ -10,12 +10,13 @@ import { FormRow, Title, MessageForEmptyList } from "pages/Admin/commons";
 import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
 import { ItemWrapper } from "pages/Admin/widget";
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
 import { getArticles } from "./api";
 import ArticleItem from "./ArticleItem";
-import { limit } from "./constants";
+import { limit as limitDefault } from "./constants";
 import { useArticleModal } from "./hooks";
 import useStyles from "./style";
 import { ArticleI } from "../../../interface";
@@ -34,14 +35,18 @@ const ArticleList = () => {
     deletedArticle,
   } = useArticleModal({ articles, setArticles });
 
+  const dispatch = useAppDispatch();
   const utilsStyles = useUtilsStyles();
   const handleClick = () => push("/admin/articles/create");
 
+  const request = ({ offset, limit }: { offset: number; limit: number }) =>
+    dispatch(getArticles({ offset, limit }));
+
   const { notVisibleButton, handleLoad } = usePagination({
-    request: getArticles,
-    limit,
+    request,
+    limit: limitDefault,
     params: {
-      limit,
+      limit: limitDefault,
       message: "errorDataMessage",
     },
     afterSaveResult: (newArticles: ArticleI[]) =>
@@ -49,10 +54,12 @@ const ArticleList = () => {
   });
 
   useEffect(() => {
-    getArticles({
-      offset: 0,
-      limit,
-    }).then((result) => {
+    dispatch(
+      getArticles({
+        offset: 0,
+        limit: limitDefault,
+      })
+    ).then((result) => {
       if (!result.status) {
         toast(t(result.message as string), {
           type: "error",
@@ -65,7 +72,7 @@ const ArticleList = () => {
         setArticles(result.responseBody);
       }
     });
-  }, [t]);
+  }, [dispatch, t]);
 
   return (
     <Dashboard>
@@ -102,7 +109,7 @@ const ArticleList = () => {
         )}
 
         <Pagination
-          notVisibleButton={notVisibleButton || articles.length < limit}
+          notVisibleButton={notVisibleButton || articles.length < limitDefault}
           handleLoad={handleLoad}
         />
       </div>

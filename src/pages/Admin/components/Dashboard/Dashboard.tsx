@@ -14,7 +14,7 @@ import { LinkI } from "./interface";
 import useStyles from "./style";
 import { Footer } from "../../../../commons/Footer";
 
-const Dashboard: FC = ({ children }) => {
+const Dashboard: FC<{ children: React.ReactNode }> = ({ children }) => {
   const style = useStyles();
   const router = useRouter();
   const { pathname, push } = router;

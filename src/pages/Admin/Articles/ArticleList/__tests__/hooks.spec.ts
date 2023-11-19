@@ -1,7 +1,10 @@
 import { renderHook } from "@testing-library/react";
+import fetchMock from "jest-fetch-mock";
 
 import { useArticleModal } from "../hooks";
 
+fetchMock.enableMocks();
+jest.mock("react-redux");
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");
 

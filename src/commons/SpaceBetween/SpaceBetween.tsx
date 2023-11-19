@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 import useStyles from "./styles";
 
-const SpaceBetween: FC = ({ children }) => {
+const SpaceBetween: FC<{ children: ReactNode }> = ({ children }) => {
   const styles = useStyles();
 
   return <div className={styles.spaceBetween}>{children}</div>;

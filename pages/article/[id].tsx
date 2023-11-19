@@ -9,6 +9,7 @@ import { getArticle as getArticleForAdmin } from "pages/Admin/Articles/ArticlesF
 import { ArticleI } from "pages/interface";
 import Article from "pages/Page/Article";
 import { getArticle } from "pages/Page/Article/api";
+import { useAppDispatch } from "store/hooks";
 import { ResponseI } from "utils/interfaces";
 
 interface ArticleQueryParamsI extends ParsedUrlQuery {
@@ -87,6 +88,7 @@ export async function getServerSideProps({
 }
 
 const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
+  const dispatch = useAppDispatch();
   const [responseArticle, setResponseArticle] = useState(response);
   const query = useRouter().query as ArticleQueryParamsI;
 
@@ -95,11 +97,11 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
   useEffect(() => {
     if (visibleForAdmin({ isAdmin, id })) {
       const params: { id: string } = { id };
-      getArticleForAdmin(params).then((data) => {
+      dispatch(getArticleForAdmin(params)).then((data) => {
         setResponseArticle(getResponse(data));
       });
     }
-  }, [id, isAdmin]);
+  }, [dispatch, id, isAdmin]);
 
   if (responseArticle === null) {
     return null;

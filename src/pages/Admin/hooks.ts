@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line import/named
+import { throttle } from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-import { checkAccessTokens, updateTokens } from "utils/apiTokens";
+import { useAppDispatch } from "store/hooks";
+import { updateTokens, checkAccessTokens } from "store/services/tokens";
 import { useLanguage, usePrevious } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -16,12 +19,13 @@ export const useDisabled = () => {
 };
 
 export const useSession = () => {
+  const dispatch = useAppDispatch();
   const { push } = useRouter();
   const { t } = useLanguage();
   // активация интервала для разлогинивания пользователя
   useEffect(() => {
     const interval = setInterval(() => {
-      checkAccessTokens().then((result) => {
+      dispatch(checkAccessTokens()).then((result) => {
         if (!result.status) {
           toast(t(result.message), {
             type: "error",
@@ -35,11 +39,11 @@ export const useSession = () => {
     }, 90000);
 
     return () => clearInterval(interval);
-  }, [push, t]);
+  }, [dispatch, push, t]);
 
   useEffect(() => {
-    const redirect = () =>
-      updateTokens().then((result) => {
+    const callbackEventListener = () =>
+      dispatch(updateTokens()).then((result) => {
         if (!result.status) {
           toast(t(result.message), {
             type: "error",
@@ -50,6 +54,8 @@ export const useSession = () => {
           push(result.redirectTo);
         }
       });
+
+    const redirect = throttle(callbackEventListener, 3000);
 
     window.addEventListener("click", redirect);
     window.addEventListener("keypress", redirect);
@@ -62,7 +68,7 @@ export const useSession = () => {
       window.removeEventListener("scroll", redirect);
       window.removeEventListener("mousemove", redirect);
     };
-  }, [push, t]);
+  }, [dispatch, push, t]);
 };
 
 // обновление текста ошибок после смены языка локали

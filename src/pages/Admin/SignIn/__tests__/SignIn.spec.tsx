@@ -1,9 +1,19 @@
 import React, { ReactNode } from "react";
 
 import { fireEvent, render } from "@testing-library/react";
+import fetchMock from "jest-fetch-mock";
 
 import SignIn from "../SignIn";
 
+fetchMock.enableMocks();
+jest.mock("store/services/auth/AuthService", () => {
+  const module = jest.requireActual("store/services/auth/AuthService");
+
+  return {
+    ...module,
+    useSigninMutation: jest.fn().mockReturnValue([jest.fn()]),
+  };
+});
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");
 

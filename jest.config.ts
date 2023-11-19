@@ -11,18 +11,21 @@ const customJestConfig = {
   globals: {
     "ts-jest": {
       tsconfig: "<rootDir>/tsconfig.json",
+      transform: {
+        "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+      },
     },
   },
   testMatch: ["**/__tests__/**/*.spec.(ts|js|tsx|jsx)"],
-  transform: {
-    "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js",
-  },
   moduleFileExtensions: ["ts", "js", "jsx", "tsx"],
   moduleNameMapper: {
     "^utils(.*)$": "<rootDir>/src/utils$1",
     "^commons(.*)$": "<rootDir>/src/commons$1",
     "^components(.*)$": "<rootDir>/src/components$1",
     "^pages(.*)$": "<rootDir>/src/pages$1",
+    "^store(.*)$": "<rootDir>/store$1",
+    "^websockets(.*)$": "<rootDir>/websockets$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };

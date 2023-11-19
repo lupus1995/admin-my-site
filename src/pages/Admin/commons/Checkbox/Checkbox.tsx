@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import classNames from "classnames";
 // @ts-ignore
 import CustomCheckbox from "react-custom-checkbox";
-import { FieldValues, UseFormSetValue } from "react-hook-form/dist/types";
+import { FieldValues, UseFormSetValue } from "react-hook-form";
 
 const Checkbox: FC<{
   name: string;

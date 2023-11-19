@@ -32,6 +32,12 @@
       ],
       "pages/*": [
         "./src/pages/*"
+      ],
+      "store/*": [
+        "./store/*"
+      ],
+      "websockets/*": [
+        "./websockets/*"
       ]
     }
   },

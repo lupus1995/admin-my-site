@@ -11,7 +11,7 @@ const SwitchLanguage = () => {
   const style = useStyles();
   const { changeLanguage, language: i18nLanguage } = useLanguage();
   const handleChangeLanguage = useCallback(
-    ({ language }) => {
+    ({ language }: { language: string }) => {
       changeLanguage(language);
     },
     [changeLanguage]

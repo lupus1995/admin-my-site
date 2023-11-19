@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 import { ProjectI } from "pages/interface";
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -18,8 +19,9 @@ import { ItemWrapper } from "../widget";
 
 const Projects = () => {
   useSession();
+  const dispatch = useAppDispatch();
   const utilsStyles = useUtilsStyles();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { push } = useRouter();
   const [projects, setProjects] = useState<ProjectI[]>([]);
   const {
@@ -32,7 +34,7 @@ const Projects = () => {
 
   const handleClick = () => push("/admin/projects/create");
   useEffect(() => {
-    getProjects().then((result) => {
+    dispatch(getProjects()).then((result) => {
       if (!result.status) {
         toast(t(result.message as string), {
           type: "error",
@@ -45,7 +47,7 @@ const Projects = () => {
         setProjects(result.responseBody);
       }
     });
-  }, [t]);
+  }, [dispatch, t]);
   return (
     <Dashboard>
       <div className={`${utilsStyles.dFlex} ${utilsStyles.flexColumn}`}>

@@ -18,6 +18,7 @@ const AdminModal: FC<{
   open: boolean;
   handleClose: () => void;
   handleCallback: () => void;
+  children: React.ReactNode;
 }> = ({ open, handleClose, handleCallback, children }) => {
   return (
     <Modal

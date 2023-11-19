@@ -2,14 +2,14 @@ import React, { FC } from "react";
 
 // eslint-disable-next-line import/named
 import { get } from "lodash";
-import { FieldErrorsImpl } from "react-hook-form/dist/types/errors";
-import { FieldValues } from "react-hook-form/dist/types/fields";
 import {
   UseFormRegister,
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
-} from "react-hook-form/dist/types/form";
+  FieldErrorsImpl,
+  FieldValues,
+} from "react-hook-form";
 
 import { useLanguage } from "utils/hooks";
 

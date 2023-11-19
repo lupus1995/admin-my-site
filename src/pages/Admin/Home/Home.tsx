@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
+import { useAppDispatch } from "store/hooks";
 import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
@@ -41,6 +42,7 @@ const Home = () => {
     trigger,
   } = useForm();
   const { t } = useLanguage();
+  const dispatch = useAppDispatch();
   useUpdateTextError({ trigger, isSubmitted });
 
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
@@ -50,7 +52,7 @@ const Home = () => {
 
   const onSubmit = (data: HomeFormI) => {
     setIsDisabled(true);
-    save({ data, isEditForm, id })
+    dispatch(save({ data, isEditForm, id }))
       .then((response: ResponseI) => {
         toast(t(response.message), {
           type: response.status ? "success" : "error",
@@ -82,7 +84,7 @@ const Home = () => {
       register("keyWordsPage.ru", { required: t("requiredText") });
       register("keyWordsPage.en", { required: t("requiredText") });
 
-      get()
+      dispatch(get())
         .then((result) => {
           if (!result.status) {
             toast(t(result.message), {
@@ -104,7 +106,7 @@ const Home = () => {
         })
         .finally(() => setIsInitForm(!isInitForm));
     }
-  }, [isInitForm, push, register, setValue, t]);
+  }, [dispatch, isInitForm, push, register, setValue, t]);
 
   return (
     <Dashboard>

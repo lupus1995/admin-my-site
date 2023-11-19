@@ -6,6 +6,7 @@ import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { ArticleI } from "pages/interface";
+import { useAppDispatch } from "store/hooks";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 
@@ -16,12 +17,13 @@ export const useSaveArticle = ({
 }: {
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const dispatch = useAppDispatch();
   const { t } = useLanguage();
   const { push } = useRouter();
 
   const onSubmit = (data: ArticleI) => {
     setIsDisabled(true);
-    saveArticle(data)
+    dispatch(saveArticle(data))
       .then((response: ResponseI) => {
         toast(t(response.message), {
           type: response.status ? "success" : "error",
@@ -47,12 +49,13 @@ export const useInitFormArticle = ({
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
 }) => {
+  const dispatch = useAppDispatch();
   const { t } = useLanguage();
   const [isInitForm, setIsInitForm] = useState<boolean>(false);
-  const {
-    push,
-    query: { id },
-  } = useRouter();
+  const router = useRouter();
+  const { push, query } = router;
+
+  const { id } = query || { id: null };
 
   useEffect(() => {
     if (!isInitForm) {
@@ -70,7 +73,7 @@ export const useInitFormArticle = ({
       register("hidePublishedArticle");
 
       if (typeof id === "string") {
-        getArticle({ id })
+        dispatch(getArticle({ id }))
           .then((result) => {
             if (!result.status) {
               toast(t(result.message), {
@@ -100,7 +103,7 @@ export const useInitFormArticle = ({
         setIsInitForm(true);
       }
     }
-  }, [id, isInitForm, push, register, setValue, t]);
+  }, [dispatch, id, isInitForm, push, register, setValue, t]);
 
   return isInitForm;
 };

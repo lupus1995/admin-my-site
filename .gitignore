@@ -5,3 +5,5 @@ dist
 .swc
 coverage
 public
+.vscode
+.husky 

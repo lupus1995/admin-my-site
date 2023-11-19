@@ -4,6 +4,25 @@ import { render } from "@testing-library/react";
 
 import ArticlesForm from "../ArticlesForm";
 
+jest.mock("../hooks", () => {
+  const module = jest.requireActual("../hooks");
+
+  return {
+    ...module,
+    useSaveArticle: jest.fn(),
+    useInitFormArticle: jest.fn().mockReturnValue(true),
+  };
+});
+
+jest.mock("pages/Admin/hooks", () => {
+  const module = jest.requireActual("pages/Admin/hooks");
+
+  return {
+    ...module,
+    useSession: jest.fn(),
+  };
+});
+
 jest.mock("next/router", () => {
   const module = jest.requireActual("next/router");
 
