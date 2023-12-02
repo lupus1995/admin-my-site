@@ -2,29 +2,26 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { format } from "date-fns";
-import { Classes } from "jss";
 import { Avatar } from "primereact/avatar";
 import LinesEllipsis from "react-lines-ellipsis";
 
-import { UserI } from "websockets/entities/Users";
-
 import { generateFullName } from "./helpers";
+import { PropsT } from "./types";
 
-const Template: FC<
-  UserI & {
-    styles: Classes<
-      | "interlocutorItem"
-      | "interlocutorAvatar"
-      | "interlocutorsDate"
-      | "interlocutorInfo"
-      | "interlocutorButton"
-    >;
-  }
-> = ({ interlocutor, message, styles }) => {
+const Template: FC<PropsT> = ({
+  interlocutor,
+  message,
+  styles,
+  handleClickByInterlocutor,
+}) => {
   return (
     <button
       type="button"
       className={classNames(`${styles.interlocutorButton}`)}
+      onClick={handleClickByInterlocutor({
+        roomId: message.roomId,
+        interlocutor,
+      })}
     >
       <div className={classNames(`${styles.interlocutorItem}`)}>
         <div className={classNames(`${styles.interlocutorAvatar}`)}>

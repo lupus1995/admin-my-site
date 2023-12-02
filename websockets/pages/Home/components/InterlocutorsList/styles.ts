@@ -3,6 +3,11 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   interlocutorsList: {
     width: "400px",
+    "& .p-dataview-content": {
+      height: "calc(100vh - 171px)",
+      overflow: "hidden",
+      overflowY: "scroll",
+    },
   },
 
   interlocutorItem: {

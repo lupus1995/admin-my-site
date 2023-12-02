@@ -1,10 +1,11 @@
-import React, { memo, useRef } from "react";
+import React, { FC, useRef } from "react";
 
 import classNames from "classnames";
 import { DataView } from "primereact/dataview";
 
 import { useSession } from "pages/Admin/hooks";
 import {
+  InterlocutorI,
   useGetInterlocutors,
   usePaginationInterlocutor,
 } from "websockets/entities/Users";
@@ -13,7 +14,15 @@ import { Footer, Template, Header } from "./components";
 import { useListInterlocutors } from "./hooks";
 import useStyles from "./styles";
 
-const InterlocutorsList = memo(() => {
+const InterlocutorsList: FC<{
+  handleClickByInterlocutor: ({
+    roomId,
+    interlocutor,
+  }: {
+    roomId: string;
+    interlocutor: InterlocutorI;
+  }) => () => Promise<void>;
+}> = ({ handleClickByInterlocutor }) => {
   const styles = useStyles();
   const interlocutors = useGetInterlocutors();
   const { handlePagination, isLoading, handleInitPagination } =
@@ -21,7 +30,10 @@ const InterlocutorsList = memo(() => {
 
   useSession();
   const ds = useRef(null);
-  const list = useListInterlocutors(interlocutors);
+  const list = useListInterlocutors({
+    interlocutors,
+    handleClickByInterlocutor,
+  });
 
   if (isLoading && list.length === 0) {
     return null;
@@ -39,6 +51,6 @@ const InterlocutorsList = memo(() => {
       />
     </div>
   );
-});
+};
 
 export default InterlocutorsList;

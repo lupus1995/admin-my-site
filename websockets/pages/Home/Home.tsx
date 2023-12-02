@@ -1,11 +1,23 @@
 import React from "react";
 
-import { InterlocutorsList } from "./components";
+import classNames from "classnames";
 
-const Home = () => (
-  <>
-    <InterlocutorsList />
-  </>
-);
+import { InterlocutorsList, ListMessages } from "./components";
+import { useClickByInterlocutor } from "./hooks";
+import useStyles from "./styles";
+
+const Home = () => {
+  const styles = useStyles();
+  const { handleClickByDonwload, handleClickByInterlocutor } =
+    useClickByInterlocutor();
+  return (
+    <div className={classNames(`${styles.chatWrapper}`)}>
+      <InterlocutorsList
+        handleClickByInterlocutor={handleClickByInterlocutor}
+      />
+      <ListMessages />
+    </div>
+  );
+};
 
 export default Home;
