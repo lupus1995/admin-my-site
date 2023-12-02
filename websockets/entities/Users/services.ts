@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { getTokens } from "store/services/tokens";
 import { URL } from "websockets/share/constants";
 
-import { PaginationI, UserI } from "./types";
+import { UserI } from "./types";
+import { PaginationI } from "../share/types";
 
 export const usersApi = createApi({
   reducerPath: "usersApi",

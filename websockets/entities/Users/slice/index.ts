@@ -1,3 +1,7 @@
+import activeInterlocutorReducer, {
+  setActiveInterlocutor,
+  activeInterlocutorSelector,
+} from "./activeInterlocutorSlice";
 import interlocutorReducer, {
   interlocutorSelector,
   addInterlocutors,
@@ -16,4 +20,7 @@ export {
   setTypedSearch,
   addInterlocutors,
   clearInterlocutors,
+  activeInterlocutorReducer,
+  setActiveInterlocutor,
+  activeInterlocutorSelector,
 };

@@ -5,7 +5,7 @@ import {
   searchInterlocutors as searchInterlocutorsAction,
 } from "./services";
 import { addInterlocutors, searchSelector } from "./slice";
-import { PaginationI } from "./types";
+import { PaginationI } from "../share/types";
 
 export const fetchInterlocutors =
   (pagination: PaginationI) => async (dispatch: AppDispatch) => {

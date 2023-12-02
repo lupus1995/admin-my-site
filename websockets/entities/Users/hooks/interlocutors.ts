@@ -3,11 +3,11 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { shallowEqual } from "react-redux";
 
 import { useAppSelector, useAppDispatch } from "store/hooks";
+import { PaginationI } from "websockets/entities/share/types";
 
 import { useGetSearch } from "./search";
 import { fetchInterlocutors, fetchSearchInterlocutor } from "../ducks";
 import { clearInterlocutors, interlocutorSelector } from "../slice";
-import { PaginationI } from "../types";
 
 export const useGetInterlocutors = () => {
   const interlocutors = useAppSelector(interlocutorSelector, shallowEqual);
