@@ -8,11 +8,18 @@ import {
   authReducer as authWebscoketsReducer,
 } from "../websockets/entities/Auth";
 import {
+  messagesApiReducer,
+  messagesMidlware,
+  messages,
+  messagesReducer,
+} from "../websockets/entities/Messages";
+import {
   usersMiddleware,
   users,
   usersReducer,
   interlocutorReducer,
   searchSliceReducer,
+  activeInterlocutorReducer,
 } from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
@@ -20,9 +27,12 @@ export const rootReducer = combineReducers({
   [tokens]: tokensReducer,
   [authWebsocket]: authWebscoketsReducer,
   [users]: usersReducer,
+  [messages]: messagesApiReducer,
   websockets: combineReducers({
     interlocutor: interlocutorReducer,
     searchSlice: searchSliceReducer,
+    activeInterlocutor: activeInterlocutorReducer,
+    messages: messagesReducer,
   }),
 });
 
@@ -35,7 +45,8 @@ export const setupStore = () => {
         authMiddleware,
         tokensMiddleware,
         authWebsocketsMiddleware,
-        usersMiddleware
+        usersMiddleware,
+        messagesMidlware
       );
     },
   });
