@@ -9,6 +9,7 @@ export type PropsT = UserI & {
     | "interlocutorsDate"
     | "interlocutorInfo"
     | "interlocutorButton"
+    | "interlocutorItemActive"
   >;
 } & {
   handleClickByInterlocutor: ({

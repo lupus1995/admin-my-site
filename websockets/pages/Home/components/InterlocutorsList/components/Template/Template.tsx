@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { format } from "date-fns";
 import { Avatar } from "primereact/avatar";
 import LinesEllipsis from "react-lines-ellipsis";
 
-import { generateFullName } from "./helpers";
+import { Time } from "websockets/pages/Home/commons";
+import { generateFullName } from "websockets/pages/Home/helpers";
+
+import { useIsActiveInterlocutor } from "./hooks";
 import { PropsT } from "./types";
 
 const Template: FC<PropsT> = ({
@@ -14,6 +16,8 @@ const Template: FC<PropsT> = ({
   styles,
   handleClickByInterlocutor,
 }) => {
+  const isActive = useIsActiveInterlocutor({ interlocutor });
+
   return (
     <button
       type="button"
@@ -23,7 +27,11 @@ const Template: FC<PropsT> = ({
         interlocutor,
       })}
     >
-      <div className={classNames(`${styles.interlocutorItem}`)}>
+      <div
+        className={classNames(`${styles.interlocutorItem}`, {
+          [styles.interlocutorItemActive]: isActive,
+        })}
+      >
         <div className={classNames(`${styles.interlocutorAvatar}`)}>
           <Avatar image={interlocutor.avatar} size="large" shape="circle" />
         </div>
@@ -44,9 +52,7 @@ const Template: FC<PropsT> = ({
             basedOn="words"
           />
           <div className={classNames(`${styles.interlocutorsDate}`)}>
-            <time>
-              {format(new Date(message.createdAt), "HH:mm:ss dd.MM.yyyy")}
-            </time>
+            <Time date={message.createdAt} />
           </div>
         </div>
       </div>
