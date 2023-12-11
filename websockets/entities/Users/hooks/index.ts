@@ -7,3 +7,5 @@ export {
   useGetActiveInterlocutor,
   useSetActiveInterlocutor,
 } from "./activeInterlocutor";
+
+export { useActiveUser, useFetchActiveUser } from "./userActive";

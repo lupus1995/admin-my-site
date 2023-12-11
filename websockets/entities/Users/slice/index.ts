@@ -11,6 +11,7 @@ import searchSliceReducer, {
   searchSelector,
   setTypedSearch,
 } from "./searchSlice";
+import userSliceReducer, { userSelector, setUser } from "./userSlice";
 
 export {
   interlocutorReducer,
@@ -23,4 +24,7 @@ export {
   activeInterlocutorReducer,
   setActiveInterlocutor,
   activeInterlocutorSelector,
+  userSliceReducer,
+  userSelector,
+  setUser,
 };

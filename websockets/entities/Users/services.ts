@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { getTokens } from "store/services/tokens";
 import { URL } from "websockets/share/constants";
 
-import { UserI } from "./types";
+import { InterlocutorI, UserI } from "./types";
 import { PaginationI } from "../share/types";
 
 export const usersApi = createApi({
@@ -40,10 +40,17 @@ export const usersApi = createApi({
         }),
       }
     ),
+
+    getDataUser: build.query<InterlocutorI, void>({
+      query: () => ({
+        url: `/user`,
+      }),
+    }),
   }),
 });
 
-const { getInterlocutors, searchInterlocutors } = usersApi.endpoints;
+const { getInterlocutors, searchInterlocutors, getDataUser } =
+  usersApi.endpoints;
 const usersMiddleware = usersApi.middleware;
 const users = usersApi.reducerPath;
 const usersReducer = usersApi.reducer;
@@ -51,6 +58,7 @@ const usersReducer = usersApi.reducer;
 export {
   getInterlocutors,
   searchInterlocutors,
+  getDataUser,
   usersMiddleware,
   users,
   usersReducer,

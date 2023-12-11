@@ -1,10 +1,11 @@
 import { AppDispatch, RootState } from "store/store";
 
 import {
+  getDataUser,
   getInterlocutors,
   searchInterlocutors as searchInterlocutorsAction,
 } from "./services";
-import { addInterlocutors, searchSelector } from "./slice";
+import { addInterlocutors, searchSelector, setUser } from "./slice";
 import { PaginationI } from "../share/types";
 
 export const fetchInterlocutors =
@@ -27,3 +28,9 @@ export const fetchSearchInterlocutor =
 
     dispatch(addInterlocutors(interlocutors.data));
   };
+
+export const fetchUserData = () => async (dispatch: AppDispatch) => {
+  const user = await dispatch(getDataUser.initiate());
+
+  dispatch(setUser(user.data));
+};

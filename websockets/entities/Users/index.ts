@@ -5,6 +5,8 @@ import {
   useGetSearch,
   useGetActiveInterlocutor,
   useSetActiveInterlocutor,
+  useActiveUser,
+  useFetchActiveUser,
 } from "./hooks";
 import {
   getInterlocutors,
@@ -17,6 +19,7 @@ import {
   interlocutorReducer,
   searchSliceReducer,
   activeInterlocutorReducer,
+  userSliceReducer,
 } from "./slice";
 import { UserI, InterlocutorI } from "./types";
 
@@ -35,6 +38,9 @@ export {
   activeInterlocutorReducer,
   useGetActiveInterlocutor,
   useSetActiveInterlocutor,
+  userSliceReducer,
+  useActiveUser,
+  useFetchActiveUser,
 };
 
 export type { UserI, InterlocutorI };
