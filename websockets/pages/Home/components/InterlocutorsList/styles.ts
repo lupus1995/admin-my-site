@@ -19,6 +19,10 @@ const useStyles = createUseStyles({
     },
   },
 
+  interlocutorItemActive: {
+    backgroundColor: "#ccc",
+  },
+
   interlocutorAvatar: {
     marginRight: "15px",
   },
