@@ -1,21 +1,29 @@
 import { useCallback } from "react";
 
-import { useAppDispatch } from "store/hooks";
+import { shallowEqual } from "react-redux";
+
+import { useAppDispatch, useAppSelector } from "store/hooks";
 
 import { fetchGetMessages } from "../ducks";
-import { clearMessages } from "../slice";
+import { clearMessages, messageSelector } from "../slice";
 
-export const useGetMessages = () => {
+export const useFetchMessages = () => {
   const dispatch = useAppDispatch();
 
-  const handleGetMessages = useCallback(
+  const handleFetchMessages = useCallback(
     async ({ offset, roomId }: { offset: number; roomId: string }) => {
       await dispatch(fetchGetMessages({ limit: 10, offset, roomId }));
     },
     [dispatch]
   );
 
-  return { handleGetMessages };
+  return { handleFetchMessages };
+};
+
+export const useGetMessages = () => {
+  const messages = useAppSelector(messageSelector, shallowEqual);
+
+  return messages;
 };
 
 export const useCleareMessages = () => {

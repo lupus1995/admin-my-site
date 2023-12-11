@@ -1,4 +1,4 @@
-import { useCleareMessages, useGetMessages } from "./hooks";
+import { useCleareMessages, useGetMessages, useFetchMessages } from "./hooks";
 import { messagesMidlware, messages, messagesApiReducer } from "./services";
 import { messagesReducer } from "./slice";
 
@@ -9,4 +9,5 @@ export {
   messagesApiReducer,
   useCleareMessages,
   useGetMessages,
+  useFetchMessages,
 };

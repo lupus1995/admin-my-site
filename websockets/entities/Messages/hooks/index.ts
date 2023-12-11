@@ -1,3 +1,7 @@
-import { useGetMessages, useCleareMessages } from "./messages";
+import {
+  useGetMessages,
+  useCleareMessages,
+  useFetchMessages,
+} from "./messages";
 
-export { useGetMessages, useCleareMessages };
+export { useGetMessages, useFetchMessages, useCleareMessages };
