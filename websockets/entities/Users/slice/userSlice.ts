@@ -20,4 +20,4 @@ const userSlice = createSlice({
 
 export const userSelector = (state: RootState) => state.websockets.user;
 export const { setUser } = userSlice.actions;
-export default userSlice.reducer;
+export const userSliceReducer = userSlice.reducer;

@@ -20,4 +20,4 @@ const activeIntelocutorSlice = createSlice({
 export const activeInterlocutorSelector = (state: RootState) =>
   state.websockets.activeInterlocutor;
 export const { setActiveInterlocutor } = activeIntelocutorSlice.actions;
-export default activeIntelocutorSlice.reducer;
+export const activeInterlocutorReducer = activeIntelocutorSlice.reducer;

@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// eslint-disable-next-line import/named
+import { orderBy } from "lodash";
 
 import { RootState } from "store/store";
 
@@ -17,11 +19,25 @@ const interlocutorSlice = createSlice({
       state = [];
       return state;
     },
+
+    updateInterlocutors: (state, action: PayloadAction<UserI>) => {
+      const newState = state.map((item) => ({
+        ...item,
+        message:
+          item.id === action.payload.id ? action.payload.message : item.message,
+      }));
+
+      return orderBy(
+        newState,
+        [(user: UserI) => new Date(user.message.createdAt)],
+        ["desc"]
+      );
+    },
   },
 });
 
 export const interlocutorSelector = (state: RootState) =>
   state.websockets.interlocutor;
-export const { addInterlocutors, clearInterlocutors } =
+export const { addInterlocutors, clearInterlocutors, updateInterlocutors } =
   interlocutorSlice.actions;
-export default interlocutorSlice.reducer;
+export const interlocutorReducer = interlocutorSlice.reducer;

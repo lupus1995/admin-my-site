@@ -6,8 +6,25 @@ import { useAppSelector, useAppDispatch } from "store/hooks";
 import { PaginationI } from "websockets/entities/share/types";
 
 import { useGetSearch } from "./search";
-import { fetchInterlocutors, fetchSearchInterlocutor } from "../ducks";
+import {
+  fetchInterlocutor,
+  fetchInterlocutors,
+  fetchSearchInterlocutor,
+} from "../ducks";
 import { clearInterlocutors, interlocutorSelector } from "../slice";
+
+export const useUpdateInterlocutor = () => {
+  const dispatch = useAppDispatch();
+
+  const handleUpdateInterlocutor = useCallback(
+    (roomId: string) => {
+      dispatch(fetchInterlocutor(roomId));
+    },
+    [dispatch]
+  );
+
+  return { handleUpdateInterlocutor };
+};
 
 export const useGetInterlocutors = () => {
   const interlocutors = useAppSelector(interlocutorSelector, shallowEqual);

@@ -1,6 +1,7 @@
 export {
   useGetInterlocutors,
   usePaginationInterlocutor,
+  useUpdateInterlocutor,
 } from "./interlocutors";
 export { useSetSearch, useGetSearch } from "./search";
 export {

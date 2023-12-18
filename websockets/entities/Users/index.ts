@@ -1,4 +1,4 @@
-import {
+export {
   useGetInterlocutors,
   usePaginationInterlocutor,
   useSetSearch,
@@ -7,6 +7,7 @@ import {
   useSetActiveInterlocutor,
   useActiveUser,
   useFetchActiveUser,
+  useUpdateInterlocutor,
 } from "./hooks";
 import {
   getInterlocutors,
@@ -30,17 +31,9 @@ export {
   users,
   usersReducer,
   interlocutorReducer,
-  useGetInterlocutors,
-  usePaginationInterlocutor,
   searchSliceReducer,
-  useSetSearch,
-  useGetSearch,
   activeInterlocutorReducer,
-  useGetActiveInterlocutor,
-  useSetActiveInterlocutor,
   userSliceReducer,
-  useActiveUser,
-  useFetchActiveUser,
 };
 
 export type { UserI, InterlocutorI };

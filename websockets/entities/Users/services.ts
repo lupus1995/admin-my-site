@@ -41,6 +41,12 @@ export const usersApi = createApi({
       }
     ),
 
+    getInterlocutor: build.query<UserI, string>({
+      query: (roomId) => ({
+        url: `/user/room/${roomId}`,
+      }),
+    }),
+
     getDataUser: build.query<InterlocutorI, void>({
       query: () => ({
         url: `/user`,
@@ -49,7 +55,7 @@ export const usersApi = createApi({
   }),
 });
 
-const { getInterlocutors, searchInterlocutors, getDataUser } =
+const { getInterlocutors, searchInterlocutors, getDataUser, getInterlocutor } =
   usersApi.endpoints;
 const usersMiddleware = usersApi.middleware;
 const users = usersApi.reducerPath;
@@ -62,4 +68,5 @@ export {
   usersMiddleware,
   users,
   usersReducer,
+  getInterlocutor,
 };
