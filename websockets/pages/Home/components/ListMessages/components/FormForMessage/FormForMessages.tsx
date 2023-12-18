@@ -5,15 +5,45 @@ import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useForm } from "react-hook-form";
 
+import {
+  CreateMessageI,
+  useCreateMessage,
+  useGetRoomId,
+  useGetTypesMessage,
+} from "websockets/entities/Messages";
+import {
+  useActiveUser,
+  useGetActiveInterlocutor,
+  useUpdateInterlocutor,
+} from "websockets/entities/Users";
+
 import useStyles from "./style";
 
 const FormForMessages = () => {
-  const { register, handleSubmit } = useForm();
+  const { handleCreateMessage } = useCreateMessage();
+  const typeMessage = useGetTypesMessage();
+  const { handleUpdateInterlocutor } = useUpdateInterlocutor();
+  const activeRoomId = useGetRoomId();
+  const { activeInterlocutor } = useGetActiveInterlocutor();
+  const activeUser = useActiveUser();
+  const { register, handleSubmit, setValue } = useForm();
 
   const style = useStyles();
 
   const onSubmit = ({ message }: { message: string }) => {
-    console.log("message", message);
+    const newMessage: CreateMessageI = {
+      from: activeUser._id,
+      to: activeInterlocutor._id,
+      typeMessage: typeMessage.TEXT,
+      value: message,
+      roomId: activeRoomId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    handleCreateMessage(newMessage);
+    handleUpdateInterlocutor(activeRoomId);
+    setValue("message", "");
   };
 
   return (
