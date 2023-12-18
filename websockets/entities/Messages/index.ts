@@ -1,13 +1,16 @@
-import { useCleareMessages, useGetMessages, useFetchMessages } from "./hooks";
-import { messagesMidlware, messages, messagesApiReducer } from "./services";
-import { messagesReducer } from "./slice";
-
 export {
-  messagesMidlware,
-  messages,
-  messagesReducer,
-  messagesApiReducer,
   useCleareMessages,
   useGetMessages,
   useFetchMessages,
-};
+  useFetchTypesMessage,
+  useGetTypesMessage,
+  useCreateMessage,
+  useGetRoomId,
+  useSetRoomId,
+} from "./hooks";
+
+export { messagesMidlware, messages, messagesApiReducer } from "./services";
+
+export { messagesReducer, typesMessageReducer, roomReducer } from "./slice";
+
+export type { CreateMessageI, TYPE_MESSAGE } from "./types";

@@ -4,8 +4,9 @@ import { shallowEqual } from "react-redux";
 
 import { useAppDispatch, useAppSelector } from "store/hooks";
 
-import { fetchGetMessages } from "../ducks";
+import { fetchCreateMessage, fetchGetMessages } from "../ducks";
 import { clearMessages, messageSelector } from "../slice";
+import { CreateMessageI } from "../types";
 
 export const useFetchMessages = () => {
   const dispatch = useAppDispatch();
@@ -32,4 +33,17 @@ export const useCleareMessages = () => {
   const handleClearMessages = () => dispatch(clearMessages());
 
   return { handleClearMessages };
+};
+
+export const useCreateMessage = () => {
+  const dispatch = useAppDispatch();
+
+  const handleCreateMessage = useCallback(
+    async (message: CreateMessageI) => {
+      dispatch(fetchCreateMessage({ message }));
+    },
+    [dispatch]
+  );
+
+  return { handleCreateMessage };
 };

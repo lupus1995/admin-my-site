@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { getTokens } from "store/services/tokens";
 import { URL } from "websockets/share/constants";
 
-import { RoomIdI } from "./types";
+import { CreateMessageI, RoomIdI, TYPE_MESSAGE } from "./types";
 import { MessageI, PaginationI } from "../share/types";
 
 export const messagesApi = createApi({
@@ -27,10 +27,23 @@ export const messagesApi = createApi({
         },
       }),
     }),
+    getTypesMessage: build.query<TYPE_MESSAGE, void>({
+      query: () => ({
+        url: `/message/types`,
+      }),
+    }),
+    createMessage: build.mutation<MessageI, CreateMessageI>({
+      query: (data) => ({
+        url: `/message`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { getMessages } = messagesApi.endpoints;
+export const { getMessages, getTypesMessage, createMessage } =
+  messagesApi.endpoints;
 export const messagesMidlware = messagesApi.middleware;
 export const messages = messagesApi.reducerPath;
 export const messagesApiReducer = messagesApi.reducer;
