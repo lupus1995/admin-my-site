@@ -12,6 +12,8 @@ import {
   messagesMidlware,
   messages,
   messagesReducer,
+  typesMessageReducer,
+  roomReducer,
 } from "../websockets/entities/Messages";
 import {
   usersMiddleware,
@@ -35,6 +37,8 @@ export const rootReducer = combineReducers({
     activeInterlocutor: activeInterlocutorReducer,
     messages: messagesReducer,
     user: userSliceReducer,
+    typesMessage: typesMessageReducer,
+    roomId: roomReducer,
   }),
 });
 
