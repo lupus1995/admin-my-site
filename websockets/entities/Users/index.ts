@@ -8,6 +8,8 @@ export {
   useActiveUser,
   useFetchActiveUser,
   useUpdateInterlocutor,
+  useGetUsersOnline,
+  useSetUsersOnline,
 } from "./hooks";
 import {
   getInterlocutors,
@@ -21,6 +23,7 @@ import {
   searchSliceReducer,
   activeInterlocutorReducer,
   userSliceReducer,
+  usersOnlineSliceReducer,
 } from "./slice";
 import { UserI, InterlocutorI } from "./types";
 
@@ -34,6 +37,7 @@ export {
   searchSliceReducer,
   activeInterlocutorReducer,
   userSliceReducer,
+  usersOnlineSliceReducer,
 };
 
 export type { UserI, InterlocutorI };

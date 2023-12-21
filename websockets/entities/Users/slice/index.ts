@@ -18,4 +18,10 @@ export {
   setTypedSearch,
 } from "./searchSlice";
 
+export {
+  usersOnlineSliceReducer,
+  setUsersOnline,
+  usersOnlineSelector,
+} from "./usersOnlineSlice";
+
 export { userSliceReducer, userSelector, setUser } from "./userSlice";

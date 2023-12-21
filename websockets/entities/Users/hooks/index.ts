@@ -10,3 +10,5 @@ export {
 } from "./activeInterlocutor";
 
 export { useActiveUser, useFetchActiveUser } from "./userActive";
+
+export { useGetUsersOnline, useSetUsersOnline } from "./usersOnline";

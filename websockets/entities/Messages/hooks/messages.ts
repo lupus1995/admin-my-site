@@ -30,7 +30,10 @@ export const useGetMessages = () => {
 export const useCleareMessages = () => {
   const dispatch = useAppDispatch();
 
-  const handleClearMessages = () => dispatch(clearMessages());
+  const handleClearMessages = useCallback(
+    () => dispatch(clearMessages()),
+    [dispatch]
+  );
 
   return { handleClearMessages };
 };
