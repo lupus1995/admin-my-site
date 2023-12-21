@@ -2,6 +2,7 @@ import React, { FC } from "react";
 
 import classNames from "classnames";
 import { Avatar } from "primereact/avatar";
+import { Badge } from "primereact/badge";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import { Time } from "websockets/pages/Home/commons";
@@ -15,6 +16,7 @@ const Template: FC<PropsT> = ({
   message,
   styles,
   handleClickByInterlocutor,
+  isOnline,
 }) => {
   const isActive = useIsActiveInterlocutor({ interlocutor });
 
@@ -34,6 +36,13 @@ const Template: FC<PropsT> = ({
       >
         <div className={classNames(`${styles.interlocutorAvatar}`)}>
           <Avatar image={interlocutor.avatar} size="large" shape="circle" />
+          {isOnline && (
+            <Badge
+              className={classNames(`${styles.interlocutorBadge}`)}
+              severity="success"
+              size="normal"
+            />
+          )}
         </div>
         <div className={classNames(`${styles.interlocutorInfo}`)}>
           <LinesEllipsis

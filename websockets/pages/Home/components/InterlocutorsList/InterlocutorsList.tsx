@@ -7,6 +7,7 @@ import { useSession } from "pages/Admin/hooks";
 import {
   InterlocutorI,
   useGetInterlocutors,
+  useGetUsersOnline,
   usePaginationInterlocutor,
 } from "websockets/entities/Users";
 
@@ -24,14 +25,12 @@ const InterlocutorsList: FC<{
   }) => () => Promise<void>;
 }> = ({ handleClickByInterlocutor }) => {
   const styles = useStyles();
-  const interlocutors = useGetInterlocutors();
   const { handlePagination, isLoading, handleInitPagination } =
     usePaginationInterlocutor();
 
   useSession();
   const ds = useRef(null);
   const list = useListInterlocutors({
-    interlocutors,
     handleClickByInterlocutor,
   });
 

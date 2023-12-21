@@ -25,6 +25,13 @@ const useStyles = createUseStyles({
 
   interlocutorAvatar: {
     marginRight: "15px",
+    position: "relative",
+  },
+
+  interlocutorBadge: {
+    position: "absolute",
+    top: 0,
+    right: 0,
   },
 
   interlocutorsDate: {

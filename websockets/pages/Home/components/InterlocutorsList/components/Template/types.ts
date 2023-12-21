@@ -3,6 +3,7 @@ import { Classes } from "jss";
 import { InterlocutorI, UserI } from "websockets/entities/Users";
 
 export type PropsT = UserI & {
+  isOnline: boolean;
   styles: Classes<
     | "interlocutorItem"
     | "interlocutorAvatar"
@@ -10,6 +11,7 @@ export type PropsT = UserI & {
     | "interlocutorInfo"
     | "interlocutorButton"
     | "interlocutorItemActive"
+    | "interlocutorBadge"
   >;
 } & {
   handleClickByInterlocutor: ({
