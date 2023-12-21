@@ -23,6 +23,7 @@ import {
   searchSliceReducer,
   activeInterlocutorReducer,
   userSliceReducer,
+  usersOnlineSliceReducer,
 } from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
@@ -39,6 +40,7 @@ export const rootReducer = combineReducers({
     user: userSliceReducer,
     typesMessage: typesMessageReducer,
     roomId: roomReducer,
+    usersOnline: usersOnlineSliceReducer,
   }),
 });
 
