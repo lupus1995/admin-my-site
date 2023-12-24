@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import { RequestReducer } from "websockets/entities/share/services/StatusRequest";
+
 import { auth, authReducer, authMiddleware } from "./services/auth";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 import {
@@ -41,6 +43,7 @@ export const rootReducer = combineReducers({
     typesMessage: typesMessageReducer,
     roomId: roomReducer,
     usersOnline: usersOnlineSliceReducer,
+    request: RequestReducer,
   }),
 });
 

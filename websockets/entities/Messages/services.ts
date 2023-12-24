@@ -44,6 +44,7 @@ export const messagesApi = createApi({
 
 export const { getMessages, getTypesMessage, createMessage } =
   messagesApi.endpoints;
+export const { useGetMessagesQuery } = messagesApi;
 export const messagesMidlware = messagesApi.middleware;
 export const messages = messagesApi.reducerPath;
 export const messagesApiReducer = messagesApi.reducer;

@@ -20,7 +20,7 @@ const Home = memo(() => {
         <InterlocutorsList
           handleClickByInterlocutor={handleClickByInterlocutor}
         />
-        <ListMessages />
+        <ListMessages handleClickByDonwload={handleClickByDonwload} />
       </div>
     </SocketsWrapper>
   );

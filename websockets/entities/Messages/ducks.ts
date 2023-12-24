@@ -4,17 +4,34 @@ import { createMessage, getMessages, getTypesMessage } from "./services";
 import { addMessages, setTypesMessage } from "./slice";
 import { CreateMessageI, RoomIdI } from "./types";
 import { isMessage } from "../share/helpers";
+import {
+  handleClearStatus,
+  handleIsError,
+  handleIsLoading,
+  handleIsSuccess,
+} from "../share/services/StatusRequest";
 import { MessageI, PaginationI } from "../share/types";
 
 // получить сообщения для списка
 export const fetchGetMessages =
   ({ limit, offset, roomId }: PaginationI & RoomIdI) =>
   async (dispatch: AppDispatch) => {
-    const { data } = await dispatch(
+    dispatch(handleClearStatus());
+    dispatch(handleIsLoading({ status: true, requestId: "getMessages" }));
+    const { data, error } = await dispatch(
       getMessages.initiate({ limit, offset, roomId })
     );
 
-    dispatch(addMessages(data));
+    if (error) {
+      dispatch(handleIsError({ status: true, requestId: "getMessages" }));
+    }
+
+    if (data) {
+      dispatch(handleIsSuccess({ status: true, requestId: "getMessages" }));
+      dispatch(addMessages(data));
+    }
+
+    dispatch(handleClearStatus());
   };
 
 // получить типы сообщений

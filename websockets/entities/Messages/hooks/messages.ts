@@ -13,7 +13,7 @@ export const useFetchMessages = () => {
 
   const handleFetchMessages = useCallback(
     async ({ offset, roomId }: { offset: number; roomId: string }) => {
-      await dispatch(fetchGetMessages({ limit: 10, offset, roomId }));
+      await dispatch(fetchGetMessages({ limit: 20, offset, roomId }));
     },
     [dispatch]
   );

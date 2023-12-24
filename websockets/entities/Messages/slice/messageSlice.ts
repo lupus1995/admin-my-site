@@ -10,7 +10,8 @@ const messageSlice = createSlice({
   initialState,
   reducers: {
     addMessages: (state, action: PayloadAction<MessageI[]>) => {
-      state.push(...action.payload);
+      state = [...action.payload, ...state];
+      return state;
     },
     clearMessages: (state) => {
       state = [];

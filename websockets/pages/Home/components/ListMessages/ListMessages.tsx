@@ -1,15 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 
 import classNames from "classnames";
 
-import { useFetchTypesMessage } from "websockets/entities/Messages";
 import { useGetActiveInterlocutor } from "websockets/entities/Users";
 
 import { FormForMessage, Messages, NameInterlocutor } from "./components";
 import useStyles from "./styles";
 
-const ListMessages = () => {
-  useFetchTypesMessage();
+const ListMessages: FC<{
+  handleClickByDonwload: () => Promise<void>;
+}> = ({ handleClickByDonwload }) => {
   const styles = useStyles();
   const { activeInterlocutor } = useGetActiveInterlocutor();
 
@@ -20,7 +20,7 @@ const ListMessages = () => {
   return (
     <div className={classNames(`${styles.listMessagesWrapper}`)}>
       <NameInterlocutor />
-      <Messages />
+      <Messages handleClickByDonwload={handleClickByDonwload} />
       <FormForMessage />
     </div>
   );
