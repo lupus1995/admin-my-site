@@ -5,6 +5,7 @@ import {
   useGetTypesMessage,
   useGetRoomId,
   CreateMessageI,
+  useFetchTypesMessage,
 } from "websockets/entities/Messages";
 import {
   useUpdateInterlocutor,
@@ -15,6 +16,7 @@ import {
 export const useHandleSubmit = () => {
   const { register, handleSubmit, setValue } = useForm();
   const { handleCreateMessage } = useCreateMessage();
+  useFetchTypesMessage();
   const typeMessage = useGetTypesMessage();
   const { handleUpdateInterlocutor } = useUpdateInterlocutor();
   const activeRoomId = useGetRoomId();

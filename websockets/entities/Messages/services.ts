@@ -3,8 +3,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { getTokens } from "store/services/tokens";
 import { URL } from "websockets/share/constants";
 
-import { CreateMessageI, RoomIdI, TYPE_MESSAGE } from "./types";
-import { MessageI, PaginationI } from "../share/types";
+import {
+  CreateMessageI,
+  ResponseMessageI,
+  ResponseMessagesI,
+  RoomIdI,
+  TYPE_MESSAGE,
+} from "./types";
+import { PaginationI } from "../share/types";
 
 export const messagesApi = createApi({
   reducerPath: "messagesApi",
@@ -17,8 +23,9 @@ export const messagesApi = createApi({
       return headers;
     },
   }),
+  refetchOnMountOrArgChange: true,
   endpoints: (build) => ({
-    getMessages: build.query<MessageI[], PaginationI & RoomIdI>({
+    getMessages: build.query<ResponseMessagesI, PaginationI & RoomIdI>({
       query: ({ limit, offset, roomId }) => ({
         url: `/message/room/${roomId}`,
         params: {
@@ -26,13 +33,14 @@ export const messagesApi = createApi({
           offset,
         },
       }),
+      keepUnusedDataFor: 1,
     }),
     getTypesMessage: build.query<TYPE_MESSAGE, void>({
       query: () => ({
         url: `/message/types`,
       }),
     }),
-    createMessage: build.mutation<MessageI, CreateMessageI>({
+    createMessage: build.mutation<ResponseMessageI, CreateMessageI>({
       query: (data) => ({
         url: `/message`,
         method: "POST",

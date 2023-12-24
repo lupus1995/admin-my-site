@@ -2,9 +2,16 @@ import messagesReducer, {
   messageSelector,
   addMessages,
   clearMessages,
+  addMessage,
 } from "./messageSlice";
 
-export { messagesReducer, messageSelector, addMessages, clearMessages };
+export {
+  messagesReducer,
+  messageSelector,
+  addMessages,
+  addMessage,
+  clearMessages,
+};
 
 export {
   typesMessageReducer,

@@ -1,37 +1,19 @@
 import { AppDispatch } from "store/store";
 
+import { isMessage } from "./helpers";
 import { createMessage, getMessages, getTypesMessage } from "./services";
-import { addMessages, setTypesMessage } from "./slice";
+import { addMessage, addMessages, setTypesMessage } from "./slice";
 import { CreateMessageI, RoomIdI } from "./types";
-import { isMessage } from "../share/helpers";
-import {
-  handleClearStatus,
-  handleIsError,
-  handleIsLoading,
-  handleIsSuccess,
-} from "../share/services/StatusRequest";
 import { MessageI, PaginationI } from "../share/types";
 
 // получить сообщения для списка
 export const fetchGetMessages =
   ({ limit, offset, roomId }: PaginationI & RoomIdI) =>
   async (dispatch: AppDispatch) => {
-    dispatch(handleClearStatus());
-    dispatch(handleIsLoading({ status: true, requestId: "getMessages" }));
-    const { data, error } = await dispatch(
+    const { data } = await dispatch(
       getMessages.initiate({ limit, offset, roomId })
     );
-
-    if (error) {
-      dispatch(handleIsError({ status: true, requestId: "getMessages" }));
-    }
-
-    if (data) {
-      dispatch(handleIsSuccess({ status: true, requestId: "getMessages" }));
-      dispatch(addMessages(data));
-    }
-
-    dispatch(handleClearStatus());
+    dispatch(addMessages(data));
   };
 
 // получить типы сообщений
@@ -41,14 +23,19 @@ export const fetchTypesMessage = () => async (dispatch: AppDispatch) => {
   dispatch(setTypesMessage(data));
 };
 
-// создать сообщение, которое создал пользователь
+// создать сообщение, которое написал пользователь
 export const fetchCreateMessage =
   ({ message }: { message: CreateMessageI }) =>
   async (dispatch: AppDispatch): Promise<MessageI | void> => {
     const result = await dispatch(createMessage.initiate(message));
 
     if (isMessage(result)) {
-      dispatch(addMessages([result.data]));
+      dispatch(
+        addMessage({
+          message: result.data.message,
+          count: result.data.count,
+        })
+      );
     }
 
     new Error("Ошибка отправления сообщения");

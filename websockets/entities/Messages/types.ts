@@ -1,3 +1,5 @@
+import { MessageI } from "../share/types";
+
 export interface RoomIdI {
   roomId: string;
 }
@@ -27,4 +29,14 @@ export interface CreateMessageI {
   createdAt: string;
   updatedAt: string;
   roomId: string;
+}
+
+export interface ResponseMessagesI {
+  messages: MessageI[];
+  count: number;
+}
+
+export interface ResponseMessageI {
+  message: MessageI;
+  count: number;
 }

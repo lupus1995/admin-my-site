@@ -22,9 +22,9 @@ export const useFetchMessages = () => {
 };
 
 export const useGetMessages = () => {
-  const messages = useAppSelector(messageSelector, shallowEqual);
+  const { messages, count } = useAppSelector(messageSelector, shallowEqual);
 
-  return messages;
+  return { messages, count };
 };
 
 export const useCleareMessages = () => {

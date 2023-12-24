@@ -6,8 +6,6 @@ import { DataView } from "primereact/dataview";
 import { useSession } from "pages/Admin/hooks";
 import {
   InterlocutorI,
-  useGetInterlocutors,
-  useGetUsersOnline,
   usePaginationInterlocutor,
 } from "websockets/entities/Users";
 

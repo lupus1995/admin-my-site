@@ -1,16 +1,13 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
 import classNames from "classnames";
+import InfiniteScroll from "react-infinite-scroller";
 
 import { useGetMessages } from "websockets/entities/Messages";
 import { useActiveUser } from "websockets/entities/Users";
 import { Time } from "websockets/pages/Home/commons";
 
-import {
-  useGetAuthor,
-  useLoadMessagesByScroll,
-  useScrollToLastChildAfterFirstRender,
-} from "./hooks";
+import { useGetAuthor } from "./hooks";
 import useStyles from "./styles";
 
 const Messages = memo(
@@ -19,61 +16,61 @@ const Messages = memo(
   }: {
     handleClickByDonwload: () => Promise<void>;
   }) => {
-    const messages = useGetMessages();
+    const { messages, count } = useGetMessages();
     const styles = useStyles();
     const getAuthor = useGetAuthor();
     const activeUser = useActiveUser();
-    const { refObserver, entry } = useScrollToLastChildAfterFirstRender({
-      messages,
-    });
-    const { refFirstElement } = useLoadMessagesByScroll();
-
-    const handleRef = useCallback(
-      (index: number) => (ref: Element) => {
-        if (index === 5) {
-          refFirstElement(ref);
-        }
-      },
-      [refFirstElement]
-    );
+    const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      if (entry?.target.scrollHeight > 2302) {
-        entry.target.scrollTo({ top: 2302 });
-      }
-    }, [entry?.target]);
+      ref.current.lastElementChild.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }, []);
 
     return (
-      <div ref={refObserver} className={styles.messagesWrapper}>
-        {messages.map((message, index) => (
-          <>
-            {/* {index === 0 && (
-              <button onClick={handleClickByDonwload}>Load data</button>
-            )} */}
-            <div
-              ref={handleRef(index)}
-              className={styles.messageWrapper}
-              key={message._id}
-            >
-              <span className={styles.messageAuthor}>
-                {getAuthor({ from: message.from })}
-              </span>
-              <div className={styles.messageWrapperItem}>
-                <div
-                  className={classNames(`${styles.messageContainerItem}`, {
-                    [styles.messageContainerItemBC]:
-                      message.from === activeUser._id,
-                  })}
-                >
-                  <p>{message.value}</p>
+      <div className={styles.messagesWrapper}>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={handleClickByDonwload}
+          hasMore={messages.length < count}
+          loader={
+            <>
+              {messages.length < count && (
+                <div className="loader" key={0}>
+                  Loading ...
                 </div>
-                <div className={styles.messageTime}>
-                  <Time date={message.createdAt} />
+              )}
+            </>
+          }
+          useWindow={false}
+          initialLoad={false}
+          isReverse
+        >
+          <div ref={ref}>
+            {messages.map((message) => (
+              <div className={styles.messageWrapper} key={message._id}>
+                <span className={styles.messageAuthor}>
+                  {getAuthor({ from: message.from })}
+                </span>
+                <div className={styles.messageWrapperItem}>
+                  <div
+                    className={classNames(`${styles.messageContainerItem}`, {
+                      [styles.messageContainerItemBC]:
+                        message.from === activeUser._id,
+                    })}
+                  >
+                    <p>{message.value}</p>
+                  </div>
+                  <div className={styles.messageTime}>
+                    <Time date={message.createdAt} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        ))}
+            ))}
+          </div>
+        </InfiniteScroll>
       </div>
     );
   }

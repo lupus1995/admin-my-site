@@ -3,24 +3,6 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 import { MessageI } from "../share/types";
 
-export function isMessage(
-  result:
-    | {
-        data: MessageI;
-      }
-    | {
-        error: FetchBaseQueryError | SerializedError;
-      }
-): result is {
-  data: MessageI;
-} {
-  return (<
-      {
-        data: MessageI;
-      }
-    >result).data !== undefined;
-}
-
 export function isError(
   result:
     | {

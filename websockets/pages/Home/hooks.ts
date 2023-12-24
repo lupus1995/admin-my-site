@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
+import { usePrevious } from "utils/hooks";
 import {
   useCleareMessages,
   useFetchMessages,
@@ -10,12 +11,19 @@ import { InterlocutorI } from "websockets/entities/Users";
 import { useSetActiveInterlocutor } from "websockets/entities/Users/hooks";
 
 export const useClickByInterlocutor = () => {
-  const [offset, setOffset] = useState(0);
+  const offset = useRef(1);
   const { handleFetchMessages } = useFetchMessages();
   const { handleClearMessages } = useCleareMessages();
   const { handleSetActiveInterlocutor } = useSetActiveInterlocutor();
   const setRoomId = useSetRoomId();
   const activeRoomId = useGetRoomId();
+  const prevRoomId = usePrevious(activeRoomId);
+
+  useEffect(() => {
+    if (prevRoomId !== activeRoomId) {
+      offset.current = 1;
+    }
+  }, [activeRoomId, prevRoomId]);
 
   const handleClickByInterlocutor = useCallback(
     ({
@@ -29,7 +37,7 @@ export const useClickByInterlocutor = () => {
         handleClearMessages();
         await handleFetchMessages({ offset: 0, roomId });
         setRoomId(roomId);
-        setOffset(1);
+        // setOffset(1);
         handleSetActiveInterlocutor({ interlocutor });
       },
     [
@@ -41,9 +49,9 @@ export const useClickByInterlocutor = () => {
   );
 
   const handleClickByDonwload = useCallback(async () => {
-    await handleFetchMessages({ offset, roomId: activeRoomId });
-    setOffset(offset + 1);
-  }, [activeRoomId, handleFetchMessages, offset]);
+    await handleFetchMessages({ offset: offset.current, roomId: activeRoomId });
+    offset.current = offset.current + 1;
+  }, [activeRoomId, handleFetchMessages]);
 
   return { handleClickByInterlocutor, handleClickByDonwload };
 };
