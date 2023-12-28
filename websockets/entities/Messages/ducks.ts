@@ -27,16 +27,5 @@ export const fetchTypesMessage = () => async (dispatch: AppDispatch) => {
 export const fetchCreateMessage =
   ({ message }: { message: CreateMessageI }) =>
   async (dispatch: AppDispatch): Promise<MessageI | void> => {
-    const result = await dispatch(createMessage.initiate(message));
-
-    if (isMessage(result)) {
-      dispatch(
-        addMessage({
-          message: result.data.message,
-          count: result.data.count,
-        })
-      );
-    }
-
-    new Error("Ошибка отправления сообщения");
+    await dispatch(createMessage.initiate(message));
   };

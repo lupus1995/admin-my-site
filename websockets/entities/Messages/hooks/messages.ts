@@ -3,10 +3,11 @@ import { useCallback } from "react";
 import { shallowEqual } from "react-redux";
 
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import { MessageI } from "websockets/entities/share/types";
 
 import { fetchCreateMessage, fetchGetMessages } from "../ducks";
-import { clearMessages, messageSelector } from "../slice";
-import { CreateMessageI } from "../types";
+import { addMessage, clearMessages, messageSelector } from "../slice";
+import { CreateMessageI, ResponseMessageI } from "../types";
 
 export const useFetchMessages = () => {
   const dispatch = useAppDispatch();
@@ -43,10 +44,29 @@ export const useCreateMessage = () => {
 
   const handleCreateMessage = useCallback(
     async (message: CreateMessageI) => {
-      dispatch(fetchCreateMessage({ message }));
+      await dispatch(fetchCreateMessage({ message }));
     },
     [dispatch]
   );
 
   return { handleCreateMessage };
+};
+
+export const useAddMessageBySockets = () => {
+  const { count } = useGetMessages();
+  const dispatch = useAppDispatch();
+
+  const handleAddMessage = useCallback(
+    ({ message }: { message: MessageI }) => {
+      dispatch(
+        addMessage({
+          message,
+          count: count + 1,
+        })
+      );
+    },
+    [count, dispatch]
+  );
+
+  return { handleAddMessage };
 };

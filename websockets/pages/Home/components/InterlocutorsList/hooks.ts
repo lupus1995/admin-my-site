@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
+import { usePrevious } from "utils/hooks";
 import {
   InterlocutorI,
   useGetInterlocutors,
@@ -8,6 +9,10 @@ import {
 
 import { isUserOnline } from "./helpers";
 import useStyles from "./styles";
+import {
+  useJoinRoomSocket,
+  useLeftRoomSocket,
+} from "../../wrappers/SocketsWrapper/hooks";
 
 export const useListInterlocutors = ({
   handleClickByInterlocutor,
@@ -21,6 +26,9 @@ export const useListInterlocutors = ({
   }) => () => Promise<void>;
 }) => {
   const interlocutors = useGetInterlocutors();
+  const { handleJoinRoomSocket } = useJoinRoomSocket();
+  const { handleLeftRoomSocket } = useLeftRoomSocket();
+  const prevInterlocutorsLength = usePrevious(interlocutors.length);
   const usersOnline = useGetUsersOnline();
   const usersOnlineIds = usersOnline.map((item) => item._id);
   const styles = useStyles();
@@ -36,6 +44,18 @@ export const useListInterlocutors = ({
       }),
     }));
   }, [handleClickByInterlocutor, interlocutors, styles, usersOnlineIds]);
+
+  useEffect(() => {
+    const roomIds = interlocutors.map((item) => item.id);
+    if (prevInterlocutorsLength !== interlocutors.length) {
+      handleJoinRoomSocket({ roomIds });
+    }
+  }, [
+    handleJoinRoomSocket,
+    handleLeftRoomSocket,
+    interlocutors,
+    prevInterlocutorsLength,
+  ]);
 
   return list;
 };

@@ -3,6 +3,7 @@ export {
   useCleareMessages,
   useFetchMessages,
   useCreateMessage,
+  useAddMessageBySockets,
 } from "./messages";
 
 export { useFetchTypesMessage, useGetTypesMessage } from "./typesMessage";

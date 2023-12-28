@@ -1,15 +1,18 @@
-import React, { memo, ReactNode, useEffect } from "react";
+import React, { createContext, memo, ReactNode, useEffect } from "react";
 
-import { useSocketUserOnline } from "./hooks";
+import { Socket } from "socket.io-client";
+
 import { useInitSocketUserOnline } from "./socket";
+
+export const SocketsContext = createContext<{
+  socket: Socket | null;
+}>({ socket: null });
 
 export const SocketsWrapper = memo(({ children }: { children: ReactNode }) => {
   const socket = useInitSocketUserOnline();
-  useSocketUserOnline({ socket });
 
   useEffect(() => {
     function onConnect() {}
-
     function onDisconnect() {}
 
     socket.on("connect", onConnect);
@@ -22,5 +25,9 @@ export const SocketsWrapper = memo(({ children }: { children: ReactNode }) => {
     };
   }, [socket]);
 
-  return <>{children}</>;
+  return (
+    <SocketsContext.Provider value={{ socket }}>
+      {children}
+    </SocketsContext.Provider>
+  );
 });

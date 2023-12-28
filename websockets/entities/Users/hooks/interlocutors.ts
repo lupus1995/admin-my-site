@@ -11,14 +11,26 @@ import {
   fetchInterlocutors,
   fetchSearchInterlocutor,
 } from "../ducks";
-import { clearInterlocutors, interlocutorSelector } from "../slice";
+import {
+  clearInterlocutors,
+  interlocutorSelector,
+  updateInterlocutors,
+} from "../slice";
+import { UserI } from "../types";
 
 export const useUpdateInterlocutor = () => {
   const dispatch = useAppDispatch();
 
+  // const handleUpdateInterlocutor = useCallback(
+  //   (roomId: string) => {
+  //     dispatch(fetchInterlocutor(roomId));
+  //   },
+  //   [dispatch]
+  // );
+
   const handleUpdateInterlocutor = useCallback(
-    (roomId: string) => {
-      dispatch(fetchInterlocutor(roomId));
+    (interlocutor: UserI) => {
+      dispatch(updateInterlocutors(interlocutor));
     },
     [dispatch]
   );

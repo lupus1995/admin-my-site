@@ -17,5 +17,5 @@ export interface InterlocutorI {
 export interface UserI {
   interlocutor: InterlocutorI;
   message: MessageI;
-  id: number;
+  id: string;
 }

@@ -8,22 +8,22 @@ import {
   useFetchTypesMessage,
 } from "websockets/entities/Messages";
 import {
-  useUpdateInterlocutor,
   useGetActiveInterlocutor,
   useActiveUser,
 } from "websockets/entities/Users";
+import { useUpdateInterlocutorBySocket } from "websockets/pages/Home/wrappers/SocketsWrapper";
 
 export const useHandleSubmit = () => {
   const { register, handleSubmit, setValue } = useForm();
   const { handleCreateMessage } = useCreateMessage();
   useFetchTypesMessage();
   const typeMessage = useGetTypesMessage();
-  const { handleUpdateInterlocutor } = useUpdateInterlocutor();
   const activeRoomId = useGetRoomId();
   const { activeInterlocutor } = useGetActiveInterlocutor();
   const activeUser = useActiveUser();
+  const { handleEmitUpdateInterlocutor } = useUpdateInterlocutorBySocket();
 
-  const onSubmit = ({ message }: { message: string }) => {
+  const onSubmit = async ({ message }: { message: string }) => {
     const newMessage: CreateMessageI = {
       from: activeUser._id,
       to: activeInterlocutor._id,
@@ -34,8 +34,7 @@ export const useHandleSubmit = () => {
       updatedAt: new Date().toISOString(),
     };
 
-    handleCreateMessage(newMessage);
-    handleUpdateInterlocutor(activeRoomId);
+    handleCreateMessage(newMessage).then(() => handleEmitUpdateInterlocutor());
     setValue("message", "");
   };
 

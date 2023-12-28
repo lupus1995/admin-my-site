@@ -12,6 +12,7 @@ import {
 import { Footer, Template, Header } from "./components";
 import { useListInterlocutors } from "./hooks";
 import useStyles from "./styles";
+import { useSocketUserOnline } from "../../wrappers/SocketsWrapper";
 
 const InterlocutorsList: FC<{
   handleClickByInterlocutor: ({
@@ -25,6 +26,7 @@ const InterlocutorsList: FC<{
   const styles = useStyles();
   const { handlePagination, isLoading, handleInitPagination } =
     usePaginationInterlocutor();
+  useSocketUserOnline();
 
   useSession();
   const ds = useRef(null);
