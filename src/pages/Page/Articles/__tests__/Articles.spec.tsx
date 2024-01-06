@@ -8,19 +8,19 @@ import { ResponseI } from "utils/interfaces";
 import Articles from "../Articles";
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: jest.fn().mockReturnValue({ is360: true, is481: true }),
   };
 });
 
 jest.mock("components/Pagination/hooks", () => {
-  const module = jest.requireActual("components/Pagination/hooks");
+  const mockModule = jest.requireActual("components/Pagination/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     usePagination: jest
       .fn()
       .mockReturnValue({ notVisibleButton: true, handleLoad: jest.fn() }),
@@ -28,28 +28,28 @@ jest.mock("components/Pagination/hooks", () => {
 });
 
 jest.mock("../../components/Content/hooks", () => {
-  const module = jest.requireActual("../../components/Content/hooks");
+  const mockModule = jest.requireActual("../../components/Content/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useGetConents: jest.fn(),
   };
 });
 
 jest.mock("../../widgets", () => {
-  const module = jest.requireActual("../../widgets");
+  const mockModule = jest.requireActual("../../widgets");
 
   return {
-    ...module,
+    ...mockModule,
     WrapperPage: ({ children }: { children: ReactNode }) => children,
   };
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     ContentsContainer: () => <span>ContentsContainer</span>,
   };
 });

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default {
+const icons = {
   // телефон на будущее, пока не буду давать, потому что не хочу спама с неизвестных номеров
   phone: (
     <svg
@@ -129,3 +129,5 @@ export default {
     </svg>
   ),
 };
+
+export default icons;

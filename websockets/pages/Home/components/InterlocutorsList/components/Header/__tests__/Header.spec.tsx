@@ -5,19 +5,19 @@ import { render } from "@testing-library/react";
 import Header from "../Header";
 
 jest.mock("websockets/entities/Users", () => {
-  const module = jest.requireActual("websockets/entities/Users");
+  const mockModule = jest.requireActual("websockets/entities/Users");
 
   return {
-    ...module,
+    ...mockModule,
     useGetSearch: jest.fn().mockReturnValue("search"),
   };
 });
 
 jest.mock("../hooks", () => {
-  const module = jest.requireActual("../hooks");
+  const mockModule = jest.requireActual("../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useHandleSearchValue: jest.fn().mockReturnValue({
       handleClick: jest.fn(),
     }),

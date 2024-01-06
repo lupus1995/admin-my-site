@@ -5,19 +5,19 @@ import { render } from "@testing-library/react";
 import WrapperPage from "../WrapperPage";
 
 jest.mock("pages/Page/components", () => {
-  const module = jest.requireActual("pages/Page/components");
+  const mockModule = jest.requireActual("pages/Page/components");
 
   return {
-    ...module,
+    ...mockModule,
     Header: () => <span>Header</span>,
   };
 });
 
 jest.mock("commons/Footer", () => {
-  const module = jest.requireActual("commons/Footer");
+  const mockModule = jest.requireActual("commons/Footer");
 
   return {
-    ...module,
+    ...mockModule,
     Footer: () => <span>Footer</span>,
   };
 });

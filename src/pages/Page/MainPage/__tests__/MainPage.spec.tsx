@@ -12,10 +12,10 @@ jest.mock("next/dynamic", () => () => {
 });
 
 jest.mock("pages/Page/MainPage/api", () => {
-  const module = jest.requireActual("pages/Page/MainPage/api");
+  const mockModule = jest.requireActual("pages/Page/MainPage/api");
 
   return {
-    ...module,
+    ...mockModule,
     get: jest.fn().mockResolvedValue(
       new Promise((res) =>
         res({
@@ -36,10 +36,10 @@ jest.mock("pages/Page/MainPage/api", () => {
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     Header: () => <span>Header</span>,
   };
 });
@@ -48,10 +48,10 @@ jest.mock("../../components", () => {
 jest.mock("commons/Footer", () => () => <span>Footer</span>);
 
 jest.mock("../components", () => {
-  const module = jest.requireActual("../components");
+  const mockModule = jest.requireActual("../components");
 
   return {
-    ...module,
+    ...mockModule,
     BackgroundImage: () => <span>BackgroundImage</span>,
     AboutMe: () => <span>AboutMe</span>,
     Portfolio: () => <span>Portfolio</span>,
@@ -60,10 +60,10 @@ jest.mock("../components", () => {
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

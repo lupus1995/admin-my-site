@@ -9,29 +9,29 @@ import { InterlocutorI } from "websockets/entities/Users";
 import Template from "../Template";
 
 jest.mock("primereact/avatar", () => {
-  const module = jest.requireActual("primereact/avatar");
+  const mockModule = jest.requireActual("primereact/avatar");
 
   return {
-    ...module,
+    ...mockModule,
     Avatar: () => <span>Avatar</span>,
   };
 });
 
 jest.mock("react-lines-ellipsis", () => () => <span>LinesEllipsis</span>);
 jest.mock("primereact/badge", () => {
-  const module = jest.requireActual("primereact/badge");
+  const mockModule = jest.requireActual("primereact/badge");
 
   return {
-    ...module,
+    ...mockModule,
     Badge: () => <span>Badge</span>,
   };
 });
 
 jest.mock("../hooks", () => {
-  const module = jest.requireActual("../hooks");
+  const mockModule = jest.requireActual("../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useIsActiveInterlocutor: jest.fn().mockReturnValue(false),
   };
 });

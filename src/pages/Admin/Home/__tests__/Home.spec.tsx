@@ -13,10 +13,10 @@ fetchMock.enableMocks();
 jest.mock("react-redux");
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
     }),
@@ -24,10 +24,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("utils/helpers", () => {
-  const module = jest.requireActual("utils/helpers");
+  const mockModule = jest.requireActual("utils/helpers");
 
   return {
-    ...module,
+    ...mockModule,
     hasWindow: () => true,
   };
 });
@@ -35,19 +35,19 @@ jest.mock("utils/helpers", () => {
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
 jest.mock("pages/Admin/Home/api", () => {
-  const module = jest.requireActual("pages/Admin/Home/api");
+  const mockModule = jest.requireActual("pages/Admin/Home/api");
 
   return {
-    ...module,
+    ...mockModule,
     get: jest.fn(),
   };
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     Dashboard: ({ children }: { children: JSX.Element }) => <>{children}</>,
     BlockImageInput: () => <span>BlockImageInput</span>,
     AdminEditor: () => <span>AdminEditor</span>,

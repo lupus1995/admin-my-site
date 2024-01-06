@@ -15,10 +15,10 @@ jest.mock("next/link", () => ({ children }: { children: React.ReactNode }) => (
 ));
 
 jest.mock("commons/HookGetSizeImage/hook", () => {
-  const module = jest.requireActual("commons/HookGetSizeImage/hook");
+  const mockModule = jest.requireActual("commons/HookGetSizeImage/hook");
 
   return {
-    ...module,
+    ...mockModule,
     useImageName: ({ imageName }: { imageName: string }) => ({
       imageUrl: imageName,
     }),
@@ -26,10 +26,10 @@ jest.mock("commons/HookGetSizeImage/hook", () => {
 });
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: jest.fn().mockReturnValue({}),
   };
 });

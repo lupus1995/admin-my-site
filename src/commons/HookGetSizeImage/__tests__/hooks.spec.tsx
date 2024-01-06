@@ -7,10 +7,10 @@ import { IMAGE_SIZE_ENUM } from "../enums";
 import { useImageName } from "../hook";
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: () => ({
       is360: false,
       is481: false,

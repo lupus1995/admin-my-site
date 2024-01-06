@@ -7,28 +7,28 @@ import { ProjectI } from "pages/interface";
 import ProjectItem from "../ProjectItem";
 
 jest.mock("../../widget", () => {
-  const module = jest.requireActual("../../widget");
+  const mockModule = jest.requireActual("../../widget");
 
   return {
-    ...module,
+    ...mockModule,
     ItemList: () => <span>ItemList</span>,
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest.fn().mockReturnValue({ language: "ru" }),
   };
 });
 
 jest.mock("commons/HookGetSizeImage/hook", () => {
-  const module = jest.requireActual("commons/HookGetSizeImage/hook");
+  const mockModule = jest.requireActual("commons/HookGetSizeImage/hook");
 
   return {
-    ...module,
+    ...mockModule,
     useImageName: jest.fn().mockReturnValue({ imageUrl: "imageUrl" }),
   };
 });

@@ -8,10 +8,10 @@ import Portfolio from "../Portfolio";
 jest.mock("next/link", () => () => <span>Link</span>);
 
 jest.mock("../../../../components", () => {
-  const module = jest.requireActual("../../../../components");
+  const mockModule = jest.requireActual("../../../../components");
 
   return {
-    ...module,
+    ...mockModule,
     ContentsContainer: () => <span>ContentsContainer</span>,
     ContentsContainerSkeleton: () => <span>ContentsContainerSkeleton</span>,
   };
@@ -25,10 +25,10 @@ jest.mock("../hooks", () => {
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

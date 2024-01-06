@@ -9,10 +9,10 @@ jest.mock("next/link", () => ({ children }: { children: ReactNode }) => (
 ));
 
 jest.mock("../../widgets", () => {
-  const module = jest.requireActual("../../widgets");
+  const mockModule = jest.requireActual("../../widgets");
 
   return {
-    ...module,
+    ...mockModule,
     WrapperPage: ({ children }: { children: ReactNode }) => (
       <span>{children}</span>
     ),

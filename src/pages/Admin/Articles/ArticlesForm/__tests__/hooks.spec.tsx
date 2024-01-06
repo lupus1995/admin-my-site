@@ -5,19 +5,19 @@ import { NextRouter } from "next/router";
 import { useInitFormArticle, useSaveArticle } from "../hooks";
 
 jest.mock("store/hooks", () => {
-  const module = jest.requireActual("store/hooks");
+  const mockModule = jest.requireActual("store/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useAppDispatch: jest.fn().mockResolvedValue({ status: true }),
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest.fn().mockReturnValue({ t: jest.fn() }),
   };
 });

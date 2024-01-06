@@ -5,29 +5,29 @@ import { render } from "@testing-library/react";
 import ArticlesForm from "../ArticlesForm";
 
 jest.mock("../hooks", () => {
-  const module = jest.requireActual("../hooks");
+  const mockModule = jest.requireActual("../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useSaveArticle: jest.fn(),
     useInitFormArticle: jest.fn().mockReturnValue(true),
   };
 });
 
 jest.mock("pages/Admin/hooks", () => {
-  const module = jest.requireActual("pages/Admin/hooks");
+  const mockModule = jest.requireActual("pages/Admin/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useSession: jest.fn(),
   };
 });
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
       query: {
@@ -38,10 +38,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("pages/Admin/components", () => {
-  const module = jest.requireActual("pages/Admin/components");
+  const mockModule = jest.requireActual("pages/Admin/components");
 
   return {
-    ...module,
+    ...mockModule,
     Dashboard: ({ children }: { children: ReactNode }) => <>{children}</>,
     AdminEditor: () => <span>AdminEditor</span>,
     BlockImageInput: () => <span>BlockImageInput</span>,
@@ -51,10 +51,12 @@ jest.mock("pages/Admin/components", () => {
 });
 
 jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
-  const module = jest.requireActual("pages/Admin/Articles/ArticlesForm/api");
+  const mockModule = jest.requireActual(
+    "pages/Admin/Articles/ArticlesForm/api"
+  );
 
   return {
-    ...module,
+    ...mockModule,
     getArticle: jest.fn().mockResolvedValue(
       new Promise((res) =>
         res({
@@ -78,10 +80,10 @@ jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

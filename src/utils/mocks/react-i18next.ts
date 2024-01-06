@@ -1,8 +1,8 @@
 const reactI18next = ({ language }: { language: string }) => {
-  const module = jest.requireActual("react-i18next");
+  const mockModule = jest.requireActual("react-i18next");
 
   return {
-    ...module,
+    ...mockModule,
     useTranslation: () => ({
       i18n: {
         language: language,

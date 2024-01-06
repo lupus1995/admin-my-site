@@ -9,10 +9,10 @@ jest.mock("next/link", () => ({ children }: { children: React.ReactNode }) => (
 ));
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

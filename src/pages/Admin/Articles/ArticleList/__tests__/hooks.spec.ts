@@ -6,10 +6,10 @@ import { useArticleModal } from "../hooks";
 fetchMock.enableMocks();
 jest.mock("react-redux");
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({ push: jest.fn() }),
   };
 });

@@ -8,18 +8,18 @@ import reactI18next from "utils/mocks/react-i18next";
 import Article from "../ArticleItem";
 
 jest.mock("pages/Admin/widget", () => {
-  const module = jest.requireActual("pages/Admin/widget");
+  const mockModule = jest.requireActual("pages/Admin/widget");
 
   return {
-    ...module,
+    ...mockModule,
     ItemList: () => <span>ItemList</span>,
   };
 });
 jest.mock("commons/HookGetSizeImage/hook", () => {
-  const module = jest.requireActual("commons/HookGetSizeImage/hook");
+  const mockModule = jest.requireActual("commons/HookGetSizeImage/hook");
 
   return {
-    ...module,
+    ...mockModule,
     useImageName: jest.fn().mockReturnValue({ imageUrl: "imageUrl" }),
   };
 });

@@ -10,20 +10,20 @@ import ProjectsForm from "../ProjectsForm";
 jest.mock("../hooks");
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 jest.mock("../../hooks", () => {
-  const module = jest.requireActual("../../hooks");
+  const mockModule = jest.requireActual("../../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useSession: jest.fn(),
     useUpdateTextError: jest.fn(),
   };
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     Dashboard: ({ children }: { children: ReactNode }) => (
       <span>{children}</span>
     ),
@@ -33,19 +33,19 @@ jest.mock("../../components", () => {
 });
 
 jest.mock("../../widget", () => {
-  const module = jest.requireActual("../../widget");
+  const mockModule = jest.requireActual("../../widget");
 
   return {
-    ...module,
+    ...mockModule,
     HidePublished: () => <span>HidePublished</span>,
   };
 });
 
 jest.mock("../../commons", () => {
-  const module = jest.requireActual("../../commons");
+  const mockModule = jest.requireActual("../../commons");
 
   return {
-    ...module,
+    ...mockModule,
     ButtonSubmit: () => <span>ButtonSubmit</span>,
     LinkToUrl: () => <span>LinkToUrl</span>,
     TextError: () => <span>TextError</span>,
@@ -53,10 +53,10 @@ jest.mock("../../commons", () => {
 });
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
       query: {
@@ -67,10 +67,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("store/hooks", () => {
-  const module = jest.requireActual("store/hooks");
+  const mockModule = jest.requireActual("store/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useAppDispatch: jest.fn().mockResolvedValue({ status: true }),
   };
 });

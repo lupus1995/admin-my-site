@@ -12,10 +12,10 @@ jest.mock("next/head", () => () => <span>Head</span>);
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 
 jest.mock("../../widgets", () => {
-  const module = jest.requireActual("../../widgets");
+  const mockModule = jest.requireActual("../../widgets");
 
   return {
-    ...module,
+    ...mockModule,
     WrapperPage: ({ children }: { children: ReactNode }) => (
       <span>{children}</span>
     ),
@@ -23,10 +23,10 @@ jest.mock("../../widgets", () => {
 });
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
     }),
@@ -34,10 +34,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("commons/HookGetSizeImage/hook", () => {
-  const module = jest.requireActual("commons/HookGetSizeImage/hook");
+  const mockModule = jest.requireActual("commons/HookGetSizeImage/hook");
 
   return {
-    ...module,
+    ...mockModule,
     useImageName: jest.fn().mockReturnValue({
       imageUrl: "imageUrl",
     }),

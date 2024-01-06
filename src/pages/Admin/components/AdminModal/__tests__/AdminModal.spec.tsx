@@ -5,10 +5,10 @@ import { render } from "@testing-library/react";
 import AdminModal from "../AdminModal";
 
 jest.mock("../components", () => {
-  const module = jest.requireActual("../components");
+  const mockModule = jest.requireActual("../components");
 
   return {
-    ...module,
+    ...mockModule,
     AdminFooter: () => <span>AdminFooter</span>,
     AdminHeader: () => <span>AdminHeader</span>,
   };

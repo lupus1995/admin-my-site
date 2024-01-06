@@ -43,7 +43,7 @@ const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
   );
 };
 
-MyApp.getInitialProps = async (appContext: AppContext) => {
+MyApp.getStaticProps = async (appContext: AppContext) => {
   let host = "";
   if (appContext.ctx.req) {
     const {

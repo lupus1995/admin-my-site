@@ -5,10 +5,10 @@ import { render } from "@testing-library/react";
 import ContentSkeleton from "../ContentSkeleton";
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: jest.fn().mockReturnValue({}),
   };
 });

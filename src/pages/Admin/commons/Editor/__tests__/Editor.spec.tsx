@@ -6,10 +6,10 @@ import AdminEditor from "../Editor";
 
 jest.mock("html-to-draftjs");
 jest.mock("react-draft-wysiwyg", () => {
-  const module = jest.requireActual("react-draft-wysiwyg");
+  const mockModule = jest.requireActual("react-draft-wysiwyg");
 
   return {
-    ...module,
+    ...mockModule,
     Editor: ({
       editorClassName,
       name,
@@ -27,10 +27,10 @@ jest.mock("react-draft-wysiwyg", () => {
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

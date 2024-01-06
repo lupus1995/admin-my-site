@@ -7,10 +7,10 @@ import { JssProvider } from "react-jss";
 import ContentsContainerSkeleton from "../ContentsContainerSkeleton";
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: jest.fn().mockReturnValue({}),
   };
 });

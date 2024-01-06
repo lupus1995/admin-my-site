@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import classNames from "classnames";
 
 import FormRow from "pages/Admin/commons/FormRow";
+import { CustomImage } from "pages/Page/commons";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -24,7 +25,11 @@ const ListWithItem: FC<ListWithItemI> = ({
   return (
     <div className="image-item">
       <FormRow>
-        <img className={`${styles.image}`} src={image?.data_url} alt={label} />
+        <CustomImage
+          className={`${styles.image}`}
+          src={image?.data_url}
+          alt={label}
+        />
       </FormRow>
       <div className={styles.imageManage}>
         <button
