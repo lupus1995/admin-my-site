@@ -5,6 +5,17 @@ import { render } from "@testing-library/react";
 import FeedbackTable from "../FeedbackTable";
 import { FeedbackTableI } from "../inteface";
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("FeedbackTable", () => {
   let baseProps: FeedbackTableI;
   beforeEach(() => {

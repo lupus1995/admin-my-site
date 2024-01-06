@@ -2,7 +2,7 @@ import { Classes } from "jss";
 
 import { InterlocutorI, UserI } from "websockets/entities/Users";
 
-export type PropsT = UserI & {
+export type PropsT = Omit<UserI, "id"> & {
   isOnline: boolean;
   styles: Classes<
     | "interlocutorItem"

@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
 import { useInitProjects } from "../hooks";
 
@@ -11,11 +11,28 @@ jest.mock("../api", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("hooks", () => {
-  it("useInitProjects", () => {
-    const { result } = renderHook(() => useInitProjects());
+  it("useInitProjects", async () => {
+    let render;
+    await act(() => {
+      render = renderHook(() => useInitProjects());
+    });
+
+    // @ts-ignore
+    const { result } = render;
 
     expect(Array.isArray(result.current.projects)).toBeTruthy();
-    expect(result.current.visibleSkeleton).toBeTruthy();
+    expect(result.current.visibleSkeleton).toBeFalsy();
   });
 });

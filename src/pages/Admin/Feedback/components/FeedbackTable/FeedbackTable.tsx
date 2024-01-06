@@ -48,7 +48,6 @@ const FeedbackTable: FC<FeedbackTableI> = ({
               borderWidth={1}
               borderRadius={0}
               size={24}
-              de
               borderColor="#696cff"
               icon={
                 <svg

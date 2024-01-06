@@ -10,6 +10,17 @@ jest.mock("react-images-uploading", () => () => (
   <span>react-images-uploading</span>
 ));
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("BlockImageInput", () => {
   let baseProps: BlockImageInputI;
   beforeEach(() => {

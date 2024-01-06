@@ -26,6 +26,17 @@ jest.mock("react-draft-wysiwyg", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("Editor", () => {
   let props: {
     setValue: () => void;
@@ -33,6 +44,7 @@ describe("Editor", () => {
     isSubmitted: boolean;
     trigger: () => void;
     watch: () => void;
+    register: () => void;
     isDisabled: boolean;
     disabledClass: string;
     name: string;
@@ -45,6 +57,7 @@ describe("Editor", () => {
       isSubmitted: false,
       trigger: jest.fn,
       watch: jest.fn,
+      register: jest.fn,
       isDisabled: false,
       disabledClass: "disabledClass",
       name: "name",

@@ -8,6 +8,17 @@ jest.mock("next/link", () => ({ children }: { children: React.ReactNode }) => (
   <>{children}</>
 ));
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("ItemWrapper", () => {
   it("check renderr component", () => {
     const { getByText } = render(

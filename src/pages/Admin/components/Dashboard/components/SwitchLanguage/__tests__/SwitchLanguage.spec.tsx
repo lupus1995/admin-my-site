@@ -4,6 +4,18 @@ import { render } from "@testing-library/react";
 
 import SwitchLanguage from "../SwitchLanguage";
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    changeLanguage: jest.fn(),
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("SwitchLanguage", () => {
   it("check render component", () => {
     const { getByText } = render(<SwitchLanguage />);

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import * as messages from "websockets/entities/Messages";
 import { MessageI } from "websockets/entities/share/types";
@@ -13,15 +13,20 @@ jest.mock("websockets/entities/Messages");
 jest.mock("websockets/entities/Users");
 jest.mock("../hooks");
 
+Element.prototype.scrollIntoView = jest.fn();
+
 describe("Messages", () => {
   it("check renderr component", () => {
-    jest.spyOn(messages, "useGetMessages").mockReturnValue([
-      {
-        _id: "_id",
-        value: "value",
-        createdAt: "2023-10-30T19:47:44.500+00:00",
-      } as MessageI,
-    ]);
+    jest.spyOn(messages, "useGetMessages").mockReturnValue({
+      messages: [
+        {
+          _id: "_id",
+          value: "value",
+          createdAt: "2023-10-30T19:47:44.500+00:00",
+        } as MessageI,
+      ],
+      count: 1,
+    });
     jest
       .spyOn(activeUser, "useActiveUser")
       .mockReturnValue({} as activeUser.InterlocutorI);
@@ -29,9 +34,9 @@ describe("Messages", () => {
       .spyOn(author, "useGetAuthor")
       .mockReturnValue(jest.fn().mockReturnValue("author"));
 
-    const { getByText } = render(<Messages />);
-
-    screen.debug();
+    const { getByText } = render(
+      <Messages handleClickByDonwload={jest.fn()} />
+    );
 
     expect(getByText(/author/i)).toBeInTheDocument();
     expect(getByText(/value/i)).toBeInTheDocument();

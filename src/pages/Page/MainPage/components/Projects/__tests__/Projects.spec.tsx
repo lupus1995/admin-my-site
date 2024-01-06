@@ -32,6 +32,17 @@ jest.mock("pages/Page/components/Content/hooks", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("Projects", () => {
   it("check render component sceleton", () => {
     jest.mocked(useInitProjects).mockImplementation(() => ({

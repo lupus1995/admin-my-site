@@ -59,6 +59,17 @@ jest.mock("../components", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("MainPage", () => {
   it("check render component", async () => {
     const { findByText } = render(

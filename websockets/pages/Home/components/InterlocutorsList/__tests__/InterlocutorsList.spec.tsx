@@ -3,8 +3,9 @@ import React, { forwardRef } from "react";
 import { render } from "@testing-library/react";
 import { Classes } from "jss";
 
+import { MessageI } from "websockets/entities/share/types";
 import * as userEntities from "websockets/entities/Users";
-import { InterlocutorI, MessageI } from "websockets/entities/Users";
+import { InterlocutorI } from "websockets/entities/Users";
 
 import * as hooks from "../hooks";
 import InterlocutorsList from "../InterlocutorsList";
@@ -27,6 +28,14 @@ jest.mock("primereact/dataview", () => {
     DataView: forwardRef(() => <span>DataView</span>),
   };
 });
+jest.mock("../../../wrappers/SocketsWrapper", () => {
+  const module = jest.requireActual("../../../wrappers/SocketsWrapper");
+
+  return {
+    ...module,
+    useSocketUserOnline: jest.fn(),
+  };
+});
 
 describe("InterlocutorsList", () => {
   it("check render component by loading is false", () => {
@@ -41,7 +50,9 @@ describe("InterlocutorsList", () => {
     });
     jest.spyOn(hooks, "useListInterlocutors").mockReturnValue([]);
 
-    const { getByText } = render(<InterlocutorsList />);
+    const { getByText } = render(
+      <InterlocutorsList handleClickByInterlocutor={jest.fn} />
+    );
 
     expect(getByText(/DataView/i)).toBeInTheDocument();
   });
@@ -60,18 +71,30 @@ describe("InterlocutorsList", () => {
         styles: Classes<
           | "interlocutorsList"
           | "interlocutorItem"
+          | "interlocutorItemActive"
           | "interlocutorAvatar"
+          | "interlocutorBadge"
           | "interlocutorsDate"
           | "interlocutorInfo"
           | "interlocutorButton"
         >;
         interlocutor: InterlocutorI;
         message: MessageI;
-        id: number;
+        handleClickByInterlocutor: ({
+          roomId,
+          interlocutor,
+        }: {
+          roomId: string;
+          interlocutor: InterlocutorI;
+        }) => () => Promise<void>;
+        isOnline: boolean;
+        id: string;
       },
     ]);
 
-    const { getByText } = render(<InterlocutorsList />);
+    const { getByText } = render(
+      <InterlocutorsList handleClickByInterlocutor={jest.fn} />
+    );
 
     expect(getByText(/DataView/i)).toBeInTheDocument();
   });
@@ -87,7 +110,9 @@ describe("InterlocutorsList", () => {
     });
     jest.spyOn(hooks, "useListInterlocutors").mockReturnValue([]);
 
-    const { queryByText } = render(<InterlocutorsList />);
+    const { queryByText } = render(
+      <InterlocutorsList handleClickByInterlocutor={jest.fn} />
+    );
 
     expect(queryByText(/DataView/i)).not.toBeInTheDocument();
   });

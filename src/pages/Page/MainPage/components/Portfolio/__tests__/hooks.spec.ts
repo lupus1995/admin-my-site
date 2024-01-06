@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
 import { useInitArticles } from "../hooks";
 
@@ -11,11 +11,28 @@ jest.mock("../api", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("hooks", () => {
-  it("useInitArticles", () => {
-    const { result } = renderHook(() => useInitArticles());
+  it("useInitArticles", async () => {
+    let render;
+    await act(() => {
+      render = renderHook(() => useInitArticles());
+    });
+
+    // @ts-ignore
+    const { result } = render;
 
     expect(Array.isArray(result.current.articles)).toBeTruthy();
-    expect(result.current.visibleSkeleton).toBeTruthy();
+    expect(result.current.visibleSkeleton).toBeFalsy();
   });
 });

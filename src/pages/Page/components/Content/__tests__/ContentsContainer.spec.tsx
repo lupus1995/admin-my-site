@@ -7,6 +7,19 @@ import ContentsContainer from "../ContentsContainer";
 
 jest.mock("../Content", () => () => <>Content</>);
 
+jest.mock("utils/mediaQuery", () => {
+  const module = jest.requireActual("utils/mediaQuery");
+
+  return {
+    ...module,
+    useIsMediaQuery: jest.fn().mockReturnValue({}),
+  };
+});
+
+jest.mock("../style", () => () => ({
+  contentsContainer: {},
+}));
+
 describe("ContentsContainer", () => {
   it("check render component", () => {
     const { getByText, getByTestId } = render(

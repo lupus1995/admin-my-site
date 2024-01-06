@@ -6,6 +6,17 @@ import * as active from "websockets/entities/Users";
 
 import ListMessages from "../ListMessages";
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 jest.mock("websockets/entities/Messages");
 jest.mock("websockets/entities/Users");
 jest.mock("../components", () => {
@@ -25,7 +36,9 @@ describe("ListMessages", () => {
       .spyOn(active, "useGetActiveInterlocutor")
       .mockReturnValue({ activeInterlocutor: {} as active.InterlocutorI });
 
-    const { getByText } = render(<ListMessages />);
+    const { getByText } = render(
+      <ListMessages handleClickByDonwload={jest.fn()} />
+    );
 
     expect(getByText(/FormForMessage/i)).toBeInTheDocument();
     expect(getByText(/Messages/i)).toBeInTheDocument();
@@ -36,7 +49,9 @@ describe("ListMessages", () => {
       .spyOn(active, "useGetActiveInterlocutor")
       .mockReturnValue({ activeInterlocutor: null });
 
-    const { queryByText } = render(<ListMessages />);
+    const { queryByText } = render(
+      <ListMessages handleClickByDonwload={jest.fn()} />
+    );
 
     expect(queryByText(/FormForMessage/i)).not.toBeInTheDocument();
     expect(queryByText(/Messages/i)).not.toBeInTheDocument();

@@ -62,7 +62,7 @@ const useStylesClasses = createUseStyles({
 });
 
 // общие стили для тегов основной страницы
-const useStylesTag = createUseStyles({
+const stylesTag = createUseStyles({
   "@global": {
     "*": {
       boxSizing: "border-box",
@@ -103,4 +103,4 @@ const useStyleSkeleton = createUseStyles({
   },
 });
 
-export { useStylesClasses, useStylesTag, useStyleSkeleton };
+export { useStylesClasses, stylesTag, useStyleSkeleton };
