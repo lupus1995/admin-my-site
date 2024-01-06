@@ -47,6 +47,17 @@ jest.mock("pages/Admin/Feedback/components", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("Feedback", () => {
   it("check render component", async () => {
     jest

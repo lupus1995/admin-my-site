@@ -3,11 +3,36 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { shallowEqual } from "react-redux";
 
 import { useAppSelector, useAppDispatch } from "store/hooks";
+import { PaginationI } from "websockets/entities/share/types";
 
 import { useGetSearch } from "./search";
 import { fetchInterlocutors, fetchSearchInterlocutor } from "../ducks";
-import { clearInterlocutors, interlocutorSelector } from "../slice";
-import { PaginationI } from "../types";
+import {
+  clearInterlocutors,
+  interlocutorSelector,
+  updateInterlocutors,
+} from "../slice";
+import { UserI } from "../types";
+
+export const useUpdateInterlocutor = () => {
+  const dispatch = useAppDispatch();
+
+  // const handleUpdateInterlocutor = useCallback(
+  //   (roomId: string) => {
+  //     dispatch(fetchInterlocutor(roomId));
+  //   },
+  //   [dispatch]
+  // );
+
+  const handleUpdateInterlocutor = useCallback(
+    (interlocutor: UserI) => {
+      dispatch(updateInterlocutors(interlocutor));
+    },
+    [dispatch]
+  );
+
+  return { handleUpdateInterlocutor };
+};
 
 export const useGetInterlocutors = () => {
   const interlocutors = useAppSelector(interlocutorSelector, shallowEqual);

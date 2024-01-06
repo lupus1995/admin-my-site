@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import fetchMock from "jest-fetch-mock";
 
 import ArticlesForm from "../ArticlesForm";
@@ -67,6 +67,17 @@ jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
         })
       )
     ),
+  };
+});
+
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
   };
 });
 

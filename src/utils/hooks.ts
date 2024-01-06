@@ -3,8 +3,8 @@ import { useRef, useEffect, MutableRefObject, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 // возвращает предыдущее значение переменной для которой задан текущий хук
-export const usePrevious = (value: unknown) => {
-  const ref: MutableRefObject<unknown> = useRef();
+export const usePrevious = <T>(value: T) => {
+  const ref: MutableRefObject<T> = useRef();
   useEffect(() => {
     ref.current = value;
   });

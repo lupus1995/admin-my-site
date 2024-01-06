@@ -4,6 +4,10 @@ import { render } from "@testing-library/react";
 
 import WrapperContentMainPageBlock from "../WrapperContentMainPageBlock";
 
+jest.mock("../../../components/Content/ContentsContainerSkeleton", () => () => (
+  <span>ContentsContainerSkeleton</span>
+));
+
 jest.mock("utils/mediaQuery", () => ({
   useIsMediaQuery: jest.fn().mockReturnValue({
     is360: false,
@@ -17,9 +21,10 @@ jest.mock("utils/mediaQuery", () => ({
 
 describe("WrapperContentMainPageBlock", () => {
   it("check render component", () => {
-    const { getByTestId } = render(<WrapperContentMainPageBlock />);
+    const { getByText, getByTestId } = render(<WrapperContentMainPageBlock />);
 
     expect(getByTestId("wrapper")).toBeInTheDocument();
     expect(getByTestId("title")).toBeInTheDocument();
+    expect(getByText(/ContentsContainerSkeleton/i)).toBeInTheDocument();
   });
 });

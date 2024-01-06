@@ -24,6 +24,17 @@ jest.mock("../hooks", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("Portfolio", () => {
   it("check render component with visible default part", () => {
     jest.spyOn(hooks, "useInitArticles").mockImplementation(

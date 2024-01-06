@@ -1,11 +1,18 @@
 import { AppDispatch, RootState } from "store/store";
 
 import {
+  getDataUser,
+  getInterlocutor,
   getInterlocutors,
   searchInterlocutors as searchInterlocutorsAction,
 } from "./services";
-import { addInterlocutors, searchSelector } from "./slice";
-import { PaginationI } from "./types";
+import {
+  addInterlocutors,
+  searchSelector,
+  setUser,
+  updateInterlocutors,
+} from "./slice";
+import { PaginationI } from "../share/types";
 
 export const fetchInterlocutors =
   (pagination: PaginationI) => async (dispatch: AppDispatch) => {
@@ -26,4 +33,17 @@ export const fetchSearchInterlocutor =
     );
 
     dispatch(addInterlocutors(interlocutors.data));
+  };
+
+export const fetchUserData = () => async (dispatch: AppDispatch) => {
+  const user = await dispatch(getDataUser.initiate());
+
+  dispatch(setUser(user.data));
+};
+
+export const fetchInterlocutor =
+  (roomId: string) => async (dispatch: AppDispatch) => {
+    const { data } = await dispatch(getInterlocutor.initiate(roomId));
+
+    dispatch(updateInterlocutors(data));
   };

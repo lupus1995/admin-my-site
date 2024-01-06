@@ -26,6 +26,17 @@ jest.mock("react-draft-wysiwyg", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("AdminEditor", () => {
   let props: {
     setValue: () => void;
@@ -33,6 +44,7 @@ describe("AdminEditor", () => {
     isSubmitted: boolean;
     trigger: () => void;
     watch: () => void;
+    register: () => void;
     isDisabled: boolean;
     disabledClass: string;
     name: string;
@@ -44,6 +56,7 @@ describe("AdminEditor", () => {
       errors: { name: { message: "error message" } },
       isSubmitted: false,
       trigger: jest.fn,
+      register: jest.fn,
       watch: jest.fn,
       isDisabled: false,
       disabledClass: "disabledClass",

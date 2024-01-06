@@ -25,6 +25,19 @@ jest.mock("commons/HookGetSizeImage/hook", () => {
   };
 });
 
+jest.mock("utils/mediaQuery", () => {
+  const module = jest.requireActual("utils/mediaQuery");
+
+  return {
+    ...module,
+    useIsMediaQuery: jest.fn().mockReturnValue({}),
+  };
+});
+
+jest.mock("../style", () => () => ({
+  contentsContainer: {},
+}));
+
 describe("Content", () => {
   let initProps: ContentI;
 

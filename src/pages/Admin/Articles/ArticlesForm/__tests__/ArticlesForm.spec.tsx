@@ -77,6 +77,17 @@ jest.mock("pages/Admin/Articles/ArticlesForm/api", () => {
   };
 });
 
+jest.mock("utils/hooks", () => {
+  const module = jest.requireActual("utils/hooks");
+
+  return {
+    ...module,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
+
 describe("ArticlesForm", () => {
   it("check render component", async () => {
     const { getByText, findByText, findAllByRole, findAllByText } = render(

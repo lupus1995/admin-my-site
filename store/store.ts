@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import { RequestReducer } from "websockets/entities/share/services/StatusRequest";
+
 import { auth, authReducer, authMiddleware } from "./services/auth";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 import {
@@ -8,11 +10,22 @@ import {
   authReducer as authWebscoketsReducer,
 } from "../websockets/entities/Auth";
 import {
+  messagesApiReducer,
+  messagesMidlware,
+  messages,
+  messagesReducer,
+  typesMessageReducer,
+  roomReducer,
+} from "../websockets/entities/Messages";
+import {
   usersMiddleware,
   users,
   usersReducer,
   interlocutorReducer,
   searchSliceReducer,
+  activeInterlocutorReducer,
+  userSliceReducer,
+  usersOnlineSliceReducer,
 } from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
@@ -20,9 +33,17 @@ export const rootReducer = combineReducers({
   [tokens]: tokensReducer,
   [authWebsocket]: authWebscoketsReducer,
   [users]: usersReducer,
+  [messages]: messagesApiReducer,
   websockets: combineReducers({
     interlocutor: interlocutorReducer,
     searchSlice: searchSliceReducer,
+    activeInterlocutor: activeInterlocutorReducer,
+    messages: messagesReducer,
+    user: userSliceReducer,
+    typesMessage: typesMessageReducer,
+    roomId: roomReducer,
+    usersOnline: usersOnlineSliceReducer,
+    request: RequestReducer,
   }),
 });
 
@@ -35,7 +56,8 @@ export const setupStore = () => {
         authMiddleware,
         tokensMiddleware,
         authWebsocketsMiddleware,
-        usersMiddleware
+        usersMiddleware,
+        messagesMidlware
       );
     },
   });

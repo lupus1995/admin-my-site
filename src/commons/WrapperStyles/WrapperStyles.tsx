@@ -2,10 +2,10 @@ import React, { FC, ReactNode } from "react";
 
 import injectSheet from "react-jss";
 
-import { useStylesTag } from "utils/stylesPage";
+import { stylesTag } from "utils/stylesPage";
 
 const WrapperStyles: FC<{ children: ReactNode }> = ({ children }) => (
   <>{children}</>
 );
 
-export default injectSheet(useStylesTag, { link: true })(WrapperStyles);
+export default injectSheet(stylesTag, { link: true })(WrapperStyles);

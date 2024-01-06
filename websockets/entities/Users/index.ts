@@ -1,8 +1,15 @@
-import {
+export {
   useGetInterlocutors,
   usePaginationInterlocutor,
   useSetSearch,
   useGetSearch,
+  useGetActiveInterlocutor,
+  useSetActiveInterlocutor,
+  useActiveUser,
+  useFetchActiveUser,
+  useUpdateInterlocutor,
+  useGetUsersOnline,
+  useSetUsersOnline,
 } from "./hooks";
 import {
   getInterlocutors,
@@ -11,8 +18,14 @@ import {
   usersReducer,
   searchInterlocutors,
 } from "./services";
-import { interlocutorReducer, searchSliceReducer } from "./slice";
-import { PaginationI, UserI, InterlocutorI, MessageI } from "./types";
+import {
+  interlocutorReducer,
+  searchSliceReducer,
+  activeInterlocutorReducer,
+  userSliceReducer,
+  usersOnlineSliceReducer,
+} from "./slice";
+import { UserI, InterlocutorI } from "./types";
 
 export {
   searchInterlocutors,
@@ -21,11 +34,10 @@ export {
   users,
   usersReducer,
   interlocutorReducer,
-  useGetInterlocutors,
-  usePaginationInterlocutor,
   searchSliceReducer,
-  useSetSearch,
-  useGetSearch,
+  activeInterlocutorReducer,
+  userSliceReducer,
+  usersOnlineSliceReducer,
 };
 
-export type { PaginationI, UserI, InterlocutorI, MessageI };
+export type { UserI, InterlocutorI };

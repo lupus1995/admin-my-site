@@ -1,34 +1,48 @@
 import React, { FC } from "react";
 
 import classNames from "classnames";
-import { format } from "date-fns";
-import { Classes } from "jss";
 import { Avatar } from "primereact/avatar";
+import { Badge } from "primereact/badge";
 import LinesEllipsis from "react-lines-ellipsis";
 
-import { UserI } from "websockets/entities/Users";
+import { Time } from "websockets/pages/Home/commons";
+import { generateFullName } from "websockets/pages/Home/helpers";
 
-import { generateFullName } from "./helpers";
+import { useIsActiveInterlocutor } from "./hooks";
+import { PropsT } from "./types";
 
-const Template: FC<
-  UserI & {
-    styles: Classes<
-      | "interlocutorItem"
-      | "interlocutorAvatar"
-      | "interlocutorsDate"
-      | "interlocutorInfo"
-      | "interlocutorButton"
-    >;
-  }
-> = ({ interlocutor, message, styles }) => {
+const Template: FC<PropsT> = ({
+  interlocutor,
+  message,
+  styles,
+  handleClickByInterlocutor,
+  isOnline,
+}) => {
+  const isActive = useIsActiveInterlocutor({ interlocutor });
+
   return (
     <button
       type="button"
       className={classNames(`${styles.interlocutorButton}`)}
+      onClick={handleClickByInterlocutor({
+        roomId: message.roomId,
+        interlocutor,
+      })}
     >
-      <div className={classNames(`${styles.interlocutorItem}`)}>
+      <div
+        className={classNames(`${styles.interlocutorItem}`, {
+          [styles.interlocutorItemActive]: isActive,
+        })}
+      >
         <div className={classNames(`${styles.interlocutorAvatar}`)}>
           <Avatar image={interlocutor.avatar} size="large" shape="circle" />
+          {isOnline && (
+            <Badge
+              className={classNames(`${styles.interlocutorBadge}`)}
+              severity="success"
+              size="normal"
+            />
+          )}
         </div>
         <div className={classNames(`${styles.interlocutorInfo}`)}>
           <LinesEllipsis
@@ -47,9 +61,7 @@ const Template: FC<
             basedOn="words"
           />
           <div className={classNames(`${styles.interlocutorsDate}`)}>
-            <time>
-              {format(new Date(message.createdAt), "HH:mm:ss dd.MM.yyyy")}
-            </time>
+            <Time date={message.createdAt} />
           </div>
         </div>
       </div>

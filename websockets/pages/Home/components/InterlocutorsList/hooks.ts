@@ -1,18 +1,61 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
-import { UserI } from "websockets/entities/Users";
+import { usePrevious } from "utils/hooks";
+import {
+  InterlocutorI,
+  useGetInterlocutors,
+  useGetUsersOnline,
+} from "websockets/entities/Users";
 
+import { isUserOnline } from "./helpers";
 import useStyles from "./styles";
+import {
+  useJoinRoomSocket,
+  useLeftRoomSocket,
+} from "../../wrappers/SocketsWrapper/hooks";
 
-export const useListInterlocutors = (interlocutors: UserI[]) => {
+export const useListInterlocutors = ({
+  handleClickByInterlocutor,
+}: {
+  handleClickByInterlocutor: ({
+    roomId,
+    interlocutor,
+  }: {
+    roomId: string;
+    interlocutor: InterlocutorI;
+  }) => () => Promise<void>;
+}) => {
+  const interlocutors = useGetInterlocutors();
+  const { handleJoinRoomSocket } = useJoinRoomSocket();
+  const { handleLeftRoomSocket } = useLeftRoomSocket();
+  const prevInterlocutorsLength = usePrevious(interlocutors.length);
+  const usersOnline = useGetUsersOnline();
+  const usersOnlineIds = usersOnline.map((item) => item._id);
   const styles = useStyles();
 
   const list = useMemo(() => {
     return interlocutors.map((item) => ({
       ...item,
       styles,
+      handleClickByInterlocutor,
+      isOnline: isUserOnline({
+        usersOnlineIds,
+        interlocutor: item.interlocutor,
+      }),
     }));
-  }, [interlocutors, styles]);
+  }, [handleClickByInterlocutor, interlocutors, styles, usersOnlineIds]);
+
+  useEffect(() => {
+    const roomIds = interlocutors.map((item) => item.id);
+    if (prevInterlocutorsLength !== interlocutors.length) {
+      handleJoinRoomSocket({ roomIds });
+    }
+  }, [
+    handleJoinRoomSocket,
+    handleLeftRoomSocket,
+    interlocutors,
+    prevInterlocutorsLength,
+  ]);
 
   return list;
 };

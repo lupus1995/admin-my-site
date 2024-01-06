@@ -13,7 +13,7 @@ import "../src/resetDefaultStylesBrowsers.css";
 import "../src/roboto.css";
 
 import { getCurrentLanguager } from "utils/helpers";
-import { useStylesTag } from "utils/stylesPage";
+import { stylesTag } from "utils/stylesPage";
 
 import i18n from "../src/i18n";
 import { setupStore } from "../store/store";
@@ -24,7 +24,7 @@ const hostNameEnv = process.env.NEXT_PUBLIC_HOSTNAME;
 const store = setupStore();
 
 const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
-  useStylesTag();
+  stylesTag();
   const sheets = new SheetsRegistry();
   const generateId = createGenerateId();
 

@@ -19,4 +19,4 @@ const searchSlice = createSlice({
 export const searchSelector = (state: RootState) =>
   state.websockets.searchSlice;
 export const { setTypedSearch } = searchSlice.actions;
-export default searchSlice.reducer;
+export const searchSliceReducer = searchSlice.reducer;

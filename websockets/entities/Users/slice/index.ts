@@ -1,19 +1,27 @@
-import interlocutorReducer, {
+export {
+  activeInterlocutorReducer,
+  setActiveInterlocutor,
+  activeInterlocutorSelector,
+} from "./activeInterlocutorSlice";
+
+export {
+  interlocutorReducer,
   interlocutorSelector,
   addInterlocutors,
   clearInterlocutors,
+  updateInterlocutors,
 } from "./intelocutorSlice";
-import searchSliceReducer, {
+
+export {
+  searchSliceReducer,
   searchSelector,
   setTypedSearch,
 } from "./searchSlice";
 
 export {
-  interlocutorReducer,
-  searchSliceReducer,
-  interlocutorSelector,
-  searchSelector,
-  setTypedSearch,
-  addInterlocutors,
-  clearInterlocutors,
-};
+  usersOnlineSliceReducer,
+  setUsersOnline,
+  usersOnlineSelector,
+} from "./usersOnlineSlice";
+
+export { userSliceReducer, userSelector, setUser } from "./userSlice";

@@ -3,6 +3,11 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   interlocutorsList: {
     width: "400px",
+    "& .p-dataview-content": {
+      height: "calc(100vh - 171px)",
+      overflow: "hidden",
+      overflowY: "scroll",
+    },
   },
 
   interlocutorItem: {
@@ -14,8 +19,19 @@ const useStyles = createUseStyles({
     },
   },
 
+  interlocutorItemActive: {
+    backgroundColor: "#ccc",
+  },
+
   interlocutorAvatar: {
     marginRight: "15px",
+    position: "relative",
+  },
+
+  interlocutorBadge: {
+    position: "absolute",
+    top: 0,
+    right: 0,
   },
 
   interlocutorsDate: {
