@@ -13,6 +13,15 @@ jest.mock("websockets/entities/Messages");
 jest.mock("websockets/entities/Users");
 jest.mock("../hooks");
 
+jest.mock("websockets/pages/Home/commons", () => {
+  const module = jest.requireActual("websockets/pages/Home/commons");
+
+  return {
+    ...module,
+    Time: ({ date }: { date: string }) => <span>{date}</span>,
+  };
+});
+
 Element.prototype.scrollIntoView = jest.fn();
 
 describe("Messages", () => {
@@ -40,6 +49,6 @@ describe("Messages", () => {
 
     expect(getByText(/author/i)).toBeInTheDocument();
     expect(getByText(/value/i)).toBeInTheDocument();
-    expect(getByText(/22:47:44 30.10.2023/i)).toBeInTheDocument();
+    expect(getByText(/2023-10-30T19:47:44.500\+00:00/i)).toBeInTheDocument();
   });
 });
