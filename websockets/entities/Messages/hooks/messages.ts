@@ -7,7 +7,7 @@ import { MessageI } from "websockets/entities/share/types";
 
 import { fetchCreateMessage, fetchGetMessages } from "../ducks";
 import { addMessage, clearMessages, messageSelector } from "../slice";
-import { CreateMessageI, ResponseMessageI } from "../types";
+import { CreateMessageI } from "../types";
 
 export const useFetchMessages = () => {
   const dispatch = useAppDispatch();

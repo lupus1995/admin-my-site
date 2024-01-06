@@ -1,8 +1,7 @@
 import { AppDispatch } from "store/store";
 
-import { isMessage } from "./helpers";
 import { createMessage, getMessages, getTypesMessage } from "./services";
-import { addMessage, addMessages, setTypesMessage } from "./slice";
+import { addMessages, setTypesMessage } from "./slice";
 import { CreateMessageI, RoomIdI } from "./types";
 import { MessageI, PaginationI } from "../share/types";
 

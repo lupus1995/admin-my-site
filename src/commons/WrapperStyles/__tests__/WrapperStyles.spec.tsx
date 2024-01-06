@@ -1,14 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { render } from "@testing-library/react";
 
 import WrapperStyles from "../WrapperStyles";
 
+export declare type ComponentType<P = object> = (props: P) => JSX.Element;
+
 jest.mock("react-jss", () => ({
   __esModule: true,
   createUseStyles: jest.fn(),
-  default: () => (Component: React.FC) => (props: any) =>
-    <Component {...props}>{props.children}</Component>,
+  default:
+    () => (Component: ComponentType) => (props: { children: ReactNode }) =>
+      <Component {...props}>{props.children}</Component>,
 }));
 jest.mock("utils/stylesPage");
 

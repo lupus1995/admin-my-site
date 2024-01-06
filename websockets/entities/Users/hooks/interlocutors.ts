@@ -6,11 +6,7 @@ import { useAppSelector, useAppDispatch } from "store/hooks";
 import { PaginationI } from "websockets/entities/share/types";
 
 import { useGetSearch } from "./search";
-import {
-  fetchInterlocutor,
-  fetchInterlocutors,
-  fetchSearchInterlocutor,
-} from "../ducks";
+import { fetchInterlocutors, fetchSearchInterlocutor } from "../ducks";
 import {
   clearInterlocutors,
   interlocutorSelector,
