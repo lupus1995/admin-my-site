@@ -30,7 +30,7 @@ const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
 
   return (
     <Provider store={store}>
-      <JssProvider registry={sheets} generateId={generateId}>
+      <JssProvider registry={sheets} generateId={generateId} isSSR={false}>
         {host === hostNameEnv && env === "production" && (
           <Head>
             <meta name="yandex-verification" content="1b8ba196c8180663" />
@@ -43,7 +43,7 @@ const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
   );
 };
 
-MyApp.getStaticProps = async (appContext: AppContext) => {
+MyApp.getInitialProps = async (appContext: AppContext) => {
   let host = "";
   if (appContext.ctx.req) {
     const {
