@@ -18,6 +18,7 @@ const useStyle = createUseStyles({
   articleImage: {
     maxHeight: "400px",
     maxWidth: "100%",
+    height: "auto",
   },
   articlePublishedDate: {
     textAlign: "right",

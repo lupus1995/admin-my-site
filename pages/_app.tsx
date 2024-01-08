@@ -61,7 +61,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     // инициализация на сервере языка разметки
     // если этого не сделать, то может возникнуть ошибка рендеринга между сервером и клиентом
     await i18n.init({
-      lng: getCurrentLanguager({ language: cookies.i18nextLng || "" }),
+      lng: getCurrentLanguager({ language: cookies.i18nextLng || "ru" }),
     });
   }
 

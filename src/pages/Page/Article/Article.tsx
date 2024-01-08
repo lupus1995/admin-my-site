@@ -67,6 +67,10 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
       <Head>
         {/* @ts-ignore */}
         <title>{article.title[language]}</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/article/${article._id}`}
+        />
         {/* @ts-ignore */}
         <meta name="description" content={article.description[language]} />
         {/* @ts-ignore */}
