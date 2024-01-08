@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 import SpaceBetween from "commons/SpaceBetween";
 import { useAppDispatch } from "store/hooks";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
@@ -29,6 +30,7 @@ import { AdminEditor, BlockImageInput, Dashboard } from "../components";
 import { useDisabled, useSession, useUpdateTextError } from "../hooks";
 
 const Home = () => {
+  useSetAdminBlogModule();
   useSession();
   const { push } = useRouter();
   const styles = useStyles();

@@ -11,6 +11,7 @@ import { Dashboard, AdminModal } from "pages/Admin/components";
 import { useSession } from "pages/Admin/hooks";
 import { ItemWrapper } from "pages/Admin/widget";
 import { useAppDispatch } from "store/hooks";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -22,6 +23,7 @@ import useStyles from "./style";
 import { ArticleI } from "../../../interface";
 
 const ArticleList = () => {
+  useSetAdminBlogModule();
   useSession();
   const { t, language } = useLanguage();
   const [articles, setArticles] = useState<ArticleI[]>([]);

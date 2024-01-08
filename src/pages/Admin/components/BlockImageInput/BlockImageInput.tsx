@@ -34,7 +34,7 @@ const BlockImageInput: FC<BlockImageInputI> = ({
   const styles = useStyles();
   useEffect(() => {
     if (!isInitValues && imageUrl) {
-      setCurrentValues([{ data_url: [imageUrl] }]);
+      setCurrentValues([{ data_url: imageUrl }]);
       setIsInitValues(!isInitValues);
     }
 

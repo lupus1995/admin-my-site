@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { RequestReducer } from "websockets/entities/share/services/StatusRequest";
 
 import { auth, authReducer, authMiddleware } from "./services/auth";
+import { moduleReducer } from "./services/manageModules";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 import {
   authMiddleware as authWebsocketsMiddleware,
@@ -45,6 +46,7 @@ export const rootReducer = combineReducers({
     usersOnline: usersOnlineSliceReducer,
     request: RequestReducer,
   }),
+  module: moduleReducer,
 });
 
 export const setupStore = () => {

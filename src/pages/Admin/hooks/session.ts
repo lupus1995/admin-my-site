@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 // eslint-disable-next-line import/named
 import { throttle } from "lodash";
@@ -6,19 +6,34 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 import { useAppDispatch } from "store/hooks";
-import { updateTokens, checkAccessTokens } from "store/services/tokens";
-import { useLanguage, usePrevious } from "utils/hooks";
-import useUtilsStyles from "utils/styles";
+import { useGetModuleName, Modules } from "store/services/manageModules";
+import { checkAccessTokens, updateTokens } from "store/services/tokens";
+import { useLanguage } from "utils/hooks";
 
-// блокирует ввод данных и не дает возможности использовать события js/ts
-export const useDisabled = () => {
-  const utlisStyles = useUtilsStyles();
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+const useGetRedirect = () => {
+  const moduleName = useGetModuleName();
 
-  return { isDisabled, setIsDisabled, disabledClass: utlisStyles.disabled };
+  const redirect = useMemo(() => {
+    switch (moduleName) {
+      case Modules.ADMIN_BLOG: {
+        return "/signin";
+      }
+
+      case Modules.WEBSOCKETS: {
+        return "/websockets/signin";
+      }
+
+      default: {
+        return "/";
+      }
+    }
+  }, [moduleName]);
+
+  return redirect;
 };
 
 export const useSession = () => {
+  const redirectUrl = useGetRedirect();
   const dispatch = useAppDispatch();
   const { push } = useRouter();
   const { t } = useLanguage();
@@ -33,17 +48,17 @@ export const useSession = () => {
             theme: "colored",
           });
 
-          push("/signin");
+          push(redirectUrl);
         }
       });
     }, 90000);
 
     return () => clearInterval(interval);
-  }, [dispatch, push, t]);
+  }, [dispatch, push, redirectUrl, t]);
 
   useEffect(() => {
     const callbackEventListener = () =>
-      dispatch(updateTokens()).then((result) => {
+      dispatch(updateTokens({ redirectTo: redirectUrl })).then((result) => {
         if (!result.status) {
           toast(t(result.message), {
             type: "error",
@@ -68,25 +83,5 @@ export const useSession = () => {
       window.removeEventListener("scroll", redirect);
       window.removeEventListener("mousemove", redirect);
     };
-  }, [dispatch, push, t]);
-};
-
-// обновление текста ошибок после смены языка локали
-export const useUpdateTextError = ({
-  isSubmitted,
-  trigger,
-}: {
-  isSubmitted: boolean;
-  trigger: () => void;
-}) => {
-  const { language: i18nLanguage } = useLanguage();
-
-  const prevLng = usePrevious(i18nLanguage);
-
-  // обновление сообщений если поменяли язык
-  useEffect(() => {
-    if (prevLng !== i18nLanguage && isSubmitted) {
-      trigger();
-    }
-  }, [isSubmitted, i18nLanguage, prevLng, trigger]);
+  }, [dispatch, push, redirectUrl, t]);
 };

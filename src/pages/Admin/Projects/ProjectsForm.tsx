@@ -6,6 +6,7 @@ import { get } from "lodash";
 import { useForm } from "react-hook-form";
 
 import SpaceBetween from "commons/SpaceBetween";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -25,6 +26,7 @@ import { useDisabled, useSession, useUpdateTextError } from "../hooks";
 import { HidePublished } from "../widget";
 
 const ProjectsForm = () => {
+  useSetAdminBlogModule();
   useSession();
   const { t } = useLanguage();
   const {

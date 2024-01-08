@@ -24,6 +24,7 @@ import {
 } from "pages/Admin/components";
 import { useDisabled, useSession, useUpdateTextError } from "pages/Admin/hooks";
 import { HidePublished } from "pages/Admin/widget";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
@@ -32,6 +33,7 @@ import { useInitFormArticle, useSaveArticle } from "./hooks";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
+  useSetAdminBlogModule();
   useSession();
   const { t } = useLanguage();
   const {

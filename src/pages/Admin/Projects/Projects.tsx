@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import { ProjectI } from "pages/interface";
 import { useAppDispatch } from "store/hooks";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -18,6 +19,7 @@ import { useSession } from "../hooks";
 import { ItemWrapper } from "../widget";
 
 const Projects = () => {
+  useSetAdminBlogModule();
   useSession();
   const dispatch = useAppDispatch();
   const utilsStyles = useUtilsStyles();
