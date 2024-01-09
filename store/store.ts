@@ -6,6 +6,11 @@ import { auth, authReducer, authMiddleware } from "./services/auth";
 import { moduleReducer } from "./services/manageModules";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 import {
+  dictionaries,
+  dictionariesReducer,
+  dictionariesMiddleware,
+} from "../src/entities/dictionaries";
+import {
   authMiddleware as authWebsocketsMiddleware,
   auth as authWebsocket,
   authReducer as authWebscoketsReducer,
@@ -46,20 +51,25 @@ export const rootReducer = combineReducers({
     usersOnline: usersOnlineSliceReducer,
     request: RequestReducer,
   }),
+  blog: combineReducers({
+    [dictionaries]: dictionariesReducer,
+  }),
   module: moduleReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
-    devTools: true,
+    devTools: process.env.NODE_ENV === "development",
     reducer: rootReducer,
     middleware: (getDeafaultMeadlware) => {
+      console.log('getDeafaultMeadlware', getDeafaultMeadlware())
       return getDeafaultMeadlware().concat(
         authMiddleware,
         tokensMiddleware,
         authWebsocketsMiddleware,
         usersMiddleware,
-        messagesMidlware
+        messagesMidlware,
+        dictionariesMiddleware
       );
     },
   });
