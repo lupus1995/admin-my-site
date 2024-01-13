@@ -2,9 +2,12 @@ import React, { FC } from "react";
 
 import useStyles from "./style";
 
-const FormRow: FC<{ children: React.ReactNode }> = ({ children }) => {
+const FormRow: FC<{ children: React.ReactNode; classname?: string }> = ({
+  children,
+  classname = "",
+}) => {
   const style = useStyles();
-  return <div className={style.formRow}>{children}</div>;
+  return <div className={`${style.formRow} ${classname}`}>{children}</div>;
 };
 
 export default FormRow;

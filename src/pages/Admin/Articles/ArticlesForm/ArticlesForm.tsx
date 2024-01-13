@@ -180,43 +180,37 @@ const ArticlesForm = () => {
             />
 
             {hasWindow() && (
-              <div
-                className={classNames(
-                  `${utilsStyles.dFlex} ${utilsStyles.spaceBetween}`
-                )}
-              >
-                <div className={classNames(`${styles.colForm}`)}>
-                  <AdminEditor
-                    register={register}
-                    setValue={setValue}
-                    errors={errors}
-                    isSubmitted={isSubmitted}
-                    trigger={trigger}
-                    watch={watch}
-                    isDisabled={isDisabled}
-                    disabledClass={disabledClass}
-                    name="text.ru"
-                    label={t("textLabel")}
-                    language="ru"
-                  />
-                </div>
+              <>
+                <AdminEditor
+                  register={register}
+                  setValue={setValue}
+                  errors={errors}
+                  isSubmitted={isSubmitted}
+                  trigger={trigger}
+                  watch={watch}
+                  isDisabled={isDisabled}
+                  disabledClass={disabledClass}
+                  name="text.ru"
+                  label={t("textLabel")}
+                  language="ru"
+                  heightContainer={800}
+                />
 
-                <div className={classNames(`${styles.colForm}`)}>
-                  <AdminEditor
-                    register={register}
-                    setValue={setValue}
-                    errors={errors}
-                    isSubmitted={isSubmitted}
-                    trigger={trigger}
-                    watch={watch}
-                    isDisabled={isDisabled}
-                    disabledClass={disabledClass}
-                    name="text.en"
-                    label={t("textLabel")}
-                    language="en"
-                  />
-                </div>
-              </div>
+                <AdminEditor
+                  register={register}
+                  setValue={setValue}
+                  errors={errors}
+                  isSubmitted={isSubmitted}
+                  trigger={trigger}
+                  watch={watch}
+                  isDisabled={isDisabled}
+                  disabledClass={disabledClass}
+                  name="text.en"
+                  label={t("textLabel")}
+                  language="en"
+                  heightContainer={800}
+                />
+              </>
             )}
 
             <FormRow>

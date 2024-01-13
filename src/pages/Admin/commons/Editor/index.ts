@@ -1,3 +1,2 @@
-import Editor from "./Editor";
-
-export default Editor;
+export { Editor } from "./Editor";
+export type { EditorProps } from "./types";

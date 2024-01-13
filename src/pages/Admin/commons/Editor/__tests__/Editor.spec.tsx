@@ -2,7 +2,7 @@ import React from "react";
 
 import { render } from "@testing-library/react";
 
-import AdminEditor from "../Editor";
+import AdminEditor from "../components/Wysiwyg/Editor";
 
 jest.mock("html-to-draftjs");
 jest.mock("react-draft-wysiwyg", () => {

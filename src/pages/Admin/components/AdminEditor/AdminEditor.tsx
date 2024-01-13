@@ -11,43 +11,42 @@ import {
   FieldValues,
 } from "react-hook-form";
 
+import { EditorProps } from "pages/Admin/commons/Editor";
 import { useLanguage } from "utils/hooks";
 
+import { useStyles } from "./style";
 import { FormLabel, FormRow, TextError, Editor } from "../../commons";
 
-const AdminEditor: FC<{
-  setValue: UseFormSetValue<FieldValues>;
-  register: UseFormRegister<FieldValues>;
-  trigger: UseFormTrigger<FieldValues>;
-  watch: UseFormWatch<FieldValues>;
-  isSubmitted: boolean;
-  errors: Partial<
-    FieldErrorsImpl<{
-      [x: string]: string;
-    }>
-  >;
-  isDisabled: boolean;
-  disabledClass: string;
-  name: string;
-  label: string;
-  language: string;
-}> = ({
+const AdminEditor: FC<
+  EditorProps & {
+    errors: Partial<
+      FieldErrorsImpl<{
+        [x: string]: string;
+      }>
+    >;
+    label: string;
+    language: string;
+  }
+> = ({
   setValue,
-  errors,
   isSubmitted,
   trigger,
   watch,
   isDisabled,
   disabledClass,
   name,
-  label,
   register,
+  heightContainer,
+
+  errors,
+  label,
   language,
 }) => {
   const { language: i18nLanguage } = useLanguage();
+  const style = useStyles();
 
   return (
-    <FormRow>
+    <FormRow classname={`${style.marginAfterEditor}`}>
       <FormLabel>
         {label}, {language || i18nLanguage}
       </FormLabel>
@@ -60,6 +59,7 @@ const AdminEditor: FC<{
         isDisabled={isDisabled}
         disabledClass={disabledClass}
         name={name}
+        heightContainer={heightContainer}
       />
 
       <TextError message={get(errors, name)?.message as string} />

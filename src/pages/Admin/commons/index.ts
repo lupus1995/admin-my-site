@@ -3,7 +3,7 @@ export { default as FormRow } from "./FormRow";
 export { default as Date } from "./Date";
 export { default as TextError } from "./TextError";
 export { default as FormLabel } from "./FormLabel";
-export { default as Editor } from "./Editor";
+export { Editor } from "./Editor";
 export { default as ButtonSubmit } from "./ButtonSubmit";
 export { default as Form } from "./Form";
 export { default as MessageForEmptyList } from "./MessageForEmptyList";
