@@ -38,6 +38,15 @@ jest.mock("../style", () => () => ({
   contentsContainer: {},
 }));
 
+jest.mock("pages/Page/commons", () => {
+  const moduleMock = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...moduleMock,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
 describe("Content", () => {
   let initProps: ContentI;
 
@@ -48,34 +57,32 @@ describe("Content", () => {
   it("check render component by ru", () => {
     jest.mocked(useLanguage).mockImplementation(() => ({
       language: "ru",
-      t: jest.fn(),
+      // @ts-ignore
+      t: (arg: string) => arg,
       changeLanguage: jest.fn(),
     }));
 
-    const { getByTestId, getByText } = render(
-      <Content contentItem={{ ...initProps }} />
-    );
+    const { getByText } = render(<Content contentItem={{ ...initProps }} />);
 
-    expect(getByTestId("thumbnail")).toBeInTheDocument();
     expect(getByText("title ru")).toBeInTheDocument();
     expect(getByText("description ru")).toBeInTheDocument();
     expect(getByText("12.05.2023")).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 
   it("check render component by en", () => {
     jest.mocked(useLanguage).mockImplementation(() => ({
       language: "en",
-      t: jest.fn(),
+      // @ts-ignore
+      t: (arg: string) => arg,
       changeLanguage: jest.fn(),
     }));
 
-    const { getByTestId, getByText } = render(
-      <Content contentItem={{ ...initProps }} />
-    );
+    const { getByText } = render(<Content contentItem={{ ...initProps }} />);
 
-    expect(getByTestId("thumbnail")).toBeInTheDocument();
     expect(getByText("title en")).toBeInTheDocument();
     expect(getByText("description en")).toBeInTheDocument();
     expect(getByText("12.05.2023")).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

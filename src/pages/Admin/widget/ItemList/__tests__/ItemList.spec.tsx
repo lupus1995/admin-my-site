@@ -5,6 +5,15 @@ import { render } from "@testing-library/react";
 import { ItemPropsI } from "../interface";
 import ItemList from "../ItemList";
 
+jest.mock("pages/Page/commons", () => {
+  const moduleMock = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...moduleMock,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
 describe("ItemList", () => {
   let initData: ItemPropsI;
   beforeEach(() => {
@@ -15,10 +24,10 @@ describe("ItemList", () => {
     };
   });
   it("check render component", () => {
-    const { getByTestId, getByText } = render(<ItemList {...initData} />);
+    const { getByText } = render(<ItemList {...initData} />);
 
     expect(getByText("title")).toBeInTheDocument();
     expect(getByText("description")).toBeInTheDocument();
-    expect(getByTestId("src")).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

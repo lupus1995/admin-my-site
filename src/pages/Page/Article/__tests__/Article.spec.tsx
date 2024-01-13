@@ -44,6 +44,15 @@ jest.mock("commons/HookGetSizeImage/hook", () => {
   };
 });
 
+jest.mock("../../commons", () => {
+  const moduleMock = jest.requireActual("../../commons");
+
+  return {
+    ...moduleMock,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
 describe("Article", () => {
   it("render empty article", () => {
     const { container } = render(
@@ -82,5 +91,6 @@ describe("Article", () => {
     expect(await findByText(/titleRu/i)).toBeInTheDocument();
     expect(await findByText(/textRu/i)).toBeInTheDocument();
     expect(await findByText(/Head/i)).toBeInTheDocument();
+    expect(await findByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

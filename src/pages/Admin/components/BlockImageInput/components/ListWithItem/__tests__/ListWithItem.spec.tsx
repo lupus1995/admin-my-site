@@ -5,6 +5,15 @@ import { render } from "@testing-library/react";
 import { ListWithItemI } from "../interface";
 import ListWithItem from "../ListWithItem";
 
+jest.mock("pages/Page/commons", () => {
+  const moduleMock = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...moduleMock,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
 jest.mock("utils/hooks", () => {
   const mockModule = jest.requireActual("utils/hooks");
 
@@ -30,11 +39,11 @@ describe("ListWithItem", () => {
     };
   });
   it("render component", () => {
-    const { getByAltText, getByText } = render(<ListWithItem {...baseProps} />);
+    const { getByText } = render(<ListWithItem {...baseProps} />);
 
     expect(getByText(/update/i)).toBeInTheDocument();
     expect(getByText(/delete/i)).toBeInTheDocument();
-    expect(getByAltText(/label/i)).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 
   it("render disabled button", () => {
@@ -46,5 +55,6 @@ describe("ListWithItem", () => {
     const { getByText } = render(<ListWithItem {...props} />);
 
     expect(getByText(/delete/i)).toHaveClass("disabledClass");
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

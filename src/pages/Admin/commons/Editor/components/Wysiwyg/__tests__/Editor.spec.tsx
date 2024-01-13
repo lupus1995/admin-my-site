@@ -2,15 +2,27 @@ import React from "react";
 
 import { render } from "@testing-library/react";
 
-import AdminEditor from "../AdminEditor";
+import AdminEditor from "../Editor";
 
 jest.mock("html-to-draftjs");
-jest.mock("pages/Admin/commons", () => {
-  const moduleMock = jest.requireActual("pages/Admin/commons");
+jest.mock("react-draft-wysiwyg", () => {
+  const mockModule = jest.requireActual("react-draft-wysiwyg");
 
   return {
-    ...moduleMock,
-    Editor: () => <span>Editor</span>,
+    ...mockModule,
+    Editor: ({
+      editorClassName,
+      name,
+    }: {
+      editorClassName: string;
+      name: string;
+    }) => (
+      <>
+        <span>{editorClassName}</span>
+        <span>{name}</span>
+        <span>Editor</span>
+      </>
+    ),
   };
 });
 
@@ -25,7 +37,7 @@ jest.mock("utils/hooks", () => {
   };
 });
 
-describe("AdminEditor", () => {
+describe("Editor", () => {
   let props: {
     setValue: () => void;
     errors: { [key: string]: { message: string } };
@@ -44,8 +56,8 @@ describe("AdminEditor", () => {
       errors: { name: { message: "error message" } },
       isSubmitted: false,
       trigger: jest.fn,
-      register: jest.fn,
       watch: jest.fn,
+      register: jest.fn,
       isDisabled: false,
       disabledClass: "disabledClass",
       name: "name",
@@ -54,10 +66,9 @@ describe("AdminEditor", () => {
   });
   it("check render component", async () => {
     // @ts-ignore
-    const { getByText, findByText } = render(<AdminEditor {...props} />);
+    const { findByText } = render(<AdminEditor {...props} />);
 
-    expect(getByText(/label/i)).toBeInTheDocument();
+    expect(await findByText(/input-0-2-1 editor-0-2-4/i)).toBeInTheDocument();
     expect(await findByText(/Editor/)).toBeInTheDocument();
-    expect(getByText(/error message/i)).toBeInTheDocument();
   });
 });

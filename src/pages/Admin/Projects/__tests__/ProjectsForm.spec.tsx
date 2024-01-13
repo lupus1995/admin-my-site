@@ -75,6 +75,15 @@ jest.mock("store/hooks", () => {
   };
 });
 
+jest.mock("store/services/manageModules", () => {
+  const moduleMock = jest.requireActual("store/services/manageModules");
+
+  return {
+    ...moduleMock,
+    useSetAdminBlogModule: jest.fn(),
+  };
+});
+
 describe("ProjectsForm", () => {
   it("check render component with init data", () => {
     jest.spyOn(hooks, "useInitFormProjects").mockReturnValue(true);

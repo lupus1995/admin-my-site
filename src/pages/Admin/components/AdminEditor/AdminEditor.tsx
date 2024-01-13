@@ -2,20 +2,13 @@ import React, { FC } from "react";
 
 // eslint-disable-next-line import/named
 import { get } from "lodash";
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormTrigger,
-  UseFormWatch,
-  FieldErrorsImpl,
-  FieldValues,
-} from "react-hook-form";
+import { FieldErrorsImpl } from "react-hook-form";
 
+import { FormRow, FormLabel, TextError, Editor } from "pages/Admin/commons";
 import { EditorProps } from "pages/Admin/commons/Editor";
 import { useLanguage } from "utils/hooks";
 
 import { useStyles } from "./style";
-import { FormLabel, FormRow, TextError, Editor } from "../../commons";
 
 const AdminEditor: FC<
   EditorProps & {

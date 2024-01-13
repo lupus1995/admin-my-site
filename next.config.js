@@ -39,16 +39,7 @@ const nextConfig = {
       'store': path.resolve(__dirname, 'store'),
       'websokets': path.resolve(__dirname, 'websokets')
     }
-    config.optimization.splitChunks = {
-      cacheGroups: {
-        a: {
-          test: (module, {chunkGraph})=> {
-            return chunkGraph.getModuleChunks(module).every(chunk => chunk.name 
-    === 'xxx');
-          }
-        }
-      }
-    }
+    
     return config
   },
   experimental: {

@@ -4,6 +4,15 @@ import { render } from "@testing-library/react";
 
 import ArticlesForm from "../ArticlesForm";
 
+jest.mock("store/services/manageModules", () => {
+  const moduleMock = jest.requireActual("store/services/manageModules");
+
+  return {
+    ...moduleMock,
+    useSetAdminBlogModule: () => jest.fn(),
+  };
+});
+
 jest.mock("../hooks", () => {
   const mockModule = jest.requireActual("../hooks");
 

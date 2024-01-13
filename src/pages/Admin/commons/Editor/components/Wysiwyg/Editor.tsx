@@ -2,13 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import draftToHtmlPuri from "draftjs-to-html";
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormTrigger,
-  UseFormWatch,
-  FieldValues,
-} from "react-hook-form";
 
 import { useLanguage, usePrevious } from "utils/hooks";
 

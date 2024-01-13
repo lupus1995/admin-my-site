@@ -9,6 +9,15 @@ import ArticlesForm from "../ArticlesForm";
 jest.mock("react-redux");
 fetchMock.enableMocks();
 
+jest.mock("store/services/manageModules", () => {
+  const moduleMock = jest.requireActual("store/services/manageModules");
+
+  return {
+    ...moduleMock,
+    useSetAdminBlogModule: jest.fn(),
+  };
+});
+
 jest.mock("pages/Admin/hooks", () => {
   const mockModule = jest.requireActual("pages/Admin/hooks");
 
