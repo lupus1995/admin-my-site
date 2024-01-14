@@ -49,6 +49,10 @@ const useStyle = createUseStyles({
         maxWidth: "100%",
         textAlign: "center",
       },
+
+      p: {
+        marginBottom: "15px",
+      },
     },
   },
 });

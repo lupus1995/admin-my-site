@@ -15,7 +15,6 @@ const ItemList: FC<ItemPropsI> = ({ src, title, description }) => {
         data-testid={src}
         className={style.thumbnail}
         src={src}
-        // @ts-ignore
         alt={title}
       />
 
