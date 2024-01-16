@@ -24,6 +24,9 @@
       "utils/*": [
         "./src/utils/*"
       ],
+      "entities/*": [
+        "./src/entities/*"
+      ],
       "commons/*": [
         "./src/commons/*"
       ],

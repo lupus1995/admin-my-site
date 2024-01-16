@@ -30,6 +30,7 @@ const AdminEditor: FC<
   name,
   register,
   heightContainer,
+  handleUploadImage,
 
   errors,
   label,
@@ -53,6 +54,7 @@ const AdminEditor: FC<
         disabledClass={disabledClass}
         name={name}
         heightContainer={heightContainer}
+        handleUploadImage={handleUploadImage}
       />
 
       <TextError message={get(errors, name)?.message as string} />

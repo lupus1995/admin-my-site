@@ -1,5 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import {
+  reducer as ArticlesReducer,
+  reducerPath as articlesReducerPath,
+  middleware as ArticlesMiddleware,
+} from "entities/articles";
 import { RequestReducer } from "websockets/entities/share/services/StatusRequest";
 
 import { auth, authReducer, authMiddleware } from "./services/auth";
@@ -35,6 +40,7 @@ export const rootReducer = combineReducers({
   [authWebsocket]: authWebscoketsReducer,
   [users]: usersReducer,
   [messages]: messagesApiReducer,
+  [articlesReducerPath]: ArticlesReducer,
   websockets: combineReducers({
     interlocutor: interlocutorReducer,
     searchSlice: searchSliceReducer,
@@ -59,7 +65,8 @@ export const setupStore = () => {
         tokensMiddleware,
         authWebsocketsMiddleware,
         usersMiddleware,
-        messagesMidlware
+        messagesMidlware,
+        ArticlesMiddleware
       );
     },
   });

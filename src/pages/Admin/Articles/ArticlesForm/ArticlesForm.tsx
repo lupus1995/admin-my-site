@@ -29,7 +29,7 @@ import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
-import { useInitFormArticle, useSaveArticle } from "./hooks";
+import { useInitFormArticle, useSaveArticle, useUploadImage } from "./hooks";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
@@ -52,6 +52,8 @@ const ArticlesForm = () => {
     setValue,
     trigger,
   } = useForm();
+
+  const { handleUploadImage } = useUploadImage(id as string);
 
   useUpdateTextError({ trigger, isSubmitted });
 
@@ -194,6 +196,7 @@ const ArticlesForm = () => {
                   label={t("textLabel")}
                   language="ru"
                   heightContainer={800}
+                  handleUploadImage={handleUploadImage}
                 />
 
                 <AdminEditor
@@ -209,6 +212,7 @@ const ArticlesForm = () => {
                   label={t("textLabel")}
                   language="en"
                   heightContainer={800}
+                  handleUploadImage={handleUploadImage}
                 />
               </>
             )}

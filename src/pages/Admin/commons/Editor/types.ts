@@ -24,4 +24,5 @@ export interface EditorProps {
   name: string;
   editorType?: EditorType;
   heightContainer?: number;
+  handleUploadImage?: (file: File) => void;
 }
