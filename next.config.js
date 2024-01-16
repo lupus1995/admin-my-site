@@ -10,7 +10,7 @@ const nextConfig = {
     remotePatterns: [
       {
         // @ts-ignore
-        protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || "",
+        protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || "http",
         // @ts-ignore
         hostname: process.env.NEXT_PUBLIC_BACKEND_HOST || "",
         port: process.env.NEXT_PUBLIC_BACKEND_PORT || "",
