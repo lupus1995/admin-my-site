@@ -18,6 +18,15 @@ jest.mock("utils/hooks", () => {
   };
 });
 
+jest.mock("pages/Page/commons", () => {
+  const mockModule = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...mockModule,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
 describe("AboutMe", () => {
   it("check render component", () => {
     const props: AboutMeI = {
@@ -31,10 +40,10 @@ describe("AboutMe", () => {
       },
       imageName: "",
     };
-    const { getByText, getByAltText } = render(<AboutMe {...props} />);
+    const { getByText } = render(<AboutMe {...props} />);
 
     expect(getByText(/aboutMeTitleEN/i)).toBeInTheDocument();
     expect(getByText(/aboutMeDescriptionEN/i)).toBeInTheDocument();
-    expect(getByAltText(/Панфилов Александр/i)).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

@@ -99,6 +99,19 @@ jest.mock("utils/hooks", () => {
   };
 });
 
+jest.mock("../hooks", () => {
+  const mockModule = jest.requireActual("../hooks");
+
+  return {
+    ...mockModule,
+    useUploadImage: jest.fn().mockReturnValue({
+      handleUploadImage: jest.fn(),
+    }),
+    useSaveArticle: jest.fn(),
+    useInitFormArticle: jest.fn().mockReturnValue(true),
+  };
+});
+
 describe("ArticlesForm", () => {
   it("check render component", async () => {
     const { getByText, findByText, findAllByRole, findAllByText } = render(
