@@ -6,13 +6,14 @@ const path = require('path')
 
 const nextConfig = {
   images: {
+    // domains: [`${process.env.NEXT_PUBLIC_BACKEND_PROTOCOL}//${process.env.NEXT_PUBLIC_BACKEND_HOST}:${process.env.NEXT_PUBLIC_BACKEND_PORT}`],
     remotePatterns: [
       {
         // @ts-ignore
-        protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL,
+        protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || "",
         // @ts-ignore
-        hostname: process.env.NEXT_PUBLIC_BACKEND_HOST,
-        port: process.env.NEXT_PUBLIC_BACKEND_PORT,
+        hostname: process.env.NEXT_PUBLIC_BACKEND_HOST || "",
+        port: process.env.NEXT_PUBLIC_BACKEND_PORT || "",
       },
     ],
   },
