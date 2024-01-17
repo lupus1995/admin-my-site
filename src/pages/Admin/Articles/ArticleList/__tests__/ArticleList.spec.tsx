@@ -5,8 +5,6 @@ import { userEvent } from "@testing-library/user-event";
 import fetchMock from "jest-fetch-mock";
 import * as redux from "react-redux";
 
-import reactI18next from "utils/mocks/react-i18next";
-
 import ArticleList from "../ArticleList";
 
 fetchMock.enableMocks();
