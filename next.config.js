@@ -5,6 +5,18 @@ const path = require('path')
  **/
 
 const nextConfig = {
+  images: {
+    // domains: [`${process.env.NEXT_PUBLIC_BACKEND_PROTOCOL}//${process.env.NEXT_PUBLIC_BACKEND_HOST}:${process.env.NEXT_PUBLIC_BACKEND_PORT}`],
+    remotePatterns: [
+      {
+        // @ts-ignore
+        protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || "http",
+        // @ts-ignore
+        hostname: process.env.NEXT_PUBLIC_BACKEND_HOST || "test.com",
+        port: process.env.NEXT_PUBLIC_BACKEND_PORT || "4000",
+      },
+    ],
+  },
   // Uncomment the line below to enable basePath, pages and
   // redirects will then have a path prefix (`/app` in this case)
   //
@@ -28,6 +40,7 @@ const nextConfig = {
       'store': path.resolve(__dirname, 'store'),
       'websokets': path.resolve(__dirname, 'websokets')
     }
+    
     return config
   },
   experimental: {

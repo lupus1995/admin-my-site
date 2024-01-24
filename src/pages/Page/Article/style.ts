@@ -18,6 +18,7 @@ const useStyle = createUseStyles({
   articleImage: {
     maxHeight: "400px",
     maxWidth: "100%",
+    height: "auto",
   },
   articlePublishedDate: {
     textAlign: "right",
@@ -47,6 +48,10 @@ const useStyle = createUseStyles({
         marginTop: "20px",
         maxWidth: "100%",
         textAlign: "center",
+      },
+
+      p: {
+        marginBottom: "15px",
       },
     },
   },

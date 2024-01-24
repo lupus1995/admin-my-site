@@ -24,6 +24,10 @@ const Index: FC<MainPagePropsI> = ({ dataResponse }) => {
     <>
       <Head>
         <title>WEB FOR SELF</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}`}
+        />
       </Head>
       <MainPage dataResponse={dataResponse} />
     </>

@@ -3,19 +3,19 @@ import { act, renderHook } from "@testing-library/react";
 import { useInitArticles } from "../hooks";
 
 jest.mock("../api", () => {
-  const module = jest.requireActual("../api");
+  const mockModule = jest.requireActual("../api");
 
   return {
-    ...module,
+    ...mockModule,
     getNewArticles: jest.fn().mockResolvedValue(jest.fn()),
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

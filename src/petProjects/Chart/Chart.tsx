@@ -49,6 +49,7 @@ const Chart = () => {
       <main className={`${styles.main}`}>
         <div className={styles.tooltip} ref={refTooltip}></div>
         <div className={styles.canvasWrapper}>
+          <p>Просмотр доступен исключительно с компьютера</p>
           <canvas className={`${styles.canvas}`} ref={refCanvasChart} />
           <div className={styles.canvasContainer}>
             <button

@@ -36,6 +36,10 @@ const Index: FC<{ response: ResponseI<void | ArticleI[]> }> = ({
     <>
       <Head>
         <title>{t("portfolioTitlePage")}</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/articles`}
+        />
       </Head>
       <Articles response={response} />
     </>

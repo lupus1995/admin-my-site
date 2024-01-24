@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import parse from "html-react-parser";
 
+import { CustomImage } from "pages/Page/commons";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
@@ -37,7 +38,7 @@ const AboutMe: FC<AboutMeI> = ({
       </h3>
       <div className={classNames(`${styles.aboutMe}`)}>
         <div className={classNames(`${styles.aboutMePhoto}`)}>
-          <img src={imageUrl} alt="Панфилов Александр" />
+          <CustomImage src={imageUrl} alt="Панфилов Александр" className="" />
         </div>
         <article className={classNames(`${styles.aboutMeArticle}`)}>
           {/* @ts-ignore */}

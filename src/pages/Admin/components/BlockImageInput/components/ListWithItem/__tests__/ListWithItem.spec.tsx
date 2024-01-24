@@ -5,11 +5,20 @@ import { render } from "@testing-library/react";
 import { ListWithItemI } from "../interface";
 import ListWithItem from "../ListWithItem";
 
-jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+jest.mock("pages/Page/commons", () => {
+  const moduleMock = jest.requireActual("pages/Page/commons");
 
   return {
-    ...module,
+    ...moduleMock,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
+jest.mock("utils/hooks", () => {
+  const mockModule = jest.requireActual("utils/hooks");
+
+  return {
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
@@ -30,11 +39,11 @@ describe("ListWithItem", () => {
     };
   });
   it("render component", () => {
-    const { getByAltText, getByText } = render(<ListWithItem {...baseProps} />);
+    const { getByText } = render(<ListWithItem {...baseProps} />);
 
     expect(getByText(/update/i)).toBeInTheDocument();
     expect(getByText(/delete/i)).toBeInTheDocument();
-    expect(getByAltText(/label/i)).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 
   it("render disabled button", () => {
@@ -46,5 +55,6 @@ describe("ListWithItem", () => {
     const { getByText } = render(<ListWithItem {...props} />);
 
     expect(getByText(/delete/i)).toHaveClass("disabledClass");
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });

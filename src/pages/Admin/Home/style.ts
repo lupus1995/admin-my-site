@@ -5,7 +5,7 @@ const useStyles = createUseStyles({
     padding: "10px 16px",
   },
   homeForm: {
-    width: "500px",
+    width: "1000px",
   },
   homeRow: {
     marginBottom: "15px",

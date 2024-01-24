@@ -8,10 +8,10 @@ import ContentsContainer from "../ContentsContainer";
 jest.mock("../Content", () => () => <>Content</>);
 
 jest.mock("utils/mediaQuery", () => {
-  const module = jest.requireActual("utils/mediaQuery");
+  const mockModule = jest.requireActual("utils/mediaQuery");
 
   return {
-    ...module,
+    ...mockModule,
     useIsMediaQuery: jest.fn().mockReturnValue({}),
   };
 });

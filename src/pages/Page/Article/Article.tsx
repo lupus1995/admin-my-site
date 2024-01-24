@@ -14,6 +14,7 @@ import { useIsMediaQuery } from "utils/mediaQuery";
 import { useStylesClasses } from "utils/stylesPage";
 
 import useStyle from "./style";
+import { CustomImage } from "../commons";
 import { WrapperPage } from "../widgets";
 
 // страница сайта для отрисовки отдельной статьи
@@ -66,6 +67,10 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
       <Head>
         {/* @ts-ignore */}
         <title>{article.title[language]}</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/article/${article._id}`}
+        />
         {/* @ts-ignore */}
         <meta name="description" content={article.description[language]} />
         {/* @ts-ignore */}
@@ -99,9 +104,9 @@ const Article: FC<{ response: ResponseI<void | ArticleI> }> = ({
                 {/* @ts-ignore */}
                 {article.title[language]}
               </h3>
+
               <div className={`${styles.articleImageContainer}`}>
-                <img
-                  loading="lazy"
+                <CustomImage
                   className={`${styles.articleImage}`}
                   src={imageUrl}
                   // @ts-ignore

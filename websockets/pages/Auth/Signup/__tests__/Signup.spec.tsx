@@ -5,10 +5,10 @@ import { render } from "@testing-library/react";
 import Signup from "../Signup";
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
     }),
@@ -16,19 +16,19 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("websockets/entities/Auth", () => {
-  const module = jest.requireActual("websockets/entities/Auth");
+  const mockModule = jest.requireActual("websockets/entities/Auth");
 
   return {
-    ...module,
+    ...mockModule,
     useSignupMutation: jest.fn().mockReturnValue([jest.fn()]),
   };
 });
 
 jest.mock("react-hook-form", () => {
-  const module = jest.requireActual("react-hook-form");
+  const mockModule = jest.requireActual("react-hook-form");
 
   return {
-    ...module,
+    ...mockModule,
     useForm: jest.fn().mockReturnValue({
       register: jest.fn(),
       handleSubmit: jest.fn(),
@@ -40,10 +40,10 @@ jest.mock("react-hook-form", () => {
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     WrapperMain: ({ children }: { children: ReactNode }) => children,
     InputWrapperError: () => <span>InputWrapperError</span>,
   };

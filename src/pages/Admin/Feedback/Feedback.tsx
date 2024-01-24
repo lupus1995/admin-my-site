@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 import { useAppDispatch } from "store/hooks";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
@@ -15,6 +16,7 @@ import { Dashboard } from "../components";
 import { useSession } from "../hooks";
 
 const Feedback = () => {
+  useSetAdminBlogModule();
   useSession();
   const { t } = useLanguage();
   const { push } = useRouter();

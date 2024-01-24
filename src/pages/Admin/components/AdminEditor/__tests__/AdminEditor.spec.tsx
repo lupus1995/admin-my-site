@@ -5,32 +5,20 @@ import { render } from "@testing-library/react";
 import AdminEditor from "../AdminEditor";
 
 jest.mock("html-to-draftjs");
-jest.mock("react-draft-wysiwyg", () => {
-  const module = jest.requireActual("react-draft-wysiwyg");
+jest.mock("pages/Admin/commons", () => {
+  const moduleMock = jest.requireActual("pages/Admin/commons");
 
   return {
-    ...module,
-    Editor: ({
-      editorClassName,
-      name,
-    }: {
-      editorClassName: string;
-      name: string;
-    }) => (
-      <>
-        <span>{editorClassName}</span>
-        <span>{name}</span>
-        <span>Editor</span>
-      </>
-    ),
+    ...moduleMock,
+    Editor: () => <span>Editor</span>,
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
@@ -69,7 +57,6 @@ describe("AdminEditor", () => {
     const { getByText, findByText } = render(<AdminEditor {...props} />);
 
     expect(getByText(/label/i)).toBeInTheDocument();
-    expect(await findByText(/input-0-2-4 editor-0-2-7/i)).toBeInTheDocument();
     expect(await findByText(/Editor/)).toBeInTheDocument();
     expect(getByText(/error message/i)).toBeInTheDocument();
   });

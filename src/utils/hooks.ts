@@ -23,7 +23,7 @@ export const useLanguage = () => {
       return "en";
     }
 
-    return i18n.language;
+    return "ru";
   }, [i18n.language]);
 
   return {

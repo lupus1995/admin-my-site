@@ -16,10 +16,10 @@ jest.mock("../../components/Dashboard", () =>
 );
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn,
     }),
@@ -27,10 +27,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("pages/Admin/Feedback/api", () => {
-  const module = jest.requireActual("pages/Admin/Feedback/api");
+  const mockModule = jest.requireActual("pages/Admin/Feedback/api");
 
   return {
-    ...module,
+    ...mockModule,
     getFeedback: jest
       .fn()
       .mockResolvedValue(new Promise((res) => res(jest.fn))),
@@ -38,20 +38,20 @@ jest.mock("pages/Admin/Feedback/api", () => {
 });
 
 jest.mock("pages/Admin/Feedback/components", () => {
-  const module = jest.requireActual("pages/Admin/Feedback/components");
+  const mockModule = jest.requireActual("pages/Admin/Feedback/components");
 
   return {
-    ...module,
+    ...mockModule,
     FeedbackTable: () => <span>FeedbackTable</span>,
     ModalFeedback: () => <span>ModalFeedback</span>,
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

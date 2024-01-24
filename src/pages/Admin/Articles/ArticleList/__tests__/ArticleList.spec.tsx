@@ -5,8 +5,6 @@ import { userEvent } from "@testing-library/user-event";
 import fetchMock from "jest-fetch-mock";
 import * as redux from "react-redux";
 
-import reactI18next from "utils/mocks/react-i18next";
-
 import ArticleList from "../ArticleList";
 
 fetchMock.enableMocks();
@@ -18,10 +16,10 @@ jest.mock("pages/Admin/components/Dashboard", () =>
 );
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
     }),
@@ -29,7 +27,25 @@ jest.mock("next/router", () => {
   };
 });
 
-jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
+jest.mock("pages/Page/commons", () => {
+  const mockModule = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...mockModule,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
+
+jest.mock("utils/hooks", () => {
+  const mockModule = jest.requireActual("utils/hooks");
+
+  return {
+    ...mockModule,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "ru", t: (arg: string) => arg }),
+  };
+});
 
 const data = {
   status: true,
@@ -66,11 +82,10 @@ describe("ArticleList", () => {
     jest
       .spyOn(redux, "useDispatch")
       .mockReturnValue(jest.fn().mockResolvedValue(data));
-    const { getByText, findByAltText, findByText } = render(<ArticleList />);
+    const { getByText, findByText } = render(<ArticleList />);
 
     expect(getByText(/articlesOnSite/i)).toBeInTheDocument();
     expect(getByText(/createArticle/)).toBeInTheDocument();
-    expect(await findByAltText(/titleRU/i)).toBeInTheDocument();
     expect(await findByText(/titleRU/i)).toBeInTheDocument();
     expect(await findByText(/descriptionRU/i)).toBeInTheDocument();
     expect(await findByText(/edit/i)).toBeInTheDocument();

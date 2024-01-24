@@ -24,14 +24,16 @@ import {
 } from "pages/Admin/components";
 import { useDisabled, useSession, useUpdateTextError } from "pages/Admin/hooks";
 import { HidePublished } from "pages/Admin/widget";
+import { useSetAdminBlogModule } from "store/services/manageModules";
 import { hasWindow } from "utils/helpers";
 import { useLanguage } from "utils/hooks";
 import useUtilsStyles from "utils/styles";
 
-import { useInitFormArticle, useSaveArticle } from "./hooks";
+import { useInitFormArticle, useSaveArticle, useUploadImage } from "./hooks";
 import useStyles from "./style";
 
 const ArticlesForm = () => {
+  useSetAdminBlogModule();
   useSession();
   const { t } = useLanguage();
   const {
@@ -50,6 +52,8 @@ const ArticlesForm = () => {
     setValue,
     trigger,
   } = useForm();
+
+  const { handleUploadImage } = useUploadImage(id as string);
 
   useUpdateTextError({ trigger, isSubmitted });
 
@@ -178,43 +182,39 @@ const ArticlesForm = () => {
             />
 
             {hasWindow() && (
-              <div
-                className={classNames(
-                  `${utilsStyles.dFlex} ${utilsStyles.spaceBetween}`
-                )}
-              >
-                <div className={classNames(`${styles.colForm}`)}>
-                  <AdminEditor
-                    register={register}
-                    setValue={setValue}
-                    errors={errors}
-                    isSubmitted={isSubmitted}
-                    trigger={trigger}
-                    watch={watch}
-                    isDisabled={isDisabled}
-                    disabledClass={disabledClass}
-                    name="text.ru"
-                    label={t("textLabel")}
-                    language="ru"
-                  />
-                </div>
+              <>
+                <AdminEditor
+                  register={register}
+                  setValue={setValue}
+                  errors={errors}
+                  isSubmitted={isSubmitted}
+                  trigger={trigger}
+                  watch={watch}
+                  isDisabled={isDisabled}
+                  disabledClass={disabledClass}
+                  name="text.ru"
+                  label={t("textLabel")}
+                  language="ru"
+                  heightContainer={800}
+                  handleUploadImage={handleUploadImage}
+                />
 
-                <div className={classNames(`${styles.colForm}`)}>
-                  <AdminEditor
-                    register={register}
-                    setValue={setValue}
-                    errors={errors}
-                    isSubmitted={isSubmitted}
-                    trigger={trigger}
-                    watch={watch}
-                    isDisabled={isDisabled}
-                    disabledClass={disabledClass}
-                    name="text.en"
-                    label={t("textLabel")}
-                    language="en"
-                  />
-                </div>
-              </div>
+                <AdminEditor
+                  register={register}
+                  setValue={setValue}
+                  errors={errors}
+                  isSubmitted={isSubmitted}
+                  trigger={trigger}
+                  watch={watch}
+                  isDisabled={isDisabled}
+                  disabledClass={disabledClass}
+                  name="text.en"
+                  label={t("textLabel")}
+                  language="en"
+                  heightContainer={800}
+                  handleUploadImage={handleUploadImage}
+                />
+              </>
             )}
 
             <FormRow>

@@ -3,19 +3,19 @@ import { renderHook } from "@testing-library/react";
 import { useInitFormProjects, useProjectModal, useSaveProject } from "../hooks";
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest.fn().mockReturnValue({ language: "ru", t: jest.fn() }),
   };
 });
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
       query: {
@@ -26,10 +26,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("store/hooks", () => {
-  const module = jest.requireActual("store/hooks");
+  const mockModule = jest.requireActual("store/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useAppDispatch: jest.fn().mockResolvedValue({ status: true }),
   };
 });

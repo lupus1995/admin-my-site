@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 import { useImageName } from "commons/HookGetSizeImage/hook";
+import { CustomImage } from "pages/Page/commons";
 import Multiline from "pages/Page/commons/Multiline/Multiline";
 import { useLanguage } from "utils/hooks";
 import { useIsMediaQuery } from "utils/mediaQuery";
@@ -50,13 +51,13 @@ const Content: FC<{ contentItem: ContentI }> = ({ contentItem }) => {
 
   return (
     <article className={classNames(`${styles.contentContainer}`)}>
-      <div>
-        <img
-          data-testid={imageUrl}
-          className={classNames(`${styles.previewImage}`)}
-          src={imageUrl}
-        />
-      </div>
+      <CustomImage
+        data-testid={imageUrl}
+        src={imageUrl}
+        // @ts-ignore
+        alt={contentItem.title[language] as string}
+        className={classNames(`${styles.previewImage}`)}
+      />
       <Link className={`${styles.previewLink}`} href={contentItem.url}>
         <Multiline numberLine={2}>
           <h4 className={classNames(`${styles.previewTitle}`)}>

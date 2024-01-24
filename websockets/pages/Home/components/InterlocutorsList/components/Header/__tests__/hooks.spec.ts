@@ -3,19 +3,19 @@ import { renderHook } from "@testing-library/react";
 import { useHandleSearchValue } from "../hooks";
 
 jest.mock("store/hooks", () => {
-  const module = jest.requireActual("store/hooks");
+  const mockModule = jest.requireActual("store/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useAppDispatch: jest.fn().mockReturnValue(jest.fn()),
   };
 });
 
 jest.mock("websockets/entities/Users", () => {
-  const module = jest.requireActual("websockets/entities/Users");
+  const mockModule = jest.requireActual("websockets/entities/Users");
 
   return {
-    ...module,
+    ...mockModule,
     useSetSearch: jest.fn(),
   };
 });

@@ -11,10 +11,10 @@ jest.mock("../hooks", () => ({
 }));
 
 jest.mock("pages/Admin/components", () => {
-  const module = jest.requireActual("pages/Admin/components");
+  const mockModule = jest.requireActual("pages/Admin/components");
 
   return {
-    ...module,
+    ...mockModule,
     AdminCheckbox: () => <span>AdminCheckbox</span>,
   };
 });

@@ -15,28 +15,28 @@ jest.mock("utils/mediaQuery", () => ({
 }));
 jest.mock("../hooks");
 jest.mock("pages/Page/components", () => {
-  const module = jest.requireActual("pages/Page/components");
+  const mockModule = jest.requireActual("pages/Page/components");
 
   return {
-    ...module,
+    ...mockModule,
     ContentsContainer: () => <>ContentsContainer</>,
     ContentsContainerSkeleton: () => <>ContentsContainerSkeleton</>,
   };
 });
 jest.mock("pages/Page/components/Content/hooks", () => {
-  const module = jest.requireActual("pages/Page/components/Content/hooks");
+  const mockModule = jest.requireActual("pages/Page/components/Content/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useGetConents: (): ContentI[] => [],
   };
 });
 
 jest.mock("utils/hooks", () => {
-  const module = jest.requireActual("utils/hooks");
+  const mockModule = jest.requireActual("utils/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useLanguage: jest
       .fn()
       .mockReturnValue({ language: "ru", t: (arg: string) => arg }),

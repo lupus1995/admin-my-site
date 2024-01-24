@@ -1,8 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import {
+  reducer as ArticlesReducer,
+  reducerPath as articlesReducerPath,
+  middleware as ArticlesMiddleware,
+} from "entities/articles";
 import { RequestReducer } from "websockets/entities/share/services/StatusRequest";
 
 import { auth, authReducer, authMiddleware } from "./services/auth";
+import { moduleReducer } from "./services/manageModules";
 import { tokens, tokensReducer, tokensMiddleware } from "./services/tokens";
 import {
   authMiddleware as authWebsocketsMiddleware,
@@ -34,6 +40,7 @@ export const rootReducer = combineReducers({
   [authWebsocket]: authWebscoketsReducer,
   [users]: usersReducer,
   [messages]: messagesApiReducer,
+  [articlesReducerPath]: ArticlesReducer,
   websockets: combineReducers({
     interlocutor: interlocutorReducer,
     searchSlice: searchSliceReducer,
@@ -45,11 +52,12 @@ export const rootReducer = combineReducers({
     usersOnline: usersOnlineSliceReducer,
     request: RequestReducer,
   }),
+  module: moduleReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
-    devTools: true,
+    devTools: process.env.NODE_ENV === "development",
     reducer: rootReducer,
     middleware: (getDeafaultMeadlware) => {
       return getDeafaultMeadlware().concat(
@@ -57,7 +65,8 @@ export const setupStore = () => {
         tokensMiddleware,
         authWebsocketsMiddleware,
         usersMiddleware,
-        messagesMidlware
+        messagesMidlware,
+        ArticlesMiddleware
       );
     },
   });

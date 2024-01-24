@@ -3,20 +3,22 @@ import { renderHook } from "@testing-library/react";
 import { useListInterlocutors } from "../hooks";
 
 jest.mock("websockets/entities/Users", () => {
-  const module = jest.requireActual("websockets/entities/Users");
+  const mockModule = jest.requireActual("websockets/entities/Users");
 
   return {
-    ...module,
+    ...mockModule,
     useGetUsersOnline: jest.fn().mockReturnValue([]),
     useGetInterlocutors: jest.fn().mockReturnValue([]),
   };
 });
 
 jest.mock("../../../wrappers/SocketsWrapper/hooks", () => {
-  const module = jest.requireActual("../../../wrappers/SocketsWrapper/hooks");
+  const mockModule = jest.requireActual(
+    "../../../wrappers/SocketsWrapper/hooks"
+  );
 
   return {
-    ...module,
+    ...mockModule,
     useJoinRoomSocket: jest.fn().mockReturnValue({
       handleJoinRoomSocket: jest.fn(),
     }),

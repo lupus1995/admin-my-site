@@ -5,19 +5,19 @@ import { render } from "@testing-library/react";
 import Home from "../Home";
 
 jest.mock("websockets/entities/Users", () => {
-  const module = jest.requireActual("websockets/entities/Users");
+  const mockModule = jest.requireActual("websockets/entities/Users");
 
   return {
-    ...module,
+    ...mockModule,
     useFetchActiveUser: jest.fn(),
   };
 });
 
 jest.mock("../hooks", () => {
-  const module = jest.requireActual("../hooks");
+  const mockModule = jest.requireActual("../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useClickByInterlocutor: jest.fn().mockReturnValue({
       handleClickByDonwload: jest.fn(),
       handleClickByInterlocutor: jest.fn(),
@@ -26,20 +26,20 @@ jest.mock("../hooks", () => {
 });
 
 jest.mock("../components", () => {
-  const module = jest.requireActual("../components");
+  const mockModule = jest.requireActual("../components");
 
   return {
-    ...module,
+    ...mockModule,
     InterlocutorsList: () => <span>InterlocutorsList</span>,
     ListMessages: () => <span>ListMessages</span>,
   };
 });
 
 jest.mock("../wrappers", () => {
-  const module = jest.requireActual("../wrappers");
+  const mockModule = jest.requireActual("../wrappers");
 
   return {
-    ...module,
+    ...mockModule,
     SocketsWrapper: ({ children }: { children: ReactNode }) => children,
   };
 });

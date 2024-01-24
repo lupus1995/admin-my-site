@@ -9,6 +9,7 @@ const useStyles = createUseStyles({
   },
   image: {
     maxWidth: "100%",
+    height: "auto",
   },
 });
 export default useStyles;

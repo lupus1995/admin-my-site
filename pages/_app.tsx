@@ -30,7 +30,7 @@ const MyApp = ({ Component, pageProps, host }: AppProps & { host: string }) => {
 
   return (
     <Provider store={store}>
-      <JssProvider registry={sheets} generateId={generateId}>
+      <JssProvider registry={sheets} generateId={generateId} isSSR={false}>
         {host === hostNameEnv && env === "production" && (
           <Head>
             <meta name="yandex-verification" content="1b8ba196c8180663" />
@@ -61,7 +61,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     // инициализация на сервере языка разметки
     // если этого не сделать, то может возникнуть ошибка рендеринга между сервером и клиентом
     await i18n.init({
-      lng: getCurrentLanguager({ language: cookies.i18nextLng || "" }),
+      lng: getCurrentLanguager({ language: cookies.i18nextLng || "ru" }),
     });
   }
 

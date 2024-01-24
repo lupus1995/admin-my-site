@@ -6,6 +6,7 @@ const useStyles = createUseStyles({
   navigationWrapper: {
     position: "fixed",
     width: "100%",
+    zIndex: 1,
     padding: (props: MediaQueryI) => {
       const {
         theme: { is360, is481 },

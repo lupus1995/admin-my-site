@@ -107,11 +107,7 @@ const Index: FC<{ response: ResponseI<void | ArticleI> }> = ({ response }) => {
     return null;
   }
 
-  return (
-    <>
-      <Article response={responseArticle} />
-    </>
-  );
+  return <Article response={responseArticle} />;
 };
 
 export default Index;

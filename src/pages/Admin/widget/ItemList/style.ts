@@ -3,6 +3,7 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   thumbnail: {
     maxWidth: "100%",
+    height: "auto",
   },
 
   item: {

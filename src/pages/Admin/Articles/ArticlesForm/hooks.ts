@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { toast } from "react-toastify";
 
+import { useFetchUploadImage } from "entities/articles";
 import { ArticleI } from "pages/interface";
 import { useAppDispatch } from "store/hooks";
+import { URL } from "utils/constants";
 import { useLanguage } from "utils/hooks";
 import { ResponseI } from "utils/interfaces";
 
@@ -106,4 +108,26 @@ export const useInitFormArticle = ({
   }, [dispatch, id, isInitForm, push, register, setValue, t]);
 
   return isInitForm;
+};
+
+export const useUploadImage = (id: string) => {
+  const { fetchUnploadImage } = useFetchUploadImage();
+  const handleUploadImage = useCallback(
+    (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        fetchUnploadImage({ body: formData, id })
+          .then(({ data: { path } }: { data: { path: string } }) => {
+            resolve(`${URL}/${path}`);
+          })
+          .catch(() => {
+            reject("Upload failed");
+          });
+      });
+    },
+    [fetchUnploadImage, id]
+  );
+
+  return { handleUploadImage };
 };

@@ -57,7 +57,7 @@ const MainPage: FC<MainPagePropsI> = ({ dataResponse }) => {
     }
   }, [dataResponse, t]);
 
-  if (!dataResponse.status) {
+  if (!dataResponse.status || !data) {
     return null;
   }
 

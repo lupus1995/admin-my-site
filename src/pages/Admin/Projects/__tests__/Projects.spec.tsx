@@ -10,19 +10,19 @@ import Projects from "../Projects";
 jest.mock("react-redux");
 jest.mock("react-i18next", () => reactI18next({ language: "ru" }));
 jest.mock("../../hooks", () => {
-  const module = jest.requireActual("../../hooks");
+  const mockModule = jest.requireActual("../../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useSession: jest.fn(),
   };
 });
 
 jest.mock("next/router", () => {
-  const module = jest.requireActual("next/router");
+  const mockModule = jest.requireActual("next/router");
 
   return {
-    ...module,
+    ...mockModule,
     useRouter: jest.fn().mockReturnValue({
       push: jest.fn(),
     }),
@@ -30,10 +30,10 @@ jest.mock("next/router", () => {
 });
 
 jest.mock("../hooks", () => {
-  const module = jest.requireActual("../hooks");
+  const mockModule = jest.requireActual("../hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useProjectModal: jest.fn().mockReturnValue({
       toggleModal: false,
       handleOpenModal: jest.fn(),
@@ -49,30 +49,30 @@ jest.mock("../hooks", () => {
 });
 
 jest.mock("../../components", () => {
-  const module = jest.requireActual("../../components");
+  const mockModule = jest.requireActual("../../components");
 
   return {
-    ...module,
+    ...mockModule,
     AdminModal: () => <span>AdminModal</span>,
     Dashboard: ({ children }: { children: ReactNode }) => <>{children}</>,
   };
 });
 
 jest.mock("../../widget", () => {
-  const module = jest.requireActual("../../widget");
+  const mockModule = jest.requireActual("../../widget");
 
   return {
-    ...module,
+    ...mockModule,
     ItemWrapper: ({ children }: { children: ReactNode }) => <>{children}</>,
   };
 });
 
 jest.mock("../ProjectItem", () => () => <span>ProjectItem</span>);
 jest.mock("../../commons", () => {
-  const module = jest.requireActual("../../commons");
+  const mockModule = jest.requireActual("../../commons");
 
   return {
-    ...module,
+    ...mockModule,
     Title: () => <span>Title</span>,
   };
 });

@@ -11,28 +11,28 @@ import * as hooks from "../hooks";
 import InterlocutorsList from "../InterlocutorsList";
 
 jest.mock("pages/Admin/hooks", () => {
-  const module = jest.requireActual("pages/Admin/hooks");
+  const mockModule = jest.requireActual("pages/Admin/hooks");
 
   return {
-    ...module,
+    ...mockModule,
     useSession: jest.fn(),
   };
 });
 jest.mock("websockets/entities/Users");
 jest.mock("../hooks");
 jest.mock("primereact/dataview", () => {
-  const module = jest.requireActual("primereact/dataview");
+  const mockModule = jest.requireActual("primereact/dataview");
 
   return {
-    ...module,
+    ...mockModule,
     DataView: forwardRef(() => <span>DataView</span>),
   };
 });
 jest.mock("../../../wrappers/SocketsWrapper", () => {
-  const module = jest.requireActual("../../../wrappers/SocketsWrapper");
+  const mockModule = jest.requireActual("../../../wrappers/SocketsWrapper");
 
   return {
-    ...module,
+    ...mockModule,
     useSocketUserOnline: jest.fn(),
   };
 });

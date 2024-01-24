@@ -14,10 +14,10 @@ jest.mock("websockets/entities/Users");
 jest.mock("../hooks");
 
 jest.mock("websockets/pages/Home/commons", () => {
-  const module = jest.requireActual("websockets/pages/Home/commons");
+  const mockModule = jest.requireActual("websockets/pages/Home/commons");
 
   return {
-    ...module,
+    ...mockModule,
     Time: ({ date }: { date: string }) => <span>{date}</span>,
   };
 });

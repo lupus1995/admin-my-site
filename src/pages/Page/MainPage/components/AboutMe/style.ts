@@ -32,6 +32,7 @@ const useStyles = createUseStyles({
 
     "& img": {
       maxWidth: "100%",
+      height: "100%",
     },
   },
 

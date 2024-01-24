@@ -2,14 +2,30 @@ import React from "react";
 
 import { render } from "@testing-library/react";
 
-import reactI18next from "utils/mocks/react-i18next";
-
 import AboutMe from "../AboutMe";
 import { AboutMeI } from "../interface";
 
 jest.mock("html-react-parser", () => (data: string) => data);
 
-jest.mock("react-i18next", () => reactI18next({ language: "en" }));
+jest.mock("utils/hooks", () => {
+  const mockModule = jest.requireActual("utils/hooks");
+
+  return {
+    ...mockModule,
+    useLanguage: jest
+      .fn()
+      .mockReturnValue({ language: "en", t: (arg: string) => arg }),
+  };
+});
+
+jest.mock("pages/Page/commons", () => {
+  const mockModule = jest.requireActual("pages/Page/commons");
+
+  return {
+    ...mockModule,
+    CustomImage: () => <span>CustomImage</span>,
+  };
+});
 
 describe("AboutMe", () => {
   it("check render component", () => {
@@ -24,10 +40,10 @@ describe("AboutMe", () => {
       },
       imageName: "",
     };
-    const { getByText, getByAltText } = render(<AboutMe {...props} />);
+    const { getByText } = render(<AboutMe {...props} />);
 
     expect(getByText(/aboutMeTitleEN/i)).toBeInTheDocument();
     expect(getByText(/aboutMeDescriptionEN/i)).toBeInTheDocument();
-    expect(getByAltText(/Панфилов Александр/i)).toBeInTheDocument();
+    expect(getByText(/CustomImage/i)).toBeInTheDocument();
   });
 });
