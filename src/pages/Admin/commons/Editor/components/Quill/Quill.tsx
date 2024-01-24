@@ -28,8 +28,6 @@ const ReactQuill = dynamic(
 
     // @ts-ignore
     return forwardRef((props, ref) => <RQ ref={ref} {...props} />);
-
-    // return import("react-quill");
   },
   {
     ssr: false,
@@ -75,6 +73,7 @@ const Quill: FC<EditorProps> = ({
 
   return (
     <ReactQuill
+      // @ts-ignore
       theme="snow"
       value={watch(name)}
       onChange={handleChange}
