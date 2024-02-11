@@ -11,6 +11,10 @@ const FormForMessages = () => {
   const style = useStyles();
   const { handleSubmit, onSubmit, register } = useHandleSubmit();
 
+  const handleClick = () => {
+    console.log("click");
+  };
+
   return (
     <form
       className={classNames(`${style.formWrapper}`)}
@@ -24,6 +28,12 @@ const FormForMessages = () => {
       />
       <div className={classNames(`${style.formButton}`)}>
         <Button label="Отправить" type="submit" icon="pi pi-check" />
+        <Button
+          label="Звонок"
+          type="button"
+          onClick={handleClick}
+          icon="pi pi-check"
+        />
       </div>
     </form>
   );

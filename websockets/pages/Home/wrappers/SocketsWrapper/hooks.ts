@@ -12,54 +12,54 @@ import {
 import { SocketsContext } from "./SocketsWrapper";
 
 export const useSocketUserOnline = () => {
-  const { socket } = useContext(SocketsContext);
+  const { socketUserOnline } = useContext(SocketsContext);
   const { handleSetUsersOnline } = useSetUsersOnline();
 
   useEffect(() => {
     function handleOnline(data: InterlocutorI[]) {
       handleSetUsersOnline(data);
     }
-    socket.on("online", handleOnline);
+    socketUserOnline.on("online", handleOnline);
 
     return () => {
-      socket.off("online", handleOnline);
+      socketUserOnline.off("online", handleOnline);
     };
-  }, [handleSetUsersOnline, socket]);
+  }, [handleSetUsersOnline, socketUserOnline]);
 };
 
 export const useJoinRoomSocket = () => {
-  const { socket } = useContext(SocketsContext);
+  const { socketUserOnline } = useContext(SocketsContext);
   const handleJoinRoomSocket = useCallback(
     ({ roomIds }: { roomIds: string[] }) => {
-      socket.emit("joinRoom", roomIds);
+      socketUserOnline.emit("joinRoom", roomIds);
     },
-    [socket]
+    [socketUserOnline]
   );
 
   return { handleJoinRoomSocket };
 };
 
 export const useLeftRoomSocket = () => {
-  const { socket } = useContext(SocketsContext);
+  const { socketUserOnline } = useContext(SocketsContext);
   const handleLeftRoomSocket = useCallback(
     ({ roomIds }: { roomIds: string[] }) => {
-      socket.emit("leaveRoom", roomIds);
+      socketUserOnline.emit("leaveRoom", roomIds);
     },
-    [socket]
+    [socketUserOnline]
   );
 
   return { handleLeftRoomSocket };
 };
 
 export const useUpdateInterlocutorBySocket = () => {
-  const { socket } = useContext(SocketsContext);
+  const { socketUserOnline } = useContext(SocketsContext);
   const activeRoomId = useGetRoomId();
   const { handleUpdateInterlocutor } = useUpdateInterlocutor();
   const { handleAddMessage } = useAddMessageBySockets();
 
   const handleEmitUpdateInterlocutor = useCallback(
-    () => socket.emit("updateInterlocutor", activeRoomId),
-    [activeRoomId, socket]
+    () => socketUserOnline.emit("updateInterlocutor", activeRoomId),
+    [activeRoomId, socketUserOnline]
   );
 
   useEffect(() => {
@@ -67,12 +67,12 @@ export const useUpdateInterlocutorBySocket = () => {
       handleUpdateInterlocutor(data);
       handleAddMessage({ message: data.message });
     }
-    socket.on("updateInterlocutor", handleTest);
+    socketUserOnline.on("updateInterlocutor", handleTest);
 
     return () => {
-      socket.off("updateInterlocutor", handleTest);
+      socketUserOnline.off("updateInterlocutor", handleTest);
     };
-  }, [handleAddMessage, handleUpdateInterlocutor, socket]);
+  }, [handleAddMessage, handleUpdateInterlocutor, socketUserOnline]);
 
   return { handleEmitUpdateInterlocutor };
 };

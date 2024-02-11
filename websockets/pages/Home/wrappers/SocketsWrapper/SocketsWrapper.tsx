@@ -1,32 +1,20 @@
-import React, { createContext, memo, ReactNode, useEffect } from "react";
+import React, { createContext, memo, ReactNode } from "react";
 
 import { Socket } from "socket.io-client";
 
-import { useInitSocketUserOnline } from "./socket";
+import { useInitSocketPeerToPeer, useInitSocketUserOnline } from "./socket";
 
 export const SocketsContext = createContext<{
-  socket: Socket | null;
-}>({ socket: null });
+  socketUserOnline: Socket | null;
+  socketPeerToPeer: Socket | null;
+}>({ socketUserOnline: null, socketPeerToPeer: null });
 
 export const SocketsWrapper = memo(({ children }: { children: ReactNode }) => {
-  const socket = useInitSocketUserOnline();
-
-  useEffect(() => {
-    function onConnect() {}
-    function onDisconnect() {}
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      socket.disconnect();
-    };
-  }, [socket]);
+  const socketUserOnline = useInitSocketUserOnline();
+  const socketPeerToPeer = useInitSocketPeerToPeer();
 
   return (
-    <SocketsContext.Provider value={{ socket }}>
+    <SocketsContext.Provider value={{ socketUserOnline, socketPeerToPeer }}>
       {children}
     </SocketsContext.Provider>
   );

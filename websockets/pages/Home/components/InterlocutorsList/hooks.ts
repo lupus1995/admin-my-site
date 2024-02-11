@@ -9,10 +9,7 @@ import {
 
 import { isUserOnline } from "./helpers";
 import useStyles from "./styles";
-import {
-  useJoinRoomSocket,
-  useLeftRoomSocket,
-} from "../../wrappers/SocketsWrapper/hooks";
+import { useJoinRoomSocket } from "../../wrappers/SocketsWrapper/hooks";
 
 export const useListInterlocutors = ({
   handleClickByInterlocutor,
@@ -27,7 +24,6 @@ export const useListInterlocutors = ({
 }) => {
   const interlocutors = useGetInterlocutors();
   const { handleJoinRoomSocket } = useJoinRoomSocket();
-  const { handleLeftRoomSocket } = useLeftRoomSocket();
   const prevInterlocutorsLength = usePrevious(interlocutors.length);
   const usersOnline = useGetUsersOnline();
   const usersOnlineIds = usersOnline.map((item) => item._id);
@@ -50,12 +46,7 @@ export const useListInterlocutors = ({
     if (prevInterlocutorsLength !== interlocutors.length) {
       handleJoinRoomSocket({ roomIds });
     }
-  }, [
-    handleJoinRoomSocket,
-    handleLeftRoomSocket,
-    interlocutors,
-    prevInterlocutorsLength,
-  ]);
+  }, [handleJoinRoomSocket, interlocutors, prevInterlocutorsLength]);
 
   return list;
 };
