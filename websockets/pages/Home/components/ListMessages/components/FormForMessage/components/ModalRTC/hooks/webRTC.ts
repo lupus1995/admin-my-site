@@ -9,7 +9,7 @@ import {
   useHandleOfferOn,
 } from "websockets/pages/Home/wrappers/SocketsWrapper";
 
-import { useCreatePeer } from "./hooks/createPeer";
+import { useCreatePeer } from "./createPeer";
 
 export const useWebRTC = () => {
   const userVideo = useRef<HTMLVideoElement>(null);
@@ -36,18 +36,11 @@ export const useWebRTC = () => {
       .forEach((track) => peerRef.current.addTrack(track, userStream.current));
   }, [createPeer]);
 
-  const handleAnswerOn = useCallback(
-    (message: {
-      target: string;
-      caller: string;
-      sdp: RTCSessionDescription;
-    }) => {
-      const desc = new RTCSessionDescription(message.sdp);
-      // eslint-disable-next-line no-console
-      peerRef.current.setRemoteDescription(desc).catch((e) => console.log(e));
-    },
-    []
-  );
+  const handleAnswerOn = useCallback((message: RTCPayload) => {
+    const desc = new RTCSessionDescription(message.sdp);
+    // eslint-disable-next-line no-console
+    peerRef.current.setRemoteDescription(desc).catch((e) => console.log(e));
+  }, []);
 
   const { handleEmitAnswer } = useHandleAnswer(handleAnswerOn);
 

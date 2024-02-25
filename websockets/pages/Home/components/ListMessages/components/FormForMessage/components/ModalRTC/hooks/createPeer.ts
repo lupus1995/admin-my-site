@@ -2,7 +2,10 @@ import { MutableRefObject, useCallback, useState } from "react";
 
 import { useGetRoomId } from "websockets/entities/Messages";
 import { useGetActiveInterlocutor } from "websockets/entities/Users";
-import { useHandleIceCandidate } from "websockets/pages/Home/wrappers/SocketsWrapper";
+import {
+  RTCPayload,
+  useHandleIceCandidate,
+} from "websockets/pages/Home/wrappers/SocketsWrapper";
 
 export const useCreatePeer = ({
   interlocutorVideo,
@@ -11,11 +14,7 @@ export const useCreatePeer = ({
 }: {
   interlocutorVideo: MutableRefObject<HTMLVideoElement>;
   peerRef: MutableRefObject<RTCPeerConnection>;
-  callback: (payload: {
-    target: string;
-    caller: string;
-    sdp: RTCSessionDescription;
-  }) => void;
+  callback: (payload: RTCPayload) => void;
 }) => {
   const [onVolume, setOnVolume] = useState<boolean>(false);
   const roomId = useGetRoomId();
@@ -30,12 +29,12 @@ export const useCreatePeer = ({
         .then(() => setOnVolume(true))
         .catch((e) => {
           setOnVolume(false);
-          // interlocutorVideo.current = null;
+          interlocutorVideo.current = null;
           // eslint-disable-next-line no-console
           console.log(e);
         });
     },
-    [peerRef]
+    [interlocutorVideo, peerRef]
   );
 
   const { handleEmitIceCandidate } = useHandleIceCandidate(
@@ -70,7 +69,7 @@ export const useCreatePeer = ({
         return peerRef.current.setLocalDescription(offer);
       })
       .then(() => {
-        const payload = {
+        const payload: RTCPayload = {
           target: roomId,
           caller: activeInterlocutor._id,
           sdp: peerRef.current.localDescription,

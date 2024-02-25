@@ -36,8 +36,8 @@ export const ModalRTC: FC<{ handleClose: () => void }> = ({ handleClose }) => {
       onHide={handleClick}
       footer={<FooterModalRTC handleClose={handleClick} />}
     >
-      <video autoPlay ref={userVideo} />
-      <video autoPlay ref={interlocutorVideo} />
+      <video data-testid="userVideo" autoPlay ref={userVideo} />
+      <video data-testid="interlocutorVideo" autoPlay ref={interlocutorVideo} />
     </Dialog>
   );
 };
