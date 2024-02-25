@@ -32,6 +32,8 @@ import {
   activeInterlocutorReducer,
   userSliceReducer,
   usersOnlineSliceReducer,
+  peerToPeerName,
+  peerToPeerReducer,
 } from "../websockets/entities/Users";
 
 export const rootReducer = combineReducers({
@@ -51,6 +53,7 @@ export const rootReducer = combineReducers({
     roomId: roomReducer,
     usersOnline: usersOnlineSliceReducer,
     request: RequestReducer,
+    [peerToPeerName]: peerToPeerReducer,
   }),
   module: moduleReducer,
 });

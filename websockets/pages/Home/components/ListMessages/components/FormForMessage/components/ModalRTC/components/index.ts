@@ -1,0 +1,1 @@
+export { FooterModalRTC } from "./FooterModalRTC";

@@ -11,7 +11,7 @@ import { isUserOnline } from "./helpers";
 import useStyles from "./styles";
 import {
   useJoinRoomSocket,
-  useLeftRoomSocket,
+  useJoinRoomSocketPeerToPeer,
 } from "../../wrappers/SocketsWrapper/hooks";
 
 export const useListInterlocutors = ({
@@ -27,7 +27,8 @@ export const useListInterlocutors = ({
 }) => {
   const interlocutors = useGetInterlocutors();
   const { handleJoinRoomSocket } = useJoinRoomSocket();
-  const { handleLeftRoomSocket } = useLeftRoomSocket();
+  const { handleJoinRoomSocket: handleJoinRoomSocketPeerToPeer } =
+    useJoinRoomSocketPeerToPeer();
   const prevInterlocutorsLength = usePrevious(interlocutors.length);
   const usersOnline = useGetUsersOnline();
   const usersOnlineIds = usersOnline.map((item) => item._id);
@@ -49,10 +50,11 @@ export const useListInterlocutors = ({
     const roomIds = interlocutors.map((item) => item.id);
     if (prevInterlocutorsLength !== interlocutors.length) {
       handleJoinRoomSocket({ roomIds });
+      handleJoinRoomSocketPeerToPeer({ roomIds });
     }
   }, [
     handleJoinRoomSocket,
-    handleLeftRoomSocket,
+    handleJoinRoomSocketPeerToPeer,
     interlocutors,
     prevInterlocutorsLength,
   ]);
