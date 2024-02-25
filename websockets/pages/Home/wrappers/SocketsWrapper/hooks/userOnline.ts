@@ -1,52 +1,45 @@
 import { useCallback, useContext, useEffect } from "react";
 
-import { useGetRoomId } from "websockets/entities/Messages";
-import { useAddMessageBySockets } from "websockets/entities/Messages/hooks";
 import {
-  InterlocutorI,
+  useGetRoomId,
+  useAddMessageBySockets,
+} from "websockets/entities/Messages";
+import {
   UserI,
   useSetUsersOnline,
   useUpdateInterlocutor,
 } from "websockets/entities/Users";
 
-import { SocketsContext } from "./SocketsWrapper";
+import {
+  useHandleJoinRoom,
+  useHandleLeftRoom,
+  useHandleOnline,
+} from "./commons";
+import { SocketsContext } from "../SocketsWrapper";
 
 export const useSocketUserOnline = () => {
   const { socketUserOnline } = useContext(SocketsContext);
   const { handleSetUsersOnline } = useSetUsersOnline();
-
-  useEffect(() => {
-    function handleOnline(data: InterlocutorI[]) {
-      handleSetUsersOnline(data);
-    }
-    socketUserOnline.on("online", handleOnline);
-
-    return () => {
-      socketUserOnline.off("online", handleOnline);
-    };
-  }, [handleSetUsersOnline, socketUserOnline]);
+  useHandleOnline({
+    socket: socketUserOnline,
+    callback: handleSetUsersOnline,
+  });
 };
 
 export const useJoinRoomSocket = () => {
   const { socketUserOnline } = useContext(SocketsContext);
-  const handleJoinRoomSocket = useCallback(
-    ({ roomIds }: { roomIds: string[] }) => {
-      socketUserOnline.emit("joinRoom", roomIds);
-    },
-    [socketUserOnline]
-  );
+  const { handleJoinRoomSocket } = useHandleJoinRoom({
+    socket: socketUserOnline,
+  });
 
   return { handleJoinRoomSocket };
 };
 
 export const useLeftRoomSocket = () => {
   const { socketUserOnline } = useContext(SocketsContext);
-  const handleLeftRoomSocket = useCallback(
-    ({ roomIds }: { roomIds: string[] }) => {
-      socketUserOnline.emit("leaveRoom", roomIds);
-    },
-    [socketUserOnline]
-  );
+  const { handleLeftRoomSocket } = useHandleLeftRoom({
+    socket: socketUserOnline,
+  });
 
   return { handleLeftRoomSocket };
 };
