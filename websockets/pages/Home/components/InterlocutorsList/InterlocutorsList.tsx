@@ -13,6 +13,7 @@ import { Footer, Template, Header } from "./components";
 import { useListInterlocutors } from "./hooks";
 import useStyles from "./styles";
 import { useSocketUserOnline } from "../../wrappers/SocketsWrapper";
+import { useSocketUserPeerToPeer } from "../../wrappers/SocketsWrapper/hooks/peerToPeer";
 
 const InterlocutorsList: FC<{
   handleClickByInterlocutor: ({
@@ -27,6 +28,7 @@ const InterlocutorsList: FC<{
   const { handlePagination, isLoading, handleInitPagination } =
     usePaginationInterlocutor();
   useSocketUserOnline();
+  useSocketUserPeerToPeer();
 
   useSession();
   const ds = useRef(null);

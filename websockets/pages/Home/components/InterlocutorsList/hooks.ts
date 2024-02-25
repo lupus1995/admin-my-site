@@ -9,7 +9,10 @@ import {
 
 import { isUserOnline } from "./helpers";
 import useStyles from "./styles";
-import { useJoinRoomSocket } from "../../wrappers/SocketsWrapper/hooks";
+import {
+  useJoinRoomSocket,
+  useJoinRoomSocketPeerToPeer,
+} from "../../wrappers/SocketsWrapper/hooks";
 
 export const useListInterlocutors = ({
   handleClickByInterlocutor,
@@ -24,6 +27,8 @@ export const useListInterlocutors = ({
 }) => {
   const interlocutors = useGetInterlocutors();
   const { handleJoinRoomSocket } = useJoinRoomSocket();
+  const { handleJoinRoomSocket: handleJoinRoomSocketPeerToPeer } =
+    useJoinRoomSocketPeerToPeer();
   const prevInterlocutorsLength = usePrevious(interlocutors.length);
   const usersOnline = useGetUsersOnline();
   const usersOnlineIds = usersOnline.map((item) => item._id);
@@ -45,8 +50,14 @@ export const useListInterlocutors = ({
     const roomIds = interlocutors.map((item) => item.id);
     if (prevInterlocutorsLength !== interlocutors.length) {
       handleJoinRoomSocket({ roomIds });
+      handleJoinRoomSocketPeerToPeer({ roomIds });
     }
-  }, [handleJoinRoomSocket, interlocutors, prevInterlocutorsLength]);
+  }, [
+    handleJoinRoomSocket,
+    handleJoinRoomSocketPeerToPeer,
+    interlocutors,
+    prevInterlocutorsLength,
+  ]);
 
   return list;
 };
