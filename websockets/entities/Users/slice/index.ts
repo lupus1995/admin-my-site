@@ -24,4 +24,11 @@ export {
   usersOnlineSelector,
 } from "./usersOnlineSlice";
 
+export {
+  peerToPeerName,
+  peerToPeerReducer,
+  peerToPeerSelector,
+  setUsersOnline as setUsersOnlinePeerToPeer,
+} from "./peerToPeer";
+
 export { userSliceReducer, userSelector, setUser } from "./userSlice";

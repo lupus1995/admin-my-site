@@ -1,16 +1,4 @@
-export {
-  useGetInterlocutors,
-  usePaginationInterlocutor,
-  useSetSearch,
-  useGetSearch,
-  useGetActiveInterlocutor,
-  useSetActiveInterlocutor,
-  useActiveUser,
-  useFetchActiveUser,
-  useUpdateInterlocutor,
-  useGetUsersOnline,
-  useSetUsersOnline,
-} from "./hooks";
+export * from "./hooks";
 import {
   getInterlocutors,
   usersMiddleware,
@@ -24,6 +12,8 @@ import {
   activeInterlocutorReducer,
   userSliceReducer,
   usersOnlineSliceReducer,
+  peerToPeerName,
+  peerToPeerReducer,
 } from "./slice";
 import { UserI, InterlocutorI } from "./types";
 
@@ -38,6 +28,8 @@ export {
   activeInterlocutorReducer,
   userSliceReducer,
   usersOnlineSliceReducer,
+  peerToPeerName,
+  peerToPeerReducer,
 };
 
 export type { UserI, InterlocutorI };
