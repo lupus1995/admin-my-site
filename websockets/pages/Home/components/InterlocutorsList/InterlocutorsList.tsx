@@ -13,7 +13,7 @@ import { Footer, Template, Header } from "./components";
 import { useListInterlocutors } from "./hooks";
 import useStyles from "./styles";
 import { useSocketUserOnline } from "../../wrappers/SocketsWrapper";
-import { useSocketUserPeerToPeer } from "../../wrappers/SocketsWrapper/hooks/peerToPeer";
+import { useSocketUserPeerToPeer } from "../../wrappers/SocketsWrapper/hooks";
 
 const InterlocutorsList: FC<{
   handleClickByInterlocutor: ({

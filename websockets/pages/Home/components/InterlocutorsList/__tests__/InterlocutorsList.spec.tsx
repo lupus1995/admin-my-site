@@ -37,6 +37,17 @@ jest.mock("../../../wrappers/SocketsWrapper", () => {
   };
 });
 
+jest.mock("../../../wrappers/SocketsWrapper/hooks", () => {
+  const mockModule = jest.requireActual(
+    "../../../wrappers/SocketsWrapper/hooks"
+  );
+
+  return {
+    ...mockModule,
+    useSocketUserPeerToPeer: jest.fn(),
+  };
+});
+
 describe("InterlocutorsList", () => {
   it("check render component by loading is false", () => {
     jest.spyOn(userEntities, "useGetInterlocutors").mockReturnValue([]);

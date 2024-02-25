@@ -1,16 +1,8 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Socket } from "socket.io-client";
 
-import { useGetRoomId } from "websockets/entities/Messages";
-import { useAddMessageBySockets } from "websockets/entities/Messages/hooks";
-import {
-  InterlocutorI,
-  UserI,
-  useUpdateInterlocutor,
-} from "websockets/entities/Users";
-
-import { SocketsContext } from "../SocketsWrapper";
+import { InterlocutorI } from "websockets/entities/Users";
 
 export const useHandleOnline = ({
   socket,

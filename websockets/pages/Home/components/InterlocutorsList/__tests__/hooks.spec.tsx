@@ -22,6 +22,9 @@ jest.mock("../../../wrappers/SocketsWrapper/hooks", () => {
     useJoinRoomSocket: jest.fn().mockReturnValue({
       handleJoinRoomSocket: jest.fn(),
     }),
+    useJoinRoomSocketPeerToPeer: jest.fn().mockReturnValue({
+      handleJoinRoomSocket: jest.fn(),
+    }),
     useLeftRoomSocket: jest.fn().mockReturnValue({
       handleLeftRoomSocket: jest.fn(),
     }),
