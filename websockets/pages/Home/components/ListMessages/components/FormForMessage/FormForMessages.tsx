@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classNames from "classnames";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 
+import { ModalRTC } from "./components";
 import { useHandleSubmit } from "./hooks";
 import useStyles from "./style";
 
@@ -11,10 +12,12 @@ const FormForMessages = () => {
   const style = useStyles();
   const { handleSubmit, onSubmit, register } = useHandleSubmit();
 
-  const handleClick = () => {
-    console.log("click");
-  };
+  const [visible, setVisible] = useState<boolean>(false);
 
+  const handleClick = () => {
+    setVisible(true);
+  };
+  const handleClose = () => setVisible(false);
   return (
     <form
       className={classNames(`${style.formWrapper}`)}
@@ -34,6 +37,7 @@ const FormForMessages = () => {
           onClick={handleClick}
           icon="pi pi-check"
         />
+        {visible && <ModalRTC handleClose={handleClose} />}
       </div>
     </form>
   );
